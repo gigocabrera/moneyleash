@@ -1,0 +1,10 @@
+<div class="item item-divider card-heding">
+	<div class="tabs-striped tabs-background-dark tabs-color-stable">
+		<div class="tabs">
+			<a ng-repeat="tab in tabs" ng-click="select(tab)" ng-class="{ active: tab.selected }" class="tab-item">{{tab.title}}</a>
+		</div>
+	</div>
+</div>
+<div class="item item-body">
+	<div class="tabs-content" ng-transclude></div>
+</div>

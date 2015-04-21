@@ -1,0 +1,24 @@
+<ion-view title="Sign In">
+    <ion-content>
+        <div class="padding-left padding-top padding-right">
+            <h1>Welcome</h1>
+        </div>
+        <div>
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <input ng-model="username" type="text" placeholder="Username" />
+                </label>
+                <label class="item item-input">
+                    <input ng-model="password" type="password" placeholder="Password" />
+                </label>
+            </div>
+            <div class="padding">
+                <button ng-click="login(username, password)" class="button button-block button-stable">Sign In</button>
+                <button ng-click="register(username, password)" class="button button-block button-dark">Register</button>
+                <p>
+                    Sign into this application
+                </p>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

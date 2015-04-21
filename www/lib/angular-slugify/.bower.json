@@ -1,0 +1,24 @@
+{
+  "name": "wb-angular-slugify",
+  "version": "1.1.0",
+  "main": "dist/angular-slugify.min.js",
+  "dependencies": {
+    "angular": "^1"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1"
+  },
+  "ignore": [
+    "./!dist"
+  ],
+  "homepage": "https://github.com/williamboman/angular-slugify",
+  "_release": "1.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.0",
+    "commit": "672a05bb059d7f3e3cc222a68fc084dae324dc98"
+  },
+  "_source": "git://github.com/williamboman/angular-slugify.git",
+  "_target": "*",
+  "_originalSource": "williamboman/angular-slugify"
+}

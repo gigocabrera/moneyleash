@@ -1,0 +1,30 @@
+<ion-view class="signup-view">
+    <ion-content scroll="false">
+        <div class="row">
+            <div class="col col-center">
+                <div class="card sign-up-container">
+                    <form name="signup_form" class="" novalidate>
+                        <div class="item item-body">
+                            <label class="item item-input">
+                                <input type="email" placeholder="Email" name="user_email" ng-model="email" required>
+                            </label>
+                            <label class="item item-input" show-hide-container>
+                                <input type="password" placeholder="Password" name="user_password" ng-model="password" required show-hide-input>
+                            </label>
+                        </div>
+                        <div class="item item-body bottom-content">
+                            <button type="submit" class="button button-positive button-block" ng-click="doSignUp(email, password)" ng-disabled="signup_form.$invalid">
+                                Sign Up
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="alternative-actions">
+                    <button class="log-in button button-small button-clear button-light" ng-click="goToLogIn()">
+                        Log In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

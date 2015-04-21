@@ -1,0 +1,24 @@
+<ion-view title="Recurring">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="right button button-icon icon ion-plus customIconSize" ng-click="addAccount()"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <ion-list can-swipe="listCanSwipe">
+            <ion-item ng-repeat="transaction in recurring" href="#/app/recurring/{{recurring.id}}">
+                {{recurring.title}}
+                <ion-option-button class="button button-dark ion-ios7-trash-outline button-options" ng-click="share(item)">
+                    Trash
+                </ion-option-button>
+                <ion-option-button class="button button-dark ion-ios7-compose-outline button-options" ng-click="edit(item)">
+                    Edit
+                </ion-option-button>
+                <ion-option-button class="button button-dark ion-ios7-heart button-options" ng-click="edit(item)">
+                    Bookmark
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

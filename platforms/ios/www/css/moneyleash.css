@@ -1,0 +1,42 @@
+@import url("http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
+
+/* Header Background */
+[nav-bar-transition="ios"] [nav-bar="active"] .bar, [nav-bar-transition="ios"] [nav-bar="entering"] .bar {
+  border-color: #0c63ee;
+  background-color: #387ef5;
+  color: #fff;
+}
+.bar .button.back-button {
+  color: #fff;
+}
+.bar-stable .button {
+  color: #fff;
+  text-decoration: none;
+}
+.bar-stable .button:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.bar.bar-stable .title {
+  color: #fff;
+
+}
+.bar.bar-dark {
+  border-color: transparent;
+  background-color: #0A4DBC; /*Left Menu (green = 22B14C) */
+  color: #fff;
+}
+.bar.bar-dark h1 {
+    text-align: left;
+}
+/* Menu */
+.item-content i {
+    margin-right: 10px;
+    font-size: 15px;
+}
+/* Chevron Icon */
+.item-icon-right .icon {
+    color: #808080;
+    font-size: 14px;
+    right: 0px;
+}

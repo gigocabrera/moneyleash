@@ -1,0 +1,961 @@
+/* Padding for all ion-item ng-repeat lists */
+.item-complex .item-content {
+    padding: 12px 45px 12px 16px;
+}
+/* Action Sheet */
+.action-sheet-title {
+    font-size: 15px;
+    color: #505050;
+}
+/* ionicPopup */
+.popup-body {
+    padding: 10px;
+    overflow: hidden;
+}
+.popup-buttons .button{
+    border-color: #e67300;
+    background-color: #ff8000;
+}
+/* Styles for number pad */
+.row, .col {
+    text-align: center;
+}
+
+.col {
+    margin: 5px !important;
+    border-radius: 8px !important;
+    padding: 15px 0px !important;
+}
+
+/***************/
+/* MENU SCREEN */
+.customPaddingMenuItem {
+    padding: 4px 40px 4px 11px;
+}
+/* Menu Icons and Chevron Icons */
+.bar-stable .Menutitle {
+    text-align: left;
+    font-size: 17px;
+    padding-left: 10px;
+    padding-top: 10px;
+    color: #ff8000;
+    font-weight: bolder;
+}
+.item-icon-left.item-icon-right .icon:first-child {
+    right: 0px;
+}
+.item-icon-right .icon {
+    right: 8px;
+}
+.item-icon-left .icon:before {
+    display: block;
+    width: 25px;
+    text-align: center;
+    padding-left: 7px;
+}
+.icon-left-smaller:before {
+    font-size: 24px;
+}
+.ion-chevron-right:before {
+    color: #e67300;
+    font-size: 14px;
+}
+.item-complex.item-icon-right .item-content {
+    padding-right: 40px;
+}
+.item-complex.item-icon-left .item-content {
+    padding-left: 40px;
+}
+.item-icon-left {
+    padding-left: 40px;
+}
+button.customIconSize:before {
+    font-size: 18px !important;
+}
+button.customHeaderSize {
+    font-size: 16px !important;
+}
+
+/*******************/
+/* ACCOUNTS SCREEN */
+
+.row {
+    padding: 0px;
+}
+.right{
+    text-align: right;
+}
+.customAccDesc {
+    text-align: left;
+    height: 35px;
+    font-weight: bold;
+}
+.customAccDesc span small {
+    position: absolute;
+    font: 11px 'PT Sans', sans-serif;
+    top: 35px;
+    left: 16px;
+}
+.customAccAmt {
+    font-weight: bold;
+    padding-right: 20px;
+    font-size: 14px;
+}
+.customAccAmt span {
+    position: relative;
+    top: 7px;
+    color: green;
+}
+.item-right-edit {
+    width: 60px;
+}
+
+/* INTRO SCREEN */
+.intro-view, .login-view, .signup-view, .forgot-password-view {
+    background-color: white !important;
+}
+    .intro-view ion-content:before, .login-view ion-content:before, .signup-view ion-content:before, .forgot-password-view ion-content:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+        opacity: 1.0;
+        display: block;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        -webkit-filter: blur(1px);
+        -moz-filter: blur(1px);
+        -o-filter: blur(1px);
+        -ms-filter: blur(1px);
+        filter: blur(1px);
+    }
+    .intro-view .top-content {
+        height: 75%;
+        text-align: center;
+    }
+        .intro-view .top-content h1 {
+            color: #ff8000;
+            font-family: "Segoe UI";
+        }
+    .intro-view .bottom-content {
+        height: 25%;
+        padding-top: 5px;
+        margin-top: 0px;
+    }
+        .intro-view .bottom-content .button {
+            border: none;
+            color: #fff;
+            font-weight: bolder;
+            font-size: 20px;
+            line-height: 20px;
+        }
+        .intro-view .bottom-content .login.button {
+            background-color: rgba(12, 91, 224, 1.00);
+        }
+        .intro-view .bottom-content .sign-up.button {
+            background-color: rgba(164, 164, 164, 1.0);
+        }
+
+.login-view {
+    background-color: #666666 !important;
+}
+
+    .login-view .row {
+        height: 100%;
+    }
+
+    .login-view [ng\:cloak], .login-view [ng-cloak], .login-view [data-ng-cloak], .login-view [x-ng-cloak], .login-view .ng-cloak, .login-view .x-ng-cloak {
+        display: none !important;
+    }
+
+    .login-view .tab-content.ng-hide {
+        display: none !important;
+    }
+
+    .login-view .tab-content.ng-hide-add.ng-hide-add-active, .login-view .tab-content.ng-hide-remove.ng-hide-remove-active {
+        -webkit-transition: all 0s ease;
+        transition: all 0s ease;
+    }
+
+    .login-view .tabs .tab-item {
+        font-weight: bold;
+        text-transform: uppercase;
+        background: rgba(0, 0, 0, 0);
+        -webkit-transition: all 0.1s ease;
+        -moz-transition: all 0.1s ease;
+        -ms-transition: all 0.1s ease;
+        -o-transition: all 0.1s ease;
+        transition: all 0.1s ease;
+    }
+
+        .login-view .tabs .tab-item.active, .login-view .tabs .tab-item.activated {
+            margin-top: 0;
+            margin-bottom: -2px;
+            border-width: 0px 0px 4px 0px !important;
+            border-color: #ff8000 !important;
+            border-style: solid;
+        }
+
+    .login-view .login-container {
+        margin-bottom: 0px;
+    }
+
+        .login-view .login-container .card-heding {
+            padding: 0px;
+            height: 49px;
+        }
+
+            .login-view .login-container .card-heding .tabs {
+                top: 0px;
+                padding-top: 0;
+                background-position: bottom;
+                border-top-width: 0;
+                border-bottom-width: 1px;
+            }
+
+            .login-view .login-container .card-heding .tab-item {
+                max-width: none;
+            }
+
+        .login-view .login-container .bottom-content {
+            padding-top: 0px;
+            border: none;
+        }
+
+            .login-view .login-container .bottom-content .button {
+                margin: 0px;
+                font-weight: bold;
+            }
+
+    .login-view .alternative-actions {
+        margin: 0px 10px;
+    }
+
+        .login-view .alternative-actions .button {
+            padding: 0px;
+            font-size: 14px;
+        }
+
+        .login-view .alternative-actions .sign-up {
+            float: right;
+        }
+
+.signup-view {
+    background-color: #666666 !important;
+}
+
+    .signup-view .row {
+        height: 100%;
+    }
+
+    .signup-view .sign-up-container {
+        margin-bottom: 0px;
+    }
+
+    .signup-view .bottom-content {
+        padding-top: 0px;
+        border: none;
+    }
+
+        .signup-view .bottom-content .button {
+            margin: 0px;
+            font-weight: bold;
+        }
+
+    .signup-view .alternative-actions {
+        margin: 0px 10px;
+    }
+
+        .signup-view .alternative-actions .button {
+            padding: 0px;
+            font-size: 14px;
+        }
+
+.forgot-password-view {
+    background-color: #666666 !important;
+}
+
+    .forgot-password-view .row {
+        height: 100%;
+    }
+
+    .forgot-password-view .forgot-password-container {
+        margin-bottom: 0px;
+    }
+
+    .forgot-password-view .bottom-content {
+        padding-top: 0px;
+        border: none;
+    }
+
+        .forgot-password-view .bottom-content .button {
+            margin: 0px;
+            font-weight: bold;
+        }
+
+    .forgot-password-view .alternative-actions {
+        margin: 0px 10px;
+    }
+
+        .forgot-password-view .alternative-actions .button {
+            padding: 0px;
+            font-size: 14px;
+        }
+
+        .forgot-password-view .alternative-actions .sign-up {
+            float: right;
+        }
+
+.miscellaneous-view .miscellaneous-functionalities .item .icon:first-child {
+    color: #ef473a;
+}
+
+.miscellaneous-view .miscellaneous-functionalities .item .title {
+    font-weight: 500;
+}
+
+.miscellaneous-view .miscellaneous-functionalities .item .description {
+    color: #ababab;
+}
+
+.maps-view {
+    background-color: #EAEAEA !important;
+}
+
+    .maps-view .center-map-action {
+        position: absolute;
+        top: 35px;
+        z-index: 9;
+    }
+
+        .maps-view .center-map-action .item.item-input-inset {
+            padding: 0px 5px;
+        }
+
+        .maps-view .center-map-action .item-input-wrapper {
+            background: none;
+        }
+
+    .maps-view map {
+        width: 100%;
+        height: 100% !important;
+    }
+
+    .maps-view .scroll, .maps-view .mapWrap {
+        height: 100%;
+    }
+
+.image-picker-view {
+    background: #EAEAEA;
+}
+
+    .image-picker-view .image-option {
+        font-size: 14px !important;
+    }
+
+.feeds-categories-view {
+    background-color: #EAEAEA !important;
+}
+
+    .feeds-categories-view .categories-list {
+        flex-wrap: wrap;
+        -webkit-flex-flow: row wrap;
+    }
+
+    .feeds-categories-view .feed-category {
+        height: calc(50vw - 15px);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        border-radius: 2px;
+        background-color: #FFF;
+        position: relative;
+        display: block;
+    }
+
+        .feeds-categories-view .feed-category .category-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 2px;
+        }
+
+        .feeds-categories-view .feed-category .category-bg {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(42, 42, 42, 0.3) 40%, rgba(68, 68, 68, 0.3) 60%, rgba(93, 93, 93, 0.3));
+        }
+
+        .feeds-categories-view .feed-category .category-title {
+            color: #fff;
+            position: absolute;
+            top: 2px;
+            left: 8px;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+.category-feeds-view {
+    background-color: #EAEAEA !important;
+}
+
+    .category-feeds-view .category-feeds .item {
+        padding-left: 60px;
+    }
+
+        .category-feeds-view .category-feeds .item .thumbnail {
+            position: absolute;
+            left: 10px;
+            width: 40px;
+        }
+
+        .category-feeds-view .category-feeds .item .title {
+            font-weight: 500;
+        }
+
+        .category-feeds-view .category-feeds .item .description {
+            color: #ababab;
+        }
+
+.feed-entries-view {
+    background-color: #EAEAEA !important;
+}
+
+    .feed-entries-view .entry-heading {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        background-color: #2b2b2b;
+        border-color: #000;
+    }
+
+        .feed-entries-view .entry-heading .entry-title {
+            color: #FFFFFF;
+        }
+
+        .feed-entries-view .entry-heading .entry-author {
+            font-weight: 500;
+        }
+
+    .feed-entries-view .entry-content {
+        padding-top: 8px;
+        padding-bottom: 0px;
+    }
+
+        .feed-entries-view .entry-content .entry-excerpt {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 5;
+            /* number of lines to show */
+            line-height: 18px;
+            /* fallback */
+            font-size: 14px;
+            /* fallback */
+            max-height: 90px;
+            /* fallback */
+        }
+
+            .feed-entries-view .entry-content .entry-excerpt * {
+                font-size: inherit !important;
+            }
+
+        .feed-entries-view .entry-content .entry-actions {
+            padding: 10px 0px;
+        }
+
+            .feed-entries-view .entry-content .entry-actions .col {
+                padding: 0px;
+            }
+
+            .feed-entries-view .entry-content .entry-actions .actions .button-icon {
+                min-height: initial;
+                line-height: 28px;
+                padding: 0px;
+                vertical-align: middle;
+                margin-right: 10px;
+            }
+
+                .feed-entries-view .entry-content .entry-actions .actions .button-icon:before {
+                    font-size: 28px;
+                    line-height: 28px;
+                }
+
+            .feed-entries-view .entry-content .entry-actions .read-more .button {
+                margin: 0px;
+            }
+
+.logout-option {
+    text-align: center;
+}
+
+.settings-view {
+    background-color: #EAEAEA !important;
+}
+
+.forms-view ion-content {
+    -webkit-overflow-scrolling: touch !important;
+    overflow: scroll !important;
+}
+
+.profile-view .profile-container {
+    margin: 0px auto;
+    margin-top: 6vh;
+    text-align: center;
+}
+
+.profile-view .user-image {
+    border-radius: 50%;
+    border-top: 1px solid #444;
+    padding: 8px;
+    background-color: #fff;
+    width: 46vw;
+    max-width: 200px;
+}
+
+.profile-view .user-name {
+    font-size: 20px;
+}
+
+.profile-view .user-twitter {
+    margin-top: 5px;
+}
+
+.profile-view .top-content {
+    border-bottom: 1px solid #444;
+    position: relative;
+    height: 20vh;
+    margin-bottom: 25vh;
+}
+
+.profile-view .user-background-image {
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-size: cover !important;
+}
+
+.profile-view .bottom-content {
+    padding: 0px;
+    background-color: #fff;
+    min-height: 55vh;
+    position: relative;
+}
+
+    .profile-view .bottom-content .user-bio {
+        text-align: center;
+        margin: 6px 30px;
+        padding: 6px 0px;
+    }
+
+.bookmarks-view {
+    background-color: #EAEAEA;
+}
+
+    .bookmarks-view .scroll-content .scroll, .bookmarks-view .bookmarks-container {
+        height: 100%;
+    }
+
+    .bookmarks-view .empty-results {
+        text-align: center;
+    }
+
+        .bookmarks-view .empty-results .icon {
+            font-size: 170px;
+            color: white;
+        }
+
+        .bookmarks-view .empty-results .no-bookmarks {
+            color: #d1d1d1;
+            font-size: 22px;
+        }
+
+    .bookmarks-view .bookmarks-list {
+        overflow-y: scroll;
+        height: 100%;
+    }
+
+        .bookmarks-view .bookmarks-list::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+        }
+
+    .bookmarks-view .bookmark-item {
+        padding: 10px 0px;
+        border-bottom: 1px solid rgba(29, 29, 29, 0.2);
+        margin: 0px 16px;
+    }
+
+        .bookmarks-view .bookmark-item * {
+            text-decoration: none;
+            color: #444444;
+        }
+
+        .bookmarks-view .bookmark-item .post-title {
+            margin: 0px;
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        .bookmarks-view .bookmark-item .post-date {
+            margin: 0px;
+            font-size: 12px;
+            font-weight: 200;
+            color: rgba(93, 93, 93, 0.7);
+        }
+
+        .bookmarks-view .bookmark-item .post-time {
+            color: rgba(42, 42, 42, 0.9);
+        }
+
+.wordpress-view {
+    background-color: #EBEBEB !important;
+    vertical-align: middle;
+}
+
+    .wordpress-view .post-heading {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        background-color: #2b2b2b;
+        border-color: #000;
+    }
+
+        .wordpress-view .post-heading .post-title {
+            color: #FFF;
+        }
+
+        .wordpress-view .post-heading .post-author {
+            font-weight: 500;
+        }
+
+    .wordpress-view .post-content {
+        padding-top: 8px;
+        padding-bottom: 0px;
+    }
+
+        .wordpress-view .post-content .post-excerpt {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            line-height: 18px;
+            /* fallback */
+            font-size: 14px;
+            /* fallback */
+        }
+
+            .wordpress-view .post-content .post-excerpt * {
+                font-size: inherit !important;
+            }
+
+        .wordpress-view .post-content .wp-audio-shortcode {
+            visibility: visible !important;
+        }
+
+        .wordpress-view .post-content audio::-webkit-media-controls-panel {
+            width: 100% !important;
+        }
+
+        .wordpress-view .post-content img {
+            margin: 10px 0px;
+            height: auto;
+            width: calc(100% + 32px);
+            margin-left: -16px;
+        }
+
+        .wordpress-view .post-content ul, .wordpress-view .post-content ol {
+            list-style-type: square;
+            padding: 0 0 0 40px;
+            margin: 14px 0px;
+        }
+
+        .wordpress-view .post-content iframe {
+            margin: 10px 0px;
+            height: auto;
+            width: calc(100% + 32px);
+            margin-left: -16px;
+        }
+
+        .wordpress-view .post-content blockquote {
+            font-style: italic;
+            font-weight: 300;
+            margin: 20px 20px;
+            border: none;
+            padding: 0px;
+        }
+
+            .wordpress-view .post-content blockquote p {
+                font-size: 16px;
+            }
+
+        .wordpress-view .post-content .post-actions {
+            padding: 10px 0px;
+        }
+
+            .wordpress-view .post-content .post-actions .col {
+                padding: 0px;
+            }
+
+            .wordpress-view .post-content .post-actions .bookmark .ion-bookmark {
+                min-height: initial;
+                line-height: 28px;
+                padding: 0px;
+            }
+
+                .wordpress-view .post-content .post-actions .bookmark .ion-bookmark:before {
+                    font-size: 28px;
+                    line-height: 28px;
+                }
+
+            .wordpress-view .post-content .post-actions .read-more .button {
+                margin: 0px;
+            }
+
+.post-size-12px .post-view .post-text {
+    font-size: 12px;
+}
+
+.post-size-14px .post-view .post-text {
+    font-size: 14px;
+}
+
+.post-size-16px .post-view .post-text {
+    font-size: 16px;
+}
+
+.post-size-18px .post-view .post-text {
+    font-size: 18px;
+}
+
+.post-size-20px .post-view .post-text {
+    font-size: 20px;
+}
+
+.post-size-22px .post-view .post-text {
+    font-size: 22px;
+}
+
+.post-size-24px .post-view .post-text {
+    font-size: 24px;
+}
+
+.post-view .post-heading {
+    padding-bottom: 0px;
+    border-color: transparent;
+}
+
+.post-view .post-content {
+    border-color: transparent;
+}
+
+    .post-view .post-content .wp-audio-shortcode {
+        visibility: visible !important;
+    }
+
+    .post-view .post-content .post-text * {
+        font-size: inherit !important;
+    }
+
+    .post-view .post-content audio::-webkit-media-controls-panel {
+        width: 100% !important;
+    }
+
+    .post-view .post-content img {
+        margin: 10px 0px;
+        height: auto;
+        width: calc(100% + 32px);
+        margin-left: -16px;
+    }
+
+    .post-view .post-content ul, .post-view .post-content ol {
+        list-style-type: square;
+        padding: 0 0 0 40px;
+        margin: 14px 0px;
+    }
+
+    .post-view .post-content iframe {
+        margin: 10px 0px;
+        width: calc(100% + 32px);
+        margin-left: -16px;
+    }
+
+    .post-view .post-content blockquote {
+        font-style: italic;
+        font-weight: 300;
+        margin: 20px 20px;
+        border: none;
+        padding: 0px;
+    }
+
+        .post-view .post-content blockquote p {
+            font-size: 16px;
+        }
+
+.post-view .post-tags {
+    border-color: transparent;
+    padding-top: 0px;
+    padding-bottom: 5px;
+}
+
+    .post-view .post-tags .post-tag {
+        padding: 0 3px;
+        min-height: 24px;
+        font-size: 12px;
+        line-height: 24px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+
+        .post-view .post-tags .post-tag:last-child {
+            margin-right: 0px;
+        }
+
+.post-view .post-footer {
+    padding: 0px;
+    background-color: #2b2b2b;
+}
+
+    .post-view .post-footer .row, .post-view .post-footer .col {
+        padding: 0px;
+    }
+
+        .post-view .post-footer .col.col-20 {
+            text-align: center;
+        }
+
+    .post-view .post-footer .ion-plus {
+        font-size: 24px;
+    }
+
+        .post-view .post-footer .ion-plus:before {
+            font-size: 20px !important;
+            line-height: 15px !important;
+        }
+
+    .post-view .post-footer .ion-minus {
+        font-size: 18px;
+    }
+
+        .post-view .post-footer .ion-minus:before {
+            font-size: 14px !important;
+            line-height: 20px !important;
+            margin-left: 3px;
+        }
+
+.post-view .post-title {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.post-view .post-author {
+    font-weight: 500;
+}
+
+.layouts-view .layouts-functionalities .item .icon:first-child {
+    color: #ef473a;
+}
+
+.layouts-view .layouts-functionalities .item .title {
+    font-weight: 500;
+}
+
+.layouts-view .layouts-functionalities .item .description {
+    color: #ababab;
+}
+
+.tinder-cards-view {
+    background: #EAEAEA;
+    /* Overlay styling*/
+}
+
+    .tinder-cards-view td-cards {
+        display: block;
+    }
+
+    .tinder-cards-view td-card {
+        position: absolute;
+        left: 50%;
+        margin-top: 80px;
+        margin-bottom: 40px;
+        margin-left: -150px;
+        width: 300px;
+        border: 1px solid #999;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+        background: white;
+    }
+
+        .tinder-cards-view td-card .image {
+            position: relative;
+        }
+
+        .tinder-cards-view td-card img {
+            max-width: 100%;
+        }
+
+        .tinder-cards-view td-card .title {
+            background: #FFF;
+            font-size: 16px;
+            padding: 15px;
+            text-transform: capitalize;
+            text-align: center;
+        }
+
+    .tinder-cards-view .overlayBox {
+        position: absolute;
+        left: 50%;
+        height: 98%;
+        width: 100%;
+        top: -80px;
+        opacity: 0;
+        margin: 80px 0 0 -149px;
+    }
+
+    .tinder-cards-view .boxed {
+        height: 50px;
+        width: 100px;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 30px;
+    }
+
+    .tinder-cards-view .yes-text {
+        text-align: center;
+    }
+
+    .tinder-cards-view .yesBox {
+        margin: 10% 60% 0% 10%;
+        border: 2px solid #33cd5f;
+        color: #33cd5f;
+        -webkit-transform: rotate(-25deg);
+    }
+
+    .tinder-cards-view .no-text {
+        text-align: center;
+    }
+
+    .tinder-cards-view .noBox {
+        margin: 10% 10% 0% 60%;
+        border: 2px solid #ef473a;
+        color: #ef473a;
+        -webkit-transform: rotate(25deg);
+    }
+
+    .tinder-cards-view .fade {
+        -webkit-transition: 0.2s opacity linear;
+        transition: 0.2s opacity linear;
+        opacity: 0;
+    }
+
+.slider-view {
+    background: #EAEAEA;
+}

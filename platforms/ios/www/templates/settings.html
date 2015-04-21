@@ -1,0 +1,40 @@
+<ion-view class="settings-view">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <span>Settings</span>
+    </ion-nav-title>
+    <ion-content>
+        <ul class="list">
+            <div class="item item-divider">TOGGLE</div>
+            <ion-toggle ng-model="airplaneMode" toggle-class="toggle-assertive">Airplane Mode</ion-toggle>
+            <ion-toggle ng-model="wifi" toggle-class="toggle-positive">Wi-Fi</ion-toggle>
+            <ion-toggle ng-model="bluetooth" toggle-class="toggle-calm">Bluetooth</ion-toggle>
+            <ion-toggle ng-model="personalHotspot" toggle-class="toggle-dark">Personal Hotspot</ion-toggle>
+            <div class="item item-divider">CHECKBOXES</div>
+            <ion-checkbox ng-model="checkOpt1">Option 1</ion-checkbox>
+            <ion-checkbox ng-model="checkOpt2">Option 2</ion-checkbox>
+            <ion-checkbox ng-model="checkOpt3">Option 3</ion-checkbox>
+            <div class="item item-divider">RADIO</div>
+            <ion-radio ng-model="radioChoice" ng-value="'A'">Choose A</ion-radio>
+            <ion-radio ng-model="radioChoice" ng-value="'B'">Choose B</ion-radio>
+            <ion-radio ng-model="radioChoice" ng-value="'C'">Choose C</ion-radio>
+            <div class="item item-divider">RANGES</div>
+            <div class="range">
+                <i class="icon ion-volume-low"></i>
+                <input type="range" name="volume">
+                <i class="icon ion-volume-high"></i>
+            </div>
+            <div class="item range range-positive">
+                <i class="icon ion-ios-sunny-outline"></i>
+                <input type="range" name="volume" min="0" max="100" value="33">
+                <i class="icon ion-ios-sunny"></i>
+            </div>
+            <div class="item item-divider"></div>
+            <a class="item logout-option" ng-click="showLogOutMenu()">
+                Logout
+            </a>
+        </ul>
+    </ion-content>
+</ion-view>

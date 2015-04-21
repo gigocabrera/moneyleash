@@ -1,0 +1,31 @@
+<ion-view title="Accounts" ng-init="list()">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="right button button-icon icon ion-plus customIconSize" ng-click="openAccountSave('Add')"></button>
+        <button class="button button-icon ion-ios-more" ng-click="enableSorting(SortingIsEnabled)"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
+            <ion-item ng-repeat="(id, account) in data.accounts" itemid="account" ng-click="closeSwipeOptions($event)" href="#" class="item-icon-right">
+                <div class="row">
+                    <div class="col-50 customAccDesc">
+                        <span>{{account.AccountName}}<small>{{account.AccountType}}</small></span>
+                    </div>
+                    <div class="col-50 right customAccAmt">
+                        <span>{{account.StartBalance | currency}}</span>
+                    </div>
+                </div>
+                <ion-option-button class="button-energized" ng-click="editAccount(id)">
+                    Edit
+                </ion-option-button>
+                <ion-option-button class="button-assertive" ng-click="deleteAccount(account, $index)">
+                    Delete
+                </ion-option-button>
+                <i class="icon ion-chevron-right"></i>
+                <ion-reorder-button class="ion-navicon" on-reorder="sortThisAccount(account, $fromIndex, $toIndex)"></ion-reorder-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
