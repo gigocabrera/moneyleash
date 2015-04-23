@@ -1,11 +1,13 @@
+
 var moneyleashapp = angular.module('moneyleash.controllers', [])
+
 var url = "https://brilliant-inferno-1044.firebaseio.com";
 var fireRef = new Firebase(url);
 var fbAuth;
 
 moneyleashapp.constant('FIREBASE_URL', 'https://brilliant-inferno-1044.firebaseio.com')
 
-// APP CONTROLLER
+// APP CONTROLLER : SIDE MENU
 moneyleashapp.controller('AppCtrl', function ($scope) {
     $scope.showMenuIcon = true;
 })
@@ -15,14 +17,13 @@ moneyleashapp.controller('IntroController', function ($scope, $state) {
     $scope.goToLogIn = function () {
         $state.go('login');
     };
-
     $scope.goToSignUp = function () {
         $state.go('signup');
     };
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $firebaseAuth, $state, $ionicPopup) {
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $firebaseAuth, $state, $ionicPopup) {
 
     $scope.user = {};
     
@@ -30,17 +31,16 @@ moneyleashapp.controller("LoginController", function ($scope, $firebaseAuth, $st
         $state.go('signup');
     };
 
-    $scope.goToForgotPassword = function () {
-        $state.go('forgot-password');
-    };
-
     $scope.doLogIn = function (user) {
+
+        $rootScope.show('Logging In...');
+
         fbAuth = $firebaseAuth(fireRef);
         fbAuth.$authWithPassword({
             email: user.email,
             password: user.password
         }).then(function (authData) {
-            $state.go('app.dashboard');
+            $state.go('dashboard');
         }).catch(function(error) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Oops!',
@@ -51,20 +51,6 @@ moneyleashapp.controller("LoginController", function ($scope, $firebaseAuth, $st
             });
         });
     }
-
-    //$scope.register = function(username, password) {
-    //    var fbAuth = $firebaseAuth(fireRef);
-    //    fbAuth.$createUser({email: username, password: password}).then(function() {
-    //        return fbAuth.$authWithPassword({
-    //            email: username,
-    //            password: password
-    //        });
-    //    }).then(function(authData) {
-    //        $state.go('app.dashboard');
-    //    }).catch(function(error) {
-    //        alert("ERROR " + error);
-    //    });
-    //}
 })
 
 //SIGN UP CONTROLLER
@@ -74,7 +60,7 @@ moneyleashapp.controller('SignupController', function ($scope, $state) {
     $scope.user.email = "john@doe.com";
 
     $scope.doSignUp = function () {
-        $state.go('app.dashboard');
+        $state.go('dashboard');
     };
 
     $scope.goToLogIn = function () {
@@ -85,7 +71,7 @@ moneyleashapp.controller('SignupController', function ($scope, $state) {
 // FORGOT PASSWORD CONTROLLER
 moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
     $scope.recoverPassword = function () {
-        $state.go('app.accounts');
+        $state.go('accounts');
     };
 
     $scope.goToLogIn = function () {
@@ -132,7 +118,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $fireba
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            $state.go('app.account');
+            $state.go('account');
         }
     };
 
@@ -238,7 +224,7 @@ moneyleashapp.controller('RecurringListCtrl', function ($scope) {
 })
 
 // SETTINGS CONTROLLER
-moneyleashapp.controller('SettingsCtrl', function ($scope, $ionicActionSheet, $state, $firebaseObject, $firebaseAuth) {
+moneyleashapp.controller('SettingsController', function ($scope, $ionicActionSheet, $state) {
 
     $scope.airplaneMode = true;
     $scope.wifi = false;
@@ -252,7 +238,7 @@ moneyleashapp.controller('SettingsCtrl', function ($scope, $ionicActionSheet, $s
     $scope.radioChoice = 'B';
 
     $scope.showAccountTypes = function () {
-        $state.go('app.accounttypes');
+        $state.go('accounttypes');
     };
 
     // Triggered on a the logOut button click
@@ -310,14 +296,14 @@ moneyleashapp.controller('SettingsCtrl', function ($scope, $ionicActionSheet, $s
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                if (fbAuth) {
-                    var accountPath = fireRef.child("users/" + fbAuth.uid);
-                    //var accountRef = new Firebase(accountPath);
-                    alert(accountPath);
-                    //accountRef.remove();
-                } else {
-                    alert("else part");
-                }
+                //if (fbAuth) {
+                //    var accountPath = fireRef.child("users/" + fbAuth.uid);
+                //    //var accountRef = new Firebase(accountPath);
+                //    alert(accountPath);
+                //    //accountRef.remove();
+                //} else {
+                //    alert("else part");
+                //}
                 //$state.go('login');
             }
         });

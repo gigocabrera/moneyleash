@@ -1,14 +1,12 @@
 
 // Ionic MoneyLeash App, v1.0
 
-angular.module('underscore', [])
-    .factory('_', function () {
-        return window._; // assumes underscore has already been loaded on the page
-    });
+/* FIREBASE */
+var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'firebase', 'angularMoment', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.filters', 'moneyleash.services', 'moneyleash.factories', 'moneyleash.config', 'underscore', 'ngMap', 'ngResource', 'ngCordova', 'templates'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.services', 'moneyleash.factories', 'pascalprecht.translate'])
 
-moneyleashapp.run(function ($ionicPlatform) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $firebaseAuth, $ionicScrollDelegate, $state, Auth, fireBaseData, UserData) {
 
     $ionicPlatform.on("deviceready", function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -19,34 +17,149 @@ moneyleashapp.run(function ($ionicPlatform) {
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
+
+        /************************************/
+        /* VARIABLES                        */
+        /************************************/
+
+        $rootScope.settings = {
+            'languages': [{
+                'prefix': 'en',
+                'name': 'English'
+            }, {
+                'prefix': 'es',
+                'name': 'Español'
+            }]
+        };
+
+        $rootScope.isAdmin = false;
+        $rootScope.authData = {};
+
+        Auth.$onAuth(function (authData) {
+            if (authData) {
+                console.log("Logged in as:", authData);
+                /* STORE AUTHDATA */
+                $rootScope.authData = authData;
+
+                ///* IF NOT ALREADY IN A HOUSE, REDIRECT TO HOUSE CHOICE  */
+                //UserData.checkRoomMateHasHouse(authData.password.email).then(function (hasHouse) {
+                //    if (hasHouse) {
+                //        $state.go("tabs.dashboard");
+                //    } else {
+                //        console.log('No House!!!');
+                //        $rootScope.hide();
+                //        $state.go("housechoice");
+                //    }
+                //}, function (error) {
+                //    console.log('No House!!!');
+                //    $rootScope.hide();
+                //    $state.go("housechoice");
+                //});
+            } else {
+                $rootScope.hide();
+                $state.go("introduction");
+            }
+        });
+
+        $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+            // We can catch the error thrown when the $requireAuth promise is rejected
+            // and redirect the user back to the home page
+            if (error === "AUTH_REQUIRED") {
+                $state.go("login");
+            }
+        });
     });
 })
 
-moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
+moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $translateProvider) {
+
+    $ionicConfigProvider.views.maxCache(0);
+
+    /************************************/
+    /* TRANSLATE                        */
+    /************************************/
+    $translateProvider.translations('en', {
+        SIGNIN: "Sign-In",
+        REGISTER: "Register",
+        LOGOUT: "Logout",
+        REGISTER_DONTHAVEACCOUNT: "I dont have an account",
+        REGISTER_ALREADYHAVEACCOUNT: "I already have an account",
+        FORM_EMAIL: "Email",
+        FORM_PASSWORD: "Password",
+        FORM_FIRSTNAME: "First Name",
+        FORM_SURNAME: "Surname",
+        TABS_NAME_DASHBOARD: "Dashboard",
+        TABS_NAME_EXPENSES: "Expenses",
+        TABS_NAME_MEMBERS: "Members",
+        TABS_NAME_SETTINGS: "Settings",
+        SETTINGS_LANGUAGE: "Change language",
+        SETTINGS_EDIT_PROFILE: "Edit Profile",
+        SETTINGS_QUIT_HOUSE: "Quit House",
+        REGISTER_FORGOTPASSWORD: "Forgot password"
+    });
+    $translateProvider.translations('es', {
+        SIGNIN: "Ingresar",
+        REGISTER: "Registrar",
+        LOGOUT: "Desconectar",
+        REGISTER_DONTHAVEACCOUNT: "No tengo cuenta",
+        REGISTER_ALREADYHAVEACCOUNT: "Tengo cuenta",
+        FORM_EMAIL: "Correo",
+        FORM_PASSWORD: "Contraseña",
+        FORM_FIRSTNAME: "Nombre",
+        FORM_SURNAME: "Apellido",
+        TABS_NAME_DASHBOARD: "Dashboard",
+        TABS_NAME_EXPENSES: "Egresos",
+        TABS_NAME_MEMBERS: "Miembros",
+        TABS_NAME_SETTINGS: "Configuración",
+        SETTINGS_LANGUAGE: "Cambiar lenguaje",
+        SETTINGS_EDIT_PROFILE: "Modificar perfil",
+        SETTINGS_QUIT_HOUSE: "Abandonar Casa",
+        REGISTER_FORGOTPASSWORD: "Perdió contraseña"
+
+    });
+    $translateProvider.preferredLanguage("en");
+    $translateProvider.fallbackLanguage("en");
 
     $stateProvider
 
-      //INTRO
+      // INTRO
       .state('intro', {
           url: "/",
           templateUrl: "templates/intro.html",
           controller: 'IntroController'
       })
+
+      // LOGIN
       .state('login', {
           url: "/login",
           templateUrl: "templates/login.html",
-          controller: 'LoginController'
+          controller: 'LoginController',
+          resolve: {
+              // controller will not be loaded until $waitForAuth resolves
+              // Auth refers to our $firebaseAuth wrapper in the example above
+              "currentAuth": ["Auth",
+                  function (Auth) {
+                      // $waitForAuth returns a promise so the resolve waits for it to complete
+                      return Auth.$waitForAuth();
+                  }]
+          }
       })
+    
+      // SIGN UP
       .state('signup', {
           url: "/signup",
-          templateUrl: "signup.html",
+          templateUrl: "templates/signup.html",
           controller: 'SignupController'
       })
+
+      // FORGOT PASSWORD
       .state('forgot-password', {
           url: "/forgot-password",
           templateUrl: "templates/forgot-password.html",
           controller: 'ForgotPasswordCtrl'
       })
+
+      // APP
       .state('app', {
           url: "/app",
           abstract: true,
@@ -55,7 +168,7 @@ moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
       })
 
       // DASHBOARD
-      .state('app.dashboard', {
+      .state('dashboard', {
           url: "/dashboard",
           views: {
               'menuContent': {
@@ -66,7 +179,7 @@ moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
       })
 
       // ACCOUNTS
-      .state('app.accounts', {
+      .state('accounts', {
           url: "/accounts",
           views: {
               'menuContent': {
@@ -75,7 +188,7 @@ moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
               }
           }
       })
-      .state('app.account', {
+      .state('account', {
           url: "/accounts/:accountId",
           views: {
               'menuContent': {
@@ -84,7 +197,7 @@ moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
               }
           }
       })
-      .state('app.accounttypes', {
+      .state('accounttypes', {
           url: "/accounts",
           views: {
               'menuContent': {
@@ -95,7 +208,7 @@ moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
       })
 
       // RECURRING
-      .state('app.recurringlist', {
+      .state('recurringlist', {
           url: "/recurringlist",
           views: {
               'menuContent': {
@@ -106,7 +219,7 @@ moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
       })
 
       // CATEGORIES
-      .state('app.categories', {
+      .state('categories', {
           url: "/categories",
           views: {
               'menuContent': {
@@ -116,7 +229,7 @@ moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
       })
 
       // PAYEES
-      .state('app.payees', {
+      .state('payees', {
           url: "/payees",
           views: {
               'menuContent': {
@@ -126,7 +239,7 @@ moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
       })
 
       // BUDGETS
-      .state('app.budgets', {
+      .state('budgets', {
           url: "/budgets",
           views: {
               'menuContent': {
@@ -136,7 +249,7 @@ moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
       })
 
       // REPORTS
-      .state('app.reports', {
+      .state('reports', {
           url: "/reports",
           views: {
               'menuContent': {
@@ -146,12 +259,12 @@ moneyleashapp.config(function ($stateProvider, $urlRouterProvider) {
       })
 
       // SETTINGS
-      .state('app.settings', {
+      .state('settings', {
           url: "/settings",
           views: {
               'menuContent': {
                   templateUrl: "templates/settings.html",
-                  controller: 'SettingsCtrl'
+                  controller: 'SettingsController'
               }
           }
       })

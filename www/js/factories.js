@@ -1,218 +1,271 @@
 angular.module('moneyleash.factories', [])
 
-.constant('FIREBASE_URL', 'https://brilliant-inferno-1044.firebaseio.com')
+    .factory('Auth', function ($firebaseAuth, $rootScope) {
+        return $firebaseAuth(fb);
+    })
 
- .factory('AccountsFactory', function ($firebaseObject, FIREBASE_URL) {
-    return {
-        getAccount: function(userid, accountid) {
-            return $firebaseObject(new Firebase(FIREBASE_URL + '/users/' + userid + '/accounts/' + accountid));
-        },
-        getAllAccounts: function(userid) {
-            //return $firebaseObject(fireRef.child("users/" + userid));
-            return fireRef.child("users/" + userid);
-        },
-        ref: function () {
-            return new Firebase(FIREBASE_URL);
-        }
-    };
-})
+    .constant('FIREBASE_URL', 'https://brilliant-inferno-1044.firebaseio.com')
 
-.factory('FeedLoader', function ($resource) {
-    return $resource('http://ajax.googleapis.com/ajax/services/feed/load', {}, {
-        fetch: { method: 'JSONP', params: { v: '1.0', callback: 'JSON_CALLBACK' } }
-    });
-})
+     .factory('AccountsFactory', function ($firebaseObject, FIREBASE_URL) {
+         return {
+             getAccount: function (userid, accountid) {
+                 return $firebaseObject(new Firebase(FIREBASE_URL + '/users/' + userid + '/accounts/' + accountid));
+             },
+             getAllAccounts: function (userid) {
+                 //return $firebaseObject(fireRef.child("users/" + userid));
+                 return fireRef.child("users/" + userid);
+             },
+             ref: function () {
+                 return new Firebase(FIREBASE_URL);
+             }
+         };
+     })
 
+    .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {
 
-// Factory for node-pushserver (running locally in this case), if you are using other push notifications server you need to change this
-.factory('NodePushServer', function ($http) {
-    // Configure push notifications server address
-    // 		- If you are running a local push notifications server you can test this by setting the local IP (on mac run: ipconfig getifaddr en1)
-    var push_server_address = "http://192.168.1.102:8000";
-
-    return {
-        // Stores the device token in a db using node-pushserver
-        // type:  Platform type (ios, android etc)
-        storeDeviceToken: function (type, regId) {
-            // Create a random userid to store with it
-            var user = {
-                user: 'user' + Math.floor((Math.random() * 10000000) + 1),
-                type: type,
-                token: regId
-            };
-            console.log("Post token for registered device with data " + JSON.stringify(user));
-
-            $http.post(push_server_address + '/subscribe', JSON.stringify(user))
-            .success(function (data, status) {
-                console.log("Token stored, device is successfully subscribed to receive push notifications.");
-            })
-            .error(function (data, status) {
-                console.log("Error storing device token." + data + " " + status);
-            });
-        },
-        // CURRENTLY NOT USED!
-        // Removes the device token from the db via node-pushserver API unsubscribe (running locally in this case).
-        // If you registered the same device with different userids, *ALL* will be removed. (It's recommended to register each
-        // time the app opens which this currently does. However in many cases you will always receive the same device token as
-        // previously so multiple userids will be created with the same token unless you add code to check).
-        removeDeviceToken: function (token) {
-            var tkn = { "token": token };
-            $http.post(push_server_address + '/unsubscribe', JSON.stringify(tkn))
-            .success(function (data, status) {
-                console.log("Token removed, device is successfully unsubscribed and will not receive push notifications.");
-            })
-            .error(function (data, status) {
-                console.log("Error removing device token." + data + " " + status);
-            });
-        }
-    };
-})
-
-
-.factory('AdMob', function ($window) {
-    var admob = $window.AdMob;
-
-    if (admob) {
-        // Register AdMob events
-        // new events, with variable to differentiate: adNetwork, adType, adEvent
-        document.addEventListener('onAdFailLoad', function (data) {
-            console.log('error: ' + data.error +
-            ', reason: ' + data.reason +
-            ', adNetwork:' + data.adNetwork +
-            ', adType:' + data.adType +
-            ', adEvent:' + data.adEvent); // adType: 'banner' or 'interstitial'
-        });
-        document.addEventListener('onAdLoaded', function (data) {
-            console.log('onAdLoaded: ' + data);
-        });
-        document.addEventListener('onAdPresent', function (data) {
-            console.log('onAdPresent: ' + data);
-        });
-        document.addEventListener('onAdLeaveApp', function (data) {
-            console.log('onAdLeaveApp: ' + data);
-        });
-        document.addEventListener('onAdDismiss', function (data) {
-            console.log('onAdDismiss: ' + data);
-        });
-
-        var defaultOptions = {
-            // bannerId: admobid.banner,
-            // interstitialId: admobid.interstitial,
-            // adSize: 'SMART_BANNER',
-            // width: integer, // valid when set adSize 'CUSTOM'
-            // height: integer, // valid when set adSize 'CUSTOM'
-            position: admob.AD_POSITION.BOTTOM_CENTER,
-            // offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
-            bgColor: 'black', // color name, or '#RRGGBB'
-            // x: integer,		// valid when set position to 0 / POS_XY
-            // y: integer,		// valid when set position to 0 / POS_XY
-            isTesting: true, // set to true, to receiving test ad for testing purpose
-            // autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
+        var currentData = {
+            currentUser: false,
+            currentHouse: false,
+            idadmin: false
         };
-        var admobid = {};
 
-        if (ionic.Platform.isAndroid()) {
-            admobid = { // for Android
-                banner: 'ca-app-pub-6869992474017983/9375997553',
-                interstitial: 'ca-app-pub-6869992474017983/1657046752'
-            };
-        }
+        $rootScope.notify = function (title, text) {
+            var alertPopup = $ionicPopup.alert({
+                title: title ? title : 'Error',
+                template: text
+            });
+        };
 
-        if (ionic.Platform.isIOS()) {
-            admobid = { // for iOS
-                banner: 'ca-app-pub-6869992474017983/4806197152',
-                interstitial: 'ca-app-pub-6869992474017983/7563979554'
-            };
-        }
+        $rootScope.show = function (text) {
+            $rootScope.loading = $ionicLoading.show({
+                template: '<i class="icon ion-load-c"></i><br>' + text,
+                animation: 'fade-in',
+                showBackdrop: true,
+                maxWidth: 200,
+                showDelay: 0
+            });
+        };
 
-        admob.setOptions(defaultOptions);
+        $rootScope.hide = function (text) {
+            $ionicLoading.hide();
+        };
 
-        // Prepare the ad before showing it
-        // 		- (for example at the beginning of a game level)
-        admob.prepareInterstitial({
-            adId: admobid.interstitial,
-            autoShow: false,
-            success: function () {
-                console.log('interstitial prepared');
+        return {
+
+            clearData: function () {
+                currentData = false;
             },
-            error: function () {
-                console.log('failed to prepare interstitial');
-            }
-        });
-    }
-    else {
-        console.log("No AdMob?");
-    }
 
-    return {
-        showBanner: function () {
-            if (admob) {
-                admob.createBanner({
-                    adId: admobid.banner,
-                    position: admob.AD_POSITION.BOTTOM_CENTER,
-                    autoShow: true,
-                    success: function () {
-                        console.log('banner created');
-                    },
-                    error: function () {
-                        console.log('failed to create banner');
+            checkDuplicateEmail: function (email) {
+                var deferred = $q.defer();
+                var usersRef = fb.child("roommates/" + escapeEmailAddress(email));
+                usersRef.once("value", function (snap) {
+                    if (snap.val() === null) {
+                        deferred.resolve(true);
+                    } else {
+                        deferred.reject('EMAIL EXIST');
+                    }
+
+                });
+                return deferred.promise;
+            },
+
+            refreshData: function () {
+                var output = {};
+                var deferred = $q.defer();
+                var authData = fb.getAuth();
+                if (authData) {
+                    var usersRef = fb.child("roommates/" + escapeEmailAddress(authData.password.email));
+                    usersRef.once("value", function (snap) {
+                        output.currentUser = snap.val();
+                        var housesRef = fb.child("houses/" + output.currentUser.houseid);
+                        housesRef.once("value", function (snap) {
+                            output.currentHouse = snap.val();
+                            output.currentHouse.id = housesRef.key();
+                            output.isadmin = (output.currentHouse.admin === output.currentUser.email ? true : false);
+                            deferred.resolve(output);
+                        });
+                    });
+                } else {
+                    output = currentData;
+                    deferred.resolve(output);
+                }
+                return deferred.promise;
+            }
+        }
+
+    })
+
+    .factory('HouseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $state, $firebaseAuth, $q) {
+
+        var ref = fb.child("houses");
+
+        return {
+
+            ref: function () {
+                return ref;
+            },
+
+            getHouse: function (email) {
+                var deferred = $q.defer();
+                var usersRef = ref.child(escapeEmailAddress(email));
+                usersRef.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
+
+            getHouseByCode: function (code) {
+                var deferred = $q.defer();
+                ref.orderByChild("join_code").startAt(code)
+                    .endAt(code)
+                    .once('value', function (snap) {
+                        if (snap.val()) {
+                            var house, houseid;
+                            angular.forEach(snap.val(), function (value, key) {
+                                house = value;
+                                houseid = key;
+                            });
+                            if (house.join_code === code) {
+                                deferred.resolve(houseid);
+                            }
+                        }
+                    }, function (errorObject) {
+                        console.log("The read failed: " + errorObject.code);
+                    });
+                return deferred.promise;
+            },
+
+            getHouses: function (id) {
+                var deferred = $q.defer();
+                var output = {};
+                ref.once('value', function (snap) {
+                    console.log(snap.val());
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
+
+            randomHouseCode: function () {
+                return Math.floor((Math.random() * 100000000) + 100);
+            }
+        };
+    })
+
+    .factory('UserData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $state, $firebaseAuth, $q) {
+
+        var ref = fb.child("roommates");
+
+        return {
+
+            ref: function () {
+                return ref;
+            },
+
+            getRoomMate: function (email) {
+                var deferred = $q.defer();
+                var usersRef = ref.child(escapeEmailAddress(email));
+                usersRef.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
+
+            checkRoomMateHasHouse: function (email) {
+                var deferred = $q.defer();
+                var usersRef = ref.child(escapeEmailAddress(email));
+                usersRef.once("value", function (snap) {
+                    var user = snap.val();
+                    if (user.houseid) {
+                        deferred.resolve(true);
+                    } else {
+                        deferred.reject(false);
                     }
                 });
+                return deferred.promise;
+            },
+
+            getRoomMates: function (houseid) {
+                var deferred = $q.defer();
+                var output = {};
+                ref.startAt(houseid)
+                    .endAt(houseid)
+                    .once('value', function (snap) {
+                        deferred.resolve(snap.val());
+                    });
+                return deferred.promise;
+            },
+
+            quitHouse: function (houseid) {
+                var deferred = $q.defer();
+                var output = {};
+                ref.startAt(houseid)
+                    .endAt(houseid)
+                    .once('value', function (snap) {
+                        deferred.resolve(snap.val());
+                    });
+                return deferred.promise;
             }
-        },
-        showInterstitial: function () {
-            if (admob) {
-                // If you didn't prepare it before, you can show it like this
-                // admob.prepareInterstitial({adId:admobid.interstitial, autoShow:autoshow});
+        };
+    })
 
-                // If you did prepare it before, then show it like this
-                // 		- (for example: check and show it at end of a game level)
-                admob.showInterstitial();
-            }
-        },
-        removeAds: function () {
-            if (admob) {
-                admob.removeBanner();
-            }
-        }
-    };
-})
+    .factory('ExpensesData', function ($firebase, $rootScope, $firebaseAuth, $q, UserData, fireBaseData) {
 
-.factory('iAd', function ($window) {
-    var iAd = $window.iAd;
+        var expenses = {};
 
-    // preppare and load ad resource in background, e.g. at begining of game level
-    if (iAd) {
-        iAd.prepareInterstitial({ autoShow: false });
-    }
-    else {
-        console.log("No iAd?");
-    }
+        /* Filter Vars */
+        var filter = 'all',
+            startTime = '0000000000',
+            endTime = 0;
 
-    return {
-        showBanner: function () {
-            if (iAd) {
-                // show a default banner at bottom
-                iAd.createBanner({
-                    position: iAd.AD_POSITION.BOTTOM_CENTER,
-                    autoShow: true
+        return {
+
+            all: function () {
+                return expenses;
+            },
+
+            getExpenses: function (houseId, filter) {
+                var deferred = $q.defer();
+                var expensesRef = fb.child("houses/" + houseId + '/expenses');
+                expenses = $firebase(expensesRef).$asArray();
+                expenses.$loaded().then(function () {
+                    angular.forEach(expenses, function (value, key) {
+                        UserData.getRoomMate(expenses[key].user).then(function (user) {
+                            expenses[key].user = user.firstname + " " + user.surname;
+                        });
+                    });
+
+                    deferred.resolve(expenses);
                 });
-            }
-        },
-        showInterstitial: function () {
-            // ** Notice: iAd interstitial Ad only supports iPad.
-            if (iAd) {
-                // If you did prepare it before, then show it like this
-                // 		- (for example: check and show it at end of a game level)
-                iAd.showInterstitial();
-            }
-        },
-        removeAds: function () {
-            if (iAd) {
-                iAd.removeBanner();
+                return deferred.promise;
+
+            },
+
+            getExpense: function (expenseId) {
+                var deferred = $q.defer();
+                var usersRef = fb.child("houses/" + fireBaseData.currentData.currentHouse.id + "/expenses/" + expenseId);
+                usersRef.once("value", function (snap) {
+                    var expense = snap.val();
+                    deferred.resolve(expense);
+                });
+                return deferred.promise;
+            },
+
+            addExpense: function (expense, houseId) {
+                var deferred = $q.defer();
+                var output = {};
+
+                var sync = $firebase(fb.child("houses/" + houseId + '/expenses'));
+                sync.$push(expense).then(function (data) {
+                    console.log();
+                    deferred.resolve(data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+
+                return deferred.promise;
             }
         }
-    };
-})
+    })
 
 ;

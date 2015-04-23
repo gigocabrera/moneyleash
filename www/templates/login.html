@@ -1,46 +1,32 @@
-<ion-view class="login-view">
-    <ion-content scroll="false">
+<ion-view view-title="{{'SIGNIN' | translate}}" cache-view="false">
+    <ion-nav-bar class="bar-stable">
+        <h4>{{'SIGNIN' | translate}}</h4>
+    </ion-nav-bar>
+    <ion-content>
+        <div class="list list-inset">
+            <label class="item item-input">
+                <span class="input-label">{{"FORM_EMAIL" | translate}}</span>
+                <input type="text" ng-model="user.email">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">{{"FORM_PASSWORD" | translate}}</span>
+                <input type="password" ng-model="user.password">
+            </label>
+        </div>
+        <div class="padding">
+            <button class="button button-block button-energized button-theme" ng-click="doLogIn(user)" nav-clear>
+                {{"SIGNIN" | translate}}
+            </button>
+            <p class="text-center">
+                <a href="#/signup" class="mlLinksBlue">{{"REGISTER_DONTHAVEACCOUNT" | translate}}</a>
+            </p>
+        </div>
         <div class="row">
-            <div class="col col-center">
-                <div class="card login-container" content-tabs tabsdata='tabsdata'>
-                    <form name="login_form" class="" novalidate ng-cloak>
-                        <my-tabs>
-                            <my-tab title="Email">
-                                <div class="list">
-                                    <label class="item item-input">
-                                        <input type="email" placeholder="Email" name="user_email" ng-model="user.email" required>
-                                    </label>
-                                    <label class="item item-input" show-hide-container>
-                                        <input type="password" placeholder="Password" name="user_password" ng-model="user.password" required show-hide-input>
-                                    </label>
-                                </div>
-                            </my-tab>
-                            <my-tab title="Phone">
-                                <div class="list">
-                                    <label class="item item-input">
-                                        <input type="text" placeholder="Phone number" name="user_phone" ng-model="user.phone" required>
-                                    </label>
-                                    <label class="item item-input" show-hide-container>
-                                        <input type="password" placeholder="PIN" name="user_pin" ng-model="user.pin" required valid-pin="user.pin" show-hide-input>
-                                    </label>
-                                </div>
-                            </my-tab>
-                        </my-tabs>
-                        <div class="item item-body bottom-content">
-                            <button type="submit" class="button button-energized button-block" ng-click="doLogIn(user)" ng-disabled="(selected_tab=='Email') ? (login_form.user_email.$invalid || login_form.user_password.$invalid) : ((selected_tab=='Phone') ? (login_form.user_phone.$invalid || login_form.user_pin.$invalid) : false)">
-                                Log In
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div class="alternative-actions">
-                    <button class="forgot-password button button-small button-clear button-light" ng-click="goToForgotPassword()">
-                        Forgot Password?
-                    </button>
-                    <button class="sign-up button button-small button-clear button-light" ng-click="goToSignUp()">
-                        Sign Up
-                    </button>
-                </div>
+            <div class="col">
+                <a href="#/forgot-password" class="button-clear mlLinksGray">{{"REGISTER_FORGOTPASSWORD" | translate}}</a>
+            </div>
+            <div class="col">
+                <a href="#/signup" class="button-clear mlLinksGray">{{"SIGNIN" | translate}}</a>
             </div>
         </div>
     </ion-content>
