@@ -20,11 +20,24 @@
 .row, .col {
     text-align: center;
 }
-
 .col {
     margin: 5px !important;
     border-radius: 8px !important;
     padding: 15px 0px !important;
+}
+/* force color red */
+.redtext {
+    color: red;
+}
+.bar.bar-stable {
+    border-bottom: #b2b2b2 1px solid; /* #b2b2b2 */
+}
+/* Spin animation for ion-loop */
+.spinner svg {
+  width: 28px;
+  height: 28px;
+  stroke: #fff;
+  fill: #fff;
 }
 
 /***************/

@@ -5,28 +5,25 @@
     <ion-content>
         <div class="list list-inset">
             <label class="item item-input">
-                <span class="input-label">{{"FORM_EMAIL" | translate}}</span>
-                <input type="text" ng-model="user.email">
+                <input type="text" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
             </label>
             <label class="item item-input">
-                <span class="input-label">{{"FORM_PASSWORD" | translate}}</span>
-                <input type="password" ng-model="user.password">
+                <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
             </label>
         </div>
         <div class="padding">
             <button class="button button-block button-energized button-theme" ng-click="doLogIn(user)" nav-clear>
                 {{"SIGNIN" | translate}}
             </button>
-            <p class="text-center">
-                <a href="#/signup" class="mlLinksBlue">{{"REGISTER_DONTHAVEACCOUNT" | translate}}</a>
-            </p>
         </div>
         <div class="row">
             <div class="col">
                 <a href="#/forgot-password" class="button-clear mlLinksGray">{{"REGISTER_FORGOTPASSWORD" | translate}}</a>
             </div>
             <div class="col">
-                <a href="#/signup" class="button-clear mlLinksGray">{{"SIGNIN" | translate}}</a>
+                <p class="text-center">
+                    <a href="#/register" class="mlLinksBlue">{{"REGISTER_DONTHAVEACCOUNT" | translate}}</a>
+                </p>
             </div>
         </div>
     </ion-content>

@@ -37,7 +37,6 @@
     <None Include="firebase.json" />
     <None Include="hooks\README.md" />
     <None Include="ionic.project" />
-    <None Include="lib\ionic\css" />
     <None Include="package.json" />
     <None Include="platforms\android\.project" />
     <None Include="platforms\android\assets\www\lib\ionic\fonts\ionicons.eot" />
@@ -538,8 +537,6 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="config.xml" />
-    <Content Include="css\app.css" />
-    <Content Include="css\ionic.css" />
     <Content Include="gulpfile.js" />
     <Content Include="hooks\after_prepare\010_add_platform_class.js" />
     <Content Include="platforms\android\.gitignore" />
@@ -2799,7 +2796,6 @@
     <Content Include="www\js\directives.js" />
     <Content Include="www\js\factories.js" />
     <Content Include="www\js\firebase.js" />
-    <Content Include="www\js\services.js" />
     <Content Include="www\lib\angular-translate.min.js" />
     <Content Include="www\lib\ionic\css\ionic.css" />
     <Content Include="www\lib\ionic\css\ionic.min.css" />

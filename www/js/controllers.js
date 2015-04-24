@@ -1,71 +1,147 @@
 
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
-var url = "https://brilliant-inferno-1044.firebaseio.com";
-var fireRef = new Firebase(url);
-var fbAuth;
-
-moneyleashapp.constant('FIREBASE_URL', 'https://brilliant-inferno-1044.firebaseio.com')
-
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope) {
+moneyleashapp.controller('AppCtrl', function ($scope, $rootScope, $state, $ionicActionSheet, fireBaseData, $ionicHistory, Auth) {
+
     $scope.showMenuIcon = true;
+
+    // Triggered on a the logOut button click
+    $scope.showLogOutMenu = function () {
+
+        // Show the action sheet
+        var hideSheet = $ionicActionSheet.show({
+            destructiveText: 'Logout',
+            titleText: 'Are you sure you want to logout?',
+            cancelText: 'Cancel',
+            cancel: function () {
+                // add cancel code..
+            },
+            buttonClicked: function (index) {
+                //Called when one of the non-destructive buttons is clicked,
+                //with the index of the button that was clicked and the button object.
+                //Return true to close the action sheet, or false to keep it opened.
+                return true;
+            },
+            destructiveButtonClicked: function () {
+                //Called when the destructive button is clicked.
+                //Return true to close the action sheet, or false to keep it opened.
+                $rootScope.show('');
+                fireBaseData.clearData();
+                $ionicHistory.clearCache();
+                Auth.$unauth();
+            }
+        });
+    };
 })
 
 // INTRO CONTROLLER
-moneyleashapp.controller('IntroController', function ($scope, $state) {
-    $scope.goToLogIn = function () {
+moneyleashapp.controller('IntroController', function ($scope, $state, $rootScope) {
+    $scope.login = function () {
         $state.go('login');
     };
-    $scope.goToSignUp = function () {
-        $state.go('signup');
+    $scope.register = function () {
+        $state.go('register');
     };
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $rootScope, $firebaseAuth, $state, $ionicPopup) {
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state, Auth) {
 
     $scope.user = {};
-    
-    $scope.goToSignUp = function () {
-        $state.go('signup');
-    };
 
     $scope.doLogIn = function (user) {
 
         $rootScope.show('Logging In...');
 
-        fbAuth = $firebaseAuth(fireRef);
-        fbAuth.$authWithPassword({
+        /* Check user fields*/
+        if (!user.email || !user.password) {
+            $rootScope.hide();
+            $rootScope.notify('Oops', 'Please check your Email or Password!');
+            return;
+        }
+
+        /* All good, let's authentify */
+        Auth.$authWithPassword({
             email: user.email,
             password: user.password
         }).then(function (authData) {
-            $state.go('dashboard');
-        }).catch(function(error) {
-            var alertPopup = $ionicPopup.alert({
-                title: 'Oops!',
-                template: 'We could not log you in. Please verify that your email and password are correct.'
-            });
-            alertPopup.then(function (res) {
-                //console.log('all is well');
-            });
+            console.log(authData);
+            $rootScope.hide();
+            $state.go('app.dashboard');
+        }).catch(function (error) {
+            $rootScope.hide();
+            $rootScope.notify('Error', 'Email or Password is incorrect!');
         });
     }
 })
 
 //SIGN UP CONTROLLER
-moneyleashapp.controller('SignupController', function ($scope, $state) {
+moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $firebase, $firebaseAuth) {
+
     $scope.user = {};
-
-    $scope.user.email = "john@doe.com";
-
-    $scope.doSignUp = function () {
-        $state.go('dashboard');
-    };
 
     $scope.goToLogIn = function () {
         $state.go('login');
     };
+
+    $scope.doSignUp22 = function(username, password) {
+        var fbAuth = $firebaseAuth(fireRef);
+        fbAuth.$createUser({email: username, password: password}).then(function() {
+            return fbAuth.$authWithPassword({
+                email: username,
+                password: password
+            });
+        }).then(function(authData) {
+            $state.go('app.dashboard');
+        }).catch(function(error) {
+            alert("ERROR " + error);
+        });
+    }
+
+    $scope.register = function (user) {
+        var firstname = user.firstname;
+        var lastname = user.lastname;
+        var email = user.email;
+        var password = user.password;
+
+        if (!firstname || !lastname || !email || !password) {
+            console.log(firstname);
+            console.log(lastname);
+            console.log(email);
+            console.log(password);
+            $rootScope.notify("Please enter valid credentials");
+            return false;
+        }
+
+        $rootScope.show('Registering...');
+
+        var auth = $firebaseAuth(fb);
+        auth.$createUser({ email: email, password: password }).then(function () {
+            console.log("User created successfully!");
+            return auth.$authWithPassword({
+                email: email,
+                password: password
+            });
+        }).then(function (authData) {
+            $rootScope.hide();
+            $state.go('app.dashboard');
+        }).catch(function (error) {
+            if (error.code == 'INVALID_EMAIL') {
+                $rootScope.hide();
+                $rootScope.notify('Error', 'Invalid Email.');
+            }
+            else if (error.code == 'EMAIL_TAKEN') {
+                $rootScope.hide();
+                $rootScope.notify('Error', 'Email already taken.');
+            }
+            else {
+                $rootScope.hide();
+                $rootScope.notify('Error', 'Oops. Something went wrong.');
+            }
+        });
+    };
+
 })
 
 // FORGOT PASSWORD CONTROLLER
@@ -74,12 +150,12 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
         $state.go('accounts');
     };
 
-    $scope.goToLogIn = function () {
+    $scope.login = function () {
         $state.go('login');
     };
 
-    $scope.goToSignUp = function () {
-        $state.go('signup');
+    $scope.register = function () {
+        $state.go('register');
     };
 
     $scope.user = {};
@@ -91,7 +167,7 @@ moneyleashapp.controller('DashboardCtrl', function ($scope) {
 })
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountsController', function ($scope, $state, $firebaseObject, $firebaseAuth, $ionicModal, $ionicListDelegate, $ionicActionSheet, AccountsFactory, FIREBASE_URL) {
+moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
 
     $scope.account = {
         name: "",
@@ -124,22 +200,22 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $fireba
 
     // EDIT
     $scope.editAccount = function (accountid) {
-        fbAuth = fireRef.getAuth();
-        if (fbAuth) {
-            var test = new Firebase(FIREBASE_URL + '/users/' + fbAuth.uid + '/accounts/' + accountid);
-            alert(test.AccountName.$value);
-            //$scope.openAccountSave = function () {
-            //    $scope.myTitle = "Edit " + $scope.account.name;
-            //    $scope.modal.show();
-            //}            
-        }
+        //fbAuth = fireRef.getAuth();
+        //if (fbAuth) {
+        //    var test = new Firebase(FIREBASE_URL + '/users/' + fbAuth.uid + '/accounts/' + accountid);
+        //    alert(test.AccountName.$value);
+        //    $scope.openAccountSave = function () {
+        //        $scope.myTitle = "Edit " + $scope.account.name;
+        //        $scope.modal.show();
+        //    }            
+        //}
     };
 
     // LIST
     $scope.list = function () {
-        fbAuth = fireRef.getAuth();
+        fbAuth = fb.getAuth();
         if (fbAuth) {
-            var syncObject = $firebaseObject(fireRef.child("users/" + fbAuth.uid));
+            var syncObject = $firebaseObject(fb.child("users/" + fbAuth.uid));
             syncObject.$bindTo($scope, "data");
         }
     }
@@ -224,7 +300,7 @@ moneyleashapp.controller('RecurringListCtrl', function ($scope) {
 })
 
 // SETTINGS CONTROLLER
-moneyleashapp.controller('SettingsController', function ($scope, $ionicActionSheet, $state) {
+moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $state, $ionicActionSheet, $translate, fireBaseData, $ionicHistory, Auth) {
 
     $scope.airplaneMode = true;
     $scope.wifi = false;
@@ -246,13 +322,8 @@ moneyleashapp.controller('SettingsController', function ($scope, $ionicActionShe
 
         // Show the action sheet
         var hideSheet = $ionicActionSheet.show({
-            //Here you can add some more buttons
-            // buttons: [
-            // { text: '<b>Share</b> This' },
-            // { text: 'Move' }
-            // ],
             destructiveText: 'Logout',
-            titleText: 'Are you sure you want to logout? This app is awsome so I recommend you to stay.',
+            titleText: 'Are you sure you want to logout?',
             cancelText: 'Cancel',
             cancel: function () {
                 // add cancel code..
@@ -266,7 +337,12 @@ moneyleashapp.controller('SettingsController', function ($scope, $ionicActionShe
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                $state.go('intro');
+                $rootScope.show('');
+                fireBaseData.clearData();
+                $ionicHistory.clearCache();
+                Auth.$unauth();
+                $rootScope.hide();
+                $state.go("intro");
             }
         });
     };
@@ -343,4 +419,12 @@ moneyleashapp.controller('ImagePickerCtrl', function ($scope, $rootScope, $cordo
     $scope.shareAll = function () {
         window.plugins.socialsharing.share(null, null, $scope.images);
     };
-})
+});
+
+function escapeEmailAddress(email) {
+    if (!email)
+        return false
+    email = email.toLowerCase();
+    email = email.replace(/\./g, ',');
+    return email;
+}

@@ -1,26 +1,23 @@
 
-// Ionic MoneyLeash App, v1.0
-
 /* FIREBASE */
 var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.services', 'moneyleash.factories', 'pascalprecht.translate'])
+// Ionic MoneyLeash App, v1.0
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate'])
 
 moneyleashapp.run(function ($ionicPlatform, $rootScope, $firebaseAuth, $ionicScrollDelegate, $state, Auth, fireBaseData, UserData) {
 
-    $ionicPlatform.on("deviceready", function () {
+    $ionicPlatform.ready(function () {
+
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }
         if (window.StatusBar) {
+            // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
-
-        /************************************/
-        /* VARIABLES                        */
-        /************************************/
 
         $rootScope.settings = {
             'languages': [{
@@ -37,27 +34,10 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $firebaseAuth, $ionicScr
 
         Auth.$onAuth(function (authData) {
             if (authData) {
-                console.log("Logged in as:", authData);
-                /* STORE AUTHDATA */
                 $rootScope.authData = authData;
-
-                ///* IF NOT ALREADY IN A HOUSE, REDIRECT TO HOUSE CHOICE  */
-                //UserData.checkRoomMateHasHouse(authData.password.email).then(function (hasHouse) {
-                //    if (hasHouse) {
-                //        $state.go("tabs.dashboard");
-                //    } else {
-                //        console.log('No House!!!');
-                //        $rootScope.hide();
-                //        $state.go("housechoice");
-                //    }
-                //}, function (error) {
-                //    console.log('No House!!!');
-                //    $rootScope.hide();
-                //    $state.go("housechoice");
-                //});
             } else {
                 $rootScope.hide();
-                $state.go("introduction");
+                $state.go("intro");
             }
         });
 
@@ -79,7 +59,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     /* TRANSLATE                        */
     /************************************/
     $translateProvider.translations('en', {
-        SIGNIN: "Sign-In",
+        SIGNIN: "Login",
         REGISTER: "Register",
         LOGOUT: "Logout",
         REGISTER_DONTHAVEACCOUNT: "I dont have an account",
@@ -87,7 +67,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         FORM_EMAIL: "Email",
         FORM_PASSWORD: "Password",
         FORM_FIRSTNAME: "First Name",
-        FORM_SURNAME: "Surname",
+        FORM_LASTNAME: "Last Name",
         TABS_NAME_DASHBOARD: "Dashboard",
         TABS_NAME_EXPENSES: "Expenses",
         TABS_NAME_MEMBERS: "Members",
@@ -106,7 +86,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         FORM_EMAIL: "Correo",
         FORM_PASSWORD: "Contraseña",
         FORM_FIRSTNAME: "Nombre",
-        FORM_SURNAME: "Apellido",
+        FORM_LASTNAME: "Apellido",
         TABS_NAME_DASHBOARD: "Dashboard",
         TABS_NAME_EXPENSES: "Egresos",
         TABS_NAME_MEMBERS: "Miembros",
@@ -135,21 +115,18 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           templateUrl: "templates/login.html",
           controller: 'LoginController',
           resolve: {
-              // controller will not be loaded until $waitForAuth resolves
-              // Auth refers to our $firebaseAuth wrapper in the example above
               "currentAuth": ["Auth",
                   function (Auth) {
-                      // $waitForAuth returns a promise so the resolve waits for it to complete
                       return Auth.$waitForAuth();
                   }]
           }
       })
     
       // SIGN UP
-      .state('signup', {
-          url: "/signup",
-          templateUrl: "templates/signup.html",
-          controller: 'SignupController'
+      .state('register', {
+          url: "/register",
+          templateUrl: "templates/register.html",
+          controller: 'RegisterController'
       })
 
       // FORGOT PASSWORD
@@ -168,7 +145,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
       })
 
       // DASHBOARD
-      .state('dashboard', {
+      .state('app.dashboard', {
           url: "/dashboard",
           views: {
               'menuContent': {
@@ -179,7 +156,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
       })
 
       // ACCOUNTS
-      .state('accounts', {
+      .state('app.accounts', {
           url: "/accounts",
           views: {
               'menuContent': {
@@ -188,7 +165,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
               }
           }
       })
-      .state('account', {
+      .state('app.account', {
           url: "/accounts/:accountId",
           views: {
               'menuContent': {
@@ -197,7 +174,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
               }
           }
       })
-      .state('accounttypes', {
+      .state('app.accounttypes', {
           url: "/accounts",
           views: {
               'menuContent': {
@@ -208,7 +185,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
       })
 
       // RECURRING
-      .state('recurringlist', {
+      .state('app.recurringlist', {
           url: "/recurringlist",
           views: {
               'menuContent': {
@@ -219,7 +196,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
       })
 
       // CATEGORIES
-      .state('categories', {
+      .state('app.categories', {
           url: "/categories",
           views: {
               'menuContent': {
@@ -229,7 +206,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
       })
 
       // PAYEES
-      .state('payees', {
+      .state('app.payees', {
           url: "/payees",
           views: {
               'menuContent': {
@@ -239,7 +216,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
       })
 
       // BUDGETS
-      .state('budgets', {
+      .state('app.budgets', {
           url: "/budgets",
           views: {
               'menuContent': {
@@ -249,7 +226,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
       })
 
       // REPORTS
-      .state('reports', {
+      .state('app.reports', {
           url: "/reports",
           views: {
               'menuContent': {
@@ -259,7 +236,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
       })
 
       // SETTINGS
-      .state('settings', {
+      .state('app.settings', {
           url: "/settings",
           views: {
               'menuContent': {
