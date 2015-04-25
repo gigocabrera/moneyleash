@@ -282,11 +282,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                var ref = new Firebase(url);
-                var authData = ref.getAuth();
-                if (authData) {
-                    $scope.data.accounts.splice(index, 1);
-                }
+                $scope.data.accounts.splice(index, 1);
                 return true;
             }
         });
