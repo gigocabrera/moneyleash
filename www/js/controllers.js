@@ -146,8 +146,12 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
 
 // FORGOT PASSWORD CONTROLLER
 moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
-    $scope.recoverPassword = function () {
-        $state.go('accounts');
+
+    $scope.user = {};
+
+    $scope.recoverPassword = function (user) {
+        //$state.go('accounts');
+        console.log(user.email);
     };
 
     $scope.login = function () {
@@ -157,8 +161,6 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
     $scope.register = function () {
         $state.go('register');
     };
-
-    $scope.user = {};
 })
 
 // DASHBOARD CONTROLLER
@@ -167,13 +169,16 @@ moneyleashapp.controller('DashboardCtrl', function ($scope) {
 })
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
+moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
 
-    $scope.account = {
-        name: "",
-        startbalance: "",
-        opendate: "",
-        type: ""
+    $scope.inEditMode = false;
+    $scope.editingAccountIndex = 0;
+
+    $scope.currentAccount = {
+        AccountName: "",
+        StartBalance: "",
+        OpenDate: "",
+        AccountType: ""
     };
 
     // SORT
@@ -199,33 +204,39 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicM
     };
 
     // EDIT
-    $scope.editAccount = function (accountid) {
-        //fbAuth = fireRef.getAuth();
-        //if (fbAuth) {
-        //    var test = new Firebase(FIREBASE_URL + '/users/' + fbAuth.uid + '/accounts/' + accountid);
-        //    alert(test.AccountName.$value);
-        //    $scope.openAccountSave = function () {
-        //        $scope.myTitle = "Edit " + $scope.account.name;
-        //        $scope.modal.show();
-        //    }            
-        //}
+    $scope.editAccount = function (index) {
+        $ionicListDelegate.closeOptionButtons();
+        $scope.inEditMode = true;
+        $scope.editingAccountIndex = index;
+        $scope.currentAccount = $scope.data.accounts[index];
+        $scope.myTitle = "Edit " + $scope.currentAccount.AccountName;
+        $scope.modal.show();
     };
 
     // LIST
     $scope.list = function () {
+        $rootScope.show('');
         fbAuth = fb.getAuth();
         if (fbAuth) {
             var syncObject = $firebaseObject(fb.child("users/" + fbAuth.uid));
             syncObject.$bindTo($scope, "data");
         }
+        $rootScope.hide();
     }
 
     // SAVE
-    $scope.SaveAccount = function (account) {
-        if ($scope.data.hasOwnProperty("accounts") !== true) {
-            $scope.data.accounts = [];
+    $scope.SaveAccount = function (account, isEditMode) {
+        if (isEditMode) {
+            $scope.data.accounts[$scope.editingAccountIndex] = $scope.currentAccount;
+            $scope.currentContact = {};
+            $scope.inEditMode = false;
+        } else {
+            if ($scope.data.hasOwnProperty("accounts") !== true) {
+                $scope.data.accounts = [];
+            }
+            $scope.data.accounts.push({ 'AccountName': account.AccountName, 'StartBalance': account.StartBalance, 'OpenDate': account.OpenDate, 'AccountType': account.AccountType });
         }
-        $scope.data.accounts.push({ 'AccountName': account.name, 'StartBalance': account.startbalance, 'OpenDate': account.opendate, 'AccountType': account.type });
+        $scope.currentAccount = {};
         $scope.modal.hide();
     }
 
@@ -239,10 +250,11 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicM
 
     $scope.openAccountSave = function (title) {
         $scope.myTitle = title + " Account";
-        $scope.account.name = "";
-        $scope.account.startbalance = "";
-        $scope.account.opendate = "";
-        $scope.account.type = "";
+        //$scope.currentAccount.AccountName = "";
+        //$scope.currentAccount.StartBalance = "";
+        //$scope.currentAccount.OpenDate = "";
+        //$scope.currentAccount.AccountType = "";
+        $scope.currentAccount = {};
         $scope.modal.show();
     }
 
