@@ -4,11 +4,11 @@
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="right button button-icon icon ion-plus customIconSize" ng-click="openAccountSave('Add')"></button>
-        <button class="button button-icon ion-ios-more" ng-click="enableSorting(SortingIsEnabled)"></button>
+        <button class="button button-icon ion-ios-more" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive customHeaderSize" ng-click="enableSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            <ion-item ng-repeat="(id, account) in data.accounts" itemid="account" ng-click="closeSwipeOptions($event)" href="#" class="item-icon-right">
+            <ion-item ng-repeat="(id, account) in data.accounts" itemid="id" ng-click="closeSwipeOptions($event)" href="#" class="item-icon-right">
                 <div class="row">
                     <div class="col-50 customAccDesc">
                         <span>{{account.AccountName}}<small>{{account.AccountType}}</small></span>

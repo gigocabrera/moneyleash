@@ -1,3 +1,8 @@
+/* List Item Font Size */
+.item {
+    font-size: 18px;
+}
+
 /* Padding for all ion-item ng-repeat lists */
 .item-complex .item-content {
     padding: 12px 45px 12px 16px;
@@ -100,7 +105,7 @@ button.customHeaderSize {
 }
 .customAccDesc {
     text-align: left;
-    height: 35px;
+    height: 37px;
     font-weight: bold;
 }
 .customAccDesc span small {
@@ -110,9 +115,10 @@ button.customHeaderSize {
     left: 16px;
 }
 .customAccAmt {
+    height: 37px;
     font-weight: bold;
     padding-right: 20px;
-    font-size: 14px;
+    font-size: 16px;
 }
 .customAccAmt span {
     position: relative;

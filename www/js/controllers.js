@@ -66,9 +66,9 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state
             email: user.email,
             password: user.password
         }).then(function (authData) {
-            console.log(authData);
+            //console.log(authData);
             $rootScope.hide();
-            $state.go('app.dashboard');
+            $state.go('app.accounts');
         }).catch(function (error) {
             $rootScope.hide();
             $rootScope.notify('Error', 'Email or Password is incorrect!');
@@ -183,8 +183,12 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
     // SORT
     $scope.SortingIsEnabled = false;
+    $scope.reorderBtnText = '';
     $scope.enableSorting = function (isEnabled) {
+        console.log(isEnabled);
         $scope.SortingIsEnabled = !isEnabled;
+        $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
+        //button button-icon ion-ios-more
     };
     $scope.sortThisAccount = function (account, fromIndex, toIndex) {
         $scope.data.accounts.splice(fromIndex, 1);
@@ -208,7 +212,12 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $ionicListDelegate.closeOptionButtons();
         $scope.inEditMode = true;
         $scope.editingAccountIndex = index;
+
         $scope.currentAccount = $scope.data.accounts[index];
+
+        var displayDate = new Date($scope.currentAccount.OpenDate);
+        $scope.currentAccount.OpenDate = displayDate;
+
         $scope.myTitle = "Edit " + $scope.currentAccount.AccountName;
         $scope.modal.show();
     };
@@ -225,22 +234,27 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     }
 
     // SAVE
-    $scope.SaveAccount = function (account, isEditMode) {
-        if (isEditMode) {
+    $scope.SaveAccount = function (account) {
+        var timestamp = new Date($scope.currentAccount.OpenDate).getTime();
+        if ($scope.inEditMode) {
+            // update account
+            $scope.currentAccount.OpenDate = timestamp;
             $scope.data.accounts[$scope.editingAccountIndex] = $scope.currentAccount;
             $scope.currentContact = {};
             $scope.inEditMode = false;
         } else {
+            // save new account
             if ($scope.data.hasOwnProperty("accounts") !== true) {
                 $scope.data.accounts = [];
             }
-            $scope.data.accounts.push({ 'AccountName': account.AccountName, 'StartBalance': account.StartBalance, 'OpenDate': account.OpenDate, 'AccountType': account.AccountType });
+            $scope.data.accounts.push({ 'AccountName': $scope.currentAccount.AccountName, 'StartBalance': $scope.currentAccount.StartBalance, 'OpenDate': timestamp, 'AccountType': $scope.currentAccount.AccountType });
+            console.log("push complete");
         }
         $scope.currentAccount = {};
         $scope.modal.hide();
     }
 
-    // ACCOUNT SAVE - MODAL 
+    // OPEN ACCOUNT SAVE MODAL 
     $ionicModal.fromTemplateUrl('templates/accountsave.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -250,17 +264,9 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
     $scope.openAccountSave = function (title) {
         $scope.myTitle = title + " Account";
-        //$scope.currentAccount.AccountName = "";
-        //$scope.currentAccount.StartBalance = "";
-        //$scope.currentAccount.OpenDate = "";
-        //$scope.currentAccount.AccountType = "";
-        $scope.currentAccount = {};
+        //$scope.currentAccount = {};
         $scope.modal.show();
     }
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-    };
 
     // DELETE
     $scope.deleteAccount = function (account, index) {
