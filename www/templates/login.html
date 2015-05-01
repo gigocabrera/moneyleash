@@ -3,28 +3,28 @@
         <h4>{{'SIGNIN' | translate}}</h4>
     </ion-nav-bar>
     <ion-content>
-        <div class="list list-inset">
-            <label class="item item-input">
-                <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
-            </label>
-            <label class="item item-input">
-                <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
-            </label>
-        </div>
-        <div class="padding">
-            <button class="button button-block button-energized button-theme" ng-click="doLogIn(user)" ng-enter="doLogIn(user)" nav-clear>
-                {{"SIGNIN" | translate}}
-            </button>
-        </div>
-        <div class="row">
-            <div class="col">
-                <a href="#/forgot-password" class="mlLinksBlue">{{"REGISTER_FORGOTPASSWORD" | translate}}</a>
+        <form name="LoginForm" ng-submit="doLogin(user)">
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
+                </label>
+                <label class="item item-input">
+                    <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
+                </label>
             </div>
-            <div class="col">
-                <p class="text-center">
-                    <a href="#/register" class="mlLinksBlue">{{"REGISTER_DONTHAVEACCOUNT" | translate}}</a>
-                </p>
+            <div class="padding">
+                <input type="submit" class="button button-block button-energized button-theme" ng-click="doLogIn(user)" placeholder="{{"SIGNIN" | translate}}" />
+                <div class="row">
+                    <div class="col">
+                        <a href="#/forgot-password" class="mlLinksBlue">{{"REGISTER_FORGOTPASSWORD" | translate}}</a>
+                    </div>
+                    <div class="col">
+                        <p class="text-right">
+                            <a href="#/register" class="mlLinksBlue">{{"REGISTER_DONTHAVEACCOUNT" | translate}}</a>
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
     </ion-content>
 </ion-view>
