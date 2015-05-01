@@ -3,12 +3,10 @@
 var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $firebaseAuth, $ionicScrollDelegate, $state, Auth, fireBaseData, UserData) {
-
+moneyleashapp.run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
-
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -18,7 +16,6 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $firebaseAuth, $ionicScr
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
-
         $rootScope.settings = {
             'languages': [{
                 'prefix': 'en',
@@ -28,26 +25,6 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $firebaseAuth, $ionicScr
                 'name': 'Español'
             }]
         };
-
-        $rootScope.isAdmin = false;
-        $rootScope.authData = {};
-
-        Auth.$onAuth(function (authData) {
-            if (authData) {
-                $rootScope.authData = authData;
-            } else {
-                $rootScope.hide();
-                $state.go("intro");
-            }
-        });
-
-        $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
-            // We can catch the error thrown when the $requireAuth promise is rejected
-            // and redirect the user back to the home page
-            if (error === "AUTH_REQUIRED") {
-                $state.go("login");
-            }
-        });
     });
 })
 
@@ -77,7 +54,8 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         SETTINGS_LANGUAGE: "Change language",
         SETTINGS_EDIT_PROFILE: "Edit Profile",
         SETTINGS_QUIT_HOUSE: "Quit House",
-        REGISTER_FORGOTPASSWORD: "Forgot password"
+        REGISTER_FORGOTPASSWORD: "Forgot password",
+        PERSONALPROFILE: "Personal Profile"
     });
     $translateProvider.translations('es', {
         SIGNIN: "Ingresar",
@@ -98,7 +76,8 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         SETTINGS_LANGUAGE: "Cambiar lenguaje",
         SETTINGS_EDIT_PROFILE: "Modificar perfil",
         SETTINGS_QUIT_HOUSE: "Abandonar Casa",
-        REGISTER_FORGOTPASSWORD: "Perdió contraseña"
+        REGISTER_FORGOTPASSWORD: "Perdió contraseña",
+        PERSONALPROFILE: "Perfil del Usuario"
 
     });
     $translateProvider.preferredLanguage("en");
@@ -126,7 +105,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           }
       })
     
-      // SIGN UP
+      // REGISTER
       .state('register', {
           url: "/register",
           templateUrl: "templates/register.html",
@@ -246,6 +225,17 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
               'menuContent': {
                   templateUrl: "templates/settings.html",
                   controller: 'SettingsController'
+              }
+          }
+      })
+
+      // PERSONAL PROFILE
+      .state('app.personalprofile', {
+          url: "/personalprofile",
+          views: {
+              'menuContent': {
+                  templateUrl: "templates/personalprofile.html",
+                  controller: 'PersonalProfileController'
               }
           }
       })
