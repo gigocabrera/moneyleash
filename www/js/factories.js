@@ -66,6 +66,14 @@ angular.module('moneyleash.factories', [])
                 accounts = $firebaseArray(accountRef);
                 return deferred.promise;
             },
+            getAccountTypes: function (email) {
+                var deferred = $q.defer();
+                var accounttypeRef = fb.child("members/" + escapeEmailAddress(email) + "/accounttypes/");
+                accounttypeRef.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
             getAccount: function (userid, accountid) {
                 var deferred = $q.defer();
                 var accountRef = fb.child("users/" + userid + "/accounts/" + accountid);

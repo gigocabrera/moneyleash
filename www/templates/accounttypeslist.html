@@ -1,0 +1,21 @@
+<ion-view title="Account Types" ng-init="listItems()">
+    <ion-nav-buttons side="right">
+        <button class="right button button-icon icon ion-plus customIconSize" ng-click="editAccountType('Add')"></button>
+        <button class="button button-icon ion-ios-more" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive customHeaderSize" ng-click="enableSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
+            <ion-item ng-repeat="item in items" ng-click="closeSwipeOptions($event)" href="#" class="item-icon-right">
+                    <span>{{item.typename}}</span>
+                <ion-option-button class="button-energized" ng-click="editItem(id)">
+                    Edit
+                </ion-option-button>
+                <ion-option-button class="button-assertive" ng-click="deleteItem(item, id)">
+                    Delete
+                </ion-option-button>
+                <i class="icon ion-chevron-right"></i>
+                <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

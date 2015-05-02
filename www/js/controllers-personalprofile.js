@@ -2,15 +2,21 @@
 // REGISTER CONTROLLER
 moneyleashapp.controller('PersonalProfileController', function ($scope, $rootScope, $state, $firebaseAuth, UserData) {
 
-    $scope.user = {
-        firstname: "",
-        lastname: "",
-        email: "",
-        groupid: 0,
-        password: ""
+    $scope.getProfile = function () {
+        
+        var authData = fb.getAuth();
+        UserData.getMember(authData.password.email).then(function (user) {
+            $scope.user = user;
+        });
     };
 
-    $scope.save = function (user) {
-        console.log("saved here");
+    $scope.saveProfile = function (user) {
+        var authData = fb.getAuth();
+        var usersRef = UserData.ref();
+        var myUser = usersRef.child(escapeEmailAddress(authData.password.email));
+        myUser.update(user, function () {
+            $rootScope.hide();
+            $state.go('app.settings');
+        });
     };
 })

@@ -2804,7 +2804,9 @@
     <Content Include="www\js\angularfire.min.js" />
     <Content Include="www\js\app.js" />
     <Content Include="www\js\controllers-accounts.js" />
+    <Content Include="www\js\controllers-accounttypes.js" />
     <Content Include="www\js\controllers-personalprofile.js" />
+    <Content Include="www\js\controllers-settings.js" />
     <Content Include="www\js\controllers.js" />
     <Content Include="www\js\directives.js" />
     <Content Include="www\js\factories.js" />
@@ -2849,7 +2851,8 @@
     <Content Include="www\templates\account.html" />
     <Content Include="www\templates\accounts.html" />
     <Content Include="www\templates\accountsave.html" />
-    <Content Include="www\templates\accounttypes.html" />
+    <Content Include="www\templates\accounttypesave.html" />
+    <Content Include="www\templates\accounttypeslist.html" />
     <Content Include="www\templates\budgets.html" />
     <Content Include="www\templates\categories.html" />
     <Content Include="www\templates\dashboard.html" />

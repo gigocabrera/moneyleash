@@ -1,7 +1,8 @@
 
-// ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject, AccountsData) {
+// ACCOUNT TYPES CONTROLLER
+moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject, AccountsData) {
 
+    $scope.items = {};
     $scope.inEditMode = false;
     $scope.editIndex = 0;
 
@@ -12,9 +13,10 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $scope.SortingIsEnabled = !isEnabled;
         $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
     };
-    $scope.sortThisAccount = function (account, fromIndex, toIndex) {
-        $scope.data.accounts.splice(fromIndex, 1);
-        $scope.data.accounts.splice(toIndex, 0, account);
+    $scope.moveItem = function (item, fromIndex, toIndex) {
+        //console.log($scope.items);
+        $scope.items.splice(fromIndex, 1);
+        $scope.items.splice(toIndex, 0, item);
     };
 
     // SWIPE
@@ -30,7 +32,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     };
 
     // EDIT
-    $scope.editAccount = function (index) {
+    $scope.editItem = function (index) {
         $rootScope.show('');
         $ionicListDelegate.closeOptionButtons();
         $scope.inEditMode = true;
@@ -43,30 +45,30 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         };
 
         fbAuth = fb.getAuth();
-        AccountsData.getAccount(fbAuth.uid, index).then(function (account) {
-            $scope.currentAccount = account;
-            $scope.myTitle = "Edit " + $scope.currentAccount.AccountName;
+        AccountsData.getAccountType(escapeEmailAddress(fbAuth.password.email)).then(function (accounttype) {
+            $scope.accounttype = accounttype;
+            $scope.myTitle = "Edit " + $scope.accounttype.Name;
         });
         $scope.modal.show();
         $rootScope.hide();
     };
 
     // LIST
-    $scope.list = function () {
+    $scope.listItems = function () {
         $rootScope.show('');
         fbAuth = fb.getAuth();
         if (fbAuth) {
             $rootScope.show('');
-            AccountsData.getAccounts(fbAuth.uid).then(function (output) {
+            AccountsData.getAccountTypes(escapeEmailAddress(fbAuth.password.email)).then(function (output) {
                 $rootScope.hide();
-                $scope.accounts = output;
+                $scope.items = output;
             });
         }
         $rootScope.hide();
     }
 
     // SAVE
-    $scope.SaveAccount = function (account) {
+    $scope.SaveAccountType = function (account) {
 
         /* Prepare Date */
         var temp = {
@@ -104,8 +106,8 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $scope.modal.hide();
     }
 
-    // OPEN ACCOUNT SAVE MODAL 
-    $ionicModal.fromTemplateUrl('templates/accountsave.html', {
+    // OPEN ACCOUNT TYPE MODAL 
+    $ionicModal.fromTemplateUrl('templates/accounttypesave.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
@@ -124,7 +126,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     }
 
     // DELETE
-    $scope.deleteAccount = function (account, index) {
+    $scope.deleteItem = function (account, index) {
 
         // Show the action sheet
         var hideSheet = $ionicActionSheet.show({

@@ -1,23 +1,31 @@
-<ion-view title="{{'PERSONALPROFILE' | translate}}">
-    <ion-content>
-        <div class="list list-inset">
+<ion-view title="{{'PERSONALPROFILE' | translate}}" ng-init="getProfile()">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-positive customHeaderSize" ng-click="saveProfile(user)">
+            Save
+        </button>
+    </ion-nav-buttons>
+    <ion-content has-header="true">
+        <div class="list">
             <label class="item item-input">
-                <input type="text" placeholder="{{'FORM_FIRSTNAME' | translate}}" ng-model="user.firstname">
+                <span class="input-label">{{'FORM_FIRSTNAME' | translate}}</span>
+                <input type="text" ng-model="user.firstname" />
             </label>
             <label class="item item-input">
-                <input type="text" placeholder="{{'FORM_LASTNAME' | translate}}" ng-model="user.lastname">
+                <span class="input-label">{{'FORM_LASTNAME' | translate}}</span>
+                <input type="text" ng-model="user.lastname" />
             </label>
             <label class="item item-input">
-                <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
+                <span class="input-label">{{'FORM_EMAIL' | translate}}</span>
+                {{user.email}}
             </label>
             <label class="item item-input">
-                <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
+                <span class="input-label">{{'FORM_CREATED' | translate}}</span>
+                {{user.created | date:'d MMMM yyyy h:mm a'}}
+            </label>
+            <label class="item item-input">
+                <span class="input-label">{{'FORM_UPDATED' | translate}}</span>
+                {{user.updated | date:'d MMMM yyyy h:mm a'}}
             </label>
         </div>
-        <div class="padding">
-            <button class="button button-block button-energized button-theme" ng-click="save(user)" ng-enter=" save(user)" nav-clear>
-                Save
-            </button>
-        </div>
-</ion-content>
+    </ion-content>
 </ion-view>

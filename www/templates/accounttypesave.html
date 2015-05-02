@@ -1,0 +1,29 @@
+<div class="modal">
+    <ion-header-bar class="bar-stable">
+        <button class="left button button-clear button-positive customHeaderSize" ng-click="modal.hide()">Cancel</button>
+        <h1 class="title">{{myTitle}}</h1>
+        <button class="right button button-clear button-positive customHeaderSize" ng-click="SaveAccount(currentAccount)">Save</button>
+    </ion-header-bar>
+    <ion-content has-header="true" padding="true">
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">Account Name</span>
+                <input type="text" ng-model="currentAccount.AccountName">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Begining Balance</span>
+                <input type="text" ng-model="currentAccount.StartBalance" valid-number />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Start Date</span>
+                <ionic-datepicker idate="currentAccount.StartDate">
+                    <button class="button button-block button-positive"> {{ currentAccount.StartDate | date:'dd - MMMM - yyyy' }} </button>
+                </ionic-datepicker>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Account Type</span>
+                <input type="text" ng-model="currentAccount.AccountType">
+            </label>
+        </div>
+    </ion-content>
+</div>

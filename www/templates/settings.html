@@ -14,12 +14,20 @@
                     <i class="icon ion-chevron-right"></i>
                 </div>
             </ion-item>
+            <ion-item ng-click="showGroupProfile($event)" href="#" class="item-icon-right">
+                <div class="customPaddingSettings">
+                    Group Profile
+                    <i class="icon ion-chevron-right"></i>
+                </div>
+            </ion-item>
         </ion-list>
         <ul class="list">
             <div class="item item-divider">ACCOUNT SETTINGS</div>
             <ion-item ng-click="showAccountTypes($event)" href="#" class="item-icon-right">
-                <h2 class="menu-text">Account Types</h2>
-                <i class="icon ion-chevron-right"></i>
+                <div class="customPaddingSettings">
+                    Account Types
+                    <i class="icon ion-chevron-right"></i>
+                </div>
             </ion-item>
             <ion-toggle ng-model="wifi" toggle-class="toggle-positive">Wi-Fi</ion-toggle>
             <ion-toggle ng-model="bluetooth" toggle-class="toggle-calm">Bluetooth</ion-toggle>

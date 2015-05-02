@@ -5,7 +5,7 @@ var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 // Ionic MoneyLeash App, v1.0
 var moneyleashapp = angular.module('moneyleash', ['ionic', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker'])
 
-moneyleashapp.run(function ($ionicPlatform) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -55,7 +55,9 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         SETTINGS_EDIT_PROFILE: "Edit Profile",
         SETTINGS_QUIT_HOUSE: "Quit House",
         REGISTER_FORGOTPASSWORD: "Forgot password",
-        PERSONALPROFILE: "Personal Profile"
+        PERSONALPROFILE: "Personal Profile",
+        FORM_CREATED: "Created",
+        FORM_UPDATED: "Updated",
     });
     $translateProvider.translations('es', {
         SIGNIN: "Ingresar",
@@ -77,7 +79,9 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         SETTINGS_EDIT_PROFILE: "Modificar perfil",
         SETTINGS_QUIT_HOUSE: "Abandonar Casa",
         REGISTER_FORGOTPASSWORD: "Perdió contraseña",
-        PERSONALPROFILE: "Perfil del Usuario"
+        PERSONALPROFILE: "Perfil del Usuario",
+        FORM_CREATED: "Creado",
+        FORM_UPDATED: "Modificado"
 
     });
     $translateProvider.preferredLanguage("en");
@@ -157,12 +161,14 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
               }
           }
       })
+
+      // ACCOUNT TYPES
       .state('app.accounttypes', {
-          url: "/accounts",
+          url: "/accounttypes",
           views: {
               'menuContent': {
-                  templateUrl: "templates/accounttypes.html",
-                  controller: 'AccountsController'
+                  templateUrl: "templates/accounttypeslist.html",
+                  controller: 'AccountTypesController'
               }
           }
       })
