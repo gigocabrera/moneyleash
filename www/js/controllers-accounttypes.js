@@ -1,6 +1,67 @@
 
+
+moneyleashapp.controller("AccountTypesController", ["$scope", "AccountTypes",
+    function ($scope, AccountTypes, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet) {
+        
+        $scope.items = {};
+        $scope.inEditMode = false;
+        $scope.editIndex = 0;
+
+        // SORT
+        $scope.SortingIsEnabled = false;
+        $scope.reorderBtnText = '';
+        $scope.enableSorting = function (isEnabled) {
+            $scope.SortingIsEnabled = !isEnabled;
+            $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
+        };
+        $scope.moveItem = function (item, fromIndex, toIndex) {
+            $scope.items.splice(fromIndex, 1);
+            $scope.items.splice(toIndex, 0, item);
+        };
+
+        // SWIPE
+        $scope.listCanSwipe = true;
+
+        $scope.closeSwipe = function ($event) {
+            $event.stopPropagation();
+            var options = $event.currentTarget.querySelector('.item-options');
+            if (!options.classList.contains('invisible')) {
+                $ionicListDelegate.closeOptionButtons();
+            } else {
+                $state.go('account');
+            }
+        };
+
+        // OPEN ACCOUNT TYPE MODAL 
+        $ionicModal.fromTemplateUrl('templates/accounttypesave.html', {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                    }).then(function (modal) {
+            $scope.modal = modal
+        })
+
+        $scope.openAccountSave = function(title) {
+            $scope.myTitle = title + " Account Type";
+            $scope.item = {
+                typename: "",
+                icon: "",
+                created: Date.now(),
+                updated: Date.now()
+                };
+            $scope.modal.show();
+        }
+
+        // GET ACCOUNT TYPES
+        fbAuth = fb.getAuth();
+        if (fbAuth) {
+            AccountTypes(escapeEmailAddress(fbAuth.password.email)).$bindTo($scope, "items");
+        }
+    }
+])
+
+
 // ACCOUNT TYPES CONTROLLER
-moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject, AccountsData) {
+moneyleashapp.controller('AccountTypesController444', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, AccountsData, $firebaseObject) {
 
     $scope.items = {};
     $scope.inEditMode = false;
@@ -54,18 +115,13 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
     };
 
     // LIST
-    $scope.listItems = function () {
-        $rootScope.show('');
+    $scope.listItems = function ($scope, AccountTypes) {
         fbAuth = fb.getAuth();
         if (fbAuth) {
-            $rootScope.show('');
-            AccountsData.getAccountTypes(escapeEmailAddress(fbAuth.password.email)).then(function (output) {
-                $rootScope.hide();
-                $scope.items = output;
-            });
+            var syncObject = $firebaseObject(fb.child("members/" + escapeEmailAddress(fbAuth.password.email) + "/accounttypes/"));
+            syncObject.$bindTo($scope, "items");
         }
-        $rootScope.hide();
-    }
+    };
 
     // SAVE
     $scope.SaveAccountType = function (account) {

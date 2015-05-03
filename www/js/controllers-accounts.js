@@ -1,9 +1,15 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject, AccountsData) {
+moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
 
     $scope.inEditMode = false;
-    $scope.editIndex = 0;
+    $scope.editingAccountIndex = 0;
+    $scope.currentAccount = {
+        AccountName: "",
+        StartBalance: "",
+        OpenDate: "",
+        AccountType: ""
+    };
 
     // SORT
     $scope.SortingIsEnabled = false;
@@ -29,81 +35,6 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         }
     };
 
-    // EDIT
-    $scope.editAccount = function (index) {
-        $rootScope.show('');
-        $ionicListDelegate.closeOptionButtons();
-        $scope.inEditMode = true;
-        $scope.editIndex = index;
-        $scope.currentAccount = {
-            AccountName: "",
-            StartBalance: "",
-            StartDate: "",
-            AccountType: ""
-        };
-
-        fbAuth = fb.getAuth();
-        AccountsData.getAccount(fbAuth.uid, index).then(function (account) {
-            $scope.currentAccount = account;
-            $scope.myTitle = "Edit " + $scope.currentAccount.AccountName;
-        });
-        $scope.modal.show();
-        $rootScope.hide();
-    };
-
-    // LIST
-    $scope.list = function () {
-        $rootScope.show('');
-        fbAuth = fb.getAuth();
-        if (fbAuth) {
-            $rootScope.show('');
-            AccountsData.getAccounts(fbAuth.uid).then(function (output) {
-                $rootScope.hide();
-                $scope.accounts = output;
-            });
-        }
-        $rootScope.hide();
-    }
-
-    // SAVE
-    $scope.SaveAccount = function (account) {
-
-        /* Prepare Date */
-        var temp = {
-            year: $scope.currentAccount.StartDate.getFullYear(),
-            month: $scope.currentAccount.StartDate.getMonth(),
-            day: $scope.currentAccount.StartDate.getDate()
-        };
-        $scope.currentAccount.StartDate = temp.year + "-" + temp.month + "-" + temp.day
-
-        if ($scope.inEditMode) {
-
-            fbAuth = fb.getAuth();
-
-            console.log("uid " + fbAuth.uid);
-            console.log("currentAccount " + $scope.currentAccount.StartDate);
-            console.log("editIndex " + $scope.editIndex);
-
-            AccountsData.updateAccount($scope.currentAccount, fbAuth.uid);
-
-            //$scope.data.accounts[$scope.editIndex] = $scope.currentAccount;
-            $scope.inEditMode = false;
-        } else {
-            // save new account
-            if ($scope.data.hasOwnProperty("accounts") !== true) {
-                $scope.data.accounts = [];
-            }
-            $scope.data.accounts.push({
-                'AccountName': $scope.currentAccount.AccountName,
-                'StartBalance': $scope.currentAccount.StartBalance,
-                'StartDate': $scope.currentAccount.StartDate,
-                'AccountType': $scope.currentAccount.AccountType
-            });
-        }
-        $scope.currentAccount = {};
-        $scope.modal.hide();
-    }
-
     // OPEN ACCOUNT SAVE MODAL 
     $ionicModal.fromTemplateUrl('templates/accountsave.html', {
         scope: $scope,
@@ -114,18 +45,54 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
     $scope.openAccountSave = function (title) {
         $scope.myTitle = title + " Account";
-        $scope.currentAccount = {
-            AccountName: "",
-            StartBalance: "",
-            StartDate: "",
-            AccountType: ""
-        };
         $scope.modal.show();
     }
 
-    // DELETE
-    $scope.deleteAccount = function (account, index) {
+    // LIST
+    $scope.list = function () {
+        $rootScope.show('');
+        fbAuth = fb.getAuth();
+        if (fbAuth) {
+            var syncObject = $firebaseObject(fb.child("users/" + fbAuth.uid));
+            syncObject.$bindTo($scope, "data");
+        }
+        $rootScope.hide();
+    }
 
+    // EDIT
+    $scope.editItem = function (index) {
+        $ionicListDelegate.closeOptionButtons();
+        $scope.inEditMode = true;
+        $scope.editingAccountIndex = index;
+        $scope.currentAccount = $scope.data.accounts[index];
+        var displayDate = new Date($scope.currentAccount.OpenDate);
+        $scope.currentAccount.OpenDate = displayDate;
+        $scope.myTitle = "Edit " + $scope.currentAccount.AccountName;
+        $scope.modal.show();
+    };
+
+    // SAVE
+    $scope.SaveAccount = function (account) {
+        var timestamp = new Date($scope.currentAccount.OpenDate).getTime();
+        if ($scope.inEditMode) {
+            // update account
+            $scope.currentAccount.OpenDate = timestamp;
+            $scope.data.accounts[$scope.editingAccountIndex] = $scope.currentAccount;
+            $scope.currentContact = {};
+            $scope.inEditMode = false;
+        } else {
+            // save new account
+            if ($scope.data.hasOwnProperty("accounts") !== true) {
+                $scope.data.accounts = [];
+            }
+            $scope.data.accounts.push({ 'AccountName': $scope.currentAccount.AccountName, 'StartBalance': $scope.currentAccount.StartBalance, 'OpenDate': timestamp, 'AccountType': $scope.currentAccount.AccountType });
+        }
+        $scope.currentAccount = {};
+        $scope.modal.hide();
+    }
+
+    // DELETE
+    $scope.deleteItem = function (account, index) {
         // Show the action sheet
         var hideSheet = $ionicActionSheet.show({
             destructiveText: 'Delete Account',

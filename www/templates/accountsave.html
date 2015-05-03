@@ -16,12 +16,10 @@
             </label>
             <label class="item item-input">
                 <span class="input-label">Start Date</span>
-                <ionic-datepicker idate="currentAccount.StartDate">
-                    <button class="button button-block button-positive"> {{ currentAccount.StartDate | date:'dd - MMMM - yyyy' }} </button>
-                </ionic-datepicker>
+                <input type="date" ng-model="currentAccount.OpenDate">
             </label>
             <label class="item item-input">
-                <span class="input-label">Account Type</span>
+                <span class="input-label">Type</span>
                 <input type="text" ng-model="currentAccount.AccountType">
             </label>
         </div>

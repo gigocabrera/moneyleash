@@ -54,25 +54,29 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory('AccountsData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $state, $firebaseArray, $firebaseAuth, $q) {
-        var ref = fb.child("users");
+    .factory("AccountTypes", ["$firebaseObject",
+        function($firebaseObject) {
+            return function(email) {
+                var ref = fb.child("members/" + escapeEmailAddress(email) + "/accounttypes/");
+                return $firebaseObject(ref);
+            }
+        }
+    ])
+
+
+    .factory('AccountsData', function ($firebaseObject, $firebaseArray, $rootScope, $ionicPopup, $ionicLoading, $state) {
+        var ref = fb.child("members");
         return {
             ref: function () {
                 return ref;
             },
             getAccounts: function (userid) {
-                var deferred = $q.defer();
-                var accountRef = fb.child("users/" + userid + "/accounts/");
-                accounts = $firebaseArray(accountRef);
-                return deferred.promise;
+                var ref = fb.child("users/" + userid + "/accounts/");
+                accounts = $firebaseArray(ref);
             },
             getAccountTypes: function (email) {
-                var deferred = $q.defer();
-                var accounttypeRef = fb.child("members/" + escapeEmailAddress(email) + "/accounttypes/");
-                accounttypeRef.once("value", function (snap) {
-                    deferred.resolve(snap.val());
-                });
-                return deferred.promise;
+                var ref = fb.child("members/" + escapeEmailAddress(email) + "/accounttypes/");
+                return $firebaseObject(ref);
             },
             getAccount: function (userid, accountid) {
                 var deferred = $q.defer();
