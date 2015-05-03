@@ -3,7 +3,7 @@
 moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
 
     $scope.inEditMode = false;
-    $scope.editingAccountIndex = 0;
+    $scope.editIndex= 0;
     $scope.currentAccount = {
         AccountName: "",
         StartBalance: "",
@@ -18,7 +18,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $scope.SortingIsEnabled = !isEnabled;
         $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
     };
-    $scope.sortThisAccount = function (account, fromIndex, toIndex) {
+    $scope.moveItem = function (account, fromIndex, toIndex) {
         $scope.data.accounts.splice(fromIndex, 1);
         $scope.data.accounts.splice(toIndex, 0, account);
     };
@@ -43,7 +43,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $scope.modal = modal
     })
 
-    $scope.openAccountSave = function (title) {
+    $scope.openEntryForm = function (title) {
         $scope.myTitle = title + " Account";
         $scope.modal.show();
     }
@@ -63,7 +63,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     $scope.editItem = function (index) {
         $ionicListDelegate.closeOptionButtons();
         $scope.inEditMode = true;
-        $scope.editingAccountIndex = index;
+        $scope.editIndex= index;
         $scope.currentAccount = $scope.data.accounts[index];
         var displayDate = new Date($scope.currentAccount.OpenDate);
         $scope.currentAccount.OpenDate = displayDate;
