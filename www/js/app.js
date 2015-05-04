@@ -167,7 +167,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           url: "/accounttypes",
           views: {
               'menuContent': {
-                  templateUrl: "templates/accounttypeslist.html",
+                  templateUrl: "templates/accounttypes.html",
                   controller: 'AccountTypesController'
               }
           }

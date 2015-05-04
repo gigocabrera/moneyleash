@@ -2,25 +2,17 @@
     <ion-header-bar class="bar-stable">
         <button class="left button button-clear button-positive customHeaderSize" ng-click="modal.hide()">Cancel</button>
         <h1 class="title">{{myTitle}}</h1>
-        <button class="right button button-clear button-positive customHeaderSize" ng-click="save(item)">Save</button>
+        <button class="right button button-clear button-positive customHeaderSize" ng-click="SaveItem(currentItem)">Save</button>
     </ion-header-bar>
     <ion-content has-header="true" padding="true">
         <div class="list">
             <label class="item item-input">
                 <span class="input-label">Account Type Name</span>
-                <input type="text" ng-model="item.typename">
+                <input type="text" ng-model="currentItem.AccountTypeName" />
             </label>
             <label class="item item-input">
                 <span class="input-label">Icon</span>
-                <input type="text" ng-model="item.icon" />
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Created</span>
-                <input type="text" ng-model="item.created" />
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Updated</span>
-                <input type="text" ng-model="item.updated">
+                <input type="text" ng-model="currentItem.Icon"/>
             </label>
         </div>
     </ion-content>

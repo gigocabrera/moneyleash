@@ -73,7 +73,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     $scope.SaveItem = function (account) {
         if ($scope.inEditMode) {
             // edit item
-            //$scope.data.accounts[$scope.editingAccountIndex] = $scope.currentItem;
+            //$scope.data.accounts[$scope.editIndex] = $scope.currentItem;
             //$scope.currentContact = {};
             //$scope.inEditMode = false;
             console.log("Normal date " + $scope.currentItem.OpenDate);
