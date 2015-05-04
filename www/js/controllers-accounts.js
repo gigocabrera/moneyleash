@@ -4,10 +4,11 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
     $scope.inEditMode = false;
     $scope.editIndex= 0;
-    $scope.currentAccount = {
+    $scope.currentItem = {
         AccountName: "",
         StartBalance: "",
         OpenDate: "",
+        DatePickerDate: "",
         AccountType: ""
     };
 
@@ -31,7 +32,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            $state.go('account');
+            $state.go('app.account');
         }
     };
 
@@ -42,7 +43,6 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     }).then(function (modal) {
         $scope.modal = modal
     })
-
     $scope.openEntryForm = function (title) {
         $scope.myTitle = title + " Account";
         $scope.modal.show();
@@ -53,7 +53,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $rootScope.show('');
         fbAuth = fb.getAuth();
         if (fbAuth) {
-            var syncObject = $firebaseObject(fb.child("users/" + fbAuth.uid));
+            var syncObject = $firebaseObject(fb.child("members/" + escapeEmailAddress(fbAuth.password.email)));
             syncObject.$bindTo($scope, "data");
         }
         $rootScope.hide();
@@ -64,30 +64,28 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $ionicListDelegate.closeOptionButtons();
         $scope.inEditMode = true;
         $scope.editIndex= index;
-        $scope.currentAccount = $scope.data.accounts[index];
-        var displayDate = new Date($scope.currentAccount.OpenDate);
-        $scope.currentAccount.OpenDate = displayDate;
-        $scope.myTitle = "Edit " + $scope.currentAccount.AccountName;
+        $scope.currentItem = $scope.data.accounts[index];
+        $scope.myTitle = "Edit " + $scope.currentItem.AccountName;
         $scope.modal.show();
     };
 
     // SAVE
-    $scope.SaveAccount = function (account) {
-        var timestamp = new Date($scope.currentAccount.OpenDate).getTime();
+    $scope.SaveItem = function (account) {
         if ($scope.inEditMode) {
-            // update account
-            $scope.currentAccount.OpenDate = timestamp;
-            $scope.data.accounts[$scope.editingAccountIndex] = $scope.currentAccount;
-            $scope.currentContact = {};
-            $scope.inEditMode = false;
+            // edit item
+            //$scope.data.accounts[$scope.editingAccountIndex] = $scope.currentItem;
+            //$scope.currentContact = {};
+            //$scope.inEditMode = false;
+            console.log("Normal date " + $scope.currentItem.OpenDate);
+            console.log("DatePicker date " + $scope.currentItem.DatePickerDate);
         } else {
-            // save new account
+            // new item
             if ($scope.data.hasOwnProperty("accounts") !== true) {
                 $scope.data.accounts = [];
             }
-            $scope.data.accounts.push({ 'AccountName': $scope.currentAccount.AccountName, 'StartBalance': $scope.currentAccount.StartBalance, 'OpenDate': timestamp, 'AccountType': $scope.currentAccount.AccountType });
+            $scope.data.accounts.push({ 'AccountName': $scope.currentItem.AccountName, 'StartBalance': $scope.currentItem.StartBalance, 'OpenDate': $scope.currentItem.OpenDate, 'AccountType': $scope.currentItem.AccountType });
         }
-        $scope.currentAccount = {};
+        $scope.currentItem = {};
         $scope.modal.hide();
     }
 
