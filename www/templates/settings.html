@@ -20,8 +20,6 @@
                     <i class="icon ion-chevron-right"></i>
                 </div>
             </ion-item>
-        </ion-list>
-        <ul class="list">
             <div class="item item-divider">ACCOUNT SETTINGS</div>
             <ion-item ng-click="showAccountTypes($event)" href="#" class="item-icon-right">
                 <div class="customPaddingSettings">
@@ -29,28 +27,13 @@
                     <i class="icon ion-chevron-right"></i>
                 </div>
             </ion-item>
-            <ion-toggle ng-model="wifi" toggle-class="toggle-positive">Wi-Fi</ion-toggle>
-            <ion-toggle ng-model="bluetooth" toggle-class="toggle-calm">Bluetooth</ion-toggle>
-            <ion-toggle ng-model="personalHotspot" toggle-class="toggle-dark">Personal Hotspot</ion-toggle>
-            <div class="item item-divider">CHECKBOXES</div>
-            <ion-checkbox ng-model="checkOpt1">Option 1</ion-checkbox>
-            <ion-checkbox ng-model="checkOpt2">Option 2</ion-checkbox>
-            <ion-checkbox ng-model="checkOpt3">Option 3</ion-checkbox>
-            <div class="item item-divider">RADIO</div>
-            <ion-radio ng-model="radioChoice" ng-value="'A'">Choose A</ion-radio>
-            <ion-radio ng-model="radioChoice" ng-value="'B'">Choose B</ion-radio>
-            <ion-radio ng-model="radioChoice" ng-value="'C'">Choose C</ion-radio>
-            <div class="item item-divider">RANGES</div>
-            <div class="range">
-                <i class="icon ion-volume-low"></i>
-                <input type="range" name="volume">
-                <i class="icon ion-volume-high"></i>
-            </div>
-            <div class="item range range-positive">
-                <i class="icon ion-ios-sunny-outline"></i>
-                <input type="range" name="volume" min="0" max="100" value="33">
-                <i class="icon ion-ios-sunny"></i>
-            </div>
+            <div class="item item-divider">OTHER SETTINGS</div>
+            <ion-item ng-click="showAbout($event)" href="#" class="item-icon-right">
+                <div class="customPaddingSettings">
+                    About
+                    <i class="icon ion-chevron-right"></i>
+                </div>
+            </ion-item>
             <div class="item item-divider"></div>
             <a class="item logout-option" ng-click="showLogOutMenu()">
                 Logout
@@ -59,6 +42,6 @@
             <a class="button button-full button-assertive" ng-click="deleteAllData()">
                 Delete All Data
             </a>
-        </ul>
+        </ion-list>
     </ion-content>
 </ion-view>

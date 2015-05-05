@@ -3,7 +3,8 @@
 moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
 
     $scope.inEditMode = false;
-    $scope.editIndex= 0;
+    $scope.editIndex = 0;
+    $scope.UserEmail = '';
 
     // SORT
     $scope.SortingIsEnabled = false;
@@ -19,13 +20,13 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
     // SWIPE
     $scope.listCanSwipe = true;
-    $scope.closeSwipeOptions = function ($event) {
+    $scope.handleSwipeOptions = function ($event, account, id) {
         $event.stopPropagation();
         var options = $event.currentTarget.querySelector('.item-options');
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            $state.go('app.account');
+            $state.go('app.account', { userId: $scope.UserEmail, accountId: id, accountName: account.AccountName });
         }
     };
 
@@ -59,6 +60,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $rootScope.show('');
         fbAuth = fb.getAuth();
         if (fbAuth) {
+            $scope.UserEmail = escapeEmailAddress(fbAuth.password.email);
             var syncObject = $firebaseObject(fb.child("members/" + escapeEmailAddress(fbAuth.password.email)));
             syncObject.$bindTo($scope, "data");
         }

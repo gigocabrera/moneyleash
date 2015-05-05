@@ -35,6 +35,13 @@ moneyleashapp.controller('AppCtrl', function ($scope, $rootScope, $state, $ionic
     };
 })
 
+// ABOUT CONTROLLER
+moneyleashapp.controller('AboutController', function ($scope, $ionicSlideBoxDelegate) {
+    $scope.navSlide = function (index) {
+        $ionicSlideBoxDelegate.slide(index, 500);
+    }
+})
+
 // INTRO CONTROLLER
 moneyleashapp.controller('IntroController', function ($scope, $state, $rootScope) {
     $scope.login = function () {

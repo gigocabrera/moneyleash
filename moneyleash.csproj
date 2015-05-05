@@ -2849,12 +2849,13 @@
     <Content Include="www\lib\ionic\js\ionic.js" />
     <Content Include="www\lib\ionic\js\ionic.min.js" />
     <Content Include="www\templates\about.html" />
-    <Content Include="www\templates\accountsingle.html" />
+    <Content Include="www\templates\accounttransactions.html" />
     <Content Include="www\templates\accounts.html" />
     <Content Include="www\templates\accountsave.html" />
     <Content Include="www\templates\accountsinglesave.html" />
     <Content Include="www\templates\accounttypesave.html" />
     <Content Include="www\templates\accounttypes.html" />
+    <Content Include="www\templates\accounttyselect.html" />
     <Content Include="www\templates\budgets.html" />
     <Content Include="www\templates\categories.html" />
     <Content Include="www\templates\dashboard.html" />

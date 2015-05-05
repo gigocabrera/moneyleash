@@ -274,8 +274,11 @@ a.mlLinksGray {
     background-color: #EAEAEA !important;
 }
 
-/***************/
 /* SETTINGS SCREEN */
 .customPaddingSettings {
     padding: 0px 40px 0px 11px;
 }
+
+/* ABOUT SCREEN */
+.slider { height: 100%; text-align: center }
+.scroll { height: 100%; }

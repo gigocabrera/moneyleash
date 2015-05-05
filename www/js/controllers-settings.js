@@ -21,6 +21,9 @@ moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $st
     $scope.showAccountTypes = function () {
         $state.go('app.accounttypes');
     };
+    $scope.showAbout = function () {
+        $state.go('app.about');
+    };
 
     // Triggered on a the logOut button click
     $scope.showLogOutMenu = function () {
