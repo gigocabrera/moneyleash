@@ -1,6 +1,6 @@
 <div class="modal">
     <ion-header-bar class="bar-stable">
-        <button class="left button button-clear button-positive customHeaderSize" ng-click="modal.hide()">Cancel</button>
+        <button class="left button button-clear button-positive customHeaderSize" ng-click="closeEntryForm()">Cancel</button>
         <h1 class="title">{{myTitle}}</h1>
         <button class="right button button-clear button-positive customHeaderSize" ng-click="SaveItem(currentItem)">Save</button>
     </ion-header-bar>
@@ -15,13 +15,9 @@
                 <input type="text" ng-model="currentItem.StartBalance" valid-number />
             </label>
             <label class="item item-input">
-                <span class="input-label">Start Date</span>
-                <input type="date" ng-model="currentItem.OpenDate">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Datepicker Date</span>
-                <ionic-datepicker idate="currentItem.DatePickerDate">
-                    <button class="button button-block button-positive"> {{ currentItem.DatePickerDate | date:'dd - MMMM - yyyy' }} </button>
+                <span class="input-label">Open Date</span>
+                <ionic-datepicker idate="currentItem.OpenDate">
+                    <button class="button button-clear button-dark"> {{ currentItem.OpenDate | date:'dd - MMMM - yyyy' }} </button>
                 </ionic-datepicker>
             </label>
             <label class="item item-input">

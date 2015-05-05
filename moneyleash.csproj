@@ -2804,6 +2804,7 @@
     <Content Include="www\js\angularfire.min.js" />
     <Content Include="www\js\app.js" />
     <Content Include="www\js\controllers-accounts.js" />
+    <Content Include="www\js\controllers-accountsingle.js" />
     <Content Include="www\js\controllers-accounttypes.js" />
     <Content Include="www\js\controllers-personalprofile.js" />
     <Content Include="www\js\controllers-settings.js" />
@@ -2848,9 +2849,10 @@
     <Content Include="www\lib\ionic\js\ionic.js" />
     <Content Include="www\lib\ionic\js\ionic.min.js" />
     <Content Include="www\templates\about.html" />
-    <Content Include="www\templates\account.html" />
+    <Content Include="www\templates\accountsingle.html" />
     <Content Include="www\templates\accounts.html" />
     <Content Include="www\templates\accountsave.html" />
+    <Content Include="www\templates\accountsinglesave.html" />
     <Content Include="www\templates\accounttypesave.html" />
     <Content Include="www\templates\accounttypes.html" />
     <Content Include="www\templates\budgets.html" />
