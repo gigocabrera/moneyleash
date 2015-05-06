@@ -2804,10 +2804,11 @@
     <Content Include="www\js\angularfire.min.js" />
     <Content Include="www\js\app.js" />
     <Content Include="www\js\controllers-accounts.js" />
-    <Content Include="www\js\controllers-accountsingle.js" />
+    <Content Include="www\js\controllers-transactions.js" />
     <Content Include="www\js\controllers-accounttypes.js" />
     <Content Include="www\js\controllers-personalprofile.js" />
     <Content Include="www\js\controllers-settings.js" />
+    <Content Include="www\js\controllers-transaction.js" />
     <Content Include="www\js\controllers.js" />
     <Content Include="www\js\directives.js" />
     <Content Include="www\js\factories.js" />
@@ -2849,7 +2850,7 @@
     <Content Include="www\lib\ionic\js\ionic.js" />
     <Content Include="www\lib\ionic\js\ionic.min.js" />
     <Content Include="www\templates\about.html" />
-    <Content Include="www\templates\accounttransactions.html" />
+    <Content Include="www\templates\transactions.html" />
     <Content Include="www\templates\accounts.html" />
     <Content Include="www\templates\accountsave.html" />
     <Content Include="www\templates\accountsinglesave.html" />
@@ -2871,6 +2872,7 @@
     <Content Include="www\templates\reports.html" />
     <Content Include="www\templates\settings.html" />
     <Content Include="www\templates\side-menu.html" />
+    <Content Include="www\templates\transaction.html" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="platforms\ios\www\lib\angular-ui-router\api\angular-ui-router.d.ts" />

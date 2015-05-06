@@ -1,10 +1,22 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
+moneyleashapp.controller('TransactionsController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
 
+    $scope.AccountTitle = $stateParams.accountName;
     $scope.inEditMode = false;
     $scope.editIndex = 0;
     $scope.UserEmail = '';
+    $scope.transaction = {
+        accountid: "",
+        types: "",
+        payee: "",
+        category: "",
+        amount: "",
+        date: "",
+        time: "",
+        Notes: "",
+        photo: ""
+    };
 
     // SORT
     $scope.SortingIsEnabled = false;
@@ -13,46 +25,33 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $scope.SortingIsEnabled = !isEnabled;
         $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
     };
-    $scope.moveItem = function (account, fromIndex, toIndex) {
-        $scope.data.accounts.splice(fromIndex, 1);
-        $scope.data.accounts.splice(toIndex, 0, account);
+    $scope.moveItem = function (transaction, fromIndex, toIndex) {
+        $scope.data.transactions.splice(fromIndex, 1);
+        $scope.data.transactions.splice(toIndex, 0, transaction);
     };
 
     // SWIPE
     $scope.listCanSwipe = true;
-    $scope.handleSwipeOptions = function ($event, account, id) {
+    $scope.handleSwipeOptions = function ($event) {
         $event.stopPropagation();
         var options = $event.currentTarget.querySelector('.item-options');
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            $state.go('app.transactions', { userId: $scope.UserEmail, accountId: id, accountName: account.AccountName });
+            //Nothing here yet
         }
     };
 
     // OPEN ACCOUNT SAVE MODAL 
-    $ionicModal.fromTemplateUrl('templates/accountsave.html', {
+    $ionicModal.fromTemplateUrl('templates/transaction.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
         $scope.modal = modal
     })
-
-    // SHOW MODAL
-    $scope.openEntryForm = function (title) {
-        $scope.myTitle = title + " Account";
-        $scope.currentItem = {
-            AccountName: "",
-            StartBalance: "",
-            OpenDate: "",
-            AccountType: ""
-        };
+    $scope.openEntryForm = function (action) {
+        $scope.myTitle = action + " Transaction";
         $scope.modal.show();
-    }
-
-    // HIDE-CLOSE MODAL
-    $scope.closeEntryForm = function (title) {
-        $scope.modal.hide();
     }
 
     // LIST
@@ -72,46 +71,32 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $ionicListDelegate.closeOptionButtons();
         $scope.inEditMode = true;
         $scope.editIndex = index;
-        var accountname = $scope.data.accounts[index].AccountName;
-        var startbalance = $scope.data.accounts[index].StartBalance;
-        var opendate = new Date($scope.data.accounts[index].OpenDate);
-        var accounttype = $scope.data.accounts[index].AccountType;
-
-        //evaluate for valid dates
-        if (isNaN(opendate)) {
-            opendate = "";
-        }
-        
-        $scope.currentItem = {
-            'AccountName': accountname,
-            'StartBalance': startbalance,
-            'OpenDate': opendate,
-            'AccountType': accounttype
-        }
-        
-        $scope.myTitle = "Edit " + $scope.currentItem.AccountName;
+        $scope.currentItem = $scope.data.transactions[index];
+        $scope.myTitle = "Edit " + $scope.currentItem.payee;
         $scope.modal.show();
     };
 
     // SAVE
-    $scope.SaveItem = function (account) {
+    $scope.SaveItem = function (currentItem) {
         if ($scope.inEditMode) {
             // edit item
-            var dtDate = new Date($scope.currentItem.OpenDate);
-            dtDate = +dtDate;
-            $scope.currentItem.OpenDate = dtDate;
-            $scope.data.accounts[$scope.editIndex] = $scope.currentItem;
+            $scope.data.transactions[$scope.editIndex] = $scope.currentItem;
+            $scope.currentContact = {};
             $scope.inEditMode = false;
         } else {
             // new item
-            if ($scope.data.hasOwnProperty("accounts") !== true) {
-                $scope.data.accounts = [];
+            if ($scope.data.hasOwnProperty("transactions") !== true) {
+                $scope.data.transactions = [];
             }
-            $scope.data.accounts.push({
-                'AccountName': $scope.currentItem.AccountName,
-                'StartBalance': $scope.currentItem.StartBalance,
-                'OpenDate': $scope.currentItem.OpenDate.getTime(),
-                'AccountType': $scope.currentItem.AccountType
+            $scope.data.transactions.push({
+                accountid: $scope.currentItem.accountid,
+                payee: $scope.currentItem.payee,
+                category: $scope.currentItem.category,
+                amount: $scope.currentItem.amount,
+                date: new Date(),
+                time: "0",
+                Notes: $scope.currentItem.notes,
+                photo: "0"
             });
         }
         $scope.currentItem = {};
@@ -119,11 +104,11 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     }
 
     // DELETE
-    $scope.deleteItem = function (account, index) {
+    $scope.deleteItem = function (type, index) {
         // Show the action sheet
         var hideSheet = $ionicActionSheet.show({
             destructiveText: 'Delete Account',
-            titleText: 'Are you sure you want to delete ' + account.AccountName + '? This will permanently delete the account from the app.',
+            titleText: 'Are you sure you want to delete ' + type.AccountTypeName + '? This will permanently delete the account from the app.',
             cancelText: 'Cancel',
             cancel: function () {
                 // add cancel code..
@@ -137,7 +122,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                $scope.data.accounts.splice(index, 1);
+                $scope.accounttypes.accounttypes.splice(index, 1);
                 return true;
             }
         });

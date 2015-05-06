@@ -73,7 +73,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state
             email: user.email,
             password: user.password
         }).then(function (authData) {
-            console.log(authData);
+            //console.log(authData);
             $rootScope.hide();
             $state.go('app.accounts');
         }).catch(function (error) {
@@ -112,33 +112,33 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
             if (error) {
                 switch (error.code) {
                     case "EMAIL_TAKEN":
-                        console.log("The new user account cannot be created because the email is already in use.");
+                        //console.log("The new user account cannot be created because the email is already in use.");
                         $rootScope.hide();
                         $rootScope.notify('The new user account cannot be created because the email is already in use.');
                         break;
                     case "INVALID_EMAIL":
-                        console.log("The specified email is not a valid email.");
+                        //console.log("The specified email is not a valid email.");
                         $rootScope.hide();
                         $rootScope.notify('The specified email is not a valid email.');
                         break;
                     default:
-                        console.log("Error creating user:", error);
+                        //console.log("Error creating user:", error);
                         $rootScope.hide();
                         $rootScope.notify('Oops. Something went wrong.');
                 }
             } else {
-                console.log("Successfully created user account with uid:", userData.uid);
+                //console.log("Successfully created user account with uid:", userData.uid);
 
                 fb.authWithPassword({
                     "email": email,
                     "password": password
                 }, function (error, authData) {
                     if (error) {
-                        console.log("Login Failed!", error);
+                        //console.log("Login Failed!", error);
                         $rootScope.hide();
                         $rootScope.notify('Error', 'Login failed!');
                     } else {
-                        console.log("Authenticated successfully with payload:", authData);
+                        //console.log("Authenticated successfully with payload:", authData);
                         /* PREPARE DATA FOR FIREBASE*/
                         $scope.temp = {
                             firstname: user.firstname,
@@ -153,7 +153,6 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
                         var usersRef = UserData.ref();
                         var myUser = usersRef.child(escapeEmailAddress(user.email));
                         myUser.update($scope.temp, function (ret) {
-                            console.log("ret " + ret);
                             $rootScope.hide();
                             $state.go('app.accounts');
                         });
@@ -172,7 +171,7 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 
     $scope.recoverPassword = function (user) {
         //$state.go('accounts');
-        console.log(user.email);
+        //console.log(user.email);
     };
 
     $scope.login = function () {

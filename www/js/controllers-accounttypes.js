@@ -63,7 +63,7 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
         $scope.inEditMode = true;
         $scope.editIndex = index;
         $scope.currentItem = $scope.accounttypes.accounttypes[index];
-        $scope.myTitle = "Edit " + $scope.currentItem.AccountName;
+        $scope.myTitle = "Edit " + $scope.currentItem.AccountTypeName;
         $scope.modal.show();
     };
 
@@ -72,7 +72,6 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
         if ($scope.inEditMode) {
             // edit item
             $scope.accounttypes.accounttypes[$scope.editIndex] = $scope.currentItem;
-            $scope.currentContact = {};
             $scope.inEditMode = false;
         } else {
             // new item

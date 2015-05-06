@@ -153,13 +153,13 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           }
       })
 
-      // ACCOUNT SINGLE
-      .state('app.account', {
+      // ACCOUNT SINGLE - TRANSACTIONS
+      .state('app.transactions', {
           url: "/accounts/:userId/account/:accountId/:accountName",
           views: {
               'menuContent': {
-                  templateUrl: "templates/accounttransactions.html",
-                  controller: 'AccountSingleController'
+                  templateUrl: "templates/transactions.html",
+                  controller: 'TransactionsController'
               }
           }
       })

@@ -1,8 +1,8 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountSingleController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
+moneyleashapp.controller('TransactionController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
 
-    $scope.AccountTitle = $stateParams.accountName;   
+    $scope.AccountTitle = $stateParams.accountName;
 
     $scope.inEditMode = false;
     $scope.editIndex = 0;

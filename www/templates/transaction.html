@@ -1,0 +1,47 @@
+<div class="modal">
+    <ion-header-bar class="bar-stable">
+        <button class="left button button-clear button-positive customHeaderSize" ng-click="modal.hide()">Cancel</button>
+        <h1 class="title">{{myTitle}}</h1>
+        <button class="right button button-clear button-positive customHeaderSize" ng-click="SaveItem(currentItem)">Save</button>
+    </ion-header-bar>
+    <ion-content has-header="true" padding="true">
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">Account</span>
+                <input type="text" ng-model="currentItem.accountid" />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Type</span>
+                <input type="text" ng-model="currentItem.type" />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Description</span>
+                <input type="text" ng-model="currentItem.payee"/>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Category</span>
+                <input type="text" ng-model="currentItem.category" />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Amount</span>
+                <input type="text" ng-model="currentItem.amount" />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Date</span>
+                <input type="text" ng-model="currentItem.date" />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Time</span>
+                <input type="text" ng-model="currentItem.time" />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Notes</span>
+                <input type="text" ng-model="currentItem.notes" />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Photo</span>
+                <input type="text" ng-model="currentItem.photo" />
+            </label>
+        </div>
+    </ion-content>
+</div>
