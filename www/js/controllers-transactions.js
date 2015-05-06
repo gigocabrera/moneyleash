@@ -6,17 +6,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
     $scope.inEditMode = false;
     $scope.editIndex = 0;
     $scope.UserEmail = '';
-    $scope.currentItem = {
-        accountid: "",
-        types: "",
-        payee: "",
-        category: "",
-        amount: "",
-        date: "",
-        time: "",
-        Notes: "",
-        photo: ""
-    };
 
     // SORT
     $scope.SortingIsEnabled = false;
@@ -51,6 +40,17 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
     })
     $scope.openEntryForm = function (action) {
         $scope.myTitle = action + " Transaction";
+        $scope.currentItem = {
+            accountid: "",
+            types: "",
+            payee: "",
+            category: "",
+            amount: "",
+            date: "",
+            time: "",
+            Notes: "",
+            photo: ""
+        };
         $scope.modal.show();
     }
 
@@ -87,7 +87,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
             if ($scope.data.hasOwnProperty("transactions") !== true) {
                 $scope.data.transactions = [];
             }
-            console.log($scope.currentItem);
             $scope.data.transactions.push({
                 accountid: 0,
                 type: $scope.currentItem.type,

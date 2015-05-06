@@ -10,8 +10,8 @@
                     <div class="col-50 customAccDesc">
                         <span>{{transaction.payee}}<small>{{transaction.category}}</small></span>
                     </div>
-                    <div class="col-50 right customAccAmt" ng-class="{{transaction.type == 'expense' && 'amountRed' || 'amountGreen'}}">
-                        <span>{{transaction.amount | currency}}</span>
+                    <div class="col-50 right customAccAmt">
+                        <span ng-class="{amountRed: transaction.type == 'expense'}">{{transaction.amount | currency}}</span>
                     </div>
                 </div>
                 <ion-option-button class="button-energized" ng-click="editItem(id)">
