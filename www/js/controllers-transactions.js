@@ -6,7 +6,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
     $scope.inEditMode = false;
     $scope.editIndex = 0;
     $scope.UserEmail = '';
-    $scope.transaction = {
+    $scope.currentItem = {
         accountid: "",
         types: "",
         payee: "",
@@ -81,15 +81,16 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         if ($scope.inEditMode) {
             // edit item
             $scope.data.transactions[$scope.editIndex] = $scope.currentItem;
-            $scope.currentContact = {};
             $scope.inEditMode = false;
         } else {
             // new item
             if ($scope.data.hasOwnProperty("transactions") !== true) {
                 $scope.data.transactions = [];
             }
+            console.log($scope.currentItem);
             $scope.data.transactions.push({
-                accountid: $scope.currentItem.accountid,
+                accountid: 0,
+                type: $scope.currentItem.type,
                 payee: $scope.currentItem.payee,
                 category: $scope.currentItem.category,
                 amount: $scope.currentItem.amount,

@@ -133,6 +133,11 @@ button.customHeaderSize {
 .customAccAmt span {
     position: relative;
     top: 7px;
+}
+.amountRed {
+    color: red;
+}
+.amountGreen {
     color: green;
 }
 .item-right-edit {

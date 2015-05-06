@@ -10,7 +10,7 @@
                     <div class="col-50 customAccDesc">
                         <span>{{transaction.payee}}<small>{{transaction.category}}</small></span>
                     </div>
-                    <div class="col-50 right customAccAmt">
+                    <div class="col-50 right customAccAmt" ng-class="{{transaction.type == 'expense' && 'amountRed' || 'amountGreen'}}">
                         <span>{{transaction.amount | currency}}</span>
                     </div>
                 </div>
