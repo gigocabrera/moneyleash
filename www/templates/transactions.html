@@ -8,10 +8,20 @@
             <ion-item ng-repeat="(id, transaction) in data.transactions" itemid="transaction" ng-click="handleSwipeOptions($event, account, id)" href="#" class="item-icon-right">
                 <div class="row">
                     <div class="col-50 customAccDesc">
-                        <span>{{transaction.payee}}<small>{{transaction.category}}</small></span>
+                        <span>
+                            {{transaction.payee}}
+                            <small>
+                                <div id="transactionIcons">
+                                    <ul>
+                                        <li><i class="fa fa-calendar"></i>{{transaction.date | date:'dd - MMMM - yyyy'}}</li>
+                                        <li><i class="fa fa-tag"></i>{{transaction.category}}</li>
+                                    </ul>
+                                </div>
+                            </small>
+                        </span>
                     </div>
-                    <div class="col-50 right customAccAmt">
-                        <span ng-class="{amountRed: transaction.type == 'expense'}">{{transaction.amount | currency}}</span>
+                    <div class="col-50 right customAccAmt" ng-class="{amountRed: transaction.type == 'expense', amountGreen: transaction.type == 'income'}">
+                        <span>{{transaction.amount | currency}}</span>
                     </div>
                 </div>
                 <ion-option-button class="button-energized" ng-click="editItem(id)">
@@ -20,7 +30,7 @@
                 <ion-option-button class="button-assertive" ng-click="deleteItem(account, id)">
                     Delete
                 </ion-option-button>
-                <i class="icon ion-chevron-right"></i>
+                <i class="icon ion-chevron-right customChevron"></i>
                 <ion-reorder-button class="ion-navicon" on-reorder="moveItem(account, $fromIndex, $toIndex)"></ion-reorder-button>
             </ion-item>
         </ion-list>

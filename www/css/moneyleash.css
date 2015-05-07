@@ -1,4 +1,5 @@
 @import url("http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
+@import url("font-awesome.min.css");
 
 /* List Item Font Size */
 .item {
@@ -85,8 +86,11 @@
     font-size: 24px;
 }
 .ion-chevron-right:before {
-    color: #e67300;
+    color: #b5b5b5;  /* color: #e67300; -- orange */
     font-size: 14px;
+}
+.customChevronMenu:before {
+    color: #e67300;
 }
 .item-complex.item-icon-right .item-content {
     padding-right: 40px;
@@ -123,6 +127,7 @@ button.customHeaderSize {
     font: 11px 'PT Sans', sans-serif;
     top: 35px;
     left: 16px;
+    color: #b5b5b5;
 }
 .customAccAmt {
     height: 37px;
@@ -142,6 +147,21 @@ button.customHeaderSize {
 }
 .item-right-edit {
     width: 60px;
+}
+
+#transactionIcons ul {
+    margin-top: 5px;
+}
+#transactionIcons ul li {
+    list-style-type: none;
+    display: inline;   
+    margin-right: 7px;
+    font: 11px 'PT Sans', sans-serif;
+    color: #b5b5b5;
+}
+#transactionIcons ul li > i {
+  color: #b5b5b5;
+  margin-right: 3px;
 }
 
 /* INTRO SCREEN */
