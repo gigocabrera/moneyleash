@@ -3,27 +3,27 @@
         <h4>{{'SIGNIN' | translate}}</h4>
     </ion-nav-bar>
     <ion-content>        
-        <div class="list list-inset">
-            <label class="item item-input">
-                <input type="text" placeholder="{{'FORM_FIRSTNAME' | translate}}" ng-model="user.firstname">
-            </label>
-            <label class="item item-input">
-                <input type="text" placeholder="{{'FORM_LASTNAME' | translate}}" ng-model="user.lastname">
-            </label>
-            <label class="item item-input">
-                <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
-            </label>
-            <label class="item item-input">
-                <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
-            </label>
-        </div>
-        <div class="padding">
-            <button class="button button-block button-energized button-theme" ng-click="createMember(user)" >
-                {{"REGISTER" | translate}}
-            </button>
-            <p class="text-center">
-                <a href="#/login" class="mlLinksBlue">{{"REGISTER_ALREADYHAVEACCOUNT" | translate}}</a>
-            </p>
-        </div>
+        <form name="RegisterForm" ng-submit="createMember(user)">
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <input type="text" placeholder="{{'FORM_FIRSTNAME' | translate}}" ng-model="user.firstname">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="{{'FORM_LASTNAME' | translate}}" ng-model="user.lastname">
+                </label>
+                <label class="item item-input">
+                    <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
+                </label>
+                <label class="item item-input">
+                    <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
+                </label>
+            </div>
+            <div class="padding">
+                <input type="submit" class="button button-block button-energized button-theme" placeholder="{{"REGISTER" | translate}}" />
+                <p class="text-center">
+                    <a href="#/login" class="mlLinksBlue">{{"REGISTER_ALREADYHAVEACCOUNT" | translate}}</a>
+                </p>
+            </div>
+        </form>
 </ion-content>
 </ion-view>

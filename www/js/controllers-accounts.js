@@ -26,12 +26,12 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            $state.go('app.transactions', { userId: $scope.UserEmail, accountId: id, accountName: account.AccountName });
+            $state.go('app.transactions', { accountId: id, accountName: account.AccountName });
         }
     };
 
     // OPEN ACCOUNT SAVE MODAL 
-    $ionicModal.fromTemplateUrl('templates/accountsave.html', {
+    $ionicModal.fromTemplateUrl('templates/account.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
@@ -44,62 +44,77 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         $scope.currentItem = {
             AccountName: "",
             StartBalance: "",
-            OpenDate: "",
+            DateOpen: "",
+            DateCreated: new Date(),
+            DateUpdated: new Date(),
             AccountType: ""
         };
         $scope.modal.show();
     }
 
     // HIDE-CLOSE MODAL
-    $scope.closeEntryForm = function (title) {
+    $scope.closeModal = function (title) {
         $scope.modal.hide();
     }
 
     // LIST
     $scope.list = function () {
-        $rootScope.show('');
+        $rootScope.show("syncing");
         fbAuth = fb.getAuth();
-        if (fbAuth) {
-            $scope.UserEmail = escapeEmailAddress(fbAuth.password.email);
-            var syncObject = $firebaseObject(fb.child("members/" + escapeEmailAddress(fbAuth.password.email)));
-            syncObject.$bindTo($scope, "data");
-        }
+        var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid));
+        syncObject.$bindTo($scope, "data");
+        //console.log(syncObject);
         $rootScope.hide();
     }
 
     // EDIT
-    $scope.editItem = function (index) {
+    $scope.editAccount = function (index) {
         $ionicListDelegate.closeOptionButtons();
         $scope.inEditMode = true;
         $scope.editIndex = index;
         var accountname = $scope.data.accounts[index].AccountName;
         var startbalance = $scope.data.accounts[index].StartBalance;
-        var opendate = new Date($scope.data.accounts[index].OpenDate);
+        var dtOpen = new Date($scope.data.accounts[index].DateOpen);
+        var dtCreated = new Date($scope.data.accounts[index].DateCreated);
+        var dtUpdated = new Date($scope.data.accounts[index].DateUpdated);
         var accounttype = $scope.data.accounts[index].AccountType;
 
-        //evaluate for valid dates
-        if (isNaN(opendate)) {
-            opendate = "";
-        }
+        ////evaluate for valid dates
+        //if (isNaN(dtOpen)) {
+        //    dtOpen = "";
+        //}
+        //if (isNaN(dtCreated)) {
+        //    dtCreated = new Date();
+        //}
+        //if (isNaN(dtUpdated)) {
+        //    dtUpdated = new Date();
+        //}
         
-        $scope.currentItem = {
-            'AccountName': accountname,
-            'StartBalance': startbalance,
-            'OpenDate': opendate,
-            'AccountType': accounttype
-        }
+        //$scope.currentItem = {
+        //    'AccountName': accountname,
+        //    'StartBalance': startbalance,
+        //    'DateOpen': dtOpen,
+        //    'DateCreated': dtCreated,
+        //    'DateUpdated': dtUpdated,
+        //    'AccountType': accounttype
+        //}
         
-        $scope.myTitle = "Edit " + $scope.currentItem.AccountName;
-        $scope.modal.show();
+        //$scope.myTitle = "Edit " + $scope.currentItem.AccountName;
+        //$scope.modal.show();
     };
 
     // SAVE
-    $scope.SaveItem = function (account) {
+    $scope.saveAccount = function (account) {
         if ($scope.inEditMode) {
-            // edit item
-            var dtDate = new Date($scope.currentItem.OpenDate);
-            dtDate = +dtDate;
-            $scope.currentItem.OpenDate = dtDate;
+            var dtOpen = new Date($scope.currentItem.DateOpen);
+            var dtCreated = new Date($scope.currentItem.DateCreated);
+            var dtUpdated = new Date();
+            dtOpen = +dtOpen;
+            dtCreated = +dtCreated;
+            dtUpdated = +dtUpdated;
+            $scope.currentItem.DateOpen = dtOpen;
+            $scope.currentItem.DateCreated = dtCreated;
+            $scope.currentItem.DateUpdated = dtUpdated;
             $scope.data.accounts[$scope.editIndex] = $scope.currentItem;
             $scope.inEditMode = false;
         } else {
@@ -110,7 +125,9 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
             $scope.data.accounts.push({
                 'AccountName': $scope.currentItem.AccountName,
                 'StartBalance': $scope.currentItem.StartBalance,
-                'OpenDate': $scope.currentItem.OpenDate.getTime(),
+                'DateOpen': $scope.currentItem.DateOpen.getTime(),
+                'DateCreated': $scope.currentItem.DateCreated.getTime(),
+                'DateUpdated': $scope.currentItem.DateUpdated.getTime(),
                 'AccountType': $scope.currentItem.AccountType
             });
         }
@@ -119,7 +136,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     }
 
     // DELETE
-    $scope.deleteItem = function (account, index) {
+    $scope.deleteAccount = function (account, index) {
         // Show the action sheet
         var hideSheet = $ionicActionSheet.show({
             destructiveText: 'Delete Account',

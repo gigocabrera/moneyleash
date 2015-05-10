@@ -438,6 +438,11 @@
     <None Include="plugins\org.apache.cordova.device\RELEASENOTES.md" />
     <None Include="plugins\org.apache.cordova.device\src\ios\CDVDevice.m" />
     <None Include="scss\ionic.app.scss" />
+    <None Include="www\fonts\fontawesome-webfont.eot" />
+    <None Include="www\fonts\fontawesome-webfont.ttf" />
+    <None Include="www\fonts\fontawesome-webfont.woff" />
+    <None Include="www\fonts\fontawesome-webfont.woff2" />
+    <None Include="www\fonts\FontAwesome.otf" />
     <None Include="www\fonts\ionicons.eot" />
     <None Include="www\fonts\ionicons.ttf" />
     <None Include="www\fonts\ionicons.woff" />
@@ -2794,7 +2799,9 @@
     <Content Include="resources\ios\splash\Default~iphone.png" />
     <Content Include="resources\splash.png" />
     <Content Include="www\app_icon.png" />
+    <Content Include="www\css\font-awesome.min.css" />
     <Content Include="www\css\moneyleash.css" />
+    <Content Include="www\fonts\fontawesome-webfont.svg" />
     <Content Include="www\fonts\ionicons.svg" />
     <Content Include="www\img\bg-1.png" />
     <Content Include="www\img\ionic.png" />
@@ -2850,10 +2857,9 @@
     <Content Include="www\lib\ionic\js\ionic.js" />
     <Content Include="www\lib\ionic\js\ionic.min.js" />
     <Content Include="www\templates\about.html" />
+    <Content Include="www\templates\account.html" />
     <Content Include="www\templates\transactions.html" />
     <Content Include="www\templates\accounts.html" />
-    <Content Include="www\templates\accountsave.html" />
-    <Content Include="www\templates\accountsinglesave.html" />
     <Content Include="www\templates\accounttypesave.html" />
     <Content Include="www\templates\accounttypes.html" />
     <Content Include="www\templates\accounttyselect.html" />

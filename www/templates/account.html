@@ -1,8 +1,8 @@
 <div class="modal">
     <ion-header-bar class="bar-stable">
-        <button class="left button button-clear button-positive customHeaderSize" ng-click="closeEntryForm()">Cancel</button>
+        <button class="left button button-clear button-positive customHeaderSize" ng-click="closeModal()">Cancel</button>
         <h1 class="title">{{myTitle}}</h1>
-        <button class="right button button-clear button-positive customHeaderSize" ng-click="SaveItem(currentItem)">Save</button>
+        <button class="right button button-clear button-positive customHeaderSize" ng-click="saveAccount(currentItem)">Save</button>
     </ion-header-bar>
     <ion-content has-header="true" padding="true">
         <div class="list">
@@ -16,13 +16,21 @@
             </label>
             <label class="item item-input">
                 <span class="input-label">Open Date</span>
-                <ionic-datepicker idate="currentItem.OpenDate">
-                    <button class="button button-clear button-dark"> {{ currentItem.OpenDate | date:'dd - MMMM - yyyy' }} </button>
+                <ionic-datepicker idate="currentItem.DateOpen">
+                    <button class="button button-clear button-dark"> {{ currentItem.DateOpen | date:'MMMM dd, yyyy' }} </button>
                 </ionic-datepicker>
             </label>
             <label class="item item-input">
                 <span class="input-label">Type</span>
                 <input type="text" ng-model="currentItem.AccountType">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Date Created</span>
+                <input type="text" ng-model="currentItem.DateCreated">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Date Updated</span>
+                <input type="text" ng-model="currentItem.DateUpdated">
             </label>
         </div>
     </ion-content>

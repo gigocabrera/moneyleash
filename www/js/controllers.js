@@ -26,10 +26,10 @@ moneyleashapp.controller('AppCtrl', function ($scope, $rootScope, $state, $ionic
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                $rootScope.show('');
                 fireBaseData.clearData();
                 $ionicHistory.clearCache();
                 Auth.$unauth();
+                $state.go('intro');
             }
         });
     };
@@ -43,7 +43,9 @@ moneyleashapp.controller('AboutController', function ($scope, $ionicSlideBoxDele
 })
 
 // INTRO CONTROLLER
-moneyleashapp.controller('IntroController', function ($scope, $state, $rootScope) {
+moneyleashapp.controller('IntroController', function ($scope, $state, $rootScope, $ionicHistory) {
+    $ionicHistory.clearHistory();
+    $scope.hideBackButton = true;
     $scope.login = function () {
         $state.go('login');
     };
@@ -73,9 +75,8 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state
             email: user.email,
             password: user.password
         }).then(function (authData) {
-            //console.log(authData);
             $rootScope.hide();
-            $state.go('app.accounts');
+            $state.go('app.dashboard');
         }).catch(function (error) {
             $rootScope.hide();
             $rootScope.notify('Error', 'Email or Password is incorrect!');
@@ -83,8 +84,8 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state
     }
 })
 
-//SIGN UP CONTROLLER
-moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $firebase, $firebaseAuth, fireBaseData) {
+//REGISTER CONTROLLER
+moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $firebase, $firebaseAuth, UserData, fireBaseData) {
 
     $scope.user = {};
 
@@ -112,49 +113,43 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
             if (error) {
                 switch (error.code) {
                     case "EMAIL_TAKEN":
-                        //console.log("The new user account cannot be created because the email is already in use.");
                         $rootScope.hide();
                         $rootScope.notify('The new user account cannot be created because the email is already in use.');
                         break;
                     case "INVALID_EMAIL":
-                        //console.log("The specified email is not a valid email.");
                         $rootScope.hide();
                         $rootScope.notify('The specified email is not a valid email.');
                         break;
                     default:
-                        //console.log("Error creating user:", error);
                         $rootScope.hide();
                         $rootScope.notify('Oops. Something went wrong.');
                 }
             } else {
-                //console.log("Successfully created user account with uid:", userData.uid);
-
                 fb.authWithPassword({
                     "email": email,
                     "password": password
                 }, function (error, authData) {
                     if (error) {
-                        //console.log("Login Failed!", error);
                         $rootScope.hide();
                         $rootScope.notify('Error', 'Login failed!');
                     } else {
-                        //console.log("Authenticated successfully with payload:", authData);
                         /* PREPARE DATA FOR FIREBASE*/
                         $scope.temp = {
                             firstname: user.firstname,
                             lastname: user.lastname,
                             email: user.email,
                             groupid: 0,
-                            created: Date.now(),
-                            updated: Date.now()
+                            datecreated: Date.now(),
+                            dateupdated: Date.now()
                         }
 
                         /* SAVE PROFILE DATA */
                         var usersRef = UserData.ref();
-                        var myUser = usersRef.child(escapeEmailAddress(user.email));
-                        myUser.update($scope.temp, function (ret) {
+                        //var newUser = usersRef.child(escapeEmailAddress(user.email));
+                        var newUser = usersRef.child(authData.uid);
+                        newUser.update($scope.temp, function (ret) {
                             $rootScope.hide();
-                            $state.go('app.accounts');
+                            $state.go('app.about');
                         });
                     }
                 });

@@ -5,7 +5,7 @@ var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 // Ionic MoneyLeash App, v1.0
 var moneyleashapp = angular.module('moneyleash', ['ionic', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $state, Auth) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -25,6 +25,45 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope) {
                 'name': 'Español'
             }]
         };
+
+        $rootScope.isAdmin = false;
+        $rootScope.authData = {};
+
+        Auth.$onAuth(function (authData) {
+            if (authData) {
+
+                /* STORE AUTHDATA */
+                $rootScope.authData = authData;
+                //console.log(authData);
+
+                ///* IF NOT ALREADY IN A HOUSE, REDIRECT TO HOUSE CHOICE  */
+                //UserData.checkRoomMateHasHouse(authData.password.email).then(function (hasHouse) {
+                //    if (hasHouse) {
+                //        $state.go("tabs.dashboard");
+                //    } else {
+                //        console.log('No House!!!');
+                //        $rootScope.hide();
+                //        $state.go("housechoice");
+                //    }
+                //}, function (error) {
+                //    console.log('No House!!!');
+                //    $rootScope.hide();
+                //    $state.go("housechoice");
+                //});
+            } else {
+                $rootScope.hide("");
+                $state.go("intro");
+            }
+        });
+
+        $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+            // We can catch the error thrown when the $requireAuth promise is rejected
+            // and redirect the user back to the home page
+            if (error === "AUTH_REQUIRED") {
+                $state.go("signin");
+            }
+        });
+
     });
 })
 
@@ -153,9 +192,9 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           }
       })
 
-      // ACCOUNT SINGLE - TRANSACTIONS
+      // TRANSACTIONS
       .state('app.transactions', {
-          url: "/accounts/:userId/account/:accountId/:accountName",
+          url: "/accounts/:accountId/:accountName",
           views: {
               'menuContent': {
                   templateUrl: "templates/transactions.html",

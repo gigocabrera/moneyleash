@@ -3,6 +3,8 @@
 moneyleashapp.controller('TransactionsController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
 
     $scope.AccountTitle = $stateParams.accountName;
+    $scope.AccountId = $stateParams.accountId;
+
     $scope.inEditMode = false;
     $scope.editIndex = 0;
     $scope.UserEmail = '';
@@ -17,6 +19,9 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
     $scope.moveItem = function (transaction, fromIndex, toIndex) {
         $scope.data.transactions.splice(fromIndex, 1);
         $scope.data.transactions.splice(toIndex, 0, transaction);
+        //console.log(transaction);
+        //console.log(fromIndex);
+        //console.log(toIndex);
     };
 
     // SWIPE
@@ -56,13 +61,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
 
     // LIST
     $scope.list = function () {
-        $rootScope.show('');
+        $rootScope.show("syncing");
         fbAuth = fb.getAuth();
-        if (fbAuth) {
-            $scope.UserEmail = escapeEmailAddress(fbAuth.password.email);
-            var syncObject = $firebaseObject(fb.child("members/" + escapeEmailAddress(fbAuth.password.email)));
-            syncObject.$bindTo($scope, "data");
-        }
+        var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid + "/accounts/" + $scope.AccountId));
+        syncObject.$bindTo($scope, "data");
+        //console.log(syncObject);
         $rootScope.hide();
     }
 
@@ -83,6 +86,8 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
             $scope.data.transactions[$scope.editIndex] = $scope.currentItem;
             $scope.inEditMode = false;
         } else {
+            //console.log("saving new");
+            //console.log($scope.data);
             // new item
             if ($scope.data.hasOwnProperty("transactions") !== true) {
                 $scope.data.transactions = [];
