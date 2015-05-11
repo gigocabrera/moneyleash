@@ -4,7 +4,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
 
     $scope.AccountTitle = $stateParams.accountName;
     $scope.AccountId = $stateParams.accountId;
-
     $scope.inEditMode = false;
     $scope.editIndex = 0;
     $scope.UserEmail = '';
@@ -19,9 +18,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
     $scope.moveItem = function (transaction, fromIndex, toIndex) {
         $scope.data.transactions.splice(fromIndex, 1);
         $scope.data.transactions.splice(toIndex, 0, transaction);
-        //console.log(transaction);
-        //console.log(fromIndex);
-        //console.log(toIndex);
     };
 
     // SWIPE
@@ -65,7 +61,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         fbAuth = fb.getAuth();
         var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid + "/accounts/" + $scope.AccountId));
         syncObject.$bindTo($scope, "data");
-        //console.log(syncObject);
         $rootScope.hide();
     }
 
@@ -86,8 +81,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
             $scope.data.transactions[$scope.editIndex] = $scope.currentItem;
             $scope.inEditMode = false;
         } else {
-            //console.log("saving new");
-            //console.log($scope.data);
             // new item
             if ($scope.data.hasOwnProperty("transactions") !== true) {
                 $scope.data.transactions = [];
