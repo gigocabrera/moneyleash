@@ -139,6 +139,13 @@ button.customHeaderSize {
     position: relative;
     top: 7px;
 }
+.customAccAmt span small {
+    position: absolute;
+    font: 11px 'PT Sans', sans-serif;
+    top: 20px;
+    right: 0px;
+    color: #b5b5b5;
+}
 .amountRed {
     color: red;
 }

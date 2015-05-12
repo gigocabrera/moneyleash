@@ -17,8 +17,10 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
     };
     $scope.moveItem = function (transaction, fromIndex, toIndex) {
-        $scope.data.transactions.splice(fromIndex, 1);
-        $scope.data.transactions.splice(toIndex, 0, transaction);
+        //$scope.data.transactions.splice(fromIndex, 1);
+        //$scope.data.transactions.splice(toIndex, 0, transaction);
+        console.log(fromIndex);
+        console.log(toIndex);
     };
 
     // SWIPE
@@ -60,14 +62,19 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
     $scope.list = function () {
         $rootScope.show("syncing");
         fbAuth = fb.getAuth();
-        //var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid + "/accounts/" + $scope.AccountId));
-        //syncObject.$bindTo($scope, "data");
-
         var ref = fb.child("/members/" + fbAuth.uid + "/accounts/" + $scope.AccountId + "/transactions/");
         $scope.transactions = $firebaseArray(ref);
-        console.log($scope.transactions);
-
-
+        var runningBal = 0;
+        $scope.transactions.$loaded().then(function () {
+            angular.forEach($scope.transactions, function (transaction) {
+                if (transaction.type == "income") {
+                    runningBal = runningBal + transaction.amount;
+                } else {
+                    runningBal = runningBal - transaction.amount;
+                }
+                transaction.runningbal = runningBal;
+            })
+        });
         $rootScope.hide();
     }
 

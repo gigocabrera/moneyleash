@@ -21,7 +21,12 @@
                         </span>
                     </div>
                     <div class="col-50 right customAccAmt" ng-class="{amountRed: transaction.type == 'expense', amountGreen: transaction.type == 'income'}">
-                        <span>{{transaction.amount | currency}}</span>
+                        <span>
+                            {{transaction.amount | currency}}
+                            <small>
+                                {{transaction.runningbal | currency}}
+                            </small>
+                        </span>
                     </div>
                 </div>
                 <ion-option-button class="button-energized" ng-click="editItem(id)">
