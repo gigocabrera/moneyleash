@@ -2819,6 +2819,7 @@
     <Content Include="www\js\controllers.js" />
     <Content Include="www\js\directives.js" />
     <Content Include="www\js\factories.js" />
+    <Content Include="www\js\filters.js" />
     <Content Include="www\js\firebase.js" />
     <Content Include="www\lib\angular-translate.min.js" />
     <Content Include="www\lib\ionic-datepicker\dist\ionic-datepicker.js" />

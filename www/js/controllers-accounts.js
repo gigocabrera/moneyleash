@@ -63,7 +63,6 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         fbAuth = fb.getAuth();
         var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid));
         syncObject.$bindTo($scope, "data");
-        //console.log(syncObject);
         $rootScope.hide();
     }
 

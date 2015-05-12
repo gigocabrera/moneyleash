@@ -1,7 +1,8 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
+moneyleashapp.controller('TransactionsController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, $firebaseObject) {
 
+    $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
     $scope.AccountId = $stateParams.accountId;
     $scope.inEditMode = false;
@@ -59,8 +60,14 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
     $scope.list = function () {
         $rootScope.show("syncing");
         fbAuth = fb.getAuth();
-        var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid + "/accounts/" + $scope.AccountId));
-        syncObject.$bindTo($scope, "data");
+        //var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid + "/accounts/" + $scope.AccountId));
+        //syncObject.$bindTo($scope, "data");
+
+        var ref = fb.child("/members/" + fbAuth.uid + "/accounts/" + $scope.AccountId + "/transactions/");
+        $scope.transactions = $firebaseArray(ref);
+        console.log($scope.transactions);
+
+
         $rootScope.hide();
     }
 
