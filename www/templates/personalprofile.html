@@ -1,6 +1,6 @@
 <ion-view title="{{'PERSONALPROFILE' | translate}}" ng-init="getProfile()">
     <ion-nav-buttons side="right">
-        <button class="button button-clear button-positive customHeaderSize" ng-click="saveProfile(user)">
+        <button class="button button-clear button-positive customHeaderSize" ng-click="saveProfile(member)">
             Save
         </button>
     </ion-nav-buttons>
@@ -8,23 +8,23 @@
         <div class="list">
             <label class="item item-input">
                 <span class="input-label">{{'FORM_FIRSTNAME' | translate}}</span>
-                <input type="text" ng-model="user.firstname" />
+                <input type="text" ng-model="member.firstname" />
             </label>
             <label class="item item-input">
                 <span class="input-label">{{'FORM_LASTNAME' | translate}}</span>
-                <input type="text" ng-model="user.lastname" />
+                <input type="text" ng-model="member.lastname" />
             </label>
             <label class="item item-input">
                 <span class="input-label">{{'FORM_EMAIL' | translate}}</span>
-                {{user.email}}
+                <input type="text" ng-model="member.email" ng-disabled="true">
             </label>
             <label class="item item-input">
-                <span class="input-label">{{'FORM_CREATED' | translate}}</span>
-                {{user.datecreated}}
+                <span class="input-label">Date Created</span>
+                <input type="text" ng-model="member.datecreated" ng-disabled="true">
             </label>
             <label class="item item-input">
-                <span class="input-label">{{'FORM_UPDATED' | translate}}</span>
-                {{user.dateupdated}}
+                <span class="input-label">Date Updated</span>
+                <input type="text" ng-model="member.dateupdated" ng-disabled="true">
             </label>
         </div>
     </ion-content>

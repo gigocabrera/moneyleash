@@ -85,7 +85,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state
 })
 
 //REGISTER CONTROLLER
-moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $firebase, $firebaseAuth, UserData, fireBaseData) {
+moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $firebase, $firebaseArray, $firebaseAuth, MembersFactory, fireBaseData) {
 
     $scope.user = {};
 
@@ -142,14 +142,45 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
                             datecreated: Date.now(),
                             dateupdated: Date.now()
                         }
-
-                        /* SAVE PROFILE DATA */
-                        var usersRef = UserData.ref();
-                        //var newUser = usersRef.child(escapeEmailAddress(user.email));
-                        var newUser = usersRef.child(authData.uid);
-                        newUser.update($scope.temp, function (ret) {
+                        /* SAVE MEMBER DATA */
+                        var membersref = MembersFactory.ref();
+                        var newUser = membersref.child(authData.uid);
+                        newUser.update($scope.temp, function (ref) {
                             $rootScope.hide();
                             $state.go('app.about');
+                        });
+                        /* SAVE DEFAULT ACCOUNT TYPES DATA FOR THIS MEMBER */
+                        var newtyperef = membersref.child(authData.uid).child("accounttypes");
+                        var sync = $firebaseArray(newtyperef);
+                        sync.$add({ accounttypename: 'Checking', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                        sync.$add({ accounttypename: 'Savings', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                        sync.$add({ accounttypename: 'Credit Card', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                        sync.$add({ accounttypename: 'Debit Card', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                        sync.$add({ accounttypename: 'Investment', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                        sync.$add({ accounttypename: 'Brokerage', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
                         });
                     }
                 });

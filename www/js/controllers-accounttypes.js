@@ -6,8 +6,8 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
     $scope.inEditMode = false;
     $scope.editIndex = 0;
     $scope.currentItem = {
-        AccountTypeName: "",
-        Icon: "",
+        accounttypename: "",
+        icon: "",
     };
 
     // SORT
@@ -51,7 +51,7 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
         $rootScope.show('');
         fbAuth = fb.getAuth();
         if (fbAuth) {
-            var syncObject = $firebaseObject(fb.child("members/" + escapeEmailAddress(fbAuth.password.email)));
+            var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid));
             syncObject.$bindTo($scope, "accounttypes");
         }
         $rootScope.hide();

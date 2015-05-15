@@ -17,20 +17,21 @@
             <label class="item item-input">
                 <span class="input-label">Open Date</span>
                 <ionic-datepicker idate="currentItem.DateOpen">
-                    <button class="button button-clear button-dark"> {{ currentItem.DateOpen | date:'MMMM dd, yyyy' }} </button>
+                    <button class="button button-clear button-dark">{{ currentItem.DateOpen | date:'MMMM dd, yyyy' }}</button>
                 </ionic-datepicker>
             </label>
-            <label class="item item-input">
+            <label class="item item-input item-icon-right" ng-click="openAccountTypes()">
                 <span class="input-label">Type</span>
-                <input type="text" ng-model="currentItem.AccountType">
+                {{currentItem.AccountType}}
+                <i class="icon ion-chevron-right customChevronMenu"></i>
             </label>
             <label class="item item-input">
                 <span class="input-label">Date Created</span>
-                <input type="text" ng-model="currentItem.DateCreated">
+                <input type="text" ng-model="currentItem.DateCreated" placeholder="MMMM dd, yyyy">
             </label>
             <label class="item item-input">
                 <span class="input-label">Date Updated</span>
-                <input type="text" ng-model="currentItem.DateUpdated">
+                <input type="text" ng-model="currentItem.DateUpdated" placeholder="MMMM dd, yyyy">
             </label>
         </div>
     </ion-content>

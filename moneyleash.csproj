@@ -546,7 +546,6 @@
     <None Include="www\lib\ionic\scss\_util.scss" />
     <None Include="www\lib\ionic\scss\_variables.scss" />
     <None Include="www\lib\ionic\version.json" />
-    <None Include="www\version.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
@@ -2815,7 +2814,6 @@
     <Content Include="www\js\controllers-accounttypes.js" />
     <Content Include="www\js\controllers-personalprofile.js" />
     <Content Include="www\js\controllers-settings.js" />
-    <Content Include="www\js\controllers-transaction.js" />
     <Content Include="www\js\controllers.js" />
     <Content Include="www\js\directives.js" />
     <Content Include="www\js\factories.js" />

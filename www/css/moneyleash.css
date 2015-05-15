@@ -124,10 +124,11 @@ button.customHeaderSize {
 }
 .customAccDesc span small {
     position: absolute;
-    font: 11px 'PT Sans', sans-serif;
-    top: 35px;
+    font: 13px 'PT Sans Narrow', sans-serif;
+    top: 31px;
     left: 16px;
-    color: #b5b5b5;
+    color: #787878;
+    font-weight: bold;
 }
 .customAccAmt {
     height: 37px;
@@ -137,14 +138,15 @@ button.customHeaderSize {
 }
 .customAccAmt span {
     position: relative;
-    top: 7px;
+    top: 1px;
 }
 .customAccAmt span small {
     position: absolute;
-    font: 11px 'PT Sans', sans-serif;
+    font: 13px 'PT Sans Narrow', sans-serif;
     top: 20px;
     right: 0px;
-    color: #b5b5b5;
+    color: #787878;
+    font-weight: bold;
 }
 .amountRed {
     color: red;
@@ -163,11 +165,11 @@ button.customHeaderSize {
     list-style-type: none;
     display: inline;   
     margin-right: 7px;
-    font: 11px 'PT Sans', sans-serif;
-    color: #b5b5b5;
+    font: 11px 'PT Sans Narrow';
+    color: #787878;
 }
 #transactionIcons ul li > i {
-  color: #b5b5b5;
+  color: #787878;
   margin-right: 3px;
 }
 
@@ -233,7 +235,7 @@ a.mlLinksGray {
         }
 
 .signup-view {
-    background-color: #666666 !important;
+    background-color: #787878 !important;
 }
 
     .signup-view .row {
@@ -264,7 +266,7 @@ a.mlLinksGray {
         }
 
 .forgot-password-view {
-    background-color: #666666 !important;
+    background-color: #787878 !important;
 }
 
     .forgot-password-view .row {

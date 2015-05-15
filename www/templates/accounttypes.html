@@ -6,7 +6,7 @@
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
             <ion-item ng-repeat="(id, type) in accounttypes.accounttypes" itemid="type" ng-click="closeSwipeOptions($event)" href="#" class="item-icon-right">
-                {{type.AccountTypeName}}
+                {{type.accounttypename}}
                 <ion-option-button class="button-energized" ng-click="editItem(id)">
                     Edit
                 </ion-option-button>

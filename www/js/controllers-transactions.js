@@ -2,6 +2,15 @@
 // ACCOUNTS CONTROLLER
 moneyleashapp.controller('TransactionsController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, $firebaseObject) {
 
+    $scope.active = '';
+    $scope.setTransactionType = function (selectedType) {
+        //$scope.active = type;
+        console.log(selectedType);
+    };
+    $scope.isActive = function (selectedType) {
+        return selectedType === $scope.active;
+    };
+
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
     $scope.AccountId = $stateParams.accountId;
@@ -17,21 +26,26 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
     };
     $scope.moveItem = function (transaction, fromIndex, toIndex) {
-        //$scope.data.transactions.splice(fromIndex, 1);
-        //$scope.data.transactions.splice(toIndex, 0, transaction);
+        $scope.transactions.splice(fromIndex, 1);
+        $scope.transactions.splice(toIndex, 0, transaction);
         console.log(fromIndex);
         console.log(toIndex);
     };
 
     // SWIPE
     $scope.listCanSwipe = true;
-    $scope.handleSwipeOptions = function ($event) {
+    $scope.handleSwipeAndTap = function ($event, transaction) {
         $event.stopPropagation();
         var options = $event.currentTarget.querySelector('.item-options');
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            //Nothing here yet
+            $ionicListDelegate.closeOptionButtons();
+            $scope.inEditMode = true;
+            $scope.editIndex = transaction.$id;
+            $scope.currentItem = transaction;
+            $scope.myTitle = "Edit " + $scope.currentItem.payee;
+            $scope.modal.show();
         }
     };
 
@@ -46,12 +60,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         $scope.myTitle = action + " Transaction";
         $scope.currentItem = {
             accountid: "",
-            types: "",
+            type: "",
             payee: "",
             category: "",
             amount: "",
             date: "",
-            time: "",
             Notes: "",
             photo: ""
         };
@@ -78,21 +91,21 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         $rootScope.hide();
     }
 
-    // EDIT
-    $scope.editItem = function (index) {
-        $ionicListDelegate.closeOptionButtons();
-        $scope.inEditMode = true;
-        $scope.editIndex = index;
-        $scope.currentItem = $scope.data.transactions[index];
-        $scope.myTitle = "Edit " + $scope.currentItem.payee;
-        $scope.modal.show();
+    // COPY
+    $scope.copyTransaction = function (transaction) {
+        //$ionicListDelegate.closeOptionButtons();
+        //$scope.inEditMode = true;
+        //$scope.editIndex = transaction.$id;
+        //$scope.currentItem = transaction;
+        //$scope.myTitle = "Edit " + $scope.currentItem.payee;
+        //$scope.modal.show();
     };
 
     // SAVE
-    $scope.SaveItem = function (currentItem) {
+    $scope.SaveTransaction = function (currentitem) {
         if ($scope.inEditMode) {
             // edit item
-            $scope.data.transactions[$scope.editIndex] = $scope.currentItem;
+            $scope.transactions.$save(currentitem)
             $scope.inEditMode = false;
         } else {
             // new item
@@ -106,7 +119,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
                 category: $scope.currentItem.category,
                 amount: $scope.currentItem.amount,
                 date: new Date(),
-                time: "0",
                 Notes: $scope.currentItem.notes,
                 photo: "0"
             });

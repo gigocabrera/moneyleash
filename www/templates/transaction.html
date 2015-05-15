@@ -2,21 +2,30 @@
     <ion-header-bar class="bar-stable">
         <button class="left button button-clear button-positive customHeaderSize" ng-click="modal.hide()">Cancel</button>
         <h1 class="title">{{myTitle}}</h1>
-        <button class="right button button-clear button-positive customHeaderSize" ng-click="SaveItem(currentItem)">Save</button>
+        <button class="right button button-clear button-positive customHeaderSize" ng-click="SaveTransaction(currentItem)">Save</button>
     </ion-header-bar>
     <ion-content has-header="true" padding="true">
         <div class="list">
+            <label class="item item-input">
+                <div class="button-bar" style="padding-right: 12px;">
+                    <button class="button button-small button-stable" ng-class="{'button-balanced': isActive('income')}" ng-click="setTransactionType('income')">
+                        income
+                    </button>
+                    <button class="button button-small button-stable" ng-class="{'button-assertive': isActive('expense')}" ng-click="setTransactionType('expense')">
+                        expense
+                    </button>
+                    <button class="button button-small button-stable" ng-class="{'button-positive': isActive('transfer')}" ng-click="setTransactionType('transfer')">
+                        transfer
+                    </button>
+                </div>
+            </label>
             <label class="item item-input">
                 <span class="input-label">Account</span>
                 <input type="text" ng-model="currentItem.accountid" />
             </label>
             <label class="item item-input">
-                <span class="input-label">Type</span>
-                <input type="text" ng-model="currentItem.type" />
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Description</span>
-                <input type="text" ng-model="currentItem.payee"/>
+                <span class="input-label">Payee</span>
+                <input type="text" ng-model="currentItem.payee" />
             </label>
             <label class="item item-input">
                 <span class="input-label">Category</span>
@@ -29,10 +38,6 @@
             <label class="item item-input">
                 <span class="input-label">Date</span>
                 <input type="text" ng-model="currentItem.date" />
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Time</span>
-                <input type="text" ng-model="currentItem.time" />
             </label>
             <label class="item item-input">
                 <span class="input-label">Notes</span>

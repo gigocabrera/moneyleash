@@ -54,6 +54,17 @@ angular.module('moneyleash.directives', [])
         };
     })
 
+    .directive('myformat', function(dateFilter) {
+        return {
+            require: 'ngModel',
+            link: function(scope, element, attrs, ngModel) {
+                ngModel.$parsers.push(function(viewValue) {
+                    return dateFilter(viewValue, 'MMMM dd, yyyy');
+                });
+            }
+        }
+    })
+
     .directive('myTabs', function() {
 	    return {
 		    restrict: 'E',

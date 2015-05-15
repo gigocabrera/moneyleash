@@ -1,6 +1,6 @@
 
 // SETTINGS CONTROLLER
-moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $state, $ionicActionSheet, $translate, fireBaseData, $ionicHistory, Auth, UserData) {
+moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $state, $ionicActionSheet, $translate, fireBaseData, $ionicHistory, Auth) {
 
     // DUMMY SETTINGS
     $scope.airplaneMode = true;
@@ -18,7 +18,7 @@ moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $st
     $scope.showGroupProfile = function () {
         //$state.go('app.groupprofile');
     };
-    $scope.showAccountTypes = function () {
+    $scope.openAccountTypes = function () {
         $state.go('app.accounttypes');
     };
     $scope.showAbout = function () {

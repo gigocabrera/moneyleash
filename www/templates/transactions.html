@@ -5,7 +5,7 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            <ion-item ng-repeat="(id, transaction) in transactions | orderBy: '$id':true" itemid="transaction" ng-click="handleSwipeOptions($event, account, id)" href="#" class="item-icon-right">
+            <ion-item ng-repeat="transaction in transactions | orderBy: '$id':true" itemid="transaction" ng-click="handleSwipeAndTap($event, transaction)" href="#" class="item-icon-right">
                 <div class="row">
                     <div class="col-50 customAccDesc">
                         <span>
@@ -29,8 +29,8 @@
                         </span>
                     </div>
                 </div>
-                <ion-option-button class="button-energized" ng-click="editItem(id)">
-                    Edit
+                <ion-option-button class="button-energized" ng-click="copyTransaction(transaction)">
+                    Copy
                 </ion-option-button>
                 <ion-option-button class="button-assertive" ng-click="deleteItem(transaction, id)">
                     Delete

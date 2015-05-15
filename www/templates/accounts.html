@@ -8,7 +8,7 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            <ion-item ng-repeat="(id, account) in data.accounts" itemid="account" ng-click="handleSwipeOptions($event, account, id)" href="#" class="item-icon-right">
+            <ion-item ng-repeat="account in accounts" ng-click="handleSwipeOptions($event, account)" href="#" class="item-icon-right">
                 <div class="row">
                     <div class="col-50 customAccDesc">
                         <span>{{account.AccountName}}<small>{{account.AccountType}}</small></span>
@@ -17,10 +17,10 @@
                         <span>{{account.StartBalance | currency}}</span>
                     </div>
                 </div>
-                <ion-option-button class="button-energized" ng-click="editAccount(id)">
+                <ion-option-button class="button-energized" ng-click="editAccount(account)">
                     Edit
                 </ion-option-button>
-                <ion-option-button class="button-assertive" ng-click="deleteAccount(account, id)">
+                <ion-option-button class="button-assertive" ng-click="deleteAccount(account)">
                     Delete
                 </ion-option-button>
                 <i class="icon ion-chevron-right"></i>
