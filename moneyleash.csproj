@@ -2809,7 +2809,7 @@
     <Content Include="www\js\angular-translate.min.js" />
     <Content Include="www\js\angularfire.min.js" />
     <Content Include="www\js\app.js" />
-    <Content Include="www\js\controllers-accounts.js" />
+    <Content Include="www\js\controllers-account.js" />
     <Content Include="www\js\controllers-transactions.js" />
     <Content Include="www\js\controllers-accounttypes.js" />
     <Content Include="www\js\controllers-personalprofile.js" />

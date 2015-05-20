@@ -1,7 +1,7 @@
 
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseObject) {
+moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
 
     $scope.inEditMode = false;
     $scope.editIndex = 0;
@@ -48,14 +48,23 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
 
     // LIST
     $scope.list = function () {
-        $rootScope.show('');
+        $rootScope.show("syncing");
         fbAuth = fb.getAuth();
-        if (fbAuth) {
-            var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid));
-            syncObject.$bindTo($scope, "accounttypes");
-        }
+        $scope.uid = fbAuth.uid
+        $scope.accounttypes = AccountsFactory.getAccountTypes($scope.uid);
         $rootScope.hide();
     }
+
+    // LIST
+    //$scope.list = function () {
+    //    $rootScope.show('');
+    //    fbAuth = fb.getAuth();
+    //    if (fbAuth) {
+    //        var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid));
+    //        syncObject.$bindTo($scope, "accounttypes");
+    //    }
+    //    $rootScope.hide();
+    //}
 
     // EDIT
     $scope.editItem = function (index) {

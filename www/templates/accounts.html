@@ -3,7 +3,7 @@
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="right button button-icon icon ion-plus customIconSize" ng-click="openEntryForm('Add')"></button>
+        <button class="right button button-icon icon ion-plus customIconSize" ng-click="createAccount('Add')"></button>
         <button class="button button-icon ion-android-more-vertical" on-icon="button button-icon ion-android-more-vertical" off-icon="button button-clear button-positive customHeaderSize" ng-click="enableSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
     </ion-nav-buttons>
     <ion-content class="has-header">
@@ -11,10 +11,10 @@
             <ion-item ng-repeat="account in accounts" ng-click="handleSwipeOptions($event, account)" href="#" class="item-icon-right">
                 <div class="row">
                     <div class="col-50 customAccDesc">
-                        <span>{{account.AccountName}}<small>{{account.AccountType}}</small></span>
+                        <span>{{account.accountname}}<small>{{account.accounttype}}</small></span>
                     </div>
                     <div class="col-50 right customAccAmt" ng-class="{amountRed: transaction.type == 'expense', amountGreen: transaction.type == 'income'}">
-                        <span>{{account.StartBalance | currency}}</span>
+                        <span>{{account.startbalance | currency}}</span>
                     </div>
                 </div>
                 <ion-option-button class="button-energized" ng-click="editAccount(account)">

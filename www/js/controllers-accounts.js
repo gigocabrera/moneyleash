@@ -1,6 +1,6 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, MembersFactory, dateFilter) {
+moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, MembersFactory) {
 
     $scope.accounts = [];
     $scope.inEditMode = false;
@@ -39,40 +39,14 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            $state.go('app.transactions', { accountId: account.$id, accountName: account.AccountName });
+            $state.go('app.transactions', { accountId: account.$id, accountName: account.accountname });
         }
     };
 
-    // OPEN ACCOUNT SAVE MODAL 
-    $ionicModal.fromTemplateUrl('templates/account.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal
-    })
-
-    // SHOW MODAL
-    $scope.openEntryForm = function (title) {
-        $scope.myTitle = title + " Account";
-        $scope.currentItem = {
-            AccountName: "",
-            StartBalance: "",
-            DateOpen: "",
-            DateCreated: dateFilter(new Date(), 'MMMM dd, yyyy HH:mm:ss'),
-            DateUpdated: dateFilter(new Date(), 'MMMM dd, yyyy HH:mm:ss'),
-            AccountType: ""
-        };
-        $scope.modal.show();
-    }
-
-    // HIDE-CLOSE MODAL
-    $scope.closeModal = function (title) {
-        $scope.modal.hide();
-    }
-
-    // OPEN ACCOUNT TYPES
-    $scope.openAccountTypes = function () {
-        $state.go('app.accounttypes');
+    // CREATE NEW ACCOUNT
+    $scope.createAccount = function (title) {
+        $scope.myTitle = title + " Create Account";
+        $state.go('app.account', { isNew: 'True', accountId: '-1' });
     }
 
     // LIST
@@ -86,33 +60,34 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
     // EDIT
     $scope.editAccount = function (account) {
-        $ionicListDelegate.closeOptionButtons();
-        $scope.inEditMode = true;
-        $scope.editIndex = account.$id;
-        var dtOpen = new Date(account.DateOpen);
-        var dtCreated = new Date(account.DateCreated);
-        var dtUpdated = new Date(account.DateUpdated);
+        //$ionicListDelegate.closeOptionButtons();
+        //$scope.inEditMode = true;
+        //$scope.editIndex = account.$id;
+        //var dtOpen = new Date(account.dateopen);
+        //var dtCreated = new Date(account.datecreated);
+        //var dtUpdated = new Date(account.dateupdated);
 
-        //evaluate for valid dates
-        if (isNaN(dtOpen)) {
-            dtOpen = "";
-        }
-        if (isNaN(dtCreated)) {
-            dtCreated = new Date();
-        }
-        if (isNaN(dtUpdated)) {
-            dtUpdated = new Date();
-        }        
-        $scope.currentItem = {
-            'AccountName': account.AccountName,
-            'StartBalance': account.StartBalance,
-            'DateOpen': dtOpen,
-            'DateCreated': dateFilter(dtCreated, 'MMMM dd, yyyy HH:mm:ss'),
-            'DateUpdated': dateFilter(dtUpdated, 'MMMM dd, yyyy HH:mm:ss'),
-            'AccountType': account.AccountType
-        }        
-        $scope.myTitle = "Edit " + $scope.currentItem.AccountName;
-        $scope.modal.show();
+        ////evaluate for valid dates
+        //if (isNaN(dtOpen)) {
+        //    dtOpen = "";
+        //}
+        //if (isNaN(dtCreated)) {
+        //    dtCreated = new Date();
+        //}
+        //if (isNaN(dtUpdated)) {
+        //    dtUpdated = new Date();
+        //}        
+        //$scope.currentItem = {
+        //    'accountname': account.accountname,
+        //    'startbalance': account.StartBalance,
+        //    'dateopen': dtOpen,
+        //    'datecreated': dateFilter(dtCreated, 'MMMM dd, yyyy HH:mm:ss'),
+        //    'dateupdated': dateFilter(dtUpdated, 'MMMM dd, yyyy HH:mm:ss'),
+        //    'AccountType': account.AccountType
+        //}        
+        //$scope.myTitle = "Edit " + $scope.currentItem.accountname;
+
+        $state.go('app.account', { isNew: 'False', accountId: account.$id });
     };
 
     $scope.saveAccount = function (currentItem) {
@@ -121,24 +96,24 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
         if ($scope.inEditMode) {
             /* EDIT DATA */
-            var dtOpen = new Date($scope.currentItem.DateOpen);
-            var dtCreated = new Date($scope.currentItem.DateCreated);
+            var dtOpen = new Date($scope.currentItem.dateopen);
+            var dtCreated = new Date($scope.currentItem.datecreated);
             var dtUpdated = new Date();
             dtOpen = +dtOpen;
             dtCreated = +dtCreated;
             dtUpdated = +dtUpdated;
-            $scope.currentItem.DateOpen = dtOpen;
-            $scope.currentItem.DateCreated = dtCreated;
-            $scope.currentItem.DateUpdated = dtUpdated;
+            $scope.currentItem.dateopen = dtOpen;
+            $scope.currentItem.datecreated = dtCreated;
+            $scope.currentItem.dateupdated = dtUpdated;
 
             /* PREPARE DATA FOR FIREBASE*/
             var account = $scope.accounts.$getRecord($scope.editIndex);
-            account.AccountName = $scope.currentItem.AccountName;
-            account.StartBalance = $scope.currentItem.StartBalance;
-            account.DateOpen = $scope.currentItem.DateOpen;
-            account.DateCreated = $scope.currentItem.DateCreated;
-            account.DateUpdated = $scope.currentItem.DateUpdated;
-            account.AccountType = $scope.currentItem.AccountType;
+            account.accountname = $scope.currentItem.accountname;
+            account.startbalance = $scope.currentItem.startbalance;
+            account.dateopen = $scope.currentItem.dateopen;
+            account.datecreated = $scope.currentItem.datecreated;
+            account.dateupdated = $scope.currentItem.dateupdated;
+            account.accounttype = $scope.currentItem.accounttype;
             $scope.accounts.$save(account);
 
             $scope.inEditMode = false;
@@ -147,11 +122,11 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
             /* PREPARE DATA FOR FIREBASE*/
             $scope.temp = {
-                AccountName: $scope.currentItem.AccountName,
-                StartBalance: $scope.currentItem.StartBalance,
-                DateOpen: $scope.currentItem.DateOpen.getTime(),
-                DateCreated: $scope.currentItem.DateCreated,
-                DateUpdated: $scope.currentItem.DateUpdated,
+                accountname: $scope.currentItem.accountname,
+                startbalance: $scope.currentItem.startbalance,
+                dateopen: $scope.currentItem.dateopen.getTime(),
+                datecreated: $scope.currentItem.datecreated,
+                dateupdated: $scope.currentItem.dateupdated,
                 AccountType: $scope.currentItem.AccountType
             }
 
@@ -176,7 +151,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         // Show the action sheet
         var hideSheet = $ionicActionSheet.show({
             destructiveText: 'Delete Account',
-            titleText: 'Are you sure you want to delete ' + account.AccountName + '? This will permanently delete the account from the app.',
+            titleText: 'Are you sure you want to delete ' + account.accountname + '? This will permanently delete the account from the app.',
             cancelText: 'Cancel',
             cancel: function () {
                 // add cancel code..

@@ -170,133 +170,153 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           controller: 'AppCtrl'
       })
 
-      // DASHBOARD
-      .state('app.dashboard', {
-          url: "/dashboard",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/dashboard.html",
-                  controller: 'DashboardCtrl'
-              }
-          }
-      })
+    // DASHBOARD
+    .state('app.dashboard', {
+        url: "/dashboard",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/dashboard.html",
+                controller: 'DashboardCtrl'
+            }
+        }
+    })
 
-      // ACCOUNTS
-      .state('app.accounts', {
-          url: "/accounts",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/accounts.html",
-                  controller: 'AccountsController'
-              }
-          }
-      })
+    // ACCOUNTS
+    .state('app.accounts', {
+        url: "/accounts",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/accounts.html",
+                controller: 'AccountsController'
+            }
+        }
+    })
+    .state('app.account', {
+        url: "/accounts/account/:isNew/:accountId",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/account.html",
+                controller: 'AccountController'
+            }
+        }
+    })
 
-      // TRANSACTIONS
-      .state('app.transactions', {
-          url: "/accounts/:accountId/:accountName",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/transactions.html",
-                  controller: 'TransactionsController'
-              }
-          }
-      })
+    // TRANSACTIONS
+    .state('app.transactions', {
+        url: "/accounts/:accountId/:accountName",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/transactions.html",
+                controller: 'TransactionsController'
+            }
+        }
+    })
 
-      // ACCOUNT TYPES
-      .state('app.accounttypes', {
-          url: "/accounttypes",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/accounttypes.html",
-                  controller: 'AccountTypesController'
-              }
-          }
-      })
+    // ACCOUNT TYPES
+    .state('app.accounttypes', {
+        url: "/accounttypes",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/accounttypes.html",
+                controller: 'AccountTypesController'
+            }
+        }
+    })
 
-      // RECURRING
-      .state('app.recurringlist', {
-          url: "/recurringlist",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/recurringlist.html",
-                  controller: 'RecurringListCtrl'
-              }
-          }
-      })
+    // SELECT ACCOUNT TYPE
+    .state('app.selectaccounttype', {
+        url: "/selectaccounttype",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/selectaccounttype.html",
+                controller: 'AccountTypesController'
+            }
+        }
+    })
 
-      // CATEGORIES
-      .state('app.categories', {
-          url: "/categories",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/categories.html"
-              }
-          }
-      })
+    // RECURRING
+    .state('app.recurringlist', {
+        url: "/recurringlist",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/recurringlist.html",
+                controller: 'RecurringListCtrl'
+            }
+        }
+    })
 
-      // PAYEES
-      .state('app.payees', {
-          url: "/payees",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/payees.html"
-              }
-          }
-      })
+    // CATEGORIES
+    .state('app.categories', {
+        url: "/categories",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/categories.html"
+            }
+        }
+    })
 
-      // BUDGETS
-      .state('app.budgets', {
-          url: "/budgets",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/budgets.html"
-              }
-          }
-      })
+    // PAYEES
+    .state('app.payees', {
+        url: "/payees",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/payees.html"
+            }
+        }
+    })
 
-      // REPORTS
-      .state('app.reports', {
-          url: "/reports",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/reports.html"
-              }
-          }
-      })
+    // BUDGETS
+    .state('app.budgets', {
+        url: "/budgets",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/budgets.html"
+            }
+        }
+    })
 
-      // SETTINGS
-      .state('app.settings', {
-          url: "/settings",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/settings.html",
-                  controller: 'SettingsController'
-              }
-          }
-      })
+    // REPORTS
+    .state('app.reports', {
+        url: "/reports",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/reports.html"
+            }
+        }
+    })
 
-      // PERSONAL PROFILE
-      .state('app.personalprofile', {
-          url: "/personalprofile",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/personalprofile.html",
-                  controller: 'PersonalProfileController'
-              }
-          }
-      })
+    // SETTINGS
+    .state('app.settings', {
+        url: "/settings",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/settings.html",
+                controller: 'SettingsController'
+            }
+        }
+    })
 
-      // ABOUT
-      .state('app.about', {
-          url: "/about",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/about.html",
-                  controller: 'AboutController'
-              }
-          }
-      })
+    // PERSONAL PROFILE
+    .state('app.personalprofile', {
+        url: "/personalprofile",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/personalprofile.html",
+                controller: 'PersonalProfileController'
+            }
+        }
+    })
+
+    // ABOUT
+    .state('app.about', {
+        url: "/about",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/about.html",
+                controller: 'AboutController'
+            }
+        }
+    })
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/');

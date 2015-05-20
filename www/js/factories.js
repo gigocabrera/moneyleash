@@ -36,6 +36,7 @@ angular.module('moneyleash.factories', [])
 
     .factory('AccountsFactory', function ($firebaseArray, $q) {
         var accounts = {};
+        var accounttypes = {};
         return {
             ref: function (userid) {
                 var ref = fb.child("members").child(userid).child("accounts");
@@ -45,6 +46,19 @@ angular.module('moneyleash.factories', [])
                 var ref = fb.child("members").child(userid).child("accounts");
                 accounts = $firebaseArray(ref);
                 return accounts;
+            },
+            getThisAccount: function (userid, accountid) {
+                var deferred = $q.defer();
+                var ref = fb.child("members").child(userid).child("accounts").child(accountid);
+                ref.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
+            getAccountTypes: function (userid) {
+                var ref = fb.child("members").child(userid).child("accounttypes");
+                accounttypes = $firebaseArray(ref);
+                return accounttypes;
             },
         };
     })
