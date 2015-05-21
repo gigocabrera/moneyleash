@@ -43,7 +43,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         }
     };
 
-    // CREATE NEW ACCOUNT
+    // CREATE
     $scope.createAccount = function (title) {
         $scope.myTitle = title + " Create Account";
         $state.go('app.account', { isNew: 'True', accountId: '-1' });
@@ -60,95 +60,11 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
     // EDIT
     $scope.editAccount = function (account) {
-        //$ionicListDelegate.closeOptionButtons();
-        //$scope.inEditMode = true;
-        //$scope.editIndex = account.$id;
-        //var dtOpen = new Date(account.dateopen);
-        //var dtCreated = new Date(account.datecreated);
-        //var dtUpdated = new Date(account.dateupdated);
-
-        ////evaluate for valid dates
-        //if (isNaN(dtOpen)) {
-        //    dtOpen = "";
-        //}
-        //if (isNaN(dtCreated)) {
-        //    dtCreated = new Date();
-        //}
-        //if (isNaN(dtUpdated)) {
-        //    dtUpdated = new Date();
-        //}        
-        //$scope.currentItem = {
-        //    'accountname': account.accountname,
-        //    'startbalance': account.StartBalance,
-        //    'dateopen': dtOpen,
-        //    'datecreated': dateFilter(dtCreated, 'MMMM dd, yyyy HH:mm:ss'),
-        //    'dateupdated': dateFilter(dtUpdated, 'MMMM dd, yyyy HH:mm:ss'),
-        //    'AccountType': account.AccountType
-        //}        
-        //$scope.myTitle = "Edit " + $scope.currentItem.accountname;
-
         $state.go('app.account', { isNew: 'False', accountId: account.$id });
     };
 
-    $scope.saveAccount = function (currentItem) {
-
-        $rootScope.show('Creating...');
-
-        if ($scope.inEditMode) {
-            /* EDIT DATA */
-            var dtOpen = new Date($scope.currentItem.dateopen);
-            var dtCreated = new Date($scope.currentItem.datecreated);
-            var dtUpdated = new Date();
-            dtOpen = +dtOpen;
-            dtCreated = +dtCreated;
-            dtUpdated = +dtUpdated;
-            $scope.currentItem.dateopen = dtOpen;
-            $scope.currentItem.datecreated = dtCreated;
-            $scope.currentItem.dateupdated = dtUpdated;
-
-            /* PREPARE DATA FOR FIREBASE*/
-            var account = $scope.accounts.$getRecord($scope.editIndex);
-            account.accountname = $scope.currentItem.accountname;
-            account.startbalance = $scope.currentItem.startbalance;
-            account.dateopen = $scope.currentItem.dateopen;
-            account.datecreated = $scope.currentItem.datecreated;
-            account.dateupdated = $scope.currentItem.dateupdated;
-            account.accounttype = $scope.currentItem.accounttype;
-            $scope.accounts.$save(account);
-
-            $scope.inEditMode = false;
-
-        } else {
-
-            /* PREPARE DATA FOR FIREBASE*/
-            $scope.temp = {
-                accountname: $scope.currentItem.accountname,
-                startbalance: $scope.currentItem.startbalance,
-                dateopen: $scope.currentItem.dateopen.getTime(),
-                datecreated: $scope.currentItem.datecreated,
-                dateupdated: $scope.currentItem.dateupdated,
-                AccountType: $scope.currentItem.AccountType
-            }
-
-            /* SAVE DATA */
-            fbAuth = fb.getAuth();
-            var membersref = MembersFactory.ref();
-            var newaccountref = membersref.child(fbAuth.uid).child("accounts");
-            var sync = $firebaseArray(newaccountref);
-            sync.$add($scope.temp).then(function (newChildRef) {
-                $scope.temp = {
-                    accountid: newChildRef.key()
-                };
-            });
-        }
-        $rootScope.hide();
-        $scope.currentItem = {};
-        $scope.modal.hide();
-    }
-
     // DELETE
     $scope.deleteAccount = function (account) {
-        // Show the action sheet
         var hideSheet = $ionicActionSheet.show({
             destructiveText: 'Delete Account',
             titleText: 'Are you sure you want to delete ' + account.accountname + '? This will permanently delete the account from the app.',

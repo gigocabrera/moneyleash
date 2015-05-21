@@ -1,0 +1,10 @@
+<ion-view title="Select Type" ng-init="list()">
+    <ion-nav-buttons side="right">
+        <button class="right button button-clear button-positive customHeaderSize" ng-click="saveAccount(currentItem)">Save</button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
+            <ion-radio ng-repeat="type in accounttypes" ng-valu="type.value">{{type.accounttypename}}</ion-radio>
+        </ion-list>
+    </ion-content>
+</ion-view>

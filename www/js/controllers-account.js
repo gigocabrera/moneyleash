@@ -1,13 +1,15 @@
+/// <reference path="controllers-accounttypes.js" />
 
 
 // ACCOUNTS CONTROLLER
 moneyleashapp.controller('AccountController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, MembersFactory, dateFilter) {
 
+    $scope.accounts = '';
     $scope.AccountTitle = '';
     $scope.inEditMode = false;
     $scope.uid = '';
     $scope.editIndex = '';
-    $scope.temp = {
+    $scope.currentItem = {
         'accountname': '',
         'startbalance': '',
         'dateopen': '',
@@ -16,15 +18,17 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
         'accounttype': ''
     }
 
+    // EDIT / CREATE NEW
     if ($stateParams.isNew == 'True') {
         // Create new account
         $scope.AccountTitle = "Create Account";
     } else {
         // Edit account
+        $scope.editIndex = $stateParams.accountId;
         var fbAuth = fb.getAuth();
         $scope.inEditMode = true;
         $scope.uid = fbAuth.uid;
-        AccountsFactory.getThisAccount(fbAuth.uid, $stateParams.accountId).then(function (account) {
+        AccountsFactory.getAccount(fbAuth.uid, $scope.editIndex).then(function (account) {
             var dtOpen = new Date(account.dateopen);
             var dtCreated = new Date(account.datecreated);
             var dtUpdated = new Date(account.dateupdated);
@@ -57,10 +61,18 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
     }
 
     $scope.saveAccount = function (currentItem) {
-
         $rootScope.show('Creating...');
-
         if ($scope.inEditMode) {
+            $scope.uid = fbAuth.uid
+            var accountRef = fb.child("members").child($scope.uid).child("accounts").child($scope.editIndex);
+            var onComplete = function (error) {
+                if (error) {
+                    console.log('Synchronization failed');
+                } else {
+                    console.log('Synchronization succeeded');
+                }
+            };
+
             /* EDIT DATA */
             var dtOpen = new Date($scope.currentItem.dateopen);
             var dtCreated = new Date($scope.currentItem.datecreated);
@@ -71,17 +83,7 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
             $scope.currentItem.dateopen = dtOpen;
             $scope.currentItem.datecreated = dtCreated;
             $scope.currentItem.dateupdated = dtUpdated;
-
-            /* PREPARE DATA FOR FIREBASE*/
-            var account = $scope.accounts.$getRecord($scope.editIndex);
-            account.accountname = $scope.currentItem.accountname;
-            account.startbalance = $scope.currentItem.startbalance;
-            account.dateopen = $scope.currentItem.dateopen;
-            account.datecreated = $scope.currentItem.datecreated;
-            account.dateupdated = $scope.currentItem.dateupdated;
-            account.accounttype = $scope.currentItem.accounttype;
-            $scope.accounts.$save(account);
-
+            accountRef.update($scope.currentItem, onComplete);
             $scope.inEditMode = false;
 
         } else {

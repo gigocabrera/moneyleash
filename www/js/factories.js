@@ -47,7 +47,7 @@ angular.module('moneyleash.factories', [])
                 accounts = $firebaseArray(ref);
                 return accounts;
             },
-            getThisAccount: function (userid, accountid) {
+            getAccount: function (userid, accountid) {
                 var deferred = $q.defer();
                 var ref = fb.child("members").child(userid).child("accounts").child(accountid);
                 ref.once("value", function (snap) {
