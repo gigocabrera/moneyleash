@@ -46,7 +46,7 @@
     color: red;
 }
 .bar.bar-stable {
-    border-bottom: #b2b2b2 1px solid; /* #b2b2b2 */
+    border-bottom: #b2b2b2 1px solid;
 }
 /* Spin animation for ion-loop */
 .spinner svg {
@@ -128,7 +128,7 @@ button.customHeaderSize {
     top: 31px;
     left: 16px;
     color: #787878;
-    font-weight: bold;
+    font-weight: normal;
 }
 .customAccAmt {
     height: 37px;
@@ -142,11 +142,11 @@ button.customHeaderSize {
 }
 .customAccAmt span small {
     position: absolute;
-    font: 12px 'PT Sans Narrow', sans-serif;
+    font: 14px 'PT Sans Narrow', sans-serif;
     top: 20px;
     right: 0px;
     color: #787878;
-    font-weight: bold;
+    font-weight: normal;
 }
 .amountRed {
     color: red;

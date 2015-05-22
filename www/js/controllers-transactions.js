@@ -72,19 +72,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         fbAuth = fb.getAuth();
         var ref = fb.child("members").child(fbAuth.uid).child("accounts").child($stateParams.accountId).child("transactions");
         $scope.transactions = $firebaseArray(ref);
-        var runningBal = 0;
-        $scope.transactions.$loaded().then(function () {
-            angular.forEach($scope.transactions, function (transaction) {
-                if (transaction.type == "income") {
-                    if (!isNaN(transaction.amount)) {
-                        runningBal = runningBal + parseFloat(transaction.amount);
-                    }
-                } else {   
-                    runningBal = runningBal - parseFloat(transaction.amount);
-                }
-                transaction.runningbal = runningBal.toFixed(2);
-            })
-        });
+        UpdateRunningBalance($scope.transactions);
         $rootScope.hide();
     }
 
@@ -158,3 +146,19 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         });
     };
 })
+
+function UpdateRunningBalance(trans) {
+    var runningBal = 0;
+    trans.$loaded().then(function () {
+        angular.forEach(trans, function (transaction) {
+            if (transaction.type == "income") {
+                if (!isNaN(transaction.amount)) {
+                    runningBal = runningBal + parseFloat(transaction.amount);
+                }
+            } else {
+                runningBal = runningBal - parseFloat(transaction.amount);
+            }
+            transaction.runningbal = runningBal.toFixed(2);
+        })
+    });
+}
