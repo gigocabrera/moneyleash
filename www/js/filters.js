@@ -19,4 +19,4 @@ moneyleashapp.filter('reverse', function () {
     return function (items) {
         return toArray(items).slice().reverse();
     };
-});
+})

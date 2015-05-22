@@ -1,11 +1,11 @@
 <ion-view title={{AccountTitle}} ng-init="list()">
     <ion-nav-buttons side="right">
         <button class="right button button-icon icon ion-plus customIconSize" ng-click="openEntryForm('Add')"></button>
-        <button class="button button-icon ion-android-more-vertical" on-icon="button button-icon ion-android-more-vertical" off-icon="button button-clear button-positive customHeaderSize" ng-click="enableSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
+        <button class="button button-icon ion-ios-more" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive customHeaderSize" ng-click="enableSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            <ion-item ng-repeat="transaction in transactions | orderBy: '$id':true" itemid="transaction" ng-click="handleSwipeAndTap($event, transaction)" href="#" class="item-icon-right">
+            <ion-item ng-repeat="transaction in transactions | reverse" itemid="transaction" ng-click="handleSwipeAndTap($event, transaction)" href="#" class="item-icon-right">
                 <div class="row">
                     <div class="col-50 customAccDesc">
                         <span>

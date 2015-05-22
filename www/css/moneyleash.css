@@ -142,7 +142,7 @@ button.customHeaderSize {
 }
 .customAccAmt span small {
     position: absolute;
-    font: 13px 'PT Sans Narrow', sans-serif;
+    font: 12px 'PT Sans Narrow', sans-serif;
     top: 20px;
     right: 0px;
     color: #787878;
@@ -165,12 +165,14 @@ button.customHeaderSize {
     list-style-type: none;
     display: inline;   
     margin-right: 7px;
-    font: 11px 'PT Sans Narrow';
+    font-size: 12px;
+    /* font: 11px 'PT Sans Narrow'; */
     color: #787878;
 }
 #transactionIcons ul li > i {
-  color: #787878;
+  color: #8C8C8C;
   margin-right: 3px;
+  font-size: 10px;
 }
 
 /* INTRO SCREEN */

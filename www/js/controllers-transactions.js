@@ -1,19 +1,9 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, $firebaseObject) {
-
-    $scope.active = '';
-    $scope.setTransactionType = function (selectedType) {
-        //$scope.active = type;
-        console.log(selectedType);
-    };
-    $scope.isActive = function (selectedType) {
-        return selectedType === $scope.active;
-    };
+moneyleashapp.controller('TransactionsController', function ($scope, $rootScope, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
-    $scope.AccountId = $stateParams.accountId;
     $scope.inEditMode = false;
     $scope.editIndex = 0;
     $scope.UserEmail = '';
@@ -26,10 +16,10 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
     };
     $scope.moveItem = function (transaction, fromIndex, toIndex) {
-        $scope.transactions.splice(fromIndex, 1);
-        $scope.transactions.splice(toIndex, 0, transaction);
-        console.log(fromIndex);
-        console.log(toIndex);
+        //$scope.transactions.splice(fromIndex, 1);
+        //$scope.transactions.splice(toIndex, 0, transaction);
+        //console.log(fromIndex);
+        //console.log(toIndex);
     };
 
     // SWIPE
@@ -44,6 +34,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
             $scope.inEditMode = true;
             $scope.editIndex = transaction.$id;
             $scope.currentItem = transaction;
+            var dtTransaction = new Date(transaction.date);
+            if (isNaN(dtTransaction)) {
+                dtTransaction = "";
+            }
+            $scope.currentItem.date = dtTransaction;
             $scope.myTitle = "Edit " + $scope.currentItem.payee;
             $scope.modal.show();
         }
@@ -59,13 +54,13 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
     $scope.openEntryForm = function (action) {
         $scope.myTitle = action + " Transaction";
         $scope.currentItem = {
-            accountid: "",
+            accountid: $stateParams.accountId,
             type: "",
             payee: "",
             category: "",
             amount: "",
             date: "",
-            Notes: "",
+            notes: "",
             photo: ""
         };
         $scope.modal.show();
@@ -75,17 +70,19 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
     $scope.list = function () {
         $rootScope.show("syncing");
         fbAuth = fb.getAuth();
-        var ref = fb.child("/members/" + fbAuth.uid + "/accounts/" + $scope.AccountId + "/transactions/");
+        var ref = fb.child("members").child(fbAuth.uid).child("accounts").child($stateParams.accountId).child("transactions");
         $scope.transactions = $firebaseArray(ref);
         var runningBal = 0;
         $scope.transactions.$loaded().then(function () {
             angular.forEach($scope.transactions, function (transaction) {
                 if (transaction.type == "income") {
-                    runningBal = runningBal + transaction.amount;
-                } else {
-                    runningBal = runningBal - transaction.amount;
+                    if (!isNaN(transaction.amount)) {
+                        runningBal = runningBal + parseFloat(transaction.amount);
+                    }
+                } else {   
+                    runningBal = runningBal - parseFloat(transaction.amount);
                 }
-                transaction.runningbal = runningBal;
+                transaction.runningbal = runningBal.toFixed(2);
             })
         });
         $rootScope.hide();
@@ -102,25 +99,34 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
     };
 
     // SAVE
-    $scope.SaveTransaction = function (currentitem) {
+    $scope.SaveTransaction = function (currentItem) {
         if ($scope.inEditMode) {
-            // edit item
-            $scope.transactions.$save(currentitem)
+            // edit 
+            var dtDate = new Date($scope.currentItem.date);
+            dtDate = +dtDate;
+            $scope.currentItem.date = dtDate;
+            $scope.transactions.$save(currentItem)
             $scope.inEditMode = false;
         } else {
-            // new item
-            if ($scope.data.hasOwnProperty("transactions") !== true) {
-                $scope.data.transactions = [];
-            }
-            $scope.data.transactions.push({
-                accountid: 0,
+            // new 
+            $scope.temp = {
+                accountid: $stateParams.accountId,
                 type: $scope.currentItem.type,
                 payee: $scope.currentItem.payee,
                 category: $scope.currentItem.category,
                 amount: $scope.currentItem.amount,
-                date: new Date(),
-                Notes: $scope.currentItem.notes,
-                photo: "0"
+                date: $scope.currentItem.date.getTime(),
+                notes: $scope.currentItem.notes,
+                photo: $scope.currentItem.photo
+            };
+            fbAuth = fb.getAuth();
+            var accountsref = AccountsFactory.ref(fbAuth.uid);
+            var newtransactionref = accountsref.child($stateParams.accountId).child("transactions");
+            var sync = $firebaseArray(newtransactionref);
+            sync.$add($scope.temp).then(function (newChildRef) {
+                $scope.temp = {
+                    accountid: newChildRef.key()
+                };
             });
         }
         $scope.currentItem = {};

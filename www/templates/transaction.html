@@ -7,17 +7,8 @@
     <ion-content has-header="true" padding="true">
         <div class="list">
             <label class="item item-input">
-                <div class="button-bar" style="padding-right: 12px;">
-                    <button class="button button-small button-stable" ng-class="{'button-balanced': isActive('income')}" ng-click="setTransactionType('income')">
-                        income
-                    </button>
-                    <button class="button button-small button-stable" ng-class="{'button-assertive': isActive('expense')}" ng-click="setTransactionType('expense')">
-                        expense
-                    </button>
-                    <button class="button button-small button-stable" ng-class="{'button-positive': isActive('transfer')}" ng-click="setTransactionType('transfer')">
-                        transfer
-                    </button>
-                </div>
+                <span class="input-label">Transaction Type</span>
+                <input type="text" ng-model="currentItem.type" />
             </label>
             <label class="item item-input">
                 <span class="input-label">Account</span>
@@ -36,8 +27,10 @@
                 <input type="text" ng-model="currentItem.amount" />
             </label>
             <label class="item item-input">
-                <span class="input-label">Date</span>
-                <input type="text" ng-model="currentItem.date" />
+                <span class="input-label">Transaction Date</span>
+                <ionic-datepicker idate="currentItem.date">
+                    <button class="button button-clear button-dark">{{ currentItem.date | date:'MMMM dd, yyyy' }}</button>
+                </ionic-datepicker>
             </label>
             <label class="item item-input">
                 <span class="input-label">Notes</span>
