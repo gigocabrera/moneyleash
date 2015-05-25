@@ -60,6 +60,14 @@ angular.module('moneyleash.factories', [])
                 accounttypes = $firebaseArray(ref);
                 return accounttypes;
             },
+            getTransaction: function (userid, accountid, transactionid) {
+                var deferred = $q.defer();
+                var ref = fb.child("members").child(userid).child("accounts").child(accountid).child("transactions").child(transactionid);
+                ref.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
         };
     })
 

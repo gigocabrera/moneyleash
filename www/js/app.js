@@ -192,7 +192,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         }
     })
     .state('app.account', {
-        url: "/accounts/account/:isNew/:accountId",
+        url: "/accounts/account/:accountId/:isNew",
         views: {
             'menuContent': {
                 templateUrl: "templates/account.html",
@@ -208,6 +208,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/transactions.html",
                 controller: 'TransactionsController'
+            }
+        }
+    })
+    .state('app.transaction', {
+        url: ":accountId/:accountName/transactions/:transactionId/:transactionName",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/transaction.html",
+                controller: 'TransactionController'
             }
         }
     })

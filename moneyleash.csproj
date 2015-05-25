@@ -2811,6 +2811,7 @@
     <Content Include="www\js\app.js" />
     <Content Include="www\js\controllers-account.js" />
     <Content Include="www\js\controllers-accounts.js" />
+    <Content Include="www\js\controllers-transaction.js" />
     <Content Include="www\js\controllers-transactions.js" />
     <Content Include="www\js\controllers-accounttypes.js" />
     <Content Include="www\js\controllers-personalprofile.js" />

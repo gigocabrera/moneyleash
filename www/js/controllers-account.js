@@ -18,9 +18,8 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
         'accounttype': ''
     }
 
-    // EDIT / CREATE NEW
+    // EDIT / CREATE ACCOUNT
     if ($stateParams.isNew == 'True') {
-        // Create new account
         $scope.AccountTitle = "Create Account";
     } else {
         // Edit account
@@ -32,8 +31,6 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
             var dtOpen = new Date(account.dateopen);
             var dtCreated = new Date(account.datecreated);
             var dtUpdated = new Date(account.dateupdated);
-
-            //evaluate for valid dates
             if (isNaN(dtOpen)) {
                 dtOpen = "";
             }
@@ -69,7 +66,7 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
                 if (error) {
                     console.log('Synchronization failed');
                 } else {
-                    console.log('Synchronization succeeded');
+                    //console.log('Synchronization succeeded');
                 }
             };
 
@@ -85,9 +82,7 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
             $scope.currentItem.dateupdated = dtUpdated;
             accountRef.update($scope.currentItem, onComplete);
             $scope.inEditMode = false;
-
         } else {
-
             /* PREPARE DATA FOR FIREBASE*/
             $scope.temp = {
                 accountname: $scope.currentItem.accountname,

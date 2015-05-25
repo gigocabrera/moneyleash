@@ -43,10 +43,9 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         }
     };
 
-    // CREATE
+    // CREATE ACCOUNT
     $scope.createAccount = function (title) {
-        $scope.myTitle = title + " Create Account";
-        $state.go('app.account', { isNew: 'True', accountId: '-1' });
+        $state.go('app.account', { accountId: '-1', isNew: 'True' });
     }
 
     // LIST

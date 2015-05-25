@@ -146,7 +146,7 @@ button.customHeaderSize {
     top: 20px;
     right: 0px;
     color: #787878;
-    font-weight: normal;
+    font-weight: bold;
 }
 .amountRed {
     color: red;

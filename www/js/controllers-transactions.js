@@ -1,6 +1,6 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $rootScope, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
@@ -30,40 +30,14 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            $ionicListDelegate.closeOptionButtons();
-            $scope.inEditMode = true;
-            $scope.editIndex = transaction.$id;
-            $scope.currentItem = transaction;
-            var dtTransaction = new Date(transaction.date);
-            if (isNaN(dtTransaction)) {
-                dtTransaction = "";
-            }
-            $scope.currentItem.date = dtTransaction;
-            $scope.myTitle = "Edit " + $scope.currentItem.payee;
-            $scope.modal.show();
+            // EDIT ACCOUNT
+            $state.go('app.transaction', { accountId: $stateParams.accountId, accountName:$stateParams.accountName, transactionId: transaction.$id, transactionName: transaction.payee });
         }
     };
 
-    // OPEN ACCOUNT SAVE MODAL 
-    $ionicModal.fromTemplateUrl('templates/transaction.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal
-    })
-    $scope.openEntryForm = function (action) {
-        $scope.myTitle = action + " Transaction";
-        $scope.currentItem = {
-            accountid: $stateParams.accountId,
-            type: "",
-            payee: "",
-            category: "",
-            amount: "",
-            date: "",
-            notes: "",
-            photo: ""
-        };
-        $scope.modal.show();
+    // CREATE
+    $scope.createTransaction = function (title) {
+        $state.go('app.transaction', { accountId: $stateParams.accountId, accountName:$stateParams.accountName, transactionId: '-1', transactionName: '' });
     }
 
     // LIST
@@ -85,41 +59,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $rootScope,
         //$scope.myTitle = "Edit " + $scope.currentItem.payee;
         //$scope.modal.show();
     };
-
-    // SAVE
-    $scope.SaveTransaction = function (currentItem) {
-        if ($scope.inEditMode) {
-            // edit 
-            var dtDate = new Date($scope.currentItem.date);
-            dtDate = +dtDate;
-            $scope.currentItem.date = dtDate;
-            $scope.transactions.$save(currentItem)
-            $scope.inEditMode = false;
-        } else {
-            // new 
-            $scope.temp = {
-                accountid: $stateParams.accountId,
-                type: $scope.currentItem.type,
-                payee: $scope.currentItem.payee,
-                category: $scope.currentItem.category,
-                amount: $scope.currentItem.amount,
-                date: $scope.currentItem.date.getTime(),
-                notes: $scope.currentItem.notes,
-                photo: $scope.currentItem.photo
-            };
-            fbAuth = fb.getAuth();
-            var accountsref = AccountsFactory.ref(fbAuth.uid);
-            var newtransactionref = accountsref.child($stateParams.accountId).child("transactions");
-            var sync = $firebaseArray(newtransactionref);
-            sync.$add($scope.temp).then(function (newChildRef) {
-                $scope.temp = {
-                    accountid: newChildRef.key()
-                };
-            });
-        }
-        $scope.currentItem = {};
-        $scope.modal.hide();
-    }
 
     // DELETE
     $scope.deleteItem = function (type, index) {

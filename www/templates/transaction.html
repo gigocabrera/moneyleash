@@ -1,10 +1,8 @@
-<div class="modal">
-    <ion-header-bar class="bar-stable">
-        <button class="left button button-clear button-positive customHeaderSize" ng-click="modal.hide()">Cancel</button>
-        <h1 class="title">{{myTitle}}</h1>
-        <button class="right button button-clear button-positive customHeaderSize" ng-click="SaveTransaction(currentItem)">Save</button>
-    </ion-header-bar>
-    <ion-content has-header="true" padding="true">
+<ion-view title={{TransactionTitle}}>
+    <ion-nav-buttons side="right">
+        <button class="right button button-clear button-positive customHeaderSize" ng-click="saveTransaction(currentItem)">Save</button>
+    </ion-nav-buttons>
+    <ion-content has-header="true">
         <div class="list">
             <label class="item item-input">
                 <span class="input-label">Transaction Type</span>
@@ -42,4 +40,4 @@
             </label>
         </div>
     </ion-content>
-</div>
+</ion-view>
