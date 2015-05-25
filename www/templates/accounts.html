@@ -9,14 +9,14 @@
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
             <ion-item ng-repeat="account in accounts" ng-click="handleSwipeOptions($event, account)" href="#" class="item-icon-right">
-                <div class="row">
+                <div class="row AccountScreenPadding">
                     <div class="col-50 customAccDesc">
                         <span>
                             {{account.accountname}}
                             <small>
                                 <div id="transactionIcons">
                                     <ul>
-                                        <li><i class="fa fa-calendar"></i>{{account.dateopen | date:'MM/dd/yyyy'}}</li>
+                                        <li><i class="fa fa-calendar-o"></i>{{account.dateopen | date:'MM/dd/yyyy'}}</li>
                                         <li><i class="fa fa-tag"></i>{{account.accounttype}}</li>
                                     </ul>
                                 </div>

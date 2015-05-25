@@ -7,13 +7,13 @@
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
             <ion-item ng-repeat="transaction in transactions | reverse" itemid="transaction" ng-click="handleSwipeAndTap($event, transaction)" href="#" class="item-icon-right">
                 <div class="row">
-                    <div class="col-50 customAccDesc">
+                    <div class="col-50 customTransDesc">
                         <span>
                             {{transaction.payee}}
                             <small>
                                 <div id="transactionIcons">
                                     <ul>
-                                        <li><i class="fa fa-calendar"></i>{{transaction.date | date:'MM/dd/yyyy'}}</li>
+                                        <li><i class="fa fa-calendar-o"></i>{{transaction.date | date:'MM/dd/yyyy'}}</li>
                                         <li><i class="fa fa-tag"></i>{{transaction.category}}</li>
                                     </ul>
                                 </div>

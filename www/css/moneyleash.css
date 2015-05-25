@@ -118,6 +118,10 @@ button.customHeaderSize {
 .row {
     padding: 0px;
 }
+.AccountScreenPadding {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 .right{
     text-align: right;
 }
@@ -129,9 +133,17 @@ button.customHeaderSize {
 .customAccDesc span small {
     position: absolute;
     font: 13px 'PT Sans Narrow', sans-serif;
+    top: 37px;
+    left: 16px;
+    color: #B1B2B7;
+    font-weight: normal;
+}
+.customTransDesc span small {
+    position: absolute;
+    font: 13px 'PT Sans Narrow', sans-serif;
     top: 31px;
     left: 16px;
-    color: #787878;
+    color: #B1B2B7;
     font-weight: normal;
 }
 .customAccAmt {
@@ -146,17 +158,17 @@ button.customHeaderSize {
 }
 .customAccAmt span small {
     position: absolute;
-    font: 14px 'PT Sans Narrow', sans-serif;
+    font: 15px 'PT Sans Narrow', sans-serif;
     top: 20px;
     right: 0px;
-    color: #787878;
+    color: #B1B2B7;
     font-weight: bold;
 }
 .amountRed {
-    color: red;
+    color: #F33D24;
 }
 .amountGreen {
-    color: green;
+    color: #66AF36;
 }
 .item-right-edit {
     width: 60px;
@@ -169,14 +181,12 @@ button.customHeaderSize {
     list-style-type: none;
     display: inline;   
     margin-right: 7px;
-    font-size: 12px;
-    /* font: 11px 'PT Sans Narrow'; */
-    color: #787878;
+    font-size: 13px;
+    color: #B1B2B7;
 }
 #transactionIcons ul li > i {
-  color: #8C8C8C;
   margin-right: 3px;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 /* INTRO SCREEN */
