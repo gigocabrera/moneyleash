@@ -5,12 +5,12 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            <ion-item ng-repeat="(id, type) in accounttypes.accounttypes" itemid="type" ng-click="closeSwipeOptions($event)" href="#" class="item-icon-right">
-                {{type.accounttypename}}
+            <ion-item ng-repeat="(id, accounttype) in accounttypes" itemid="type" ng-click="closeSwipeOptions($event)" href="#" class="item-icon-right">
+                {{accounttype.name}}
                 <ion-option-button class="button-energized" ng-click="editItem(id)">
                     Edit
                 </ion-option-button>
-                <ion-option-button class="button-assertive" ng-click="deleteItem(type, id)">
+                <ion-option-button class="button-assertive" ng-click="deleteItem(accounttype, id)">
                     Delete
                 </ion-option-button>
                 <ion-reorder-button class="ion-navicon" on-reorder="moveItem(type, $fromIndex, $toIndex)"></ion-reorder-button>

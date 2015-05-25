@@ -5,6 +5,10 @@
 .item {
     font-size: 20px;
 }
+.SectionHead {
+    font-size: 13px;
+    font-weight: bold;
+}
 
 /* Padding for all ion-item ng-repeat lists */
 .item-complex .item-content {

@@ -6,7 +6,7 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
     $scope.inEditMode = false;
     $scope.editIndex = 0;
     $scope.currentItem = {
-        accounttypename: "",
+        name: "",
         icon: "",
     };
 
@@ -55,24 +55,13 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
         $rootScope.hide();
     }
 
-    // LIST
-    //$scope.list = function () {
-    //    $rootScope.show('');
-    //    fbAuth = fb.getAuth();
-    //    if (fbAuth) {
-    //        var syncObject = $firebaseObject(fb.child("members/" + fbAuth.uid));
-    //        syncObject.$bindTo($scope, "accounttypes");
-    //    }
-    //    $rootScope.hide();
-    //}
-
     // EDIT
     $scope.editItem = function (index) {
         $ionicListDelegate.closeOptionButtons();
         $scope.inEditMode = true;
         $scope.editIndex = index;
         $scope.currentItem = $scope.accounttypes.accounttypes[index];
-        $scope.myTitle = "Edit " + $scope.currentItem.AccountTypeName;
+        $scope.myTitle = "Edit " + $scope.currentItem.name;
         $scope.modal.show();
     };
 
@@ -88,7 +77,7 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
                 $scope.accounttypes.accounttypes = [];
             }
             $scope.accounttypes.accounttypes.push({
-                'AccountTypeName': $scope.currentItem.AccountTypeName, 'Icon': $scope.currentItem.Icon
+                'name': $scope.currentItem.name, 'Icon': $scope.currentItem.Icon
             });
         }
         $scope.currentItem = {};
@@ -96,11 +85,11 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
     }
 
     // DELETE
-    $scope.deleteItem = function (type, index) {
+    $scope.deleteItem = function (accounttype, index) {
         // Show the action sheet
         var hideSheet = $ionicActionSheet.show({
             destructiveText: 'Delete Account',
-            titleText: 'Are you sure you want to delete ' + type.AccountTypeName + '? This will permanently delete the account from the app.',
+            titleText: 'Are you sure you want to delete ' + accounttype.name + '? This will permanently delete the account from the app.',
             cancelText: 'Cancel',
             cancel: function () {
                 // add cancel code..

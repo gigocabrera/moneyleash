@@ -152,32 +152,32 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
                         /* SAVE DEFAULT ACCOUNT TYPES DATA FOR THIS MEMBER */
                         var newtyperef = membersref.child(authData.uid).child("accounttypes");
                         var sync = $firebaseArray(newtyperef);
-                        sync.$add({ accounttypename: 'Checking', icon: '0' }).then(function (newChildRef) {
+                        sync.$add({ name: 'Checking', icon: '0' }).then(function (newChildRef) {
                             $scope.temp = {
                                 accountid: newChildRef.key()
                             };
                         });
-                        sync.$add({ accounttypename: 'Savings', icon: '0' }).then(function (newChildRef) {
+                        sync.$add({ name: 'Savings', icon: '0' }).then(function (newChildRef) {
                             $scope.temp = {
                                 accountid: newChildRef.key()
                             };
                         });
-                        sync.$add({ accounttypename: 'Credit Card', icon: '0' }).then(function (newChildRef) {
+                        sync.$add({ name: 'Credit Card', icon: '0' }).then(function (newChildRef) {
                             $scope.temp = {
                                 accountid: newChildRef.key()
                             };
                         });
-                        sync.$add({ accounttypename: 'Debit Card', icon: '0' }).then(function (newChildRef) {
+                        sync.$add({ name: 'Debit Card', icon: '0' }).then(function (newChildRef) {
                             $scope.temp = {
                                 accountid: newChildRef.key()
                             };
                         });
-                        sync.$add({ accounttypename: 'Investment', icon: '0' }).then(function (newChildRef) {
+                        sync.$add({ name: 'Investment', icon: '0' }).then(function (newChildRef) {
                             $scope.temp = {
                                 accountid: newChildRef.key()
                             };
                         });
-                        sync.$add({ accounttypename: 'Brokerage', icon: '0' }).then(function (newChildRef) {
+                        sync.$add({ name: 'Brokerage', icon: '0' }).then(function (newChildRef) {
                             $scope.temp = {
                                 accountid: newChildRef.key()
                             };
@@ -219,15 +219,16 @@ moneyleashapp.controller('RecurringListCtrl', function ($scope) {
 
 })
 
-// MODAL CONTROLLER
-.controller('ModalCtrl', function ($scope) {
+// ACCOUNT TYPE MODAL CONTROLLER
+.controller('AccountTypeModalCtrl', function ($scope) {
 
     $scope.hideModal = function () {
         $scope.modalCtrl.hide();
     };
 
-    $scope.doSomething = function (item) {
-        $scope.modalData.msg = item;
+    $scope.doSelect = function (accounttype) {
+        //$scope.modalData.msg = accounttype.name;
+        $scope.currentItem.accounttype = accounttype.name;
         $scope.modalCtrl.hide();
     };
 

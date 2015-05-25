@@ -1,5 +1,3 @@
-/// <reference path="controllers-accounttypes.js" />
-
 
 // ACCOUNTS CONTROLLER
 moneyleashapp.controller('AccountController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, MembersFactory, dateFilter) {
@@ -53,9 +51,11 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
     }
 
     // OPEN ACCOUNT SAVE MODAL
-    $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    fbAuth = fb.getAuth();
+    $scope.uid = fbAuth.uid
+    $scope.accounttypes = AccountsFactory.getAccountTypes($scope.uid);
     $scope.modalData = {"msg": 'Jan'};
-    $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
+    $ionicModal.fromTemplateUrl('templates/accounttypeselect.html', function (modal) {
         $scope.modalCtrl = modal;
     }, {
         scope: $scope,

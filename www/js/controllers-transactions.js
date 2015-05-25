@@ -61,11 +61,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     };
 
     // DELETE
-    $scope.deleteItem = function (type, index) {
+    $scope.deleteItem = function (accounttype, index) {
         // Show the action sheet
         var hideSheet = $ionicActionSheet.show({
             destructiveText: 'Delete Account',
-            titleText: 'Are you sure you want to delete ' + type.AccountTypeName + '? This will permanently delete the account from the app.',
+            titleText: 'Are you sure you want to delete ' + accounttype.name + '? This will permanently delete the account from the app.',
             cancelText: 'Cancel',
             cancel: function () {
                 // add cancel code..

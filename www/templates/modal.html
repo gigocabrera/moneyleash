@@ -1,12 +1,12 @@
-<div class="modal" ng-controller="ModalCtrl">
+<div class="modal" ng-controller="AccountTypeModalCtrl">
     <ion-header-bar class="bar bar-header bar-positive">
-        <h1 class="title">Select Month</h1>
+        <h1 class="title">Select Account Type</h1>
         <button class="button button-clear button-primary" ng-click="hideModal()">Cancel</button>
     </ion-header-bar>
     <ion-content>
         <div class="list">
-            <ion-radio ng-model="modalData.msg" ng-repeat="item in months" ng-click="doSomething(item)">
-                {{item}}
+            <ion-radio ng-model="modalData.msg" ng-repeat="accounttype in accounttypes" ng-click="doSomething(accounttype)">
+                {{accounttype.name}}
             </ion-radio>
         </div>
     </ion-content>
