@@ -18,10 +18,9 @@
                     <button class="button button-clear button-dark">{{ currentItem.dateopen | date:'MMMM dd, yyyy' }}</button>
                 </ionic-datepicker>
             </label>
-            <label class="item item-input item-icon-right" ng-click="openAccountTypes()">
+            <label class="item item-input item-icon-right" ng-click="openModal()">
                 <span class="input-label">Type</span>
-                {{currentItem.accounttype}}
-                <i class="icon ion-chevron-right customChevronMenu"></i>
+                {{modalData.msg}}
             </label>
             <label class="item item-input">
                 <span class="input-label">Date Created</span>

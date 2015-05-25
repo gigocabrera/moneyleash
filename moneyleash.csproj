@@ -2859,6 +2859,7 @@
     <Content Include="www\lib\ionic\js\ionic.min.js" />
     <Content Include="www\templates\about.html" />
     <Content Include="www\templates\account.html" />
+    <Content Include="www\templates\modal.html" />
     <Content Include="www\templates\selectaccounttype.html" />
     <Content Include="www\templates\transactions.html" />
     <Content Include="www\templates\accounts.html" />

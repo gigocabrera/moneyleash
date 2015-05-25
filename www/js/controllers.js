@@ -214,8 +214,22 @@ moneyleashapp.controller('DashboardCtrl', function ($scope) {
     
 })
 
-// RECURRING
+// RECURRING CONTROLLER
 moneyleashapp.controller('RecurringListCtrl', function ($scope) {
+
+})
+
+// MODAL CONTROLLER
+.controller('ModalCtrl', function ($scope) {
+
+    $scope.hideModal = function () {
+        $scope.modalCtrl.hide();
+    };
+
+    $scope.doSomething = function (item) {
+        $scope.modalData.msg = item;
+        $scope.modalCtrl.hide();
+    };
 
 })
 

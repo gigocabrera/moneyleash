@@ -1,0 +1,13 @@
+<div class="modal" ng-controller="ModalCtrl">
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Select Month</h1>
+        <button class="button button-clear button-primary" ng-click="hideModal()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <ion-radio ng-model="modalData.msg" ng-repeat="item in months" ng-click="doSomething(item)">
+                {{item}}
+            </ion-radio>
+        </div>
+    </ion-content>
+</div>

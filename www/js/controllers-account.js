@@ -51,10 +51,22 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
         });
         $scope.AccountTitle = "Edit Account";
     }
+
+    // OPEN ACCOUNT SAVE MODAL
+    $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    $scope.modalData = {"msg": 'Jan'};
+    $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
+        $scope.modalCtrl = modal;
+    }, {
+        scope: $scope,
+        animation: 'slide-in-up',
+        focusFirstInput: true
+    });
     
     // OPEN ACCOUNT TYPES
-    $scope.openAccountTypes = function () {
-        $state.go('app.selectaccounttype');
+    $scope.openModal = function () {
+        //$state.go('app.selectaccounttype');
+        $scope.modalCtrl.show();
     }
 
     $scope.saveAccount = function (currentItem) {
