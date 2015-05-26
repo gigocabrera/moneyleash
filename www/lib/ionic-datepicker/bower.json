@@ -1,6 +1,6 @@
 {
   "name": "ionic-datepicker",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "authors": [
     "rajeshwarpatlolla <rajeshwar.patlolla@gmail.com>"
   ],
@@ -13,7 +13,9 @@
   "keywords": [
     "ionic-datepicker",
     "ionic",
-    "datepicker"
+    "datepicker",
+    "datepicker for ionic",
+    "datepicker for ionic framework"
   ],
   "license": "MIT",
   "homepage": "https://github.com/rajeshwarpatlolla",

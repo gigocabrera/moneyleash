@@ -11,8 +11,6 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
         'accountname': '',
         'startbalance': '',
         'dateopen': '',
-        'datecreated': dateFilter(new Date(), 'MMMM dd, yyyy HH:mm:ss'),
-        'dateupdated': dateFilter(new Date(), 'MMMM dd, yyyy HH:mm:ss'),
         'accounttype': ''
     }
 
@@ -27,23 +25,13 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
         $scope.uid = fbAuth.uid;
         AccountsFactory.getAccount(fbAuth.uid, $scope.editIndex).then(function (account) {
             var dtOpen = new Date(account.dateopen);
-            var dtCreated = new Date(account.datecreated);
-            var dtUpdated = new Date(account.dateupdated);
             if (isNaN(dtOpen)) {
                 dtOpen = "";
-            }
-            if (isNaN(dtCreated)) {
-                dtCreated = new Date();
-            }
-            if (isNaN(dtUpdated)) {
-                dtUpdated = new Date();
             }
             $scope.currentItem = {
                 'accountname': account.accountname,
                 'startbalance': account.startbalance,
                 'dateopen': dtOpen,
-                'datecreated': dateFilter(dtCreated, 'MMMM dd, yyyy HH:mm:ss'),
-                'dateupdated': dateFilter(dtUpdated, 'MMMM dd, yyyy HH:mm:ss'),
                 'accounttype': account.accounttype
             }
         });
@@ -84,14 +72,8 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
 
             /* EDIT DATA */
             var dtOpen = new Date($scope.currentItem.dateopen);
-            var dtCreated = new Date($scope.currentItem.datecreated);
-            var dtUpdated = new Date();
             dtOpen = +dtOpen;
-            dtCreated = +dtCreated;
-            dtUpdated = +dtUpdated;
             $scope.currentItem.dateopen = dtOpen;
-            $scope.currentItem.datecreated = dtCreated;
-            $scope.currentItem.dateupdated = dtUpdated;
             accountRef.update($scope.currentItem, onComplete);
             $scope.inEditMode = false;
         } else {
@@ -100,8 +82,6 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
                 accountname: $scope.currentItem.accountname,
                 startbalance: $scope.currentItem.startbalance,
                 dateopen: $scope.currentItem.dateopen.getTime(),
-                datecreated: $scope.currentItem.datecreated,
-                dateupdated: $scope.currentItem.dateupdated,
                 accounttype: $scope.currentItem.accounttype
             }
 
