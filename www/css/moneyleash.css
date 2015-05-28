@@ -6,10 +6,9 @@
     font-size: 20px;
 }
 .SectionHead {
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 12px;
+    font-weight: normal;
 }
-
 /* Padding for all ion-item ng-repeat lists */
 .item-complex .item-content {
     padding: 12px 45px 12px 16px;
@@ -33,7 +32,6 @@
     border-color: #e67300;
     background-color: #ff8000;
 }
-
 /* Styles for number pad 
 .row, .col {
     text-align: center;
@@ -44,13 +42,19 @@
     padding: 15px 0px !important;
 }
 */
-
 /* force color red */
 .redtext {
     color: red;
 }
 .bar.bar-stable {
     border-bottom: #b2b2b2 1px solid;
+}
+.bar.bar-calm {
+    border-bottom: #000 1px solid;
+    background-color: #00aff0;
+}
+.bar.bar-balanced {
+    border-bottom: #505050 1px solid;
 }
 /* Spin animation for ion-loop */
 .spinner svg {
@@ -66,11 +70,15 @@
     padding: 4px 40px 4px 11px;
 }
 /* Menu Icons and Chevron Icons */
-.bar-stable .Menutitle {
+.bar-stable .HeaderTitle {
     text-align: left;
     font-size: 17px;
     padding-left: 10px;
     padding-top: 10px;
+    color: #ff8000;
+    font-weight: bolder;
+}
+.bar.bar-stable .title {
     color: #ff8000;
     font-weight: bolder;
 }
@@ -90,14 +98,15 @@
     font-size: 24px;
 }
 .ion-chevron-right:before {
-    color: #b5b5b5;  /* color: #e67300; -- orange */
+    color: #b5b5b5;
     font-size: 14px;
 }
 .customChevronMenu:before {
-    color: #e67300;
+    color: #ff7100;
 }
 .item-complex.item-icon-right .item-content {
     padding-right: 40px;
+    /*background-color: transparent;*/
 }
 .item-complex.item-icon-left .item-content {
     padding-left: 40px;
@@ -105,15 +114,24 @@
 .item-icon-left {
     padding-left: 40px;
 }
-button.customIconSize:before {
-    font-size: 18px !important;
+button.customHeaderIcon:before {
+    color: #ff7100;
+}
+button.customHeaderIcon:before {
+    font-size: 20px !important;
+}
+button.customHeaderIconSize:before {
+    font-size: 32px !important;
+}
+.bar .button.back-button {
+    color: #ff7100;
 }
 button.customHeaderSize {
     font-size: 20px !important;
 }
 
-/*******************/
-/* ACCOUNTS SCREEN */
+/***********************************/
+/* ACCOUNTS & TRANSACTIONS SCREENS */
 
 .row {
     padding: 0px;
@@ -176,7 +194,6 @@ button.customHeaderSize {
 .item-right-edit {
     width: 60px;
 }
-
 #transactionIcons ul {
     margin-top: 5px;
 }
@@ -191,8 +208,21 @@ button.customHeaderSize {
   margin-right: 3px;
   font-size: 10px;
 }
+.formLabelBold {
+    font-weight: bold;
+}
+.transactionIsCleared a.item-content {
+    background-color: #eeeeee;
+}
+.item-toggle-option .toggle {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    z-index: 3;
+}
 
-/* INTRO SCREEN */
+/*******************/
+/*  INTRO SCREEN  */
 
 a.mlLinksBlue {
     text-decoration: none;
@@ -203,7 +233,6 @@ a.mlLinksGray {
     text-decoration: none;
     color: blue;
 }
-
 .intro-view, .login-view, .signup-view, .forgot-password-view {
     background-color: white !important;
 }
@@ -327,11 +356,13 @@ a.mlLinksGray {
     background-color: #EAEAEA !important;
 }
 
+/*******************/
 /* SETTINGS SCREEN */
 .customPaddingSettings {
     padding: 0px 40px 0px 11px;
 }
 
-/* ABOUT SCREEN */
+/*******************/
+/*  ABOUT SCREEN  */
 .slider { height: 100%; text-align: center }
 .scroll { height: 100%; }

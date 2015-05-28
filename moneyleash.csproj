@@ -2876,7 +2876,6 @@
     <Content Include="www\templates\personalprofile.html" />
     <Content Include="www\templates\popover.html" />
     <Content Include="www\templates\recurring.html" />
-    <Content Include="www\templates\recurringlist.html" />
     <Content Include="www\templates\register.html" />
     <Content Include="www\templates\reports.html" />
     <Content Include="www\templates\settings.html" />

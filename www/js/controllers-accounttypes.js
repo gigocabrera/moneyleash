@@ -49,9 +49,7 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
     // LIST
     $scope.list = function () {
         $rootScope.show("syncing");
-        fbAuth = fb.getAuth();
-        $scope.uid = fbAuth.uid
-        $scope.accounttypes = AccountsFactory.getAccountTypes($scope.uid);
+        $scope.accounttypes = AccountsFactory.getAccountTypes();
         $rootScope.hide();
     }
 

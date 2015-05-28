@@ -26,7 +26,6 @@ moneyleashapp.controller('AppCtrl', function ($scope, $rootScope, $state, $ionic
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                fireBaseData.clearData();
                 $ionicHistory.clearCache();
                 Auth.$unauth();
                 $state.go('intro');
@@ -210,12 +209,12 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 })
 
 // DASHBOARD CONTROLLER
-moneyleashapp.controller('DashboardCtrl', function ($scope) {
+moneyleashapp.controller('DashboardController', function ($scope) {
     
 })
 
 // RECURRING CONTROLLER
-moneyleashapp.controller('RecurringListCtrl', function ($scope) {
+moneyleashapp.controller('RecurringController', function ($scope) {
 
 })
 

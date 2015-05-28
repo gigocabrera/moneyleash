@@ -176,7 +176,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         views: {
             'menuContent': {
                 templateUrl: "templates/dashboard.html",
-                controller: 'DashboardCtrl'
+                controller: 'DashboardController'
             }
         }
     })
@@ -212,7 +212,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         }
     })
     .state('app.transaction', {
-        url: ":accountId/:accountName/transactions/:transactionId/:transactionName",
+        url: "transactions/:accountId/:accountName/:transactionId/:transactionName",
         views: {
             'menuContent': {
                 templateUrl: "templates/transaction.html",
@@ -244,12 +244,12 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     })
 
     // RECURRING
-    .state('app.recurringlist', {
-        url: "/recurringlist",
+    .state('app.recurring', {
+        url: "/recurring",
         views: {
             'menuContent': {
-                templateUrl: "templates/recurringlist.html",
-                controller: 'RecurringListCtrl'
+                templateUrl: "templates/recurring.html",
+                controller: 'RecurringController'
             }
         }
     })

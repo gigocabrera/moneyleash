@@ -4,14 +4,14 @@
             <ion-nav-back-button>
             </ion-nav-back-button>
             <ion-nav-buttons side="left">
-                <button class="button button-icon button-clear ion-navicon" menu-toggle="left" ng-show="showMenuIcon"></button>
+                <button class="button button-icon button-clear ion-navicon customHeaderIcon customHeaderIconSize" menu-toggle="left" ng-show="showMenuIcon"></button>
             </ion-nav-buttons>
         </ion-nav-bar>
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
     <ion-side-menu side="left" expose-aside-when="large">
         <ion-header-bar class="bar-stable">
-            <h1 class="Menutitle">Money Leash v1.0</h1>
+            <h1 class="HeaderTitle">Money Leash v1.0</h1>
         </ion-header-bar>
         <ion-content>
             <ion-list>
@@ -29,7 +29,7 @@
                         <i class="icon ion-chevron-right customChevronMenu"></i>
                     </div>
                 </ion-item>
-                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.recurringlist">
+                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.recurring">
                     <div class="customPaddingMenuItem">
                         <i class="icon ion-ios-loop icon-left-smaller"></i>
                         Recurring

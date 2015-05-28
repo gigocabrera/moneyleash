@@ -45,11 +45,9 @@ moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $st
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                $rootScope.show('');
                 fireBaseData.clearData();
                 $ionicHistory.clearCache();
                 Auth.$unauth();
-                $rootScope.hide();
                 $state.go("intro");
             }
         });

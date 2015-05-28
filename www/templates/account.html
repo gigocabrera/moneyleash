@@ -5,22 +5,22 @@
     <ion-content has-header="true">
         <div class="list">
             <label class="item item-input">
-                <span class="input-label">Account Name</span>
+                <span class="input-label formLabelBold">Account Name</span>
                 <input type="text" ng-model="currentItem.accountname">
             </label>
             <label class="item item-input">
-                <span class="input-label">Begining Balance</span>
+                <span class="input-label formLabelBold">Begining Balance</span>
                 <input type="text" ng-model="currentItem.startbalance" valid-number />
             </label>
             <label class="item item-input">
-                <span class="input-label">Open Date</span>
+                <span class="input-label formLabelBold">Open Date</span>
                 <ionic-datepicker idate="currentItem.dateopen">
                     <button class="button button-clear button-dark">{{ currentItem.dateopen | date:'MMMM dd, yyyy' }}</button>
                 </ionic-datepicker>
             </label>
             <label class="item item-input item-icon-right" ng-click="openModal()">
-                <span class="input-label">Type</span>
-                {{currentItem.accounttype}}
+                <span class="input-label formLabelBold">Type</span>
+                <span class="input-label">{{currentItem.accounttype}}</span>
             </label>
         </div>
     </ion-content>

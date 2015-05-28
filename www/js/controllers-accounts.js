@@ -1,8 +1,9 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, MembersFactory) {
+moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
 
     $scope.accounts = [];
+    $scope.networth = '';
     $scope.inEditMode = false;
     $scope.editIndex = 0;
     $scope.uid = '';
@@ -51,9 +52,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     // LIST
     $scope.list = function () {
         $rootScope.show("syncing");
-        fbAuth = fb.getAuth();
-        $scope.uid = fbAuth.uid
-        $scope.accounts = AccountsFactory.getAccounts($scope.uid);
+        $scope.accounts = AccountsFactory.getAccounts();
         $rootScope.hide();
     }
 

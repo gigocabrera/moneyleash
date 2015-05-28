@@ -1,17 +1,9 @@
+
 angular.module('moneyleash.factories', [])
 
     .factory('Auth', function ($firebaseAuth, $rootScope) {
         return $firebaseAuth(fb);
     })
-
-    .factory("AccountTypes", ["$firebaseObject",
-        function($firebaseObject) {
-            return function(email) {
-                var ref = fb.child("members/" + escapeEmailAddress(email) + "/accounttypes/");
-                return $firebaseObject(ref);
-            }
-        }
-    ])
 
     .factory('MembersFactory', function ($firebaseArray, $q) {
         var ref = fb.child("members");
@@ -34,29 +26,61 @@ angular.module('moneyleash.factories', [])
         };
     })
 
+    .factory("AccountWithBalance", ["$firebaseArray",
+        function($firebaseArray) {
+            var AccountWithBalance = $firebaseArray.$extend({
+                getBalance: function() {
+                    var balance = 0;
+                    // the array data is located in this.$list
+                    angular.forEach(this.$list, function(rec) {
+                        balance += rec.startbalance;
+                    });
+                    return balance;
+                }
+            });
+            return function(listRef) {
+                return new AccountWithBalance(listRef);
+            }
+        }
+    ])
+
     .factory('AccountsFactory', function ($firebaseArray, $q) {
+        var fbAuth = fb.getAuth();
         var accounts = {};
         var accounttypes = {};
+        var transactions = {};
+        var accountsRef = {};
+        var accountRef = {};
+        var networth = {};
         return {
             ref: function (userid) {
                 var ref = fb.child("members").child(userid).child("accounts");
                 return ref;
             },
-            getAccounts: function (userid) {
-                var ref = fb.child("members").child(userid).child("accounts");
+            getAccounts: function () {
+                var ref = fb.child("members").child(fbAuth.uid).child("accounts");
                 accounts = $firebaseArray(ref);
+                //UpdateBalance(accounts);
                 return accounts;
             },
-            getAccount: function (userid, accountid) {
+            getAccount: function (accountid) {
                 var deferred = $q.defer();
-                var ref = fb.child("members").child(userid).child("accounts").child(accountid);
+                var ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
-            getAccountTypes: function (userid) {
-                var ref = fb.child("members").child(userid).child("accounttypes");
+            getAccountsRef: function (accountid) {
+                var accountsRef = fb.child("members").child(fbAuth.uid).child("accounts");
+                return accountsRef;
+            },
+            getAccountRef: function (accountid) {
+                var accountRef = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid);
+                return accountRef;
+            },
+            getAccountTypes: function () {
+                var ref = fb.child("members").child(fbAuth.uid).child("accounttypes");
                 accounttypes = $firebaseArray(ref);
                 return accounttypes;
             },
@@ -68,14 +92,35 @@ angular.module('moneyleash.factories', [])
                 });
                 return deferred.promise;
             },
+            getTransactions: function (accountid) {
+                var ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions");
+                transactions = $firebaseArray(ref);
+                return transactions;
+            },
+            getNetWorth: function() {
+                return networth;
+            }
         };
+
+        function UpdateBalance(accounts) {
+            var bal = 0;
+            var networth = 0;
+            accounts.$loaded().then(function () {
+                angular.forEach(accounts, function (account) {
+                    bal = 1000;
+                    account.balance = bal;
+                    networth = networth + bal;
+                })
+            });
+        }
+
     })
 
     .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {
 
         var currentData = {
             currentUser: false,
-            currentHouse: false,
+            currentGroup: false,
             idadmin: false
         };
 
@@ -105,44 +150,6 @@ angular.module('moneyleash.factories', [])
             clearData: function () {
                 currentData = false;
             },
-
-            checkDuplicateEmail: function (email) {
-                var deferred = $q.defer();
-                var usersRef = fb.child("roommates/" + escapeEmailAddress(email));
-                usersRef.once("value", function (snap) {
-                    if (snap.val() === null) {
-                        deferred.resolve(true);
-                    } else {
-                        deferred.reject('EMAIL EXIST');
-                    }
-
-                });
-                return deferred.promise;
-            },
-
-            refreshData: function () {
-                var output = {};
-                var deferred = $q.defer();
-                var authData = fb.getAuth();
-                if (authData) {
-                    var usersRef = fb.child("roommates/" + escapeEmailAddress(authData.password.email));
-                    usersRef.once("value", function (snap) {
-                        output.currentUser = snap.val();
-                        var housesRef = fb.child("houses/" + output.currentUser.houseid);
-                        housesRef.once("value", function (snap) {
-                            output.currentHouse = snap.val();
-                            output.currentHouse.id = housesRef.key();
-                            output.isadmin = (output.currentHouse.admin === output.currentUser.email ? true : false);
-                            deferred.resolve(output);
-                        });
-                    });
-                } else {
-                    output = currentData;
-                    deferred.resolve(output);
-                }
-                return deferred.promise;
-            }
         }
-
     })
 ;

@@ -1,11 +1,10 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, MembersFactory, dateFilter) {
+moneyleashapp.controller('AccountController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicActionSheet, AccountsFactory, dateFilter) {
 
     $scope.accounts = '';
     $scope.AccountTitle = '';
     $scope.inEditMode = false;
-    $scope.uid = '';
     $scope.editIndex = '';
     $scope.currentItem = {
         'accountname': '',
@@ -20,10 +19,8 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
     } else {
         // Edit account
         $scope.editIndex = $stateParams.accountId;
-        var fbAuth = fb.getAuth();
         $scope.inEditMode = true;
-        $scope.uid = fbAuth.uid;
-        AccountsFactory.getAccount(fbAuth.uid, $scope.editIndex).then(function (account) {
+        AccountsFactory.getAccount($scope.editIndex).then(function (account) {
             var dtOpen = new Date(account.dateopen);
             if (isNaN(dtOpen)) {
                 dtOpen = "";
@@ -39,9 +36,7 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
     }
 
     // OPEN ACCOUNT SAVE MODAL
-    fbAuth = fb.getAuth();
-    $scope.uid = fbAuth.uid
-    $scope.accounttypes = AccountsFactory.getAccountTypes($scope.uid);
+    $scope.accounttypes = AccountsFactory.getAccountTypes();
     $scope.modalData = {"msg": 'Jan'};
     $ionicModal.fromTemplateUrl('templates/accounttypeselect.html', function (modal) {
         $scope.modalCtrl = modal;
@@ -53,15 +48,13 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
     
     // OPEN ACCOUNT TYPES
     $scope.openModal = function () {
-        //$state.go('app.selectaccounttype');
         $scope.modalCtrl.show();
     }
 
     $scope.saveAccount = function (currentItem) {
         $rootScope.show('Creating...');
         if ($scope.inEditMode) {
-            $scope.uid = fbAuth.uid
-            var accountRef = fb.child("members").child($scope.uid).child("accounts").child($scope.editIndex);
+            var accountRef = AccountsFactory.getAccountRef($scope.editIndex);
             var onComplete = function (error) {
                 if (error) {
                     console.log('Synchronization failed');
@@ -86,10 +79,7 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
             }
 
             /* SAVE DATA */
-            fbAuth = fb.getAuth();
-            var membersref = MembersFactory.ref();
-            var newaccountref = membersref.child(fbAuth.uid).child("accounts");
-            var sync = $firebaseArray(newaccountref);
+            var sync = AccountsFactory.getAccounts();
             sync.$add($scope.temp).then(function (newChildRef) {
                 $scope.temp = {
                     accountid: newChildRef.key()

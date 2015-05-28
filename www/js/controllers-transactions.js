@@ -1,6 +1,6 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
@@ -43,9 +43,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     // LIST
     $scope.list = function () {
         $rootScope.show("syncing");
-        fbAuth = fb.getAuth();
-        var ref = fb.child("members").child(fbAuth.uid).child("accounts").child($stateParams.accountId).child("transactions");
-        $scope.transactions = $firebaseArray(ref);
+        $scope.transactions = AccountsFactory.getTransactions($stateParams.accountId);
         UpdateRunningBalance($scope.transactions);
         $rootScope.hide();
     }

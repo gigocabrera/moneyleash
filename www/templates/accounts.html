@@ -1,10 +1,10 @@
 <ion-view title="Accounts" ng-init="list()">
     <ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        <button menu-toggle="left" class="button button-icon icon ion-navicon customHeaderIcon customHeaderIconSize"></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="right button button-icon icon ion-plus customIconSize" ng-click="createAccount('Add')"></button>
-        <button class="button button-icon ion-ios-more" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive customHeaderSize" ng-click="enableSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
+        <button class="right button button-icon icon ion-plus customHeaderIcon" ng-click="createAccount('Add')"></button>
+        <button class="button button-icon ion-ios-more customHeaderIcon customHeaderIconSize" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive" ng-click="enableSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
@@ -25,12 +25,11 @@
                     </div>
                     <div class="col-50 right customAccAmt" ng-class="{amountRed: transaction.type == 'expense', amountGreen: transaction.type == 'income'}">
                         <span>
-                            {{account.startbalance | currency}}
+                            {{account.balance | currency}}
                             <small></small>
                         </span>
                     </div>
                 </div>
-
                 <ion-option-button class="button-energized" ng-click="editAccount(account)">
                     &nbsp;&nbsp;Edit&nbsp;&nbsp;
                 </ion-option-button>
@@ -42,4 +41,7 @@
             </ion-item>
         </ion-list>
     </ion-content>
+    <div class="bar bar-footer bar-stable">
+        <div class="title">Net Worth: {{networth | currency}}</div>
+    </div>
 </ion-view>
