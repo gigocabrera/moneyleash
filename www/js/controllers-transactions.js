@@ -1,19 +1,18 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $ionicPopover, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $ionicPopover, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $timeout, AccountsFactory) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
     $scope.inEditMode = false;
     $scope.editIndex = 0;
-    $scope.UserEmail = '';
+    $scope.SortingIsEnabled = false;
 
     // SORT
-    $scope.SortingIsEnabled = false;
     $scope.reorderBtnText = '';
-    $scope.enableSorting = function (isEnabled) {
+    $scope.showSorting = function (isEnabled) {
         $scope.SortingIsEnabled = !isEnabled;
-        $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
+        $scope.popover.hide();
     };
     $scope.moveItem = function (transaction, fromIndex, toIndex) {
         //$scope.transactions.splice(fromIndex, 1);
@@ -32,16 +31,38 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     });
     $scope.replaceIcon = false;
     $scope.openPopover = function ($event, replaceIt) {
-        $scope.setPlatform();
         $scope.popover.show($event);
+        // Hide after 5 seconds
+        $timeout(function () {
+            $scope.popover.hide();
+        }, 5000);
     };
-    $scope.closePopover = function () {
+
+    // SHOW FILTERS - ACTION SHEET
+    $scope.showFilters = function () {
         $scope.popover.hide();
+        var hideSheet = $ionicActionSheet.show({
+            buttons: [
+              { text: 'Show All Transactions' },
+              { text: 'Active Transactions' },
+              { text: 'Cleared Transactions' }
+            ],
+            titleText: '<strong>FILTER</strong>',
+            cancelText: 'Cancel',
+            cancel: function () {
+                // add cancel code..
+            },
+            buttonClicked: function (index) {
+                console.log(index);
+                //$scope.transactions = transactionsFilter();
+                return true;
+            }
+        });
+        // Hide after 3 seconds
+        $timeout(function () {
+            hideSheet();
+        }, 3000);
     };
-    $scope.setPlatform = function () {
-        document.body.classList.remove('platform-ios');
-        document.body.classList.add('platform-android');
-    }
 
     // SWIPE
     $scope.listCanSwipe = true;

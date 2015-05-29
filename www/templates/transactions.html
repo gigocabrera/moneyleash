@@ -1,7 +1,8 @@
 <ion-view title={{AccountTitle}} ng-init="list()">
     <ion-nav-buttons side="right">
         <button class="right button button-icon icon ion-plus customHeaderIcon" ng-click="createTransaction('Add')"></button>
-        <button class="button button-icon ion-ios-more customHeaderIcon customHeaderIconSize" ng-click="openPopover($event, false)"></button>
+        <button class="button button-icon ion-ios-more customHeaderIcon customHeaderIconSize" ng-click="openPopover($event, false)" ng-show="!SortingIsEnabled"></button>
+        <button class="button button-clear button-positive customHeaderSize" ng-click="showSorting(SortingIsEnabled)" ng-show="SortingIsEnabled">Done</button>
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
@@ -43,23 +44,13 @@
             </ion-item>
         </ion-list>
     </ion-content>
-    <div class="bar bar-footer bar-stable">
-        <footer id="footer">
-            <span id="todo-count">
-                <strong>{{clearedCount}}</strong>
-                <ng-pluralize count="clearedCount" when="{ one: 'item cleared', other: 'items cleared' }"></ng-pluralize>
-            </span>
-            <ul id="filters">
-                <li>
-                    <a ng-class="{selected: location.path() == '/'} " href="#/">All</a>
-                </li>
-                <li>
-                    <a ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
-                </li>
-                <li>
-                    <a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Cleared</a>
-                </li>
-            </ul>
-        </footer>
-</div>
+    <ion-footer-bar align-title="left" class="bar-dark">
+        <div class="buttons">
+            <button class="button">Left Button</button>
+        </div>
+        <h1 class="title">Title!</h1>
+        <div class="buttons" ng-click="doSomething()">
+            <button class="button">Right Button</button>
+        </div>
+    </ion-footer-bar>
 </ion-view>
