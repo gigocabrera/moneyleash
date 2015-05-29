@@ -1,4 +1,5 @@
-@import url("http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
+﻿@import url("http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
 @import url("font-awesome.min.css");
 
 /* List Item Font Size */
@@ -186,7 +187,8 @@ button.customHeaderSize {
     font-weight: bold;
 }
 .amountRed {
-    color: #F33D24;
+    /*color: #F33D24;*/
+    color: #FF5E2E;
 }
 .amountGreen {
     color: #66AF36;
@@ -201,12 +203,12 @@ button.customHeaderSize {
     list-style-type: none;
     display: inline;   
     margin-right: 7px;
-    font-size: 14px;
     color: #B1B2B7;
+    font: 14px 'PT Sans', sans-serif;
 }
 #transactionIcons ul li > i {
   margin-right: 3px;
-  font-size: 10px;
+  font-size: 11px;
 }
 .formLabelBold {
     font-weight: bold;
@@ -219,6 +221,85 @@ button.customHeaderSize {
     top: 8px;
     right: 16px;
     z-index: 3;
+}
+.toggleTransactionClear {
+	text-align: center;
+	width: 52px;
+	height: auto;
+	position: absolute;
+	margin: auto 0;
+    margin-left: auto;
+    margin-right: auto;
+	border: none;
+	-webkit-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+    background-color: transparent;
+}
+.toggleTransactionClear:after {
+	content: '\f00c';
+	line-height: 43px;
+	font-size: 17px;
+	color: #ebebeb;
+	text-shadow: 0 -1px 0 #bfbfbf;
+    font-family: FontAwesome;
+}
+.toggleTransactionClear:checked:after {
+	color: #44B449;
+	text-shadow: 0 0px 0 #669991;
+	bottom: 1px;
+	position: relative;
+}
+#footer {
+	padding: 0 0px;
+	position: absolute;
+	right: 0;
+	bottom: 0px;
+	left: 0;
+	z-index: 1;
+	text-align: center;
+    color: #000;
+    height: 30px;
+}
+#footer:before {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: 0px;
+	left: 0;
+	z-index: -1;
+}
+#todo-count {
+	float: left;
+	text-align: left;
+}
+#filters {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	position: absolute;
+	right: 0;
+	left: 0;
+}
+#filters li {
+	display: inline;
+}
+#filters li a {
+	color: #000;
+	margin: 10px;
+	text-decoration: none;
+}
+#filters li a.selected {
+	font-weight: bold;
+}
+.customTransactionsPopover {
+    
+}
+.popover a.item {
+    border-top: 0;
+    font: 16px 'PT Sans', sans-serif;
+    height: 40px;
 }
 
 /*******************/

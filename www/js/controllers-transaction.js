@@ -27,10 +27,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
     } else {
         // Edit account
         $scope.editIndex = $stateParams.transactionId;
-        var fbAuth = fb.getAuth();
         $scope.inEditMode = true;
-        $scope.uid = fbAuth.uid;
-        AccountsFactory.getTransaction(fbAuth.uid, $stateParams.accountId, $stateParams.transactionId).then(function (transaction) {
+        AccountsFactory.getTransaction($stateParams.accountId, $stateParams.transactionId).then(function (transaction) {
             var dtTransDate = new Date(transaction.date);
             if (isNaN(dtTransDate)) {
                 dtTransDate = "";
@@ -52,7 +50,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
     // SAVE
     $scope.saveTransaction = function (currentItem) {
         if ($scope.inEditMode) {
-            var transactionRef = fb.child("members").child($scope.uid).child("accounts").child($stateParams.accountId).child("transactions").child($stateParams.transactionId);
+            var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
             var onComplete = function (error) {
                 if (error) {
                     console.log('Synchronization failed');
@@ -77,9 +75,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
                 notes: $scope.currentItem.notes,
                 photo: $scope.currentItem.photo
             };
-            var fbAuth = fb.getAuth();
-            var transactionRef = fb.child("members").child(fbAuth.uid).child("accounts").child($stateParams.accountId).child("transactions");
-            var sync = $firebaseArray(transactionRef);
+            //var transactionRef = fb.child("members").child(fbAuth.uid).child("accounts").child($stateParams.accountId).child("transactions");
+            //var sync = $firebaseArray(transactionRef);
+            var sync = AccountsFactory.getTransactions();
             sync.$add($scope.temp).then(function (newChildRef) {
                 $scope.temp = {
                     accountid: newChildRef.key()

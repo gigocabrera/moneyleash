@@ -84,9 +84,9 @@ angular.module('moneyleash.factories', [])
                 accounttypes = $firebaseArray(ref);
                 return accounttypes;
             },
-            getTransaction: function (userid, accountid, transactionid) {
+            getTransaction: function (accountid, transactionid) {
                 var deferred = $q.defer();
-                var ref = fb.child("members").child(userid).child("accounts").child(accountid).child("transactions").child(transactionid);
+                var ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions").child(transactionid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
@@ -96,6 +96,10 @@ angular.module('moneyleash.factories', [])
                 var ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions");
                 transactions = $firebaseArray(ref);
                 return transactions;
+            },
+            getTransactionRef: function (accountid, transactionId) {
+                var transRef = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions").child(transactionId);
+                return transRef;
             },
             getNetWorth: function() {
                 return networth;

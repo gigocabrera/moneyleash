@@ -1,6 +1,6 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $ionicPopover, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
@@ -22,6 +22,27 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         //console.log(toIndex);
     };
 
+    // POPOVER
+    $scope.animation = 'slide-in-up';
+    $ionicPopover.fromTemplateUrl('templates/popover.html', {
+        scope: $scope,
+        animation: $scope.animation
+    }).then(function (popover) {
+        $scope.popover = popover;
+    });
+    $scope.replaceIcon = false;
+    $scope.openPopover = function ($event, replaceIt) {
+        $scope.setPlatform();
+        $scope.popover.show($event);
+    };
+    $scope.closePopover = function () {
+        $scope.popover.hide();
+    };
+    $scope.setPlatform = function () {
+        document.body.classList.remove('platform-ios');
+        document.body.classList.add('platform-android');
+    }
+
     // SWIPE
     $scope.listCanSwipe = true;
     $scope.handleSwipeAndTap = function ($event, transaction) {
@@ -30,8 +51,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            // EDIT ACCOUNT
-            $state.go('app.transaction', { accountId: $stateParams.accountId, accountName:$stateParams.accountName, transactionId: transaction.$id, transactionName: transaction.payee });
+            // ToDo: Add filter by payee option
         }
     };
 
@@ -40,13 +60,42 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         $state.go('app.transaction', { accountId: $stateParams.accountId, accountName:$stateParams.accountName, transactionId: '-1', transactionName: '' });
     }
 
+    // EDIT
+    $scope.editTransaction = function ($event, transaction) {
+        $state.go('app.transaction', { accountId: $stateParams.accountId, accountName: $stateParams.accountName, transactionId: transaction.$id, transactionName: transaction.payee });
+    };
+
     // LIST
     $scope.list = function () {
         $rootScope.show("syncing");
         $scope.transactions = AccountsFactory.getTransactions($stateParams.accountId);
-        UpdateRunningBalance($scope.transactions);
+        //UpdateRunningBalance($scope.transactions);
         $rootScope.hide();
     }
+
+    // WATCH
+    $scope.$watch('transactions', function () {
+        var total = 0;
+        var cleared = 0;
+        var runningBal = 0;
+        angular.forEach($scope.transactions, function (transaction) {
+            total++;
+            if (transaction.iscleared === true) {
+                cleared++;
+            }
+            if (transaction.type == "income") {
+                if (!isNaN(transaction.amount)) {
+                    runningBal = runningBal + parseFloat(transaction.amount);
+                }
+            } else {
+                runningBal = runningBal - parseFloat(transaction.amount);
+            }
+            transaction.runningbal = runningBal.toFixed(2);
+        })
+        $scope.totalCount = total;
+        $scope.clearedCount = cleared;
+        $scope.pendingCount = total - cleared;
+    }, true);
 
     // COPY
     $scope.copyTransaction = function (transaction) {
@@ -59,7 +108,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     };
 
     // DELETE
-    $scope.deleteItem = function (accounttype, index) {
+    $scope.deleteTransaction = function (accounttype, index) {
         // Show the action sheet
         var hideSheet = $ionicActionSheet.show({
             destructiveText: 'Delete Account',
@@ -82,20 +131,30 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             }
         });
     };
+
+    // MORE OPTIONS
+    $scope.showMoreOptionsSwipe = function () {
+        
+    };
+
+    // TRANSACTION CLEARED
+    $scope.toggleCompleted = function (transaction) {
+        $scope.transactions.$save(transaction.$id);
+    };
 })
 
-function UpdateRunningBalance(trans) {
-    var runningBal = 0;
-    trans.$loaded().then(function () {
-        angular.forEach(trans, function (transaction) {
-            if (transaction.type == "income") {
-                if (!isNaN(transaction.amount)) {
-                    runningBal = runningBal + parseFloat(transaction.amount);
-                }
-            } else {
-                runningBal = runningBal - parseFloat(transaction.amount);
-            }
-            transaction.runningbal = runningBal.toFixed(2);
-        })
-    });
-}
+//function UpdateRunningBalance(trans) {
+//    var runningBal = 0;
+//    trans.$loaded().then(function () {
+//        angular.forEach(trans, function (transaction) {
+//            if (transaction.type == "income") {
+//                if (!isNaN(transaction.amount)) {
+//                    runningBal = runningBal + parseFloat(transaction.amount);
+//                }
+//            } else {
+//                runningBal = runningBal - parseFloat(transaction.amount);
+//            }
+//            transaction.runningbal = runningBal.toFixed(2);
+//        })
+//    });
+//}
