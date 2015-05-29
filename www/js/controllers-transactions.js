@@ -33,9 +33,9 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     $scope.openPopover = function ($event, replaceIt) {
         $scope.popover.show($event);
         // Hide after 5 seconds
-        $timeout(function () {
-            $scope.popover.hide();
-        }, 5000);
+        //$timeout(function () {
+        //    $scope.popover.hide();
+        //}, 5000);
     };
 
     // SHOW FILTERS - ACTION SHEET
@@ -54,14 +54,14 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             },
             buttonClicked: function (index) {
                 console.log(index);
-                //$scope.transactions = transactionsFilter();
+                //$scope.transactions = $filter('transactionsFilter')('active');
                 return true;
             }
         });
         // Hide after 3 seconds
-        $timeout(function () {
-            hideSheet();
-        }, 3000);
+        //$timeout(function () {
+        //    hideSheet();
+        //}, 3000);
     };
 
     // SWIPE
@@ -90,7 +90,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     $scope.list = function () {
         $rootScope.show("syncing");
         $scope.transactions = AccountsFactory.getTransactions($stateParams.accountId);
-        //UpdateRunningBalance($scope.transactions);
         $rootScope.hide();
     }
 
@@ -163,19 +162,3 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         $scope.transactions.$save(transaction.$id);
     };
 })
-
-//function UpdateRunningBalance(trans) {
-//    var runningBal = 0;
-//    trans.$loaded().then(function () {
-//        angular.forEach(trans, function (transaction) {
-//            if (transaction.type == "income") {
-//                if (!isNaN(transaction.amount)) {
-//                    runningBal = runningBal + parseFloat(transaction.amount);
-//                }
-//            } else {
-//                runningBal = runningBal - parseFloat(transaction.amount);
-//            }
-//            transaction.runningbal = runningBal.toFixed(2);
-//        })
-//    });
-//}
