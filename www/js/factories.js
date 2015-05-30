@@ -45,6 +45,7 @@ angular.module('moneyleash.factories', [])
     ])
 
     .factory('AccountsFactory', function ($firebaseArray, $q) {
+        var ref = {};
         var fbAuth = fb.getAuth();
         var accounts = {};
         var accounttypes = {};
@@ -52,53 +53,59 @@ angular.module('moneyleash.factories', [])
         var accountsRef = {};
         var accountRef = {};
         var networth = {};
+        var transRef = {};
         return {
             ref: function (userid) {
-                var ref = fb.child("members").child(userid).child("accounts");
+                ref = fb.child("members").child(userid).child("accounts");
                 return ref;
             },
             getAccounts: function () {
-                var ref = fb.child("members").child(fbAuth.uid).child("accounts");
+                ref = fb.child("members").child(fbAuth.uid).child("accounts");
                 accounts = $firebaseArray(ref);
-                //UpdateBalance(accounts);
+                UpdateBalance(accounts);
                 return accounts;
             },
             getAccount: function (accountid) {
                 var deferred = $q.defer();
-                var ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid);
+                ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
             getAccountsRef: function (accountid) {
-                var accountsRef = fb.child("members").child(fbAuth.uid).child("accounts");
+                accountsRef = fb.child("members").child(fbAuth.uid).child("accounts");
                 return accountsRef;
             },
             getAccountRef: function (accountid) {
-                var accountRef = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid);
+                accountRef = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid);
                 return accountRef;
             },
             getAccountTypes: function () {
-                var ref = fb.child("members").child(fbAuth.uid).child("accounttypes");
+                ref = fb.child("members").child(fbAuth.uid).child("accounttypes");
                 accounttypes = $firebaseArray(ref);
                 return accounttypes;
             },
             getTransaction: function (accountid, transactionid) {
                 var deferred = $q.defer();
-                var ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions").child(transactionid);
+                ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions").child(transactionid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
             getTransactions: function (accountid) {
-                var ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions");
+                ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions");
+                transactions = $firebaseArray(ref);
+                return transactions;
+            },
+            getTransactionsByDate: function (accountid) {
+                ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions").orderByChild('date');
                 transactions = $firebaseArray(ref);
                 return transactions;
             },
             getTransactionRef: function (accountid, transactionId) {
-                var transRef = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions").child(transactionId);
+                transRef = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions").child(transactionId);
                 return transRef;
             },
             getNetWorth: function() {

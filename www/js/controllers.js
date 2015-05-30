@@ -232,19 +232,3 @@ moneyleashapp.controller('RecurringController', function ($scope) {
     };
 
 })
-
-function escapeEmailAddress(email) {
-    if (!email)
-        return false
-    email = email.toLowerCase();
-    email = email.replace(/\./g, ',');
-    return email;
-}
-
-function unescapeEmailAddress(email) {
-    if (!email)
-        return false
-    email = email.toLowerCase();
-    email = email.replace(/\,/g, '.');
-    return email;
-}

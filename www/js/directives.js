@@ -54,22 +54,6 @@ angular.module('moneyleash.directives', [])
         };
     })
 
-    // How To Group Items In Ionic's Collection-Repeat
-    // http://gonehybrid.com/how-to-group-items-in-ionics-collection-repeat/
-    .directive('dividerCollectionRepeat', function ($parse) {
-        return {
-            priority: 1001
-        };
-        function compile(element, attr) {
-            var height = attr.itemHeight || '73';
-            attr.$set('itemHeight', 'item.isDivider ? 37 : ' + height);
-            element.children().attr('ng-hide', 'item.isDivider');
-            element.prepend(
-                '<div class="item item-divider ng-hide" ng-show="item.isDivider" ng-bind="item.divider"></div>'
-            );
-        }
-    })
-
     .directive('myformat', function(dateFilter) {
         return {
             require: 'ngModel',

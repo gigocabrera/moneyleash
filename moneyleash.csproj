@@ -2881,6 +2881,7 @@
     <Content Include="www\templates\settings.html" />
     <Content Include="www\templates\side-menu.html" />
     <Content Include="www\templates\transaction.html" />
+    <Content Include="www\templates\transactionsByMonth.html" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="platforms\ios\www\lib\angular-ui-router\api\angular-ui-router.d.ts" />

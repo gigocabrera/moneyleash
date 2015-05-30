@@ -83,9 +83,38 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     };
 
     // LIST
+    $scope.transactionsByMonth = [];
     $scope.list = function () {
         $rootScope.show("syncing");
-        $scope.transactions = AccountsFactory.getTransactions($stateParams.accountId);
+        $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
+        
+        // Group by month
+        $scope.transactions.$loaded().then(function () {
+            var i = 0;
+            var lastDate = '';
+            var transDate = '';
+            angular.forEach($scope.transactions, function (transaction) {
+                transDate = new Date(transaction.date);
+                if (transDate != lastDate) {
+                    $scope.transactionsByMonth.push({ month: transDate, newMonth: true });
+                    lastDate = transDate;
+                }
+                $scope.transactionsByMonth.push(transaction);
+                i++;
+            })
+            //console.log($scope.listByMonth);
+        });
+
+        //var lastDate = '';
+        //for (var i = 0, len = $scope.list.length; i < len; i++) {
+        //    var item = $scope.list[i];
+        //    if (item.date != lastDate) {
+        //        $scope.listByMonth.push({ month: item.lastDate });
+        //        lastDate = item.date;
+        //    }
+        //    $scope.listByMonth.push(item);
+        //}
+
         $rootScope.hide();
     }
 
