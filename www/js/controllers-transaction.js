@@ -54,8 +54,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
             var onComplete = function (error) {
                 if (error) {
                     console.log('Synchronization failed');
-                } else {
-                    //console.log('Synchronization succeeded');
                 }
             };
             var dtTran = new Date($scope.currentItem.date);
@@ -75,9 +73,13 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
                 notes: $scope.currentItem.notes,
                 photo: $scope.currentItem.photo
             };
-            //var transactionRef = fb.child("members").child(fbAuth.uid).child("accounts").child($stateParams.accountId).child("transactions");
-            //var sync = $firebaseArray(transactionRef);
-            var sync = AccountsFactory.getTransactions();
+            if (isNaN($scope.currentItem.notes)) {
+                $scope.temp.notes = "";
+            }
+            if (isNaN($scope.currentItem.photo)) {
+                $scope.temp.photo = "";
+            }
+            var sync = AccountsFactory.getTransactions($stateParams.accountId);
             sync.$add($scope.temp).then(function (newChildRef) {
                 $scope.temp = {
                     accountid: newChildRef.key()

@@ -18,18 +18,6 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     $scope.moveItem = function (account, fromIndex, toIndex) {
         //$scope.accounts.splice(fromIndex, 1);
         //$scope.accounts.splice(toIndex, 0, account);
-
-        //$scope.localaccounts = [];
-        //for (var i = 0; i < $scope.accounts.length; i++) {
-        //    var obj = {
-        //        name: $scope.posts[i].name,
-        //        body: $scope.posts[i].body
-        //    };
-        //    localPosts.push(obj);
-        //}
-        //var ref = AccountsFactory.getAccounts($scope.uid);
-        //fb.set($scope.accounts);
-        //console.log($scope.accounts);
     };
 
     // SWIPE

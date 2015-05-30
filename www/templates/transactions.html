@@ -1,8 +1,8 @@
 <ion-view title={{AccountTitle}} ng-init="list()">
     <ion-nav-buttons side="right">
-        <button class="right button button-icon icon ion-plus customHeaderIcon" ng-click="createTransaction('Add')"></button>
-        <button class="button button-icon ion-ios-more customHeaderIcon customHeaderIconSize" ng-click="openPopover($event, false)" ng-show="!SortingIsEnabled"></button>
-        <button class="button button-clear button-positive customHeaderSize" ng-click="showSorting(SortingIsEnabled)" ng-show="SortingIsEnabled">Done</button>
+        <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createTransaction('Add')"></button>
+        <button class="button button-icon ion-ios-more customHeaderIcon" ng-click="openPopover($event, false)" ng-show="!SortingIsEnabled"></button>
+        <button class="button button-clear button-positive customHeaderIcon customHeaderIconSmall" ng-click="showSorting(SortingIsEnabled)" ng-show="SortingIsEnabled">Done</button>
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">

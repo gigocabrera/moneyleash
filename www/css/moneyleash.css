@@ -61,8 +61,6 @@
 .spinner svg {
   width: 28px;
   height: 28px;
-  stroke: #fff;
-  fill: #fff;
 }
 
 /***************/
@@ -84,7 +82,7 @@
     font-weight: bolder;
 }
 .item-icon-left.item-icon-right .icon:first-child {
-    right: 0px;
+    right: 0;
 }
 .item-icon-right .icon {
     right: 8px;
@@ -115,27 +113,25 @@
 .item-icon-left {
     padding-left: 40px;
 }
-button.customHeaderIcon:before {
+.customHeaderIcon:before {
     color: #ff7100;
+    font-size: 32px;
 }
-button.customHeaderIcon:before {
-    font-size: 20px !important;
-}
-button.customHeaderIconSize:before {
-    font-size: 32px !important;
+.customHeaderIconSmall:before {
+    font-size: 20px;
 }
 .bar .button.back-button {
     color: #ff7100;
 }
 button.customHeaderSize {
-    font-size: 20px !important;
+    font-size: 20px;
 }
 
 /***********************************/
 /* ACCOUNTS & TRANSACTIONS SCREENS */
 
 .row {
-    padding: 0px;
+    padding: 0;
 }
 .AccountScreenPadding {
     padding-top: 5px;
@@ -182,7 +178,7 @@ button.customHeaderSize {
     position: absolute;
     font: 16px 'PT Sans Narrow', sans-serif;
     top: 20px;
-    right: 0px;
+    right: 0;
     color: #B1B2B7;
     font-weight: bold;
 }
@@ -216,6 +212,13 @@ button.customHeaderSize {
 .transactionIsCleared a.item-content {
     background-color: #eeeeee;
 }
+.item-icon-right a.item-content {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}
+.light-theme a.item-content {
+    background:#eeeeee;
+}
 .item-toggle-option .toggle {
     position: absolute;
     top: 8px;
@@ -247,15 +250,15 @@ button.customHeaderSize {
 }
 .toggleTransactionClear:checked:after {
 	color: #44B449;
-	text-shadow: 0 0px 0 #669991;
+	text-shadow: 0 0 0 #669991;
 	bottom: 1px;
 	position: relative;
 }
 #footer {
-	padding: 0 0px;
+	padding: 0 0;
 	position: absolute;
 	right: 0;
-	bottom: 0px;
+	bottom: 0;
 	left: 0;
 	z-index: 1;
 	text-align: center;
@@ -266,7 +269,7 @@ button.customHeaderSize {
 	content: '';
 	position: absolute;
 	right: 0;
-	bottom: 0px;
+	bottom: 0;
 	left: 0;
 	z-index: -1;
 }
@@ -301,16 +304,32 @@ button.customHeaderSize {
     font: 16px 'PT Sans', sans-serif;
     height: 40px;
 }
+.item.ng-move,
+.item.ng-enter,
+.item.ng-leave {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}
+.item.ng-leave.ng-leave-active,
+.item.ng-move,
+.item.ng-enter {
+    opacity:0;
+}
+.item.ng-leave,
+.item.ng-move.ng-move-active,
+.item.ng-enter.ng-enter-active {
+    opacity:1;
+}
 
 /*******************/
 /*  INTRO SCREEN  */
 
-a.mlLinksBlue {
+.mlLinksBlue {
     text-decoration: none;
     color: blue;
     font-size: 16px;
 }
-a.mlLinksGray {
+.mlLinksGray {
     text-decoration: none;
     color: blue;
 }
@@ -347,7 +366,7 @@ a.mlLinksGray {
     .intro-view .bottom-content {
         height: 25%;
         padding-top: 5px;
-        margin-top: 0px;
+        margin-top: 0;
     }
         .intro-view .bottom-content .button {
             border: none;
@@ -372,25 +391,25 @@ a.mlLinksGray {
     }
 
     .signup-view .sign-up-container {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .signup-view .bottom-content {
-        padding-top: 0px;
+        padding-top: 0;
         border: none;
     }
 
         .signup-view .bottom-content .button {
-            margin: 0px;
+            margin: 0;
             font-weight: bold;
         }
 
     .signup-view .alternative-actions {
-        margin: 0px 10px;
+        margin: 0 10px;
     }
 
         .signup-view .alternative-actions .button {
-            padding: 0px;
+            padding: 0;
             font-size: 14px;
         }
 
@@ -403,25 +422,25 @@ a.mlLinksGray {
     }
 
     .forgot-password-view .forgot-password-container {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .forgot-password-view .bottom-content {
-        padding-top: 0px;
+        padding-top: 0;
         border: none;
     }
 
         .forgot-password-view .bottom-content .button {
-            margin: 0px;
+            margin: 0;
             font-weight: bold;
         }
 
     .forgot-password-view .alternative-actions {
-        margin: 0px 10px;
+        margin: 0 10px;
     }
 
         .forgot-password-view .alternative-actions .button {
-            padding: 0px;
+            padding: 0;
             font-size: 14px;
         }
 
@@ -440,7 +459,7 @@ a.mlLinksGray {
 /*******************/
 /* SETTINGS SCREEN */
 .customPaddingSettings {
-    padding: 0px 40px 0px 11px;
+    padding: 0 40px 0 11px;
 }
 
 /*******************/

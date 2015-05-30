@@ -58,8 +58,7 @@ angular.module('moneyleash.directives', [])
     // http://gonehybrid.com/how-to-group-items-in-ionics-collection-repeat/
     .directive('dividerCollectionRepeat', function ($parse) {
         return {
-            priority: 1001,
-            compile: compile
+            priority: 1001
         };
         function compile(element, attr) {
             var height = attr.itemHeight || '73';

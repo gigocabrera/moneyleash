@@ -58,10 +58,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 return true;
             }
         });
-        // Hide after 3 seconds
-        //$timeout(function () {
-        //    hideSheet();
-        //}, 3000);
     };
 
     // SWIPE
@@ -119,20 +115,15 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
 
     // COPY
     $scope.copyTransaction = function (transaction) {
-        //$ionicListDelegate.closeOptionButtons();
-        //$scope.inEditMode = true;
-        //$scope.editIndex = transaction.$id;
-        //$scope.currentItem = transaction;
-        //$scope.myTitle = "Edit " + $scope.currentItem.payee;
-        //$scope.modal.show();
+        
     };
 
     // DELETE
-    $scope.deleteTransaction = function (accounttype, index) {
+    $scope.deleteTransaction = function (transaction) {
         // Show the action sheet
         var hideSheet = $ionicActionSheet.show({
             destructiveText: 'Delete Account',
-            titleText: 'Are you sure you want to delete ' + accounttype.name + '? This will permanently delete the account from the app.',
+            titleText: 'Are you sure you want to delete ' + transaction.payee + '? This will permanently delete the account from the app.',
             cancelText: 'Cancel',
             cancel: function () {
                 // add cancel code..
@@ -146,7 +137,9 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                $scope.accounttypes.accounttypes.splice(index, 1);
+                $scope.transactions.$remove(transaction).then(function (newChildRef) {
+                    newChildRef.key() === transaction.$id;
+                })
                 return true;
             }
         });
