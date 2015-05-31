@@ -54,6 +54,22 @@ angular.module('moneyleash.directives', [])
         };
     })
 
+    .directive('dividerCollectionRepeat', function($parse) {
+        return {
+            priority: 1001,
+            compile: compile
+        };
+        function compile(element, attr) {
+            console.log(Element);
+            var height = attr.itemHeight || '62';
+            attr.$set('itemHeight', 'transaction.isDivider ? 35 : ' + height);
+            element.children().attr('ng-hide', 'transaction.isDivider');
+            element.prepend(
+				'<div class="item item-divider SectionDivider ng-hide" ng-show="transaction.isDivider" ng-bind="transaction.divider"></div>'
+			);
+        }
+    })
+
     .directive('myformat', function(dateFilter) {
         return {
             require: 'ngModel',

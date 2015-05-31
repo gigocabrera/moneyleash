@@ -1,5 +1,5 @@
 
-    moneyleashapp.filter('reverse', function () {
+    moneyleashapp.filter('reverselist', function () {
         function toArray(list) {
             var k, out = [];
             if (list) {
@@ -45,19 +45,17 @@
     // http://gonehybrid.com/how-to-group-items-in-ionics-collection-repeat/
     .filter('groupByMonthYear', function ($parse) {
         var dividers = {};
+        var transaction = '';
         return function (input) {
             if (!input || !input.length) return;
             var output = [],
-                previousDate,
-                currentDate;
-            for (var i = 0, ii = input.length; i < ii && (item = input[i]) ; i++) {
-                currentDate = moment(item.date);
+				previousDate,
+				currentDate;
+            for (var i = 0, ii = input.length; i < ii && (transaction = input[i]) ; i++) {
+                currentDate = moment(transaction.date);
                 if (!previousDate ||
-                    currentDate.month() !== previousDate.month() ||
-                    currentDate.year() !== previousDate.year()) {
-
+					currentDate.month() != previousDate.month() || currentDate.year() != previousDate.year()) {
                     var dividerId = currentDate.format('MMYYYY');
-
                     if (!dividers[dividerId]) {
                         dividers[dividerId] = {
                             isDivider: true,
@@ -66,7 +64,7 @@
                     }
                     output.push(dividers[dividerId]);
                 }
-                output.push(item);
+                output.push(transaction);
                 previousDate = currentDate;
             }
             return output;

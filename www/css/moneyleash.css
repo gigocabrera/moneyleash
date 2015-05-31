@@ -6,9 +6,10 @@
 .item {
     font-size: 20px;
 }
-.SectionHead {
+.SectionDivider {
     font-size: 12px;
     font-weight: normal;
+    font: 14px 'PT Sans', sans-serif;
 }
 /* Padding for all ion-item ng-repeat lists */
 .item-complex .item-content {
@@ -209,15 +210,12 @@ button.customHeaderSize {
 .formLabelBold {
     font-weight: bold;
 }
-.transactionIsCleared a.item-content {
-    background-color: #eeeeee;
+.transactionIsCleared .item-content {
+    background-color: #E5FAEf;
 }
-.item-icon-right a.item-content {
+.item-icon-right .item-content {
     -webkit-transition:all linear 0.5s;
     transition:all linear 0.5s;
-}
-.light-theme a.item-content {
-    background:#eeeeee;
 }
 .item-toggle-option .toggle {
     position: absolute;
@@ -319,6 +317,9 @@ button.customHeaderSize {
 .item.ng-move.ng-move-active,
 .item.ng-enter.ng-enter-active {
     opacity:1;
+}
+.DividerShrink {
+    height: 0;
 }
 
 /*******************/

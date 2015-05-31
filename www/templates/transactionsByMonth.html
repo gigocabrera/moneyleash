@@ -6,14 +6,8 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            <ion-item ng-show="transactions.length == 0">
-                No transactions yet!
-            </ion-item>
-            <div ng-repeat="(id, transaction) in transactionsByMonth track by transaction[0] | reverse" ng-click="handleSwipeAndTap($event, transaction)" href="#" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}">
-                <ion-item class="item-divider">
-                    {{transaction[0]}}
-                </ion-item>
-                <ion-item ng-repeat="transaction in transaction[1] track by transaction.id">
+            <div collection-repeat="transaction in transactions | reverselist | groupByMonthYear" ng-click="handleSwipeAndTap($event, transaction)" collection-item-height="57" collection-item-width="100%" divider-collection-repeat>
+                <ion-item class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}">
                     <div class="row">
                         <div class="col-50 customTransDesc">
                             <span>
@@ -44,13 +38,13 @@
                     <ion-option-button class="button-energized" ng-click="editTransaction($event, transaction)">
                         &nbsp;&nbsp;Edit&nbsp;&nbsp;
                     </ion-option-button>
-                    <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction, id)">
+                    <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction)">
                         Delete
                     </ion-option-button>
                     <ion-reorder-button class="ion-navicon" on-reorder="moveItem(transaction, $fromIndex, $toIndex)"></ion-reorder-button>
                 </ion-item>
             </div>
-</ion-list>
+        </ion-list>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-dark">
         <div class="buttons">

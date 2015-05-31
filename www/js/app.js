@@ -3,7 +3,7 @@
 var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker', 'ngAnimate'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker', 'ngAnimate'])
 
 moneyleashapp.run(function ($ionicPlatform, $rootScope, $state, Auth) {
     $ionicPlatform.ready(function () {

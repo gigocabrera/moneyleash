@@ -6,10 +6,7 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            <ion-item ng-show="transactions.length == 0">
-                No transactions yet!
-            </ion-item>
-            <ion-item ng-repeat="(id, transaction) in transactions | reverse" itemid="transaction" ng-click="handleSwipeAndTap($event, transaction)" href="#" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}">
+            <ion-item collection-repeat="transaction in transactions | reverselist" ng-click="handleSwipeAndTap($event, transaction)" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}" collection-item-height="62" collection-item-width="100%">
                 <div class="row">
                     <div class="col-50 customTransDesc">
                         <span>
@@ -40,7 +37,7 @@
                 <ion-option-button class="button-energized" ng-click="editTransaction($event, transaction)">
                     &nbsp;&nbsp;Edit&nbsp;&nbsp;
                 </ion-option-button>
-                <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction, id)">
+                <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction)">
                     Delete
                 </ion-option-button>
                 <ion-reorder-button class="ion-navicon" on-reorder="moveItem(transaction, $fromIndex, $toIndex)"></ion-reorder-button>
