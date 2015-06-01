@@ -2797,6 +2797,7 @@
     <Content Include="resources\ios\splash\Default-Portrait~ipad.png" />
     <Content Include="resources\ios\splash\Default~iphone.png" />
     <Content Include="resources\splash.png" />
+    <Content Include="SCSS_Command_Line_Watch.txt" />
     <Content Include="www\app_icon.png" />
     <Content Include="www\css\font-awesome.min.css" />
     <Content Include="www\css\moneyleash.css" />
@@ -2881,6 +2882,7 @@
     <Content Include="www\templates\settings.html" />
     <Content Include="www\templates\side-menu.html" />
     <Content Include="www\templates\transaction.html" />
+    <Content Include="www\templates\transactionsByDay.html" />
     <Content Include="www\templates\transactionsByMonth.html" />
   </ItemGroup>
   <ItemGroup>

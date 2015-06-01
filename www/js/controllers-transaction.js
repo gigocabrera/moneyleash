@@ -19,7 +19,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
     };
 
     // EDIT / CREATE ACCOUNT
-    if ($stateParams.transactionId == '-1') {
+    if ($stateParams.transactionId === '-1') {
         $scope.currentItem = {
             'accountid': $stateParams.accountId
         }
@@ -88,6 +88,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         }
         $rootScope.hide();
         $scope.currentItem = {};
-        $state.go('app.transactions', { accountId: $stateParams.accountId, accountName: $stateParams.accountName });
+        $state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName });
     }
 })

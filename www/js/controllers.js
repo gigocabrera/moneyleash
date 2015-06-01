@@ -10,7 +10,7 @@ moneyleashapp.controller('AppCtrl', function ($scope, $rootScope, $state, $ionic
     $scope.showLogOutMenu = function () {
 
         // Show the action sheet
-        var hideSheet = $ionicActionSheet.show({
+        $ionicActionSheet.show({
             destructiveText: 'Logout',
             titleText: 'Are you sure you want to logout?',
             cancelText: 'Cancel',

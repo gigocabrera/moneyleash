@@ -60,7 +60,6 @@ angular.module('moneyleash.directives', [])
             compile: compile
         };
         function compile(element, attr) {
-            console.log(Element);
             var height = attr.itemHeight || '62';
             attr.$set('itemHeight', 'transaction.isDivider ? 35 : ' + height);
             element.children().attr('ng-hide', 'transaction.isDivider');
@@ -120,33 +119,6 @@ angular.module('moneyleash.directives', [])
 			    tabsCtrl.addTab(scope);
 		    },
 		    templateUrl: 'partials/my-tab.html'
-	    };
-    })
-
-    .directive('validPin', function($http) {
-	    return {
-		    require: 'ngModel',
-		    link: function(scope, ele, attrs, c) {
-			    scope.$watch(attrs.ngModel, function(pinValue) {
-				    // $http({
-				    // 	method: 'POST',
-				    // 	url: '/api/check/' + attrs.validPin,
-				    // 	data: {'pin': attrs.validPin}
-				    // }).success(function(data, status, headers, cfg) {
-				    // 	c.$setValidity('valid-pin', data.isValid);
-				    // }).error(function(data, status, headers, cfg) {
-				    // 	c.$setValidity('valid-pin', false);
-				    // });
-				    if(pinValue=="12345")
-				    {
-					    c.$setValidity('valid-pin', true);
-				    }
-				    else
-				    {
-					    c.$setValidity('valid-pin', false);
-				    }
-			    });
-		    }
 	    };
     })
 

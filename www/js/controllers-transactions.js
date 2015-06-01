@@ -41,7 +41,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     // SHOW FILTERS - ACTION SHEET
     $scope.showFilters = function () {
         $scope.popover.hide();
-        var hideSheet = $ionicActionSheet.show({
+        $ionicActionSheet.show({
             buttons: [
               { text: 'Show All Transactions' },
               { text: 'Active Transactions' },
@@ -122,7 +122,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     // DELETE
     $scope.deleteTransaction = function (transaction) {
         // Show the action sheet
-        var hideSheet = $ionicActionSheet.show({
+        $ionicActionSheet.show({
             destructiveText: 'Delete Account',
             titleText: 'Are you sure you want to delete ' + transaction.payee + '? This will permanently delete the account from the app.',
             cancelText: 'Cancel',
@@ -138,8 +138,9 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
+                $ionicListDelegate.closeOptionButtons();
                 $scope.transactions.$remove(transaction).then(function (newChildRef) {
-                    newChildRef.key() === transaction.$id;
+                    newChildRef.key() == transaction.$id;
                 })
                 return true;
             }

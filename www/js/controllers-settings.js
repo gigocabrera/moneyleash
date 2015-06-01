@@ -29,7 +29,7 @@ moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $st
     $scope.showLogOutMenu = function () {
 
         // Show the action sheet
-        var hideSheet = $ionicActionSheet.show({
+        $ionicActionSheet.show({
             destructiveText: 'Logout',
             titleText: 'Are you sure you want to logout?',
             cancelText: 'Cancel',
@@ -57,7 +57,7 @@ moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $st
     $scope.deleteAllData = function () {
 
         // Show the action sheet
-        var hideSheet = $ionicActionSheet.show({
+        $ionicActionSheet.show({
             //Here you can add some more buttons
             // buttons: [
             // { text: '<b>Share</b> This' },

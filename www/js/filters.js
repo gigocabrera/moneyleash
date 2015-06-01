@@ -54,7 +54,7 @@
             for (var i = 0, ii = input.length; i < ii && (transaction = input[i]) ; i++) {
                 currentDate = moment(transaction.date);
                 if (!previousDate ||
-					currentDate.month() != previousDate.month() || currentDate.year() != previousDate.year()) {
+					currentDate.month() !== previousDate.month() || currentDate.year() !== previousDate.year()) {
                     var dividerId = currentDate.format('MMYYYY');
                     if (!dividers[dividerId]) {
                         dividers[dividerId] = {
@@ -66,6 +66,38 @@
                 }
                 output.push(transaction);
                 previousDate = currentDate;
+            }
+            return output;
+        };
+    })
+
+    .filter('groupByDay', function ($parse) {
+        var dividers = {};
+        var transaction = {};
+        var currentDate = '';
+        var previousDay = '';
+        var previousYear = '';
+        return function (input) {
+            if (!input || !input.length) return;
+            var output = [],
+                previousDate,
+                currentDay;
+            for (var i = 0, ii = input.length; i < ii && (transaction = input[i]) ; i++) {
+                currentDate = moment(transaction.date);
+                if (!previousDay ||
+                    currentDate.day() != previousDay || currentDate.year() != previousYear) {
+                    var dividerId = currentDate.format('DDMMYYYY');
+                    if (!dividers[dividerId]) {
+                        dividers[dividerId] = {
+                            isDivider: true,
+                            divider: currentDate.format('dddd MMMM D, YYYY')
+                        };
+                    }
+                    output.push(dividers[dividerId]);
+                }
+                output.push(transaction);
+                previousDay = currentDate.day();
+                previousYear = currentDate.year();
             }
             return output;
         };

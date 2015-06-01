@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-50 right customAccAmt" ng-class="{amountRed: transaction.type == 'expense', amountGreen: transaction.type == 'income'}">
                         <span>
-                            {{account.balance | currency}}
+                            {{account.todaybalance | currency}}
                             <small></small>
                         </span>
                     </div>
@@ -41,7 +41,13 @@
             </ion-item>
         </ion-list>
     </ion-content>
-    <div class="bar bar-footer bar-stable">
-        <div class="title">Net Worth: {{networth | currency}}</div>
-    </div>
+    <ion-footer-bar align-title="left" class="bar-dark">
+        <div class="buttons">
+            <button class="button button-icon customFooterIcon" ng-click="showSearch()"><i class="fa fa-search"></i></button>
+        </div>
+        <h1 class="title">Net Worth: {{networth | currency}}</h1>
+        <div class="buttons">
+            <button class="button button-icon customFooterIcon" ng-click="showFilters()"><i class="fa fa-filter"></i></button>
+        </div>
+    </ion-footer-bar>
 </ion-view>

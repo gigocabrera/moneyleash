@@ -17,8 +17,11 @@
 }
 /* Action Sheet */
 .action-sheet-title {
-    font-size: 15px;
+    font-size: 16px;
     color: #505050;
+}
+.action-sheet .button {
+    font: 16px 'PT Sans', sans-serif;
 }
 .button.button-dark.button-clear {
     font-size: 16px;
@@ -106,7 +109,6 @@
 }
 .item-complex.item-icon-right .item-content {
     padding-right: 40px;
-    /*background-color: transparent;*/
 }
 .item-complex.item-icon-left .item-content {
     padding-left: 40px;
@@ -126,6 +128,13 @@
 }
 button.customHeaderSize {
     font-size: 20px;
+}
+.customFooterIcon:before {
+    color: #fff;
+    text-shadow: 0 -1px 0 #bfbfbf;
+}
+.footerTitle {
+    font: 14px 'PT Sans', sans-serif;
 }
 
 /***********************************/
@@ -211,7 +220,9 @@ button.customHeaderSize {
     font-weight: bold;
 }
 .transactionIsCleared .item-content {
-    background-color: #E5FAEf;
+    background-color: #eee;
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
 }
 .item-icon-right .item-content {
     -webkit-transition:all linear 0.5s;
@@ -223,7 +234,7 @@ button.customHeaderSize {
     right: 16px;
     z-index: 3;
 }
-.toggleTransactionClear {
+.toggleTransactionCleared {
 	text-align: center;
 	width: 52px;
 	height: auto;
@@ -238,7 +249,7 @@ button.customHeaderSize {
 	appearance: none;
     background-color: transparent;
 }
-.toggleTransactionClear:after {
+.toggleTransactionCleared:after {
 	content: '\f00c';
 	line-height: 43px;
 	font-size: 17px;
@@ -246,53 +257,11 @@ button.customHeaderSize {
 	text-shadow: 0 -1px 0 #bfbfbf;
     font-family: FontAwesome;
 }
-.toggleTransactionClear:checked:after {
+.toggleTransactionCleared:checked:after {
 	color: #44B449;
 	text-shadow: 0 0 0 #669991;
 	bottom: 1px;
 	position: relative;
-}
-#footer {
-	padding: 0 0;
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: 1;
-	text-align: center;
-    color: #000;
-    height: 30px;
-}
-#footer:before {
-	content: '';
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: -1;
-}
-#todo-count {
-	float: left;
-	text-align: left;
-}
-#filters {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	position: absolute;
-	right: 0;
-	left: 0;
-}
-#filters li {
-	display: inline;
-}
-#filters li a {
-	color: #000;
-	margin: 10px;
-	text-decoration: none;
-}
-#filters li a.selected {
-	font-weight: bold;
 }
 .customTransactionsPopover {
     
@@ -302,24 +271,16 @@ button.customHeaderSize {
     font: 16px 'PT Sans', sans-serif;
     height: 40px;
 }
-.item.ng-move,
-.item.ng-enter,
-.item.ng-leave {
-    -webkit-transition:all linear 0.5s;
-    transition:all linear 0.5s;
+.search-wrapper-light {
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+    background: none;
+    border-radius: 0;
+    margin-left: 5px;
+    margin-right: 5px;
 }
-.item.ng-leave.ng-leave-active,
-.item.ng-move,
-.item.ng-enter {
-    opacity:0;
-}
-.item.ng-leave,
-.item.ng-move.ng-move-active,
-.item.ng-enter.ng-enter-active {
-    opacity:1;
-}
-.DividerShrink {
-    height: 0;
+
+.search-wrapper-light input, .search-wrapper-light input::-webkit-input-placeholder {
+    color: #ffffff;
 }
 
 /*******************/

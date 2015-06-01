@@ -62,7 +62,6 @@ angular.module('moneyleash.factories', [])
             getAccounts: function () {
                 ref = fb.child("members").child(fbAuth.uid).child("accounts");
                 accounts = $firebaseArray(ref);
-                UpdateBalance(accounts);
                 return accounts;
             },
             getAccount: function (accountid) {
@@ -112,19 +111,6 @@ angular.module('moneyleash.factories', [])
                 return networth;
             }
         };
-
-        function UpdateBalance(accounts) {
-            var bal = 0;
-            var networth = 0;
-            accounts.$loaded().then(function () {
-                angular.forEach(accounts, function (account) {
-                    bal = 1000;
-                    account.balance = bal;
-                    networth = networth + bal;
-                })
-            });
-        }
-
     })
 
     .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {

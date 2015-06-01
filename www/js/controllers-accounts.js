@@ -28,7 +28,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            $state.go('app.transactionsByMonth', { accountId: account.$id, accountName: account.accountname });
+            $state.go('app.transactionsByDay', { accountId: account.$id, accountName: account.accountname });
         }
     };
 
@@ -51,7 +51,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
     // DELETE
     $scope.deleteAccount = function (account) {
-        var hideSheet = $ionicActionSheet.show({
+        $ionicActionSheet.show({
             destructiveText: 'Delete Account',
             titleText: 'Are you sure you want to delete ' + account.accountname + '? This will permanently delete the account from the app.',
             cancelText: 'Cancel',
@@ -68,7 +68,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
                 $scope.accounts.$remove(account).then(function (newChildRef) {
-                    newChildRef.key() === account.$id;
+                    newChildRef.key() == account.$id;
                 })
                 return true;
             }

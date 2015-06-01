@@ -220,6 +220,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.transactionsByDay', {
+        url: "/accounts/:accountId/:accountName",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/transactionsByDay.html",
+                controller: 'TransactionsController'
+            }
+        }
+    })
     .state('app.transaction', {
         url: "transactions/:accountId/:accountName/:transactionId/:transactionName",
         views: {
