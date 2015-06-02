@@ -4,28 +4,38 @@
     </ion-nav-buttons>
     <ion-content has-header="true">
         <div class="list list-inset">
-            <span class="input-label formLabelBold">Account Name</span>
-            <div class="input-group margin-bottom-sm">
-                <span class="input-group-addon"><i class="icon ion-ios-browsers-outline formIconSize"></i></span>
-                <input class="form-control" type="text" placeholder="Account Name" ng-model="currentItem.accountname">
-            </div>
-            <span class="input-label formLabelBold">Begining Balance</span>
-            <div class="input-group margin-bottom-sm">
-                <span class="input-group-addon"><i class="fa fa-usd formIconSize"></i></span>
-                <input class="form-control" type="text" placeholder="Begining Balance" ng-model="currentItem.startbalance">
-            </div>
-            <span class="input-label formLabelBold">Start Date</span>
-            <div class="input-group margin-bottom-sm">
-                <span class="input-group-addon"><i class="fa fa-calendar formIconSize"></i></span>
-                <ionic-datepicker idate="currentItem.dateopen">
-                    <button class="button button-clear button-dark">{{ currentItem.dateopen | date:'MMMM dd, yyyy' }}</button>
-                </ionic-datepicker>
-            </div>
-            <span class="input-label formLabelBold">Account Type</span>
-            <div class="input-group margin-bottom-sm" ng-click="openModal()">
-                <span class="input-group-addon"><i class="fa fa-university formIconSize"></i></span>
-                <span class="input-label">{{currentItem.accounttype}}</span>
-            </div>
+            <label class="item-floating-label">
+                <span class="input-label moneyleash_label">Account Name</span>
+                <div class="moneyleash_input item-floating-label">
+                    <i class="icon ion-ios-browsers-outline icon-left-smaller"></i>
+                    <input type="text" placeholder="Account Name" ng-model="currentItem.accountname">
+                </div>
+            </label>
+            <label class="item-floating-label">
+                <span class="input-label moneyleash_label">Begining Balance</span>
+                <div class="moneyleash_input">
+                    <i class="icon ion-social-usd icon-left-smaller"></i>
+                    <input type="text" placeholder="Begining Balance" ng-model="currentItem.startbalance" valid-number>
+                </div>
+            </label>
+            <label class="item-floating-label">
+                <span class="input-label moneyleash_label">Begining Balance Date</span>
+                <div class="moneyleash_input">
+                    <i class="icon ion-calendar icon-left-smaller"></i>
+                    <ionic-datepicker idate="currentItem.dateopen" placeholder="Begining Balance">
+                        <button class="button button-clear button-dark">{{ currentItem.dateopen | date:'MMMM dd, yyyy' }}</button>
+                    </ionic-datepicker>
+                    <input type="text" placeholder="Begining Balance Date" ng-model="currentItem.dateopen" class="mlHidden">
+                </div>
+            </label>
+            <label class="item-floating-label">
+                <span class="input-label moneyleash_label">Account Type</span>
+                <div class="moneyleash_input" ng-click="openModal()">
+                    <i class="icon ion-paperclip icon-left-smaller"></i>
+                    <label>{{currentItem.accounttype}}</label>
+                    <input type="text" placeholder="Account Type" ng-model="currentItem.accounttype" class="mlHidden">
+                </div>
+            </label>
         </div>
     </ion-content>
 </ion-view>

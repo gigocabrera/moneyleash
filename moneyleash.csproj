@@ -2808,7 +2808,6 @@
     <Content Include="www\img\logo.png" />
     <Content Include="www\index.html" />
     <Content Include="www\js\angular-translate.min.js" />
-    <Content Include="www\js\angularfire.min.js" />
     <Content Include="www\js\app.js" />
     <Content Include="www\js\controllers-account.js" />
     <Content Include="www\js\controllers-accounts.js" />
@@ -2821,8 +2820,6 @@
     <Content Include="www\js\directives.js" />
     <Content Include="www\js\factories.js" />
     <Content Include="www\js\filters.js" />
-    <Content Include="www\js\firebase.js" />
-    <Content Include="www\lib\angular-translate.min.js" />
     <Content Include="www\lib\ionic-datepicker\dist\ionic-datepicker.js" />
     <Content Include="www\lib\ionic-datepicker\dist\style.css" />
     <Content Include="www\lib\ionic-datepicker\dist\templates.js" />
