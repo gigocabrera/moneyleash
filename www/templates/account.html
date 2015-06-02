@@ -3,25 +3,29 @@
         <button class="button button-clear button-positive customHeaderIcon customHeaderIconSmall" ng-click="saveAccount(currentItem)">Save</button>
     </ion-nav-buttons>
     <ion-content has-header="true">
-        <div class="list">
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Account Name</span>
-                <input type="text" ng-model="currentItem.accountname">
-            </label>
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Begining Balance</span>
-                <input type="text" ng-model="currentItem.startbalance" valid-number />
-            </label>
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Open Date</span>
+        <div class="list list-inset">
+            <span class="input-label formLabelBold">Account Name</span>
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon"><i class="icon ion-ios-browsers-outline formIconSize"></i></span>
+                <input class="form-control" type="text" placeholder="Account Name" ng-model="currentItem.accountname">
+            </div>
+            <span class="input-label formLabelBold">Begining Balance</span>
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon"><i class="fa fa-usd formIconSize"></i></span>
+                <input class="form-control" type="text" placeholder="Begining Balance" ng-model="currentItem.startbalance">
+            </div>
+            <span class="input-label formLabelBold">Start Date</span>
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon"><i class="fa fa-calendar formIconSize"></i></span>
                 <ionic-datepicker idate="currentItem.dateopen">
                     <button class="button button-clear button-dark">{{ currentItem.dateopen | date:'MMMM dd, yyyy' }}</button>
                 </ionic-datepicker>
-            </label>
-            <label class="item item-input item-icon-right" ng-click="openModal()">
-                <span class="input-label formLabelBold">Type</span>
+            </div>
+            <span class="input-label formLabelBold">Account Type</span>
+            <div class="input-group margin-bottom-sm" ng-click="openModal()">
+                <span class="input-group-addon"><i class="fa fa-university formIconSize"></i></span>
                 <span class="input-label">{{currentItem.accounttype}}</span>
-            </label>
+            </div>
         </div>
     </ion-content>
 </ion-view>
