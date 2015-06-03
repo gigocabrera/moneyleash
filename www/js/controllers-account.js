@@ -35,22 +35,10 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
         $scope.AccountTitle = "Edit Account";
     }
 
-    // OPEN ACCOUNT SAVE MODAL
+    // LOAD ACCOUNT TYPES
     $scope.accounttypes = AccountsFactory.getAccountTypes();
-    $scope.modalData = {"msg": 'Jan'};
-    $ionicModal.fromTemplateUrl('templates/accounttypeselect.html', function (modal) {
-        $scope.modalCtrl = modal;
-    }, {
-        scope: $scope,
-        animation: 'slide-in-up',
-        focusFirstInput: true
-    });
-    
-    // OPEN ACCOUNT TYPES
-    $scope.openModal = function () {
-        $scope.modalCtrl.show();
-    }
 
+    // SAVE
     $scope.saveAccount = function (currentItem) {
         $rootScope.show('Creating...');
         if ($scope.inEditMode) {

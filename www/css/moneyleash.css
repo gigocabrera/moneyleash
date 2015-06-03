@@ -447,46 +447,10 @@ button.customHeaderSize {
 .moneyleashLabel button {
     margin-left: 5px;
 }
-
-
-.moneyleash_input{
-    float: left;
-    width: 100%;
-    height: 45px;
-    border: 1px #dddddd solid;
-    border-collapse: collapse;
-    margin-bottom: 5px;
+.moneyleashSelectBox {
+    padding: 0;
 }
-.moneyleash_input input[type="text"]{
-    border: none;
-    height: 100%;
-    padding: 10px;
-}
-.moneyleash_input i.icon{
-    display: block;
-    width:45px;
-    height: 100%;
-    float:left;
-    padding-top: 9px;
-    text-align: center;
-    background:#eeeeee;
-    color: #919191;
-}
-.moneyleash_input label {
-    display: block;
-    height: 100%;
-    padding: 10px;
-    margin-left: 45px;
-}
-.moneyleash_label {
-    font: 13px 'PT Sans', sans-serif;
-    width: 100%;
-    font-weight: bold;
-}
-.mlHidden {
-    border: none;
-    height: 1px;
-    width: 1px;
-    background-color: transparent;
-    color: #fff;
+.moneyleashSelectBox input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.cloned-text-input), textarea[readonly]:not(.cloned-text-input), select[readonly] {
+  background-color: #fff;
+  cursor: not-allowed;
 }

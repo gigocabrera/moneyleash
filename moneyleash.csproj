@@ -2863,7 +2863,6 @@
     <Content Include="www\templates\accounts.html" />
     <Content Include="www\templates\accounttypesave.html" />
     <Content Include="www\templates\accounttypes.html" />
-    <Content Include="www\templates\accounttypeselect.html" />
     <Content Include="www\templates\budgets.html" />
     <Content Include="www\templates\categories.html" />
     <Content Include="www\templates\dashboard.html" />
