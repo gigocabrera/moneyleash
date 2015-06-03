@@ -68,7 +68,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
                 $scope.accounts.$remove(account).then(function (newChildRef) {
-                    newChildRef.key() == account.$id;
+                    newChildRef.key() === account.$id;
                 })
                 return true;
             }

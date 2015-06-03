@@ -3,38 +3,24 @@
         <button class="button button-clear button-positive customHeaderIcon customHeaderIconSmall" ng-click="saveAccount(currentItem)">Save</button>
     </ion-nav-buttons>
     <ion-content has-header="true">
-        <div class="list list-inset">
-            <label class="item-floating-label">
-                <span class="input-label moneyleash_label">Account Name</span>
-                <div class="moneyleash_input item-floating-label">
-                    <i class="icon ion-ios-browsers-outline icon-left-smaller"></i>
-                    <input type="text" placeholder="Account Name" ng-model="currentItem.accountname">
-                </div>
+        <div class="ion-list">
+            <label class="item item-input moneyleashLabel">
+                <i class="icon ion-ios-browsers-outline placeholder-icon"></i>
+                <input ng-model="currentItem.accountname" type="email" placeholder="Account Name" autocorrect="off" autocapitalize="off">
             </label>
-            <label class="item-floating-label">
-                <span class="input-label moneyleash_label">Begining Balance</span>
-                <div class="moneyleash_input">
-                    <i class="icon ion-social-usd icon-left-smaller"></i>
-                    <input type="text" placeholder="Begining Balance" ng-model="currentItem.startbalance" valid-number>
-                </div>
+            <label class="item item-input moneyleashLabel">
+                <i class="icon ion-social-usd placeholder-icon"></i>
+                <input type="text" placeholder="Begining Balance" ng-model="currentItem.startbalance" valid-number>
             </label>
-            <label class="item-floating-label">
-                <span class="input-label moneyleash_label">Begining Balance Date</span>
-                <div class="moneyleash_input">
-                    <i class="icon ion-calendar icon-left-smaller"></i>
-                    <ionic-datepicker idate="currentItem.dateopen" placeholder="Begining Balance">
-                        <button class="button button-clear button-dark">{{ currentItem.dateopen | date:'MMMM dd, yyyy' }}</button>
-                    </ionic-datepicker>
-                    <input type="text" placeholder="Begining Balance Date" ng-model="currentItem.dateopen" class="mlHidden">
-                </div>
+            <label class="item item-input moneyleashLabel">
+                <i class="icon ion-calendar placeholder-icon"></i>
+                <ionic-datepicker idate="currentItem.dateopen">
+                    <button class="button button-clear button-dark">{{ currentItem.dateopen | date:'MMMM dd, yyyy' }}</button>
+                </ionic-datepicker>
             </label>
-            <label class="item-floating-label">
-                <span class="input-label moneyleash_label">Account Type</span>
-                <div class="moneyleash_input" ng-click="openModal()">
-                    <i class="icon ion-paperclip icon-left-smaller"></i>
-                    <label>{{currentItem.accounttype}}</label>
-                    <input type="text" placeholder="Account Type" ng-model="currentItem.accounttype" class="mlHidden">
-                </div>
+            <label class="item item-input moneyleashLabel" ng-click="openModal()">
+                <i class="icon ion-paperclip placeholder-icon"></i>
+                <label placeholder="Account Type">{{currentItem.accounttype}}</label>
             </label>
         </div>
     </ion-content>

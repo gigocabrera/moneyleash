@@ -140,7 +140,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 //Return true to close the action sheet, or false to keep it opened.
                 $ionicListDelegate.closeOptionButtons();
                 $scope.transactions.$remove(transaction).then(function (newChildRef) {
-                    newChildRef.key() == transaction.$id;
+                    newChildRef.key() === transaction.$id;
                 })
                 return true;
             }

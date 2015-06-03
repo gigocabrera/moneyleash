@@ -47,7 +47,9 @@
         var dividers = {};
         var transaction = '';
         return function (input) {
-            if (!input || !input.length) return;
+            if (!input || !input.length) {
+                return
+            };
             var output = [],
 				previousDate,
 				currentDate;
@@ -78,10 +80,11 @@
         var previousDay = '';
         var previousYear = '';
         return function (input) {
-            if (!input || !input.length) return;
+            if (!input || !input.length) {
+                return;
+            }
             var output = [],
-                previousDate,
-                currentDay;
+                previousDate
             for (var i = 0, ii = input.length; i < ii && (transaction = input[i]) ; i++) {
                 currentDate = moment(transaction.date);
                 if (!previousDay ||

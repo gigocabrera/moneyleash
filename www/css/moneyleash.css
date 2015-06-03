@@ -431,6 +431,24 @@ button.customHeaderSize {
 
 /*******************/
 /*   FORM STYLES   */
+.moneyleashLabel {
+    padding: 0;
+}
+.placeholder-icon {
+    background:#eeeeee;
+    color: #919191;
+    width: 45px;
+    padding: 10px;
+    text-align: center;
+}
+.moneyleashLabel input, label {
+    margin-left: 10px;
+}
+.moneyleashLabel button {
+    margin-left: 5px;
+}
+
+
 .moneyleash_input{
     float: left;
     width: 100%;
@@ -448,10 +466,10 @@ button.customHeaderSize {
     display: block;
     width:45px;
     height: 100%;
-    background:#eeeeee;
     float:left;
     padding-top: 9px;
     text-align: center;
+    background:#eeeeee;
     color: #919191;
 }
 .moneyleash_input label {

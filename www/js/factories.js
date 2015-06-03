@@ -12,7 +12,7 @@ angular.module('moneyleash.factories', [])
                 return ref;
             },
             getMembers: function () {
-                members = $firebaseArray(ref);
+                var members = $firebaseArray(ref);
                 return members;
             },
             getMember: function (userid) {
@@ -122,7 +122,7 @@ angular.module('moneyleash.factories', [])
         };
 
         $rootScope.notify = function (title, text) {
-            var alertPopup = $ionicPopup.alert({
+            $ionicPopup.alert({
                 title: title ? title : 'Error',
                 template: text
             });

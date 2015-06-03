@@ -10,7 +10,7 @@ angular.module('moneyleash.directives', [])
                 }
                 ngModelCtrl.$parsers.push(function (val) {
                     if (angular.isUndefined(val)) {
-                        var val = '';
+                        val = '';
                     }
                     var clean = val.replace(/[^0-9\.]/g, '');
                     var decimalCheck = clean.split('.');
@@ -155,9 +155,7 @@ angular.module('moneyleash.directives', [])
 		    link: function(scope, element, attrs) {
 			    // listen to event
 			    scope.$on("toggle-type", function(event, show){
-				    var password_input = element[0],
-						    input_type = password_input.getAttribute('type');
-
+				    var password_input = element[0];
 				    if(!show)
 				    {
 					    password_input.setAttribute('type', 'password');
