@@ -1,11 +1,12 @@
 
 /* FIREBASE */
-var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
+var fb = '';
+fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
 var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker', 'ngAnimate'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $state, Auth) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -26,44 +27,27 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $state, Auth) {
             }]
         };
 
-        $rootScope.isAdmin = false;
-        $rootScope.authData = {};
-
         Auth.$onAuth(function (authData) {
             if (authData) {
-
-                /* STORE AUTHDATA */
-                $rootScope.authData = authData;
-                //console.log(authData);
-
-                ///* IF NOT ALREADY IN A HOUSE, REDIRECT TO HOUSE CHOICE  */
-                //UserData.checkRoomMateHasHouse(authData.password.email).then(function (hasHouse) {
-                //    if (hasHouse) {
-                //        $state.go("tabs.dashboard");
-                //    } else {
-                //        console.log('No House!!!');
-                //        $rootScope.hide();
-                //        $state.go("housechoice");
-                //    }
-                //}, function (error) {
-                //    console.log('No House!!!');
-                //    $rootScope.hide();
-                //    $state.go("housechoice");
-                //});
+                
             } else {
-                $rootScope.hide("");
+                $ionicLoading.hide();
                 $state.go("intro");
             }
         });
-
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $ionicLoading.show({
+                template: '<ion-spinner icon="ios"></ion-spinner><br>'
+            });
+        });
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            $ionicLoading.hide();
+        });
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
-            // We can catch the error thrown when the $requireAuth promise is rejected
-            // and redirect the user back to the home page
             if (error === "AUTH_REQUIRED") {
                 $state.go("signin");
             }
         });
-
     });
 })
 
