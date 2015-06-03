@@ -54,6 +54,8 @@ angular.module('moneyleash.directives', [])
         };
     })
 
+    // How To Group Items In Ionic's Collection-Repeat
+    // http://gonehybrid.com/how-to-group-items-in-ionics-collection-repeat/
     .directive('dividerCollectionRepeat', function($parse) {
         return {
             priority: 1001,
@@ -69,6 +71,9 @@ angular.module('moneyleash.directives', [])
         }
     })
 
+    // https://github.com/domiSchenk/ionic-Select-Control - Creator
+    // http://codepen.io/mhartington/pen/KobJE - enhanced control
+    // https://github.com/domiSchenk/ionic-Select-Control/pulls - more options
     .directive('selectBox', function () {
         return {
             restrict: 'E',
@@ -278,7 +283,7 @@ angular.module('moneyleash.directives', [])
 	    };
     })
 
-    //http://stackoverflow.com/questions/27742394/reusable-modal-in-angular-ionic
+    // http://stackoverflow.com/questions/27742394/reusable-modal-in-angular-ionic
     .directive('myNumberPad', ['$ionicModal', function ($ionicModal) {
         return {
             restrict: 'E',
