@@ -31,7 +31,7 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
     }
 
     // GET ACCOUNT TYPES
-    $scope.clientSideList = AccountsFactory.getAccountTypes();
+    $scope.accountTypeList = AccountsFactory.getAccountTypes();
 
     // EDIT / CREATE ACCOUNT
     if ($stateParams.isNew == 'True') {

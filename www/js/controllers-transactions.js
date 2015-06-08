@@ -87,7 +87,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     $scope.list = function () {
         $rootScope.show("syncing");
         $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
-        console.log($scope.transactions);
         $rootScope.hide();
     }
 
@@ -101,11 +100,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             if (transaction.iscleared === true) {
                 cleared++;
             }
-            if (transaction.type == "income") {
+            if (transaction.type.toUpperCase() == "INCOME") {
                 if (!isNaN(transaction.amount)) {
                     runningBal = runningBal + parseFloat(transaction.amount);
                 }
-            } else if (transaction.type == "expense") {
+            } else if (transaction.type.toUpperCase() == "EXPENSE") {
                 runningBal = runningBal - parseFloat(transaction.amount);
             }
             transaction.runningbal = runningBal.toFixed(2);
@@ -146,11 +145,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 return true;
             }
         });
-    };
-
-    // MORE OPTIONS
-    $scope.showMoreOptionsSwipe = function () {
-        
     };
 
     // TRANSACTION CLEARED

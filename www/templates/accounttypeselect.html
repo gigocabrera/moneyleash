@@ -1,0 +1,15 @@
+<ion-view title="Select Type">
+    <div class="modal" ng-controller="AccountTypeModalController">
+        <ion-header-bar class="bar bar-header bar-positive">
+            <h1 class="title">Select Account Type</h1>
+            <button class="button button-clear button-primary" ng-click="hideModal()">Cancel</button>
+        </ion-header-bar>
+        <ion-content>
+            <div class="list">
+                <ion-radio ng-model="data.accountType" ng-repeat="item in accountTypeList" ng-value="item.name" ng-click="selectAccountType(item)">
+                    {{item.name}}
+                </ion-radio>
+            </div>
+        </ion-content>
+    </div>
+</ion-view>

@@ -20,8 +20,26 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         'type': ''
     };
 
+    // SHOW ACCOUNT TYPE MODAL
+    $ionicModal.fromTemplateUrl('templates/transactiontypeselect.html', function (modal) {
+        $scope.modalCtrl = modal;
+    }, {
+        scope: $scope,
+        animation: 'slide-in-up',
+        focusFirstInput: true
+    });
+
+    // OPEN ACCOUNT TYPES
+    $scope.openModal = function () {
+        $scope.modalCtrl.show();
+    }
+
     // LOAD ACCOUNT TYPES
-    $scope.transactiontypes = [{ name: "income", id: "1" }, { name: "expense", id: "2" }, { name: "transfer", id: "3" }]
+    $scope.clientSideList = [
+        { text: "Income", value: "income" },
+        { text: "Expense", value: "expense" },
+        { text: "Transfer", value: "transfer" },
+    ];
 
     // EDIT / CREATE ACCOUNT    
     if ($stateParams.transactionId == '') {
@@ -42,7 +60,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
 
     // SAVE
     $scope.saveTransaction = function (currentItem) {
-
+        // update
         var dtTran = new Date($scope.currentItem.date);
         dtTran = +dtTran;
         $scope.currentItem.date = dtTran;
@@ -57,13 +75,14 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
             };
             $scope.inEditMode = false;
         } else {
-            // new 
+            // create
             if (isNaN($scope.currentItem.notes)) {
                 $scope.currentItem.notes = "";
             }
             if (isNaN($scope.currentItem.photo)) {
                 $scope.currentItem.photo = "";
             }
+            $scope.currentItem.type = $scope.currentItem.type.toLowerCase();
             var sync = AccountsFactory.getTransactions($stateParams.accountId);
             sync.$add($scope.currentItem).then(function (newChildRef) {
                 $scope.currentItem = {

@@ -218,8 +218,8 @@ moneyleashapp.controller('RecurringController', function ($scope) {
 
 })
 
-// MODAL CONTROLLER
-.controller('ModalController', function ($scope, AccountsFactory) {
+// ACCOUNT TYPE MODAL CONTROLLER
+.controller('AccountTypeModalController', function ($scope, AccountsFactory) {
     $scope.hideModal = function () {
         $scope.modalCtrl.hide();
     };
@@ -227,5 +227,17 @@ moneyleashapp.controller('RecurringController', function ($scope) {
         $scope.currentItem.accounttype = type.name;
         $scope.modalCtrl.hide();
     };
-    $scope.data = { clientSide: $scope.currentItem.accounttype };
+    $scope.data = { accountType: $scope.currentItem.accounttype };
+})
+
+// TRANSACTION TYPE MODAL CONTROLLER
+.controller('TransactionTypeModalController', function ($scope) {
+    $scope.hideModal = function () {
+        $scope.modalCtrl.hide();
+    };
+    $scope.selectTransactionType = function (item) {
+        $scope.currentItem.type = item.text;
+        $scope.modalCtrl.hide();
+    };
+    $scope.data = { accountType: $scope.currentItem.type };
 })
