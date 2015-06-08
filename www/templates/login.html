@@ -2,13 +2,13 @@
     <ion-nav-bar class="bar-stable">
         <h4>{{'SIGNIN' | translate}}</h4>
     </ion-nav-bar>
-    <ion-content>
+    <ion-content scroll="false">
         <form name="LoginForm" ng-submit="doLogin(user)">
             <div class="list list-inset">
-                <label class="item item-input">
+                <label class="item item-input ml-login-input">
                     <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
                 </label>
-                <label class="item item-input">
+                <label class="item item-input ml-login-input">
                     <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
                 </label>
             </div>

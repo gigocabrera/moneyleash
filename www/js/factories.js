@@ -52,63 +52,111 @@ angular.module('moneyleash.factories', [])
         var transactions = {};
         var accountsRef = {};
         var accountRef = {};
-        var networth = {};
-        var transRef = {};
+        var transactionRef = {};
+        var transactionsRef = {};
         return {
             ref: function (userid) {
                 ref = fb.child("members").child(userid).child("accounts");
                 return ref;
             },
             getAccounts: function () {
-                ref = fb.child("members").child(fbAuth.uid).child("accounts");
+                ref = fb.child("memberaccounts").child(fbAuth.uid);
                 accounts = $firebaseArray(ref);
                 return accounts;
             },
             getAccount: function (accountid) {
                 var deferred = $q.defer();
-                ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid);
+                ref = fb.child("memberaccounts").child(fbAuth.uid).child(accountid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
-            getAccountsRef: function (accountid) {
-                accountsRef = fb.child("members").child(fbAuth.uid).child("accounts");
-                return accountsRef;
-            },
             getAccountRef: function (accountid) {
-                accountRef = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid);
+                accountRef = fb.child("memberaccounts").child(fbAuth.uid).child(accountid);
                 return accountRef;
             },
             getAccountTypes: function () {
-                ref = fb.child("members").child(fbAuth.uid).child("accounttypes");
+                ref = fb.child("memberaccounttypes").child(fbAuth.uid);
                 accounttypes = $firebaseArray(ref);
                 return accounttypes;
             },
             getTransaction: function (accountid, transactionid) {
                 var deferred = $q.defer();
-                ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions").child(transactionid);
+                ref = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
             getTransactions: function (accountid) {
-                ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions");
+                ref = fb.child("membertransactions").child(fbAuth.uid).child(accountid);
                 transactions = $firebaseArray(ref);
                 return transactions;
             },
             getTransactionsByDate: function (accountid) {
-                ref = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions").orderByChild('date');
+                ref = fb.child("membertransactions").child(fbAuth.uid).child(accountid).orderByChild('date');
                 transactions = $firebaseArray(ref);
                 return transactions;
             },
-            getTransactionRef: function (accountid, transactionId) {
-                transRef = fb.child("members").child(fbAuth.uid).child("accounts").child(accountid).child("transactions").child(transactionId);
-                return transRef;
+            getTransactionRef: function (accountid, transactionid) {
+                transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
+                return transactionRef;
             },
-            getNetWorth: function() {
-                return networth;
+            //getTransactionsRef: function (accountid, transactionid) {
+            //    transactionsRef = fb.child("membertransactions").child(fbAuth.uid);
+            //    return transactionsRef;
+            //},
+            createNewAccount: function (currentItem) {
+
+                // Create the account
+                accounts.$add(currentItem).then(function (newChildRef) {
+
+                    // Create initial transaction for begining balance under new account node
+                    var initialTransaction = {
+                        type: 'income',
+                        payee: 'Begining Balance',
+                        category: 'Begining Balance',
+                        amount: currentItem.balancebegining,
+                        date: currentItem.dateopen,
+                        notes: '',
+                        photo: '',
+                        iscleared: 'false',
+                        isrecurring: 'false'
+                    };
+                    if (currentItem.autoclear.checked) {
+                        initialTransaction.iscleared = 'true';
+                    }
+                    var ref = fb.child("membertransactions").child(fbAuth.uid).child(newChildRef.key());
+                    ref.push(initialTransaction);
+
+                    // Update account with transaction id
+                    newChildRef.update({ transactionid: ref.key() })
+                });
+            },
+            updateAccount: function (accountid, currentItem) {
+                var dtOpen = new Date(currentItem.dateopen);
+                if (isNaN(dtOpen)) {
+                    currentItem.dateopen = "";
+                } else {
+                    dtOpen = +dtOpen;
+                    currentItem.dateopen = dtOpen;
+                }
+                // Update account
+                accountRef = fb.child("memberaccounts").child(fbAuth.uid).child(accountid);
+                accountRef.update(currentItem);
+
+                // Update transaction
+                var initialTransaction = {
+                    amount: currentItem.balancebegining,
+                    date: dtOpen
+                };
+                var initialTransRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(currentItem.transactionid);
+                initialTransRef.update(initialTransaction);
+            },
+            deleteTransaction: function (accountid, transactionid) {
+                transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
+                transactionRef.remove();
             }
         };
     })

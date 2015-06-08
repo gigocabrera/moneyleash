@@ -3,31 +3,33 @@
         <button class="button button-clear button-positive customHeaderIcon customHeaderIconSmall" ng-click="saveAccount(currentItem)">Save</button>
     </ion-nav-buttons>
     <ion-content has-header="true">
-        <div class="ion-list">
+        <div class="list">
             <label class="item item-input moneyleashLabel">
-                <i class="icon fa fa-university placeholder-icon"></i>
-                <input type="text" ng-model="currentItem.accountname" placeholder="Account Name" autocorrect="off" autocapitalize="off">
+                <i class="icon fa fa-clipboard placeholder-icon"></i>
+                <input type="text" ng-model="currentItem.accountname" placeholder="Account Name" autocorrect="off" autocapitalize="on" ng-maxlength="20">
             </label>
             <label class="item item-input moneyleashLabel">
                 <i class="icon fa fa-money placeholder-icon"></i>
-                <input type="text" placeholder="Begining Balance" ng-model="currentItem.startbalance" valid-number>
+                <input type="text" placeholder="Begining Balance" ng-model="currentItem.balancebegining" valid-number>
             </label>
             <label class="item item-input moneyleashLabel">
                 <i class="icon fa fa-calendar placeholder-icon"></i>
                 <ionic-datepicker idate="currentItem.dateopen">
-                    <button class="button button-clear button-dark">{{ currentItem.dateopen | date:'MMMM dd, yyyy' }}</button>
+                    <button class="moneyleashDatePicker">{{ currentItem.dateopen | date:'MMMM dd, yyyy' }}</button>
                 </ionic-datepicker>
             </label>
-            <label class="item item-input moneyleashLabel">
-                <i class="icon fa fa-clipboard placeholder-icon"></i>
-                <select-box class="moneyleashSelectBox" ng-selected-value="currentItem.accounttype"
-                            ng-selected-id="currentItem.accounttype"
-                            ng-item-name="name"
-                            ng-item-id="name"
-                            ng-title="Select Account Type"
-                            ng-data="accounttypes"
-                            ng-placeholder="Account Type"></select-box>
+            
+            <label class="item item-input moneyleashLabel" ng-click="openModal()">
+                <i class="icon fa fa-university placeholder-icon"></i>
+                <label placeholder="Account Type">{{currentItem.accounttype}}</label>
             </label>
+            <label class="item item-input moneyleashLabel">
+                <i class="icon fa fa-check-square placeholder-icon"></i>
+                <ion-toggle ng-model="currentItem.autoclear">Auto Clear</ion-toggle>
+            </label>
+            <div class="list list-inset" ng-show="inEditMode">
+                <p class="moneyleashTip">Warning: Updating the begining balance will also affect the transaction associated with it!</p>
+            </div>
         </div>
     </ion-content>
 </ion-view>

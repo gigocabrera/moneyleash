@@ -53,7 +53,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 // add cancel code..
             },
             buttonClicked: function (index) {
-                console.log(index);
                 //$scope.transactions = $filter('transactionsFilter')('active');
                 return true;
             }
@@ -74,7 +73,8 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
 
     // CREATE
     $scope.createTransaction = function (title) {
-        $state.go('app.transaction', { accountId: $stateParams.accountId, accountName:$stateParams.accountName, transactionId: '-1', transactionName: '' });
+        $state.go('app.transaction', { accountId: $stateParams.accountId, transactionId: '' });
+        console.log(isNew);
     }
 
     // EDIT
@@ -87,6 +87,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     $scope.list = function () {
         $rootScope.show("syncing");
         $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
+        console.log($scope.transactions);
         $rootScope.hide();
     }
 
@@ -104,7 +105,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 if (!isNaN(transaction.amount)) {
                     runningBal = runningBal + parseFloat(transaction.amount);
                 }
-            } else {
+            } else if (transaction.type == "expense") {
                 runningBal = runningBal - parseFloat(transaction.amount);
             }
             transaction.runningbal = runningBal.toFixed(2);

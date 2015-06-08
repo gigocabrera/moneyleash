@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-50 right customAccAmt" ng-class="{amountRed: transaction.type == 'expense', amountGreen: transaction.type == 'income'}">
                         <span>
-                            {{account.todaybalance | currency}}
+                            {{account.balancetoday | currency}}
                             <small></small>
                         </span>
                     </div>

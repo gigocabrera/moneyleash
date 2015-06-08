@@ -2,35 +2,52 @@
 // ACCOUNTS CONTROLLER
 moneyleashapp.controller('AccountController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicActionSheet, AccountsFactory, dateFilter) {
 
-    $scope.accounts = '';
+    $scope.InitialTransactionId = '';
     $scope.AccountTitle = '';
     $scope.inEditMode = false;
-    $scope.editIndex = '';
     $scope.currentItem = {
         'accountname': '',
-        'startbalance': '',
+        'accounttype': '',
+        'autoclear': 'false',
+        'balancebegining': '',
+        'balancecleared': '0',
+        'balancetoday': '0',
         'dateopen': '',
-        'accounttype': ''
+        'transactionid': ''
     }
+
+    // SHOW ACCOUNT TYPE MODAL
+    $ionicModal.fromTemplateUrl('templates/accounttypeselect.html', function (modal) {
+        $scope.modalCtrl = modal;
+    }, {
+        scope: $scope,
+        animation: 'slide-in-up',
+        focusFirstInput: true
+    });
+
+    // OPEN ACCOUNT TYPES
+    $scope.openModal = function () {
+        $scope.modalCtrl.show();
+    }
+
+    // GET ACCOUNT TYPES
+    $scope.clientSideList = AccountsFactory.getAccountTypes();
 
     // EDIT / CREATE ACCOUNT
     if ($stateParams.isNew == 'True') {
         $scope.AccountTitle = "Create Account";
     } else {
         // Edit account
-        $scope.editIndex = $stateParams.accountId;
         $scope.inEditMode = true;
-        AccountsFactory.getAccount($scope.editIndex).then(function (account) {
+        AccountsFactory.getAccount($stateParams.accountId).then(function (account) {
             var dtOpen = new Date(account.dateopen);
             if (isNaN(dtOpen)) {
-                dtOpen = "";
+                account.dateopen = "";
+            } else {
+                account.dateopen = dtOpen;
             }
-            $scope.currentItem = {
-                'accountname': account.accountname,
-                'startbalance': account.startbalance,
-                'dateopen': dtOpen,
-                'accounttype': account.accounttype
-            }
+            $scope.currentItem = account;
+            $scope.InitialTransactionId = account.transactionid;
         });
         $scope.AccountTitle = "Edit Account";
     }
@@ -40,39 +57,23 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
 
     // SAVE
     $scope.saveAccount = function (currentItem) {
-        $rootScope.show('Creating...');
-        if ($scope.inEditMode) {
-            var accountRef = AccountsFactory.getAccountRef($scope.editIndex);
-            var onComplete = function (error) {
-                if (error) {
-                    console.log('Synchronization failed');
-                } else {
-                    //console.log('Synchronization succeeded');
-                }
-            };
 
-            /* EDIT DATA */
-            var dtOpen = new Date($scope.currentItem.dateopen);
-            dtOpen = +dtOpen;
-            $scope.currentItem.dateopen = dtOpen;
-            accountRef.update($scope.currentItem, onComplete);
+        $rootScope.show('Saving...');
+        if ($scope.inEditMode) {
+            $scope.currentItem.transactionid = $scope.InitialTransactionId;
+            AccountsFactory.updateAccount($stateParams.accountId, $scope.currentItem);
             $scope.inEditMode = false;
         } else {
-            /* PREPARE DATA FOR FIREBASE*/
-            $scope.temp = {
-                accountname: $scope.currentItem.accountname,
-                startbalance: $scope.currentItem.startbalance,
-                dateopen: $scope.currentItem.dateopen.getTime(),
-                accounttype: $scope.currentItem.accounttype
-            }
 
-            /* SAVE DATA */
-            var sync = AccountsFactory.getAccounts();
-            sync.$add($scope.temp).then(function (newChildRef) {
-                $scope.temp = {
-                    accountid: newChildRef.key()
-                };
-            });
+            /* SAVE NEW ACCOUNT */
+            if ($scope.currentItem.autoclear) {
+                $scope.currentItem.balancecleared = $scope.currentItem.balancebegining;
+            } else {
+                $scope.currentItem.balancecleared = '0';
+            }
+            $scope.currentItem.balancetoday = $scope.currentItem.balancebegining;
+            $scope.currentItem.dateopen = $scope.currentItem.dateopen.getTime();
+            AccountsFactory.createNewAccount($scope.currentItem);
         }
         $rootScope.hide();
         $scope.currentItem = {};

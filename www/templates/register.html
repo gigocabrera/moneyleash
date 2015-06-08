@@ -2,19 +2,19 @@
     <ion-nav-bar class="bar-stable">
         <h4>{{'SIGNIN' | translate}}</h4>
     </ion-nav-bar>
-    <ion-content>        
+    <ion-content scroll="false">
         <form name="RegisterForm" ng-submit="createMember(user)">
             <div class="list list-inset">
-                <label class="item item-input">
+                <label class="item item-input ml-login-input">
                     <input type="text" placeholder="{{'FORM_FIRSTNAME' | translate}}" ng-model="user.firstname">
                 </label>
-                <label class="item item-input">
+                <label class="item item-input ml-login-input">
                     <input type="text" placeholder="{{'FORM_LASTNAME' | translate}}" ng-model="user.lastname">
                 </label>
-                <label class="item item-input">
+                <label class="item item-input ml-login-input">
                     <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
                 </label>
-                <label class="item item-input">
+                <label class="item item-input ml-login-input">
                     <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
                 </label>
             </div>
@@ -25,5 +25,5 @@
                 </p>
             </div>
         </form>
-</ion-content>
+    </ion-content>
 </ion-view>

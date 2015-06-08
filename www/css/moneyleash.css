@@ -434,23 +434,100 @@ button.customHeaderSize {
 .moneyleashLabel {
     padding: 0;
 }
+.placeholder-icon:first-child {
+    padding-right: 0px;
+}
 .placeholder-icon {
     background:#eeeeee;
     color: #919191;
-    width: 45px;
-    padding: 10px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     text-align: center;
+}
+.item-input .icon {
+    min-width: 65px;
 }
 .moneyleashLabel input, label {
     margin-left: 10px;
+    font-size: 20px;
+    margin-top: 5px;
+}
+.moneyleashLabel input[type="radio"], input[type="checkbox"] {
+    margin: 0;
+    line-height: normal;
 }
 .moneyleashLabel button {
     margin-left: 5px;
 }
+.moneyleashLabel div {
+    padding: 5px;
+    width: 85%;
+    border: 0;
+}
+.moneyleashLabel div div {
+    padding: 5px;
+    width: 25%;
+    border: 0;
+}
+.moneyleashLabel div label {
+    float: right;
+}
+.moneyleashDatePicker {
+  font-size: 20px;
+  min-height: 36px;
+  line-height: 36px;
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+  color: #444;
+}
 .moneyleashSelectBox {
     padding: 0;
+}
+.moneyleashSelectBox input {
+    margin-top: 5px;
 }
 .moneyleashSelectBox input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.cloned-text-input), textarea[readonly]:not(.cloned-text-input), select[readonly] {
   background-color: #fff;
   cursor: not-allowed;
+}
+.ml-login-input input {
+    font-size: 20px;
+}
+.moneyleashTip {
+    font-size: 14px;
+}
+/***********************/
+/* SLIDER SLIDE STYLES */
+.slider-slide {
+    background-color: #1D7AC1;
+}
+
+.moneyleashform {
+    
+}
+.moneyleashicon {
+    background:#eeeeee;
+    color: #919191;
+    text-align: center;
+    width: 65px;
+    height: 65px;
+    font-size: 20px;
+    line-height: 70px;
+    float: left;
+}
+.moneyleashsection label {
+    border: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.moneyleashsection input {
+    font-size: 20px;
+}
+.moneyleashsection span {
+    font: 13px 'PT Sans', sans-serif;
+}
+.moneyleashsection .input-label {
+    color: #138cfc;
 }

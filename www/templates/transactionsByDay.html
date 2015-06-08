@@ -5,7 +5,7 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            <div collection-repeat="transaction in transactions | reverselist | groupByDay" href="#" ng-click="handleSwipeAndTap($event, transaction)" collection-item-height="57" collection-item-width="100%" divider-collection-repeat>
+            <div collection-repeat="transaction in transactions | groupByDay" href="#" ng-click="handleSwipeAndTap($event, transaction)" collection-item-height="57" collection-item-width="100%" divider-collection-repeat>
                 <ion-item class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}">
                     <div class="row">
                         <div class="col-50 customTransDesc">

@@ -9,7 +9,7 @@
             <input type="search" placeholder="Search">
         </label>
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            <ion-item collection-repeat="transaction in transactions | reverselist" ng-click="handleSwipeAndTap($event, transaction)" href="#" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}" collection-item-height="62" collection-item-width="100%">
+            <ion-item collection-repeat="transaction in transactions" ng-click="handleSwipeAndTap($event, transaction)" href="#" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}" collection-item-height="62" collection-item-width="100%">
                 <div class="row">
                     <div class="col-50 customTransDesc">
                         <span>

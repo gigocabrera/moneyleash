@@ -218,17 +218,14 @@ moneyleashapp.controller('RecurringController', function ($scope) {
 
 })
 
-// ACCOUNT TYPE MODAL CONTROLLER
-.controller('AccountTypeModalCtrl', function ($scope) {
-
+// MODAL CONTROLLER
+.controller('ModalController', function ($scope, AccountsFactory) {
     $scope.hideModal = function () {
         $scope.modalCtrl.hide();
     };
-
-    $scope.doSelect = function (accounttype) {
-        //$scope.modalData.msg = accounttype.name;
-        $scope.currentItem.accounttype = accounttype.name;
+    $scope.selectAccountType = function (type) {
+        $scope.currentItem.accounttype = type.name;
         $scope.modalCtrl.hide();
     };
-
+    $scope.data = { clientSide: $scope.currentItem.accounttype };
 })

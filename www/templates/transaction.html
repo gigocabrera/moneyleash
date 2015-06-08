@@ -3,40 +3,42 @@
         <button class="button button-clear button-positive customHeaderSize" ng-click="saveTransaction(currentItem)">Save</button>
     </ion-nav-buttons>
     <ion-content has-header="true">
-        <div class="list">
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Transaction Type</span>
-                <input type="text" ng-model="currentItem.type" />
+        <div class="ion-list">
+            <label class="item item-input moneyleashLabel">
+                <i class="icon fa fa-clipboard placeholder-icon"></i>
+                <select-box class="moneyleashSelectBox" ng-selected-value="currentItem.type"
+                            ng-selected-id="currentItem.type"
+                            ng-item-name="name"
+                            ng-item-id="name"
+                            ng-title="Select Transaction Type"
+                            ng-data="transactiontypes"
+                            ng-placeholder="Transaction Type"></select-box>
             </label>
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Account</span>
-                <input type="text" ng-model="currentItem.accountid" />
+            <label class="item item-input moneyleashLabel">
+                <i class="icon fa fa-user placeholder-icon"></i>
+                <input type="text" placeholder="Payee" ng-model="currentItem.payee">
             </label>
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Payee</span>
-                <input type="text" ng-model="currentItem.payee" />
+            <label class="item item-input moneyleashLabel">
+                <i class="icon fa fa-thumb-tack placeholder-icon"></i>
+                <input type="text" placeholder="Category" ng-model="currentItem.category">
             </label>
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Category</span>
-                <input type="text" ng-model="currentItem.category" />
+            <label class="item item-input moneyleashLabel">
+                <i class="icon fa fa-money placeholder-icon"></i>
+                <input type="text" placeholder="Amount" ng-model="currentItem.amount" valid-number>
             </label>
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Amount</span>
-                <input type="text" ng-model="currentItem.amount" />
-            </label>
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Transaction Date</span>
+            <label class="item item-input moneyleashLabel">
+                <i class="icon fa fa-calendar placeholder-icon"></i>
                 <ionic-datepicker idate="currentItem.date">
-                    <button class="button button-clear button-dark">{{ currentItem.date | date:'MMMM dd, yyyy' }}</button>
+                    <button class="moneyleashDatePicker">{{ currentItem.date | date:'MMMM dd, yyyy' }}</button>
                 </ionic-datepicker>
             </label>
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Notes</span>
-                <input type="text" ng-model="currentItem.notes" />
+            <label class="item item-input moneyleashLabel">
+                <i class="icon fa fa-file-text placeholder-icon"></i>
+                <input type="text" placeholder="Notes" ng-model="currentItem.notes">
             </label>
-            <label class="item item-input">
-                <span class="input-label formLabelBold">Photo</span>
-                <input type="text" ng-model="currentItem.photo" />
+            <label class="item item-input moneyleashLabel">
+                <i class="icon fa fa-camera placeholder-icon"></i>
+                <input type="text" placeholder="Photo" ng-model="currentItem.photo">
             </label>
         </div>
     </ion-content>
