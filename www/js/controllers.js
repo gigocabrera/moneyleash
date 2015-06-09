@@ -237,6 +237,7 @@ moneyleashapp.controller('RecurringController', function ($scope) {
     };
     $scope.selectTransactionType = function (item) {
         $scope.currentItem.type = item.text;
+        $scope.isTransfer = (item.text.toUpperCase() == "TRANSFER") ? true : false;
         $scope.modalCtrl.hide();
     };
     $scope.data = { accountType: $scope.currentItem.type };

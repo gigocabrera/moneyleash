@@ -74,7 +74,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     // CREATE
     $scope.createTransaction = function (title) {
         $state.go('app.transaction', { accountId: $stateParams.accountId, transactionId: '' });
-        console.log(isNew);
     }
 
     // EDIT
@@ -83,11 +82,39 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     };
 
     // LIST
-    $scope.transactionsByDate = [];
     $scope.list = function () {
-        $rootScope.show("syncing");
+        $scope.groups = [];
         $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
-        $rootScope.hide();
+
+        // Add grouping functionality for sticky affix elements
+        // https://github.com/aliok/ion-affix
+        $scope.transactions.$loaded().then(function () {
+            var dividers = [];
+            var transaction = {};
+            var currentDate = '';
+            var previousDay = '';
+            var previousYear = '';
+            var output = [];
+            var groupValue = '';
+            var group = {};
+            angular.forEach($scope.transactions, function (transaction) {
+                currentDate = moment(transaction.date);
+                if (!previousDay || currentDate.day() != previousDay || currentDate.year() != previousYear) {
+                    var dividerId = currentDate.format('dddd MMMM D, YYYY');
+                    if (dividerId !== groupValue) {
+                        groupValue = dividerId;
+                        group = {
+                            label: groupValue,
+                            transactions: []
+                        };
+                        $scope.groups.push(group);
+                    }
+                }
+                group.transactions.push(transaction);
+                previousDay = currentDate.day();
+                previousYear = currentDate.year();
+            })
+        })
     }
 
     // WATCH
@@ -113,11 +140,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         $scope.clearedCount = cleared;
         $scope.pendingCount = total - cleared;
     }, true);
-
-    // COPY
-    $scope.copyTransaction = function (transaction) {
-        
-    };
 
     // DELETE
     $scope.deleteTransaction = function (transaction) {
@@ -147,8 +169,5 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         });
     };
 
-    // TRANSACTION CLEARED
-    $scope.toggleCompleted = function (transaction) {
-        $scope.transactions.$save(transaction.$id);
-    };
+
 })

@@ -4,7 +4,7 @@ var fb = '';
 fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker', 'ngAnimate'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker', 'ngAnimate', 'ion-affix'])
 
 moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth) {
     $ionicPlatform.ready(function () {
@@ -211,17 +211,6 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         views: {
             'menuContent': {
                 templateUrl: "templates/accounttypes.html",
-                controller: 'AccountTypesController'
-            }
-        }
-    })
-
-    // SELECT ACCOUNT TYPE
-    .state('app.selectaccounttype', {
-        url: "/selectaccounttype",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/selectaccounttype.html",
                 controller: 'AccountTypesController'
             }
         }

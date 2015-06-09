@@ -103,10 +103,6 @@ angular.module('moneyleash.factories', [])
                 transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
                 return transactionRef;
             },
-            //getTransactionsRef: function (accountid, transactionid) {
-            //    transactionsRef = fb.child("membertransactions").child(fbAuth.uid);
-            //    return transactionsRef;
-            //},
             createNewAccount: function (currentItem) {
 
                 // Create the account

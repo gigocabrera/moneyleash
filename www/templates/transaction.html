@@ -5,33 +5,43 @@
     <ion-content has-header="true">
         <div class="ion-list">
             <label class="item item-input moneyleashLabel" ng-click="openModal()">
-                <i class="icon fa fa-clipboard placeholder-icon"></i>
+                <i class="icon fa fa-clipboard placeholder-icon" style="background-color: {{iconColorActive}}"></i>
                 <label placeholder="Transaction Type">{{currentItem.type}}</label>
             </label>
-            <label class="item item-input moneyleashLabel">
-                <i class="icon fa fa-user placeholder-icon"></i>
+            <div ng-show="isTransfer">
+                <label class="item item-input moneyleashLabel">
+                    <i class="icon fa fa-user placeholder-icon" style="background-color: {{iconColorActive}}"></i>
+                    <input type="text" placeholder="From Account" ng-model="currentItem.accountFrom">
+                </label>
+                <label class="item item-input moneyleashLabel">
+                    <i class="icon fa fa-thumb-tack placeholder-icon" style="background-color: {{iconColorActive}}"></i>
+                    <input type="text" placeholder="To Account" ng-model="currentItem.accountTo">
+                </label>
+            </div>
+            <label class="item item-input moneyleashLabel" ng-click="iconBackgroundColorEnter()">
+                <i class="icon fa fa-user placeholder-icon" style="background-color: {{iconColorActive}}"></i>
                 <input type="text" placeholder="Payee" ng-model="currentItem.payee">
             </label>
             <label class="item item-input moneyleashLabel">
-                <i class="icon fa fa-thumb-tack placeholder-icon"></i>
+                <i class="icon fa fa-thumb-tack placeholder-icon" style="background-color: {{iconColorActive}}"></i>
                 <input type="text" placeholder="Category" ng-model="currentItem.category">
             </label>
             <label class="item item-input moneyleashLabel">
-                <i class="icon fa fa-money placeholder-icon"></i>
+                <i class="icon fa fa-money placeholder-icon" style="background-color: {{iconColorActive}}"></i>
                 <input type="text" placeholder="Amount" ng-model="currentItem.amount" valid-number>
             </label>
             <label class="item item-input moneyleashLabel">
-                <i class="icon fa fa-calendar placeholder-icon"></i>
+                <i class="icon fa fa-calendar placeholder-icon" style="background-color: {{iconColorActive}}"></i>
                 <ionic-datepicker idate="currentItem.date">
                     <button class="moneyleashDatePicker">{{ currentItem.date | date:'MMMM dd, yyyy' }}</button>
                 </ionic-datepicker>
             </label>
             <label class="item item-input moneyleashLabel">
-                <i class="icon fa fa-file-text placeholder-icon"></i>
+                <i class="icon fa fa-file-text placeholder-icon" style="background-color: {{iconColorActive}}"></i>
                 <input type="text" placeholder="Notes" ng-model="currentItem.notes">
             </label>
             <label class="item item-input moneyleashLabel">
-                <i class="icon fa fa-camera placeholder-icon"></i>
+                <i class="icon fa fa-camera placeholder-icon" style="background-color: {{iconColorActive}}"></i>
                 <input type="text" placeholder="Photo" ng-model="currentItem.photo">
             </label>
         </div>

@@ -6,6 +6,12 @@
 .item {
     font-size: 20px;
 }
+.list {
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-left: 0;
+      margin-bottom: 0;
+}
 .SectionDivider {
     font-size: 12px;
     font-weight: normal;
@@ -498,36 +504,9 @@ button.customHeaderSize {
 .moneyleashTip {
     font-size: 14px;
 }
+
 /***********************/
 /* SLIDER SLIDE STYLES */
 .slider-slide {
     background-color: #1D7AC1;
-}
-
-.moneyleashform {
-    
-}
-.moneyleashicon {
-    background:#eeeeee;
-    color: #919191;
-    text-align: center;
-    width: 65px;
-    height: 65px;
-    font-size: 20px;
-    line-height: 70px;
-    float: left;
-}
-.moneyleashsection label {
-    border: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-}
-.moneyleashsection input {
-    font-size: 20px;
-}
-.moneyleashsection span {
-    font: 13px 'PT Sans', sans-serif;
-}
-.moneyleashsection .input-label {
-    color: #138cfc;
 }

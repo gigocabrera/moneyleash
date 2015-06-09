@@ -5,14 +5,18 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
     $scope.transactions = [];
     $scope.AccountTitle = '';
     $scope.inEditMode = false;
+    $scope.isTransfer = false;
     $scope.uid = '';
     $scope.editIndex = '';
     $scope.currentItem = {
+        'accountFrom': '',
+        'accountTo': '',
         'amount': '',
         'category': '',
         'date': '',
         'iscleared': false,
         'isrecurring': false,
+        'istransfer': false,
         'notes': '',
         'payee': '',
         'photo': '',
@@ -28,6 +32,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         animation: 'slide-in-up',
         focusFirstInput: true
     });
+
+    $scope.iconBackgroundColorEnter = function () {
+        //$scope.iconBackgroundColor + id == '#000';
+    }
 
     // OPEN ACCOUNT TYPES
     $scope.openModal = function () {
