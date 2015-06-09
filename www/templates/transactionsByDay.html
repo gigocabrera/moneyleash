@@ -4,8 +4,8 @@
         <button class="button button-icon ion-ios-more customHeaderIcon" ng-click="openPopover($event, false)"></button>
     </ion-nav-buttons>
     <ion-content class="has-header" scroll-event-interval="5">
-        <div ng-repeat="group in groups | reverselist " class="list">
-            <div class="item item-divider SectionDivider" ion-affix data-affix-within-parent-with-class="list">
+        <div ng-repeat="group in groups | reverselist " class="ml_list">
+            <div class="item item-divider SectionDivider" ion-affix data-affix-within-parent-with-class="ml_list" ng-class="{SectionDividerActive: group.isToday == true}">
                 {{ group.label }}
             </div>
             <ul>

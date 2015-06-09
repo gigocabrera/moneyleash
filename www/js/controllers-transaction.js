@@ -24,30 +24,15 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         'type': ''
     };
 
-    // SHOW ACCOUNT TYPE MODAL
-    $ionicModal.fromTemplateUrl('templates/transactiontypeselect.html', function (modal) {
-        $scope.modalCtrl = modal;
-    }, {
-        scope: $scope,
-        animation: 'slide-in-up',
-        focusFirstInput: true
-    });
-
-    $scope.iconBackgroundColorEnter = function () {
-        //$scope.iconBackgroundColor + id == '#000';
-    }
-
-    // OPEN ACCOUNT TYPES
-    $scope.openModal = function () {
-        $scope.modalCtrl.show();
-    }
-
-    // LOAD ACCOUNT TYPES
-    $scope.clientSideList = [
+    // TRANSACTION TYPES
+    $scope.transactionTypeList = [
         { text: "Income", value: "income" },
         { text: "Expense", value: "expense" },
         { text: "Transfer", value: "transfer" },
     ];
+    $scope.updateTransactionType = function (item) {
+        $scope.isTransfer = (item.text.toUpperCase() == "TRANSFER") ? true : false;
+    }
 
     // EDIT / CREATE ACCOUNT    
     if ($stateParams.transactionId == '') {

@@ -92,10 +92,12 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             var dividers = [];
             var transaction = {};
             var currentDate = '';
+            var todaysDate = moment(new Date());
             var previousDay = '';
             var previousYear = '';
             var output = [];
             var groupValue = '';
+            var todayFlag = false;
             var group = {};
             angular.forEach($scope.transactions, function (transaction) {
                 currentDate = moment(transaction.date);
@@ -103,11 +105,17 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                     var dividerId = currentDate.format('dddd MMMM D, YYYY');
                     if (dividerId !== groupValue) {
                         groupValue = dividerId;
+                        var tday = todaysDate.format('dddd MMMM D, YYYY');
+                        if (tday == dividerId) {
+                            todayFlag = true;
+                        }
                         group = {
                             label: groupValue,
-                            transactions: []
+                            transactions: [],
+                            isToday: todayFlag
                         };
                         $scope.groups.push(group);
+                        //console.log(group);
                     }
                 }
                 group.transactions.push(transaction);

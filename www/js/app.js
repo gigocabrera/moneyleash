@@ -187,7 +187,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
 
     // TRANSACTIONS
     .state('app.transactionsByDay', {
-        url: "/accounts/transactions/:accountId/:accountName",
+        url: "/accounts/:accountId/:accountName",
         views: {
             'menuContent': {
                 templateUrl: "templates/transactionsByDay.html",
