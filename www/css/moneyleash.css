@@ -206,13 +206,43 @@ button.customHeaderSize {
 .item-right-edit {
     width: 60px;
 }
+#accountsIcons ul {
+    margin-top: 5px;
+    width: 150px;
+    display: table;
+    table-layout: fixed;
+}
+#accountsIcons ul li:first-child {
+    width: 85px;
+    overflow: hidden;
+}
+#accountsIcons ul li {
+    list-style-type: none;
+    display: table-cell;
+    margin-right: 7px;
+    margin-left: 7px;
+    color: #B1B2B7;
+    font: 14px 'PT Sans', sans-serif;
+}
+#accountsIcons ul li > i {
+  margin-right: 3px;
+  font-size: 11px;
+}
 #transactionIcons ul {
     margin-top: 5px;
+    width: 195px;
+    display: table;
+    table-layout: fixed;
+}
+#transactionIcons ul li:first-child {
+    width: 150px;
+    overflow: hidden;
 }
 #transactionIcons ul li {
     list-style-type: none;
-    display: inline;   
+    display: table-cell;
     margin-right: 7px;
+    margin-left: 7px;
     color: #B1B2B7;
     font: 14px 'PT Sans', sans-serif;
 }
