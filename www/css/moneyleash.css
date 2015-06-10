@@ -13,7 +13,7 @@
     /* background-color: #d0d2d8; */
 }
 .SectionDividerActive {
-    color: #0000ff;
+    color: #FF5E2E;
 }
 /* Padding for all ion-item ng-repeat lists */
 .item-complex .item-content {
@@ -197,7 +197,6 @@ button.customHeaderSize {
     font-weight: bold;
 }
 .amountRed {
-    /*color: #F33D24;*/
     color: #FF5E2E;
 }
 .amountGreen {
@@ -206,48 +205,18 @@ button.customHeaderSize {
 .item-right-edit {
     width: 60px;
 }
-#accountsIcons ul {
-    margin-top: 5px;
-    width: 150px;
-    display: table;
-    table-layout: fixed;
-}
-#accountsIcons ul li:first-child {
-    width: 85px;
-    overflow: hidden;
-}
-#accountsIcons ul li {
-    list-style-type: none;
-    display: table-cell;
-    margin-right: 7px;
-    margin-left: 7px;
-    color: #B1B2B7;
-    font: 14px 'PT Sans', sans-serif;
-}
-#accountsIcons ul li > i {
-  margin-right: 3px;
-  font-size: 11px;
-}
 #transactionIcons ul {
     margin-top: 5px;
-    width: 195px;
-    display: table;
-    table-layout: fixed;
-}
-#transactionIcons ul li:first-child {
-    width: 150px;
-    overflow: hidden;
 }
 #transactionIcons ul li {
     list-style-type: none;
-    display: table-cell;
-    margin-right: 7px;
-    margin-left: 7px;
+    display: inline;
     color: #B1B2B7;
     font: 14px 'PT Sans', sans-serif;
 }
 #transactionIcons ul li > i {
-  margin-right: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
   font-size: 11px;
 }
 .formLabelBold {

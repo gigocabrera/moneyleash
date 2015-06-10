@@ -14,12 +14,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         $scope.SortingIsEnabled = !isEnabled;
         $scope.popover.hide();
     };
-    $scope.moveItem = function (transaction, fromIndex, toIndex) {
-        //$scope.transactions.splice(fromIndex, 1);
-        //$scope.transactions.splice(toIndex, 0, transaction);
-        //console.log(fromIndex);
-        //console.log(toIndex);
-    };
 
     // POPOVER
     $scope.animation = 'slide-in-up';
@@ -32,10 +26,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     $scope.replaceIcon = false;
     $scope.openPopover = function ($event, replaceIt) {
         $scope.popover.show($event);
-        // Hide after 5 seconds
-        //$timeout(function () {
-        //    $scope.popover.hide();
-        //}, 5000);
     };
 
     // SHOW FILTERS - ACTION SHEET
@@ -67,7 +57,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            // ToDo: Add filter by payee option
+            // TODO: Add filter by payee option
         }
     };
 

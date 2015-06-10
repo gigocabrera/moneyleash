@@ -7,7 +7,7 @@
             <div class="button-bar padding">
                 <ion-radio ng-repeat="item in transactionTypeList"
                            ng-value="item.value"
-                           ng-model="currentItem.type"
+                           ng-model="currentItem.typedisplay"
                            ng-change="updateTransactionType(item)"
                            class="button button-positive button-outline"
                            name="radioTransType">
@@ -16,11 +16,11 @@
             </div>
             <div ng-show="isTransfer">
                 <label class="item item-input moneyleashLabel">
-                    <i class="icon fa fa-share placeholder-icon"></i>
+                    <i class="icon fa fa-reply placeholder-icon"></i>
                     <input type="text" placeholder="From Account" ng-model="currentItem.accountFrom">
                 </label>
                 <label class="item item-input moneyleashLabel">
-                    <i class="icon fa fa-reply placeholder-icon"></i>
+                    <i class="icon fa fa-share placeholder-icon"></i>
                     <input type="text" placeholder="To Account" ng-model="currentItem.accountTo">
                 </label>
             </div>

@@ -2857,9 +2857,7 @@
     <Content Include="www\lib\ionic\js\ionic.min.js" />
     <Content Include="www\templates\about.html" />
     <Content Include="www\templates\account.html" />
-    <Content Include="www\templates\transactiontypeselect.html" />
     <Content Include="www\templates\accounttypeselect.html" />
-    <Content Include="www\templates\transactions.html" />
     <Content Include="www\templates\accounts.html" />
     <Content Include="www\templates\accounttypesave.html" />
     <Content Include="www\templates\accounttypes.html" />
@@ -2879,7 +2877,6 @@
     <Content Include="www\templates\side-menu.html" />
     <Content Include="www\templates\transaction.html" />
     <Content Include="www\templates\transactionsByDay.html" />
-    <Content Include="www\templates\transactionsByMonth.html" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="platforms\ios\www\lib\angular-ui-router\api\angular-ui-router.d.ts" />

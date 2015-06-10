@@ -21,7 +21,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         'payee': '',
         'photo': '',
         'runningbalance': '',
-        'type': ''
+        'type': '',
+        'typedisplay': ''
     };
 
     // TRANSACTION TYPES
@@ -37,7 +38,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
     // EDIT / CREATE ACCOUNT    
     if ($stateParams.transactionId == '') {
         $scope.TransactionTitle = "Create Transaction";
-    } else {   
+    } else {
         // Edit transaction
         $scope.editIndex = $stateParams.transactionId;
         $scope.inEditMode = true;
@@ -47,18 +48,33 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
                 dtTransDate = "";
             }
             $scope.currentItem = transaction;
+            $scope.isTransfer = $scope.currentItem.istransfer;
         });
         $scope.TransactionTitle = "Edit Transaction";
     }
 
     // SAVE
     $scope.saveTransaction = function (currentItem) {
-        // update
+
+        // Format date
         var dtTran = new Date($scope.currentItem.date);
         dtTran = +dtTran;
         $scope.currentItem.date = dtTran;
 
+        // Handle transaction type
+        if ($scope.currentItem.typedisplay.toUpperCase() == "TRANSFER" && currentItem.accountTo == $stateParams.accountId) {
+            $scope.currentItem.type = 'income';
+            $scope.currentItem.istransfer = true;
+        } else if ($scope.currentItem.typedisplay.toUpperCase() == "TRANSFER" && currentItem.accountTo != $stateParams.accountId) {
+            $scope.currentItem.type = 'expense';
+            $scope.currentItem.istransfer = true;
+        } else {
+            $scope.currentItem.type = $scope.currentItem.typedisplay;
+            $scope.currentItem.istransfer = false;
+        }
+
         if ($scope.inEditMode) {
+            // Update
             var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
             transactionRef.update($scope.currentItem, onComplete);
             var onComplete = function (error) {
@@ -68,7 +84,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
             };
             $scope.inEditMode = false;
         } else {
-            // create
+            // Create
             if (isNaN($scope.currentItem.notes)) {
                 $scope.currentItem.notes = "";
             }
