@@ -96,8 +96,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                     if (dividerId !== groupValue) {
                         groupValue = dividerId;
                         var tday = todaysDate.format('dddd MMMM D, YYYY');
+                        //console.log("tday: " + tday + ", " + dividerId);
                         if (tday == dividerId) {
                             todayFlag = true;
+                        } else {
+                            todayFlag = false;
                         }
                         group = {
                             label: groupValue,

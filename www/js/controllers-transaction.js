@@ -10,7 +10,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
     $scope.editIndex = '';
     $scope.currentItem = {
         'accountFrom': '',
+        'accountFromId': '',
         'accountTo': '',
+        'accountToId': '',
         'amount': '',
         'category': '',
         'date': '',
@@ -45,7 +47,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         AccountsFactory.getTransaction($stateParams.accountId, $stateParams.transactionId).then(function (transaction) {
             var dtTransDate = new Date(transaction.date);
             if (isNaN(dtTransDate)) {
-                dtTransDate = "";
+                transaction.date = "";
+            } else {
+                transaction.date = dtTransDate;
             }
             $scope.currentItem = transaction;
             $scope.isTransfer = $scope.currentItem.istransfer;
@@ -62,10 +66,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         $scope.currentItem.date = dtTran;
 
         // Handle transaction type
-        if ($scope.currentItem.typedisplay.toUpperCase() == "TRANSFER" && currentItem.accountTo == $stateParams.accountId) {
+        if ($scope.currentItem.typedisplay.toUpperCase() == "TRANSFER" && currentItem.accountToId == $stateParams.accountId) {
             $scope.currentItem.type = 'income';
             $scope.currentItem.istransfer = true;
-        } else if ($scope.currentItem.typedisplay.toUpperCase() == "TRANSFER" && currentItem.accountTo != $stateParams.accountId) {
+        } else if ($scope.currentItem.typedisplay.toUpperCase() == "TRANSFER" && currentItem.accountToId != $stateParams.accountId) {
             $scope.currentItem.type = 'expense';
             $scope.currentItem.istransfer = true;
         } else {
