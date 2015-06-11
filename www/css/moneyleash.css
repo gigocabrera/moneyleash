@@ -1,4 +1,6 @@
-﻿@import url("font-awesome.min.css");
+﻿@import url("https://fonts.googleapis.com/css?family=PT+Sans");
+@import url("https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
+@import url("font-awesome.min.css");
 
 /* List Item Font Size */
 .item {

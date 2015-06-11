@@ -437,6 +437,7 @@
     <None Include="plugins\org.apache.cordova.device\README.md" />
     <None Include="plugins\org.apache.cordova.device\RELEASENOTES.md" />
     <None Include="plugins\org.apache.cordova.device\src\ios\CDVDevice.m" />
+    <None Include="README.md" />
     <None Include="scss\ionic.app.scss" />
     <None Include="www\fonts\fontawesome-webfont.eot" />
     <None Include="www\fonts\fontawesome-webfont.ttf" />
@@ -552,6 +553,8 @@
     <Content Include="config.xml" />
     <Content Include="gulpfile.js" />
     <Content Include="hooks\after_prepare\010_add_platform_class.js" />
+    <Content Include="moneyleash_intro_iphone6.png" />
+    <Content Include="moneyleash_transactions_iphone6.png" />
     <Content Include="platforms\android\.gitignore" />
     <Content Include="platforms\android\AndroidManifest.xml" />
     <Content Include="platforms\android\assets\www\cordova.js" />
@@ -2876,6 +2879,7 @@
     <Content Include="www\templates\settings.html" />
     <Content Include="www\templates\side-menu.html" />
     <Content Include="www\templates\transaction.html" />
+    <Content Include="www\templates\transactions.html" />
     <Content Include="www\templates\transactionsByDay.html" />
   </ItemGroup>
   <ItemGroup>

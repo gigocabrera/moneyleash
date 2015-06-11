@@ -1,0 +1,61 @@
+<ion-view title={{AccountTitle}} ng-init="list()">
+    <ion-nav-buttons side="right">
+        <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createTransaction('Add')"></button>
+        <button class="button button-icon ion-ios-more customHeaderIcon" ng-click="openPopover($event, false)"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" placeholder="Search">
+        </label>
+        <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
+            <ion-item collection-repeat="transaction in transactions | reverselist" ng-click="handleSwipeAndTap($event, transaction)" href="#" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}" collection-item-height="62" collection-item-width="100%">
+                <div class="row">
+                    <div class="col-50 customTransDesc">
+                        <span>
+                            {{transaction.payee}}
+                            <small>
+                                <div id="transactionIcons">
+                                    <ul>
+                                        <li>{{transaction.date | date:'MM/dd/yyyy'}}</li>
+                                        <li><i class="fa fa-thumb-tack"></i>{{transaction.category}}</li>
+                                        <li><i ng-class="{'fa fa-camera': transaction.photo.length > 0}"></i></li>
+                                        <li><i ng-class="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
+                                    </ul>
+                                </div>
+                            </small>
+                        </span>
+                    </div>
+                    <div class="col-50 right customAccAmt" ng-class="{amountRed: transaction.type == 'expense', amountGreen: transaction.type == 'income'}">
+                        <span>
+                            {{transaction.amount | currency}}
+                            <small>
+                                {{transaction.runningbal | currency}}
+                            </small>
+                        </span>
+                        <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared" ng-change="transactions.$save(transaction)">
+                    </div>
+                </div>
+                <ion-option-button class="button-stable" ng-click="showMoreOptionsSwipe()">
+                    &nbsp;More&nbsp;
+                </ion-option-button>
+                <ion-option-button class="button-energized" ng-click="editTransaction($event, transaction)">
+                    &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                </ion-option-button>
+                <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction)">
+                    Delete
+                </ion-option-button>
+                <ion-reorder-button class="ion-navicon" on-reorder="moveItem(transaction, $fromIndex, $toIndex)"></ion-reorder-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-dark">
+        <div class="buttons">
+            <button class="button button-icon customFooterIcon" ng-click="showSearch()"><i class="fa fa-search"></i></button>
+        </div>
+        <h1 class="title">Current Balance</h1>
+        <div class="buttons">
+            <button class="button button-icon customFooterIcon" ng-click="showFilters()"><i class="fa fa-filter"></i></button>
+        </div>
+    </ion-footer-bar>
+</ion-view>
