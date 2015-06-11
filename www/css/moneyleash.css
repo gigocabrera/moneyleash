@@ -1,6 +1,4 @@
-﻿@import url("http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
-@import url(http://fonts.googleapis.com/css?family=PT+Sans);
-@import url("font-awesome.min.css");
+﻿@import url("font-awesome.min.css");
 
 /* List Item Font Size */
 .item {
@@ -12,7 +10,6 @@
     padding-top: 4px;
     padding-bottom: 3px;
     min-height: 25px;
-    /* background-color: #d0d2d8; */
 }
 .SectionDividerActive {
     color: #FF5E2E;
