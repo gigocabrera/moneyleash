@@ -27,7 +27,7 @@ To install and preview this app on your phone
 
  - [Money Leash Demo](https://brilliant-inferno-1044.firebaseapp.com/)
 
-   (Demo includes default login credentials)
+   Demo includes default login credentials and sample data, but feel free to create your own
 
 
 ## Contribute
