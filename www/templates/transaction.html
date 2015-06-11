@@ -14,7 +14,7 @@
                     {{ item.text }}
                 </ion-radio>
             </div>
-            <div ng-show="isTransfer">
+            <div ng-hide="!isTransfer">
                 <label class="item item-input moneyleashLabel">
                     <i class="icon fa fa-reply placeholder-icon"></i>
                     <input type="text" placeholder="From Account" ng-model="currentItem.accountFrom">
@@ -24,7 +24,7 @@
                     <input type="text" placeholder="To Account" ng-model="currentItem.accountTo">
                 </label>
             </div>
-            <div ng-show="!isTransfer">
+            <div ng-hide="isTransfer">
                 <label class="item item-input moneyleashLabel">
                     <i class="icon fa fa-user placeholder-icon"></i>
                     <input type="text" placeholder="Payee" ng-model="currentItem.payee">

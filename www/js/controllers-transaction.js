@@ -1,6 +1,6 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory) {
    
     $scope.transactions = [];
     $scope.AccountTitle = '';
@@ -105,6 +105,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         }
         $rootScope.hide();
         $scope.currentItem = {};
-        $state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName });
+        //$state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName });
+        $ionicHistory.goBack();
+
     }
 })
