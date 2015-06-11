@@ -35,14 +35,14 @@ To install and preview this app on your phone
 This is a work inprogress and **your feedback and help would be greatly appreciated!**
 
 - Have a feature request or find a bug?
-  * [Submit an issue on Trello](https://trello.com/b/SacyhwZK/money-leash-board)
-  * [Submit an issue on GitHub](https://github.com/gigocabrera/moneyleash/issues)
+  * [Submit on Trello](https://trello.com/b/SacyhwZK/money-leash-board)
+  * [Submit on GitHub](https://github.com/gigocabrera/moneyleash/issues)
 
 
 ## Connect
 
-- Follow [@gigocabrera on Twitter](https://twitter.com/gigocabrera)
-- Connect on [LinkedIn](https://www.linkedin.com/in/luiscabrerame)
+- Follow [@gigocabrera] on Twitter(https://twitter.com/gigocabrera)
+- Follow on [LinkedIn](https://www.linkedin.com/in/luiscabrerame)
 - Contact me on my [website](http://www.luiscabrera.me)
 
 
