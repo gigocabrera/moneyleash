@@ -105,8 +105,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         }
         $rootScope.hide();
         $scope.currentItem = {};
-        //$state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName });
-        $ionicHistory.goBack();
-
+        $state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName });
     }
 })
