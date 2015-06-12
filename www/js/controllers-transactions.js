@@ -1,6 +1,6 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $ionicPopover, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $timeout, AccountsFactory) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $timeout, AccountsFactory) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
@@ -8,29 +8,8 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     $scope.editIndex = 0;
     $scope.SortingIsEnabled = false;
 
-    // SORT
-    $scope.reorderBtnText = '';
-    $scope.showSorting = function (isEnabled) {
-        $scope.SortingIsEnabled = !isEnabled;
-        $scope.popover.hide();
-    };
-
-    // POPOVER
-    $scope.animation = 'slide-in-up';
-    $ionicPopover.fromTemplateUrl('templates/popover.html', {
-        scope: $scope,
-        animation: $scope.animation
-    }).then(function (popover) {
-        $scope.popover = popover;
-    });
-    $scope.replaceIcon = false;
-    $scope.openPopover = function ($event, replaceIt) {
-        $scope.popover.show($event);
-    };
-
     // SHOW FILTERS - ACTION SHEET
     $scope.showFilters = function () {
-        $scope.popover.hide();
         $ionicActionSheet.show({
             buttons: [
               { text: 'Show All Transactions' },

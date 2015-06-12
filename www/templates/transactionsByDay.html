@@ -1,7 +1,6 @@
 <ion-view title={{AccountTitle}} ng-init="list()">
     <ion-nav-buttons side="right">
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createTransaction('Add')"></button>
-        <button class="button button-icon ion-ios-more customHeaderIcon" ng-click="openPopover($event, false)"></button>
     </ion-nav-buttons>
     <ion-content class="has-header" scroll-event-interval="5">
         <div ng-repeat="group in groups | reverselist " class="ml_list">

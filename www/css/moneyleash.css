@@ -229,10 +229,12 @@ button.customHeaderSize {
 .transactionIsCleared .item-content {
     background-color: #eee;
     -webkit-transition:all linear 0.5s;
+    -o-transition:all linear 0.5s;
     transition:all linear 0.5s;
 }
 .item-icon-right .item-content {
     -webkit-transition:all linear 0.5s;
+    -o-transition:all linear 0.5s;
     transition:all linear 0.5s;
 }
 .item-toggle-option .toggle {
@@ -251,6 +253,7 @@ button.customHeaderSize {
     margin-right: auto;
 	border: none;
 	-webkit-appearance: none;
+    -moz-appearance: none;
 	-ms-appearance: none;
 	-o-appearance: none;
 	appearance: none;
@@ -442,7 +445,7 @@ button.customHeaderSize {
     padding: 0;
 }
 .placeholder-icon:first-child {
-    padding-right: 0px;
+    padding-right: 0;
 }
 .placeholder-icon {
     background:#eeeeee;
@@ -515,7 +518,7 @@ button.customHeaderSize {
 /***************************/
 /* TRANSACTION TYPE STYLES */
 .item-radio .item-content {
-    padding: 0px;
+    padding: 0;
     background: none;
 }
 .button-bar .button {
