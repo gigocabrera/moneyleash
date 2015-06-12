@@ -1,4 +1,9 @@
 
+# Money Leash
+
+**Don't let your money run wild. Keep it on a leash!**
+
+
 # What is Money Leash?
 
 Money Leash is a Personal Expense App developed in Ionic, AngularJS, and Firebase.
