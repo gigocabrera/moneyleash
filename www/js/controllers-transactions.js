@@ -91,13 +91,13 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             var group = {};
             angular.forEach($scope.transactions, function (transaction) {
                 currentDate = moment(transaction.date);
-                if (!previousDay || currentDate.day() != previousDay || currentDate.year() != previousYear) {
+                if (!previousDay || currentDate.day() !== previousDay || currentDate.year() !== previousYear) {
                     var dividerId = currentDate.format('dddd MMMM D, YYYY');
                     if (dividerId !== groupValue) {
                         groupValue = dividerId;
                         var tday = todaysDate.format('dddd MMMM D, YYYY');
                         //console.log("tday: " + tday + ", " + dividerId);
-                        if (tday == dividerId) {
+                        if (tday === dividerId) {
                             todayFlag = true;
                         } else {
                             todayFlag = false;
@@ -128,11 +128,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             if (transaction.iscleared === true) {
                 cleared++;
             }
-            if (transaction.type.toUpperCase() == "INCOME") {
+            if (transaction.type.toUpperCase() === "INCOME") {
                 if (!isNaN(transaction.amount)) {
                     runningBal = runningBal + parseFloat(transaction.amount);
                 }
-            } else if (transaction.type.toUpperCase() == "EXPENSE") {
+            } else if (transaction.type.toUpperCase() === "EXPENSE") {
                 runningBal = runningBal - parseFloat(transaction.amount);
             }
             transaction.runningbal = runningBal.toFixed(2);

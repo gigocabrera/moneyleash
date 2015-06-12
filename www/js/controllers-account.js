@@ -34,7 +34,7 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
     $scope.accountTypeList = AccountsFactory.getAccountTypes();
 
     // EDIT / CREATE ACCOUNT
-    if ($stateParams.isNew == 'True') {
+    if ($stateParams.isNew === 'True') {
         $scope.AccountTitle = "Create Account";
     } else {
         // Edit account

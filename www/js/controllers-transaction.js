@@ -34,11 +34,11 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         { text: "Transfer", value: "transfer" },
     ];
     $scope.updateTransactionType = function (item) {
-        $scope.isTransfer = (item.text.toUpperCase() == "TRANSFER") ? true : false;
+        $scope.isTransfer = (item.text.toUpperCase() === "TRANSFER") ? true : false;
     }
 
     // EDIT / CREATE ACCOUNT    
-    if ($stateParams.transactionId == '') {
+    if ($stateParams.transactionId === '') {
         $scope.TransactionTitle = "Create Transaction";
     } else {
         // Edit transaction
@@ -66,10 +66,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         $scope.currentItem.date = dtTran;
 
         // Handle transaction type
-        if ($scope.currentItem.typedisplay.toUpperCase() == "TRANSFER" && currentItem.accountToId == $stateParams.accountId) {
+        if ($scope.currentItem.typedisplay.toUpperCase() === "TRANSFER" && currentItem.accountToId === $stateParams.accountId) {
             $scope.currentItem.type = 'income';
             $scope.currentItem.istransfer = true;
-        } else if ($scope.currentItem.typedisplay.toUpperCase() == "TRANSFER" && currentItem.accountToId != $stateParams.accountId) {
+        } else if ($scope.currentItem.typedisplay.toUpperCase() === "TRANSFER" && currentItem.accountToId !== $stateParams.accountId) {
             $scope.currentItem.type = 'expense';
             $scope.currentItem.istransfer = true;
         } else {
@@ -79,13 +79,13 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
 
         if ($scope.inEditMode) {
             // Update
-            var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
-            transactionRef.update($scope.currentItem, onComplete);
             var onComplete = function (error) {
                 if (error) {
                     console.log('Synchronization failed');
                 }
             };
+            var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
+            transactionRef.update($scope.currentItem, onComplete);
             $scope.inEditMode = false;
         } else {
             // Create

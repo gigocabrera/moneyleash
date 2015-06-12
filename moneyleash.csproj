@@ -554,6 +554,7 @@
     <Content Include="gulpfile.js" />
     <Content Include="hooks\after_prepare\010_add_platform_class.js" />
     <Content Include="moneyleash_intro_iphone6.png" />
+    <Content Include="moneyleash_screens.png" />
     <Content Include="moneyleash_transactions_iphone6.png" />
     <Content Include="platforms\android\.gitignore" />
     <Content Include="platforms\android\AndroidManifest.xml" />
