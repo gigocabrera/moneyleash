@@ -3,7 +3,7 @@
 
 Money Leash is a Personal Expense App developed in Ionic, AngularJS, and Firebase.
 
-![Money Leash Transactions](https://github.com/gigocabrera/moneyleash/blob/master/moneyleash_transactions_iphone6.png)
+![Money Leash Transactions](https://github.com/gigocabrera/moneyleash/blob/master/moneyleash_screens.png)
 
 I discovered the Ionic Framework back in April 2015 and I became addicted almost immediately. This app is a work in 
 progress and the result of the itch I had to get out of my comfort zone and experiment with new technologies. Money Leash 
