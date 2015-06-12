@@ -14,7 +14,7 @@ I discovered the Ionic Framework back in April 2015 and I became addicted almost
 progress and the result of the itch I had to get out of my comfort zone and experiment with new technologies. Money Leash 
 will stay as an **open source** project so **your feedback and help would be greatly appreciated!**
 
-Ultimate goal? To bring it to Apple's App Store and Google Play.
+Ultimate goal? To bring it to the App Store and Google Play.
 
 
 ## Quick Start
