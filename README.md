@@ -6,7 +6,7 @@
 
 # What is Money Leash?
 
-Money Leash is a Personal Expense App developed in Ionic, AngularJS, and Firebase.
+Money Leash is a Personal Expense App ~~developed~~ being developed in Ionic, AngularJS, and Firebase.
 
 ![Money Leash Transactions](https://github.com/gigocabrera/moneyleash/blob/master/moneyleash_screens.png)
 
