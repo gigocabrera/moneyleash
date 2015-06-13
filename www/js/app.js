@@ -164,6 +164,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.itemdetailsview', {
+        url: "/shirtsize",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/itemdetails.html",
+                controller: "ItemDetailsCtrl"
+            }
+        }
+    })
 
     // ACCOUNTS
     .state('app.accounts', {

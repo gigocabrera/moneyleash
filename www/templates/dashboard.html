@@ -1,12 +1,18 @@
 <ion-view title="Dashboard">
-    <ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon customHeaderIcon"></button>
-    </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createAccount('Add')"></button>
-        <button class="button button-icon ion-ios-more customHeaderIcon" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive" ng-click="enableSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
+        <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createTransaction('Add')"></button>
     </ion-nav-buttons>
-    <ion-content class="has-header">
-        <p>Dashboard stuff here</p>
+    <ion-content has-header="true">
+        <ion-list can-swipe="true">
+            <ion-item ng-repeat="item in items">
+                {{ item.id }}
+                <ion-option-button class="button-energized" ng-click="editTransaction(item)">
+                    &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                </ion-option-button>
+                <ion-option-button class="button-assertive" ng-click="deleteTransaction(item)">
+                    Delete
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

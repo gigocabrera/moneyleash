@@ -51,7 +51,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     };
 
     // LIST
-    $scope.list = function () {
+    //$scope.list = function () {
         $scope.groups = [];
         $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
 
@@ -95,7 +95,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 previousYear = currentDate.year();
             })
         })
-    }
+    //}
 
     // WATCH
     $scope.$watch('transactions', function () {
