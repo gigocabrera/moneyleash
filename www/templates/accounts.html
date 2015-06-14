@@ -4,10 +4,9 @@
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createAccount('Add')"></button>
-        <button class="button button-icon ion-ios-more customHeaderIcon" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive" ng-click="enableSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
     </ion-nav-buttons>
     <ion-content class="has-header">
-        <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
+        <ion-list can-swipe="listCanSwipe">
             <ion-item ng-repeat="account in accounts" ng-click="handleSwipeOptions($event, account)" href="#" class="item-icon-right">
                 <div class="row AccountScreenPadding">
                     <div class="col-50 customAccDesc">

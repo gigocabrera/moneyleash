@@ -53,8 +53,6 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
 
 moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $translateProvider) {
 
-    $ionicConfigProvider.views.maxCache(0);
-
     /************************************/
     /* TRANSLATE                        */
     /************************************/
@@ -210,6 +208,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/transaction.html",
                 controller: 'TransactionController'
+            }
+        }
+    })
+    .state('app.transtype', {
+        url: "/transtype",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/transactiontype.html",
+                controller: "TransactionTypeController"
             }
         }
     })

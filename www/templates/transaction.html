@@ -4,54 +4,56 @@
     </ion-nav-buttons>
     <ion-content has-header="true">
         <div class="ion-list">
-            <div class="button-bar padding">
-                <ion-radio ng-repeat="item in transactionTypeList"
-                           ng-value="item.value"
-                           ng-model="currentItem.typedisplay"
-                           ng-change="updateTransactionType(item)"
-                           class="button button-positive button-outline"
-                           name="radioTransType">
-                    {{ item.text }}
-                </ion-radio>
-            </div>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.transtype">
+                <i class="icon fa fa-university placeholder-icon"></i>
+                <input type="text" placeholder="Account Type" ng-model="currentItem.typedisplay">
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
             <div ng-hide="!isTransfer">
-                <label class="item item-input moneyleashLabel">
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.subaccountFrom">
                     <i class="icon fa fa-reply placeholder-icon"></i>
-                    <input type="text" placeholder="From Account" ng-model="currentItem.accountFrom">
-                </label>
-                <label class="item item-input moneyleashLabel">
+                    <input type="text" placeholder="From Account" ng-model="currentItem.accountFrom" valid-number>
+                    <i class="icon ion-chevron-right customChevronForm"></i>
+                </ion-item>
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.subaccountTo">
                     <i class="icon fa fa-share placeholder-icon"></i>
-                    <input type="text" placeholder="To Account" ng-model="currentItem.accountTo">
-                </label>
+                    <input type="text" placeholder="To Account" ng-model="currentItem.accountTo" valid-number>
+                    <i class="icon ion-chevron-right customChevronForm"></i>
+                </ion-item>
             </div>
             <div ng-hide="isTransfer">
-                <label class="item item-input moneyleashLabel">
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.payee">
                     <i class="icon fa fa-user placeholder-icon"></i>
                     <input type="text" placeholder="Payee" ng-model="currentItem.payee">
-                </label>
-                <label class="item item-input moneyleashLabel">
+                    <i class="icon ion-chevron-right customChevronForm"></i>
+                </ion-item>
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.category">
                     <i class="icon fa fa-thumb-tack placeholder-icon"></i>
                     <input type="text" placeholder="Category" ng-model="currentItem.category">
-                </label>
+                    <i class="icon ion-chevron-right customChevronForm"></i>
+                </ion-item>
             </div>
-            <label class="item item-input moneyleashLabel">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.amount">
                 <i class="icon fa fa-money placeholder-icon"></i>
                 <input type="text" placeholder="Amount" ng-model="currentItem.amount" valid-number>
-            </label>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
             <label class="item item-input moneyleashLabel">
                 <i class="icon fa fa-calendar placeholder-icon"></i>
                 <ionic-datepicker idate="currentItem.date">
                     <button class="moneyleashDatePicker">{{ currentItem.date | date:'MMMM dd, yyyy' }}</button>
                 </ionic-datepicker>
             </label>
-            <label class="item item-input moneyleashLabel">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.subnotes">
                 <i class="icon fa fa-file-text placeholder-icon"></i>
                 <input type="text" placeholder="Notes" ng-model="currentItem.notes">
-            </label>
-            <label class="item item-input moneyleashLabel">
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.subphoto">
                 <i class="icon fa fa-camera placeholder-icon"></i>
                 <input type="text" placeholder="Photo" ng-model="currentItem.photo">
-            </label>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
         </div>
     </ion-content>
 </ion-view>

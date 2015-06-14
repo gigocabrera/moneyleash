@@ -1,6 +1,19 @@
 
-// ACCOUNTS CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory) {
+// TRANSACTION-TYPE CONTROLLER
+moneyleashapp.controller('TransactionTypeController', function ($scope, $state, $ionicHistory, AccountTypeService) {
+    $scope.TransactionTypeList = [
+          { text: 'Expense', value: 'Expense' },
+          { text: 'Income', value: 'Income' },
+          { text: 'Transfer', value: 'Transfer' }];
+    $scope.currentItem = { typedisplay: AccountTypeService.type };
+    $scope.itemchanged = function (item) {
+        AccountTypeService.updateType(item.value);
+        $ionicHistory.goBack();
+    };
+})
+
+// TRANSACTION CONTROLLER
+moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, AccountTypeService) {
    
     $scope.transactions = [];
     $scope.AccountTitle = '';
@@ -26,16 +39,11 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         'type': '',
         'typedisplay': ''
     };
-
-    // TRANSACTION TYPES
-    $scope.transactionTypeList = [
-        { text: "Income", value: "income" },
-        { text: "Expense", value: "expense" },
-        { text: "Transfer", value: "transfer" },
-    ];
-    $scope.updateTransactionType = function (item) {
-        $scope.isTransfer = (item.text.toUpperCase() === "TRANSFER") ? true : false;
-    }
+    $scope.currentItem = { typedisplay: AccountTypeService.type };
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.currentItem.typedisplay = AccountTypeService.type;
+        $scope.isTransfer = ($scope.currentItem.typedisplay === "Transfer") ? true : false;
+    });
 
     // EDIT / CREATE ACCOUNT    
     if ($stateParams.transactionId === '') {

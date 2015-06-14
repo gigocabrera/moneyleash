@@ -16,10 +16,11 @@
 .SectionDividerActive {
     color: #FF5E2E;
 }
-/* Padding for all ion-item ng-repeat lists */
+/* Padding for all ion-item ng-repeat lists 
 .item-complex .item-content {
     padding: 8px 45px 15px 16px;
 }
+*/
 /* Action Sheet */
 .action-sheet-title {
     font-size: 16px;
@@ -174,7 +175,7 @@ button.customHeaderSize {
 .customTransDesc span small {
     position: absolute;
     font: 13px 'PT Sans Narrow', sans-serif;
-    top: 25px;
+    top: 35px;
     left: 16px;
     color: #A0A0A0;
     font-weight: normal;
@@ -463,10 +464,6 @@ button.customHeaderSize {
     font-size: 20px;
     margin-top: 5px;
 }
-.moneyleashLabel input[type="radio"], input[type="checkbox"] {
-    margin: 0;
-    line-height: normal;
-}
 .moneyleashLabel button {
     margin-left: 5px;
 }
@@ -508,44 +505,53 @@ button.customHeaderSize {
 .moneyleashTip {
     font-size: 14px;
 }
-
+.ng-hide-add,
+.ng-hide-remove {
+    display: none !important;
+}
 /***********************/
 /* SLIDER SLIDE STYLES */
 .slider-slide {
     background-color: #1D7AC1;
 }
 
-/***************************/
-/* TRANSACTION TYPE STYLES */
-.item-radio .item-content {
-    padding: 0;
-    background: none;
+.form-group {
+    height: 50px;
 }
-.button-bar .button {
-    min-height: 0;
-    line-height: 30px;
+.form-group i {
+    background:#eeeeee;
+    color: #919191;
+    width: 65px;
 }
-.button-bar > .item-radio.button {
-    padding: 0;
+.form-group i:before {
+    font-size: 24px;
+    margin-left: 13px;
 }
-.item-radio input:checked ~ .item-content {
-    /* style the item content when its checked */
-    border-color: #145fd7;
-    background-color: #4a87ee;
-    color: white;
+.form-group i.icon {
+    left: 0;
 }
-.item-radio .radio-icon {
-    display: none;
+.form-group a.item-content {
+    height: 50px;
 }
-.button.button-positive.button-outline.active, .button.button-positive.button-outline.activated {
-    background-color: #4a87ee;
-    box-shadow: none;
-    color: #fff;
+.form-group a.item-content input[type="text"] {
+    height: 25px;
+    line-height: 25px;
 }
-.card .item:last-child, .list-inset .item:last-child {
-    margin-bottom: 0;
+.form-group input[type="text"] {
+    margin-top: -4px;
+    padding-left: 35px;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 20px;
+    background-color: transparent;
 }
-.ng-hide-add,
-.ng-hide-remove {
-  display: none !important;
+i.customChevronForm {
+    background-color: #fff;
+    width: 40px;
+    background-color: transparent;
+}
+i.customChevronForm:before {
+    color: #ff7100;
+    font-size: 16px;
+    
 }

@@ -8,18 +8,6 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
     $scope.editIndex = 0;
     $scope.uid = '';
 
-    // SORT
-    $scope.SortingIsEnabled = false;
-    $scope.reorderBtnText = '';
-    $scope.enableSorting = function (isEnabled) {
-        $scope.SortingIsEnabled = !isEnabled;
-        $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
-    };
-    $scope.moveItem = function (account, fromIndex, toIndex) {
-        //$scope.accounts.splice(fromIndex, 1);
-        //$scope.accounts.splice(toIndex, 0, account);
-    };
-
     // SWIPE
     $scope.listCanSwipe = true;
     $scope.handleSwipeOptions = function ($event, account) {
@@ -46,6 +34,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
     // EDIT
     $scope.editAccount = function (account) {
+        $ionicListDelegate.closeOptionButtons();
         $state.go('app.account', { isNew: 'False', accountId: account.$id });
     };
 

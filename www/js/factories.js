@@ -157,6 +157,13 @@ angular.module('moneyleash.factories', [])
         };
     })
 
+    .service("AccountTypeService", function () {
+        var transtype = this;
+        transtype.updateType = function (value) {
+            this.type = value;
+        }
+    })
+
     .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {
 
         var currentData = {
