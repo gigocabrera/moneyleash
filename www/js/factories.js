@@ -160,7 +160,7 @@ angular.module('moneyleash.factories', [])
     .service("AccountTypeService", function () {
         var transtype = this;
         transtype.updateType = function (value) {
-            this.type = value;
+            this.typeSelected = value;
         }
     })
 

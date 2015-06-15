@@ -1,0 +1,10 @@
+<ion-view view-title="Select Category">
+    <ion-content>
+        <ion-radio ng-repeat="item in CategoryList"
+                   ng-value="item.value"
+                   ng-change="itemchanged(item)"
+                   ng-model="currentItem.category">
+            {{ item.text }}
+        </ion-radio>
+    </ion-content>
+</ion-view>

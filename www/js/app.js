@@ -211,11 +211,11 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
-    .state('app.transtype', {
-        url: "/transtype",
+    .state('app.picktransactiontype', {
+        url: "/picktransactiontype",
         views: {
             'menuContent': {
-                templateUrl: "templates/transactiontype.html",
+                templateUrl: "templates/picktransactiontype.html",
                 controller: "TransactionTypeController"
             }
         }
@@ -248,7 +248,26 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         url: "/categories",
         views: {
             'menuContent': {
-                templateUrl: "templates/categories.html"
+                templateUrl: "templates/categories.html",
+                controller: 'CategoriesController'
+            }
+        }
+    })
+    .state('app.category', {
+        url: "/category",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/category.html",
+                controller: 'CategoriesController'
+            }
+        }
+    })
+    .state('app.pickcategory', {
+        url: "/pickcategory",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickcategory.html",
+                controller: "CategoriesController"
             }
         }
     })

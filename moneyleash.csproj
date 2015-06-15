@@ -2870,9 +2870,12 @@
     <Content Include="www\templates\dashboard.html" />
     <Content Include="www\templates\forgot-password.html" />
     <Content Include="www\templates\intro.html" />
+    <Content Include="www\templates\itemdetails.html" />
     <Content Include="www\templates\login.html" />
     <Content Include="www\templates\payees.html" />
     <Content Include="www\templates\personalprofile.html" />
+    <Content Include="www\templates\pickcategory.html" />
+    <Content Include="www\templates\picktransactiontype.html" />
     <Content Include="www\templates\popover.html" />
     <Content Include="www\templates\recurring.html" />
     <Content Include="www\templates\register.html" />

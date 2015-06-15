@@ -39,13 +39,13 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         'type': '',
         'typedisplay': ''
     };
-    $scope.currentItem = { typedisplay: AccountTypeService.type };
+    $scope.currentItem = { typedisplay: AccountTypeService.typeSelected };
     $scope.$on('$ionicView.beforeEnter', function () {
-        $scope.currentItem.typedisplay = AccountTypeService.type;
+        $scope.currentItem.typedisplay = AccountTypeService.typeSelected;
         $scope.isTransfer = ($scope.currentItem.typedisplay === "Transfer") ? true : false;
     });
 
-    // EDIT / CREATE ACCOUNT    
+    // EDIT / CREATE ACCOUNT
     if ($stateParams.transactionId === '') {
         $scope.TransactionTitle = "Create Transaction";
     } else {

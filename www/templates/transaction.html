@@ -4,36 +4,36 @@
     </ion-nav-buttons>
     <ion-content has-header="true">
         <div class="ion-list">
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.transtype">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactiontype">
                 <i class="icon fa fa-university placeholder-icon"></i>
                 <input type="text" placeholder="Account Type" ng-model="currentItem.typedisplay">
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
             <div ng-hide="!isTransfer">
-                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.subaccountFrom">
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccount">
                     <i class="icon fa fa-reply placeholder-icon"></i>
                     <input type="text" placeholder="From Account" ng-model="currentItem.accountFrom" valid-number>
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
-                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.subaccountTo">
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccount">
                     <i class="icon fa fa-share placeholder-icon"></i>
                     <input type="text" placeholder="To Account" ng-model="currentItem.accountTo" valid-number>
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
             </div>
             <div ng-hide="isTransfer">
-                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.payee">
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickpayee">
                     <i class="icon fa fa-user placeholder-icon"></i>
                     <input type="text" placeholder="Payee" ng-model="currentItem.payee">
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
-                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.category">
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickcategory">
                     <i class="icon fa fa-thumb-tack placeholder-icon"></i>
                     <input type="text" placeholder="Category" ng-model="currentItem.category">
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
             </div>
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.amount">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickamount">
                 <i class="icon fa fa-money placeholder-icon"></i>
                 <input type="text" placeholder="Amount" ng-model="currentItem.amount" valid-number>
                 <i class="icon ion-chevron-right customChevronForm"></i>
@@ -44,12 +44,12 @@
                     <button class="moneyleashDatePicker">{{ currentItem.date | date:'MMMM dd, yyyy' }}</button>
                 </ionic-datepicker>
             </label>
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.subnotes">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picknotes">
                 <i class="icon fa fa-file-text placeholder-icon"></i>
                 <input type="text" placeholder="Notes" ng-model="currentItem.notes">
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.subphoto">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickphoto">
                 <i class="icon fa fa-camera placeholder-icon"></i>
                 <input type="text" placeholder="Photo" ng-model="currentItem.photo">
                 <i class="icon ion-chevron-right customChevronForm"></i>

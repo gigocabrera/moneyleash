@@ -338,6 +338,58 @@ moneyleashapp.controller('RecurringController', function ($scope) {
 
 })
 
+// CATEGORIES CONTROLLER
+moneyleashapp.controller('CategoriesController', function ($scope, $state, $stateParams) {
+
+    $scope.inEditMode = false;
+
+    // EDIT / CREATE CATEGORY
+    if ($scope.inEditMode) {
+        // Edit Category
+        //AccountsFactory.getCategory($stateParams.accountId, $stateParams.transactionId).then(function (category) {
+        //    $scope.currentItem = category;
+        //});
+        $scope.CategoryTitle = "Edit Category";
+    } else {
+        $scope.CategoryTitle = "Create Category";
+    }
+
+    // CREATE
+    $scope.createCategory = function (title) {
+        $state.go('app.category');
+    }
+
+    // SAVE
+    $scope.saveCategory = function (currentItem) {
+
+        if ($scope.inEditMode) {
+            // Update
+            var onComplete = function (error) {
+                if (error) {
+                    console.log('Synchronization failed');
+                }
+            };
+            //var transactionRef = AccountsFactory.getCategoryRef($stateParams.accountId, $stateParams.transactionId);
+            //transactionRef.update($scope.currentItem, onComplete);
+            $scope.inEditMode = false;
+        } else {
+            // Create
+            $scope.currentItem.categorytype = $scope.currentItem.categorytype.toLowerCase();
+            console.log("$scope.currentItem.categorytype: " + $scope.currentItem.categorytype);
+            //var sync = AccountsFactory.getTransactions($stateParams.accountId);
+            //sync.$add($scope.currentItem).then(function (newChildRef) {
+            //    $scope.currentItem = {
+            //        accountid: newChildRef.key()
+            //    };
+            //});
+        }
+        $rootScope.hide();
+        $scope.currentItem = {};
+        $state.go('app.categories');
+    }
+
+})
+
 // ACCOUNT TYPE MODAL CONTROLLER
 .controller('AccountTypeModalController', function ($scope, AccountsFactory) {
     $scope.hideModal = function () {
