@@ -44,6 +44,33 @@ angular.module('moneyleash.factories', [])
         }
     ])
 
+    .service("CategoryTypeService", function () {
+        var cattype = this;
+        cattype.updateType = function (value) {
+            this.typeSelected = value;
+        }
+    })
+
+    .factory('CategoriesFactory', function ($firebaseArray, $q) {
+        var ref = {};
+        var fbAuth = fb.getAuth();
+        return {
+            getCategories: function (type) {
+                ref = fb.child("membercategories").child(fbAuth.uid).child(type);
+                transactions = $firebaseArray(ref);
+                return transactions;
+            },
+            getCategory: function (categoryid) {
+                var deferred = $q.defer();
+                ref = fb.child("membercategories").child(fbAuth.uid).child(categoryid);
+                ref.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
+        };
+    })
+
     .factory('AccountsFactory', function ($firebaseArray, $q) {
         var ref = {};
         var fbAuth = fb.getAuth();
@@ -157,13 +184,6 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .service("AccountTypeService", function () {
-        var transtype = this;
-        transtype.updateType = function (value) {
-            this.typeSelected = value;
-        }
-    })
-
     .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {
 
         var currentData = {
@@ -200,4 +220,30 @@ angular.module('moneyleash.factories', [])
             },
         }
     })
+
+    .service("PickCategoryService", function () {
+        var cat = this;
+        cat.updateCategory = function (value) {
+            this.categorySelected = value;
+        }
+    })
+    .service("PickCategoryTypeService", function () {
+        var type = this;
+        type.updateType = function (value) {
+            this.typeSelected = value;
+        }
+    })
+    .service("PickTransactionTypeService", function () {
+        var type = this;
+        type.updateType = function (value) {
+            this.typeSelected = value;
+        }
+    })
+    .service("AccountTypeService", function () {
+        var type = this;
+        type.updateType = function (value) {
+            this.typeSelected = value;
+        }
+    })
+
 ;

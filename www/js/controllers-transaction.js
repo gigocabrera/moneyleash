@@ -1,13 +1,13 @@
 
 // TRANSACTION-TYPE CONTROLLER
-moneyleashapp.controller('TransactionTypeController', function ($scope, $state, $ionicHistory, AccountTypeService) {
+moneyleashapp.controller('PickTransactionTypeController', function ($scope, $state, $ionicHistory, PickTransactionTypeService) {
     $scope.TransactionTypeList = [
           { text: 'Expense', value: 'Expense' },
           { text: 'Income', value: 'Income' },
           { text: 'Transfer', value: 'Transfer' }];
-    $scope.currentItem = { typedisplay: AccountTypeService.type };
+    $scope.currentItem = { typedisplay: PickTransactionTypeService.type };
     $scope.itemchanged = function (item) {
-        AccountTypeService.updateType(item.value);
+        PickTransactionTypeService.updateType(item.value);
         $ionicHistory.goBack();
     };
 })

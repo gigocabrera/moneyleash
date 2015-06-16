@@ -1,0 +1,23 @@
+<ion-view title={{CategoryTitle}}>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-positive customHeaderSize" ng-click="saveCategory(currentItem)">Save</button>
+    </ion-nav-buttons>
+    <ion-content has-header="true">
+        <div class="ion-list">
+            <ion-item class="item-icon-left form-group">
+                <i class="icon fa fa-thumb-tack placeholder-icon"></i>
+                <input type="text" placeholder="Category Name" ng-model="currentItem.categoryname">
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickcategorytype">
+                <i class="icon fa fa-university placeholder-icon"></i>
+                <input type="text" placeholder="Category Type" ng-model="currentItem.categorytype">
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickcategory">
+                <i class="icon fa fa-tags placeholder-icon"></i>
+                <input type="text" placeholder="Parent Category" ng-model="currentItem.categoryparent">
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+        </div>
+    </ion-content>
+</ion-view>

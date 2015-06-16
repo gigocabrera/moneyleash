@@ -1,10 +1,10 @@
-<ion-view view-title="Select Category">
+<ion-view view-title="Select Parent Category">
     <ion-content>
         <ion-radio ng-repeat="item in CategoryList"
-                   ng-value="item.value"
-                   ng-change="itemchanged(item)"
-                   ng-model="currentItem.category">
-            {{ item.text }}
+                   ng-value="item.categoryname"
+                   ng-change="categorychanged(item)"
+                   ng-model="currentItem.categoryname">
+            {{ item.categoryname }}
         </ion-radio>
     </ion-content>
 </ion-view>

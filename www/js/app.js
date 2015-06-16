@@ -216,7 +216,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         views: {
             'menuContent': {
                 templateUrl: "templates/picktransactiontype.html",
-                controller: "TransactionTypeController"
+                controller: "PickTransactionTypeController"
             }
         }
     })
@@ -258,7 +258,16 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         views: {
             'menuContent': {
                 templateUrl: "templates/category.html",
-                controller: 'CategoriesController'
+                controller: 'CategoryController'
+            }
+        }
+    })
+    .state('app.pickcategorytype', {
+        url: "/pickcategorytype",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickcategorytype.html",
+                controller: "PickCategoryTypeController"
             }
         }
     })
@@ -267,7 +276,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         views: {
             'menuContent': {
                 templateUrl: "templates/pickcategory.html",
-                controller: "CategoriesController"
+                controller: "PickCategoryController"
             }
         }
     })
