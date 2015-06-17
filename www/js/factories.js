@@ -54,11 +54,18 @@ angular.module('moneyleash.factories', [])
     .factory('CategoriesFactory', function ($firebaseArray, $q) {
         var ref = {};
         var fbAuth = fb.getAuth();
+        var categories = {};
+        var categoriesByType = {};
         return {
             getCategories: function (type) {
-                ref = fb.child("membercategories").child(fbAuth.uid).child(type);
-                transactions = $firebaseArray(ref);
-                return transactions;
+                ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryname');
+                categories = $firebaseArray(ref);
+                return categories;
+            },
+            getCategoriesByTypeAndGroup: function (type) {
+                ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryparent');
+                categoriesByType = $firebaseArray(ref);
+                return categoriesByType;
             },
             getCategory: function (categoryid) {
                 var deferred = $q.defer();

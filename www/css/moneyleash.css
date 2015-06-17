@@ -558,3 +558,6 @@ i.customChevronForm:before {
 .item-select select {
     padding: 8px 48px 10px 16px;
 }
+.ml-accordion {
+    padding-left: 35px;
+}

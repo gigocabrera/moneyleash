@@ -6,21 +6,17 @@
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createCategory('Add')"></button>
     </ion-nav-buttons>
     <ion-content class="has-header">
-        <div class="card">
-            <div class="item item-divider SectionDivider">
-                Income Categories
+        
+        <ion-list>
+            <div ng-repeat="group in groups | orderBy:'name' ">
+                <ion-item class="item-divider" ng-class="{active: isGroupShown(group)}">
+                    {{ group.name }}
+                </ion-item>
+                <ion-item class="item-accordion ml-accordion" ng-repeat="item in group.items">
+                    {{ item.categoryname }}
+                </ion-item>
             </div>
-            <div class="item item-text-wrap">
-                
-            </div>
-        </div>
-        <div class="card">
-            <div class="item item-divider SectionDivider">
-                Expense Categories
-            </div>
-            <div class="item item-text-wrap">
-                Categories Here
-            </div>
-        </div>
+        </ion-list>
+
     </ion-content>
 </ion-view>

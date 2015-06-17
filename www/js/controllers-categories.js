@@ -7,7 +7,7 @@ moneyleashapp.controller('PickCategoryController', function ($scope, $state, $io
     } else {
         $scope.CategoryList = CategoriesFactory.getCategories(PickCategoryTypeService.typeSelected);
     }
-    $scope.currentItem = { parentcategory: PickCategoryService.cat };
+    $scope.currentItem = { categoryparent: PickCategoryService.cat };
     $scope.categorychanged = function (item) {
         PickCategoryService.updateCategory(item.categoryname);
         console.log(item.categoryname);
@@ -36,7 +36,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
     $scope.currentItem = {
         'categoryname': '',
         'categorytype': '',
-        'parentcategory': ''
+        'categoryparent': ''
     };
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.currentItem.categoryparent = PickCategoryService.categorySelected;
@@ -90,5 +90,27 @@ moneyleashapp.controller('CategoriesController', function ($scope, $state, $ioni
         PickCategoryService.categorySelected = '';
         $state.go('app.category');
     }
+
+    // GET CATEGORIES
+    $scope.groups = [];
+    $scope.categories = CategoriesFactory.getCategoriesByTypeAndGroup('Expense');
+    $scope.categories.$loaded().then(function () {
+        var currentCategory = '_DEFAULT_';
+        var group = {};
+        angular.forEach($scope.categories, function (category) {
+            currentCategory = category.categoryparent;
+            if (currentCategory == "") {
+                group = {
+                    name: category.categoryname,
+                    items: []
+                };
+                $scope.groups.push(group);
+            } else {
+                if (category.categoryparent == currentCategory) {
+                    group.items.push(category);
+                }
+            }
+        })
+    })
 
 })
