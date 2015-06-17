@@ -29,9 +29,10 @@ moneyleashapp.controller('PickCategoryTypeController', function ($scope, $state,
 })
 
 // CATEGORY CONTROLLER
-moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicHistory, CategoriesFactory, PickCategoryService, PickCategoryTypeService) {
+moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicHistory, $stateParams, CategoriesFactory, PickCategoryService, PickCategoryTypeService) {
 
     $scope.inEditMode = false;
+    $scope.allowParent = false;
     $scope.typeSelected = '';
     $scope.currentItem = {
         'categoryname': '',
@@ -44,14 +45,17 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
     });
 
     // EDIT / CREATE CATEGORY
-    if ($scope.inEditMode) {
-        // Edit Category
-        //AccountsFactory.getCategory($stateParams.accountId, $stateParams.transactionId).then(function (category) {
-        //    $scope.currentItem = category;
-        //});
-        $scope.CategoryTitle = "Edit Category";
-    } else {
+    if ($stateParams.categoryid === '') {
+        // create
         $scope.CategoryTitle = "Create Category";
+    } else {
+        // edit
+        $scope.inEditMode = true;
+        CategoriesFactory.getCategory($stateParams.categoryid, $stateParams.type).then(function (category) {
+            $scope.currentItem = category;
+            console.log(category);
+        });
+        $scope.CategoryTitle = "Edit Category";
     }
 
     // SAVE
@@ -63,10 +67,9 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
                     console.log('Synchronization failed');
                 }
             };
-            //var transactionRef = AccountsFactory.getCategoryRef($stateParams.accountId, $stateParams.transactionId);
-            //transactionRef.update($scope.currentItem, onComplete);
+            var categoryRef = CategoriesFactory.getCategoryRef($stateParams.categoryid, $stateParams.type);
+            categoryRef.update($scope.currentItem, onComplete);
             $scope.inEditMode = false;
-            console.log("saving edited");
         } else {
             // Create
             var sync = CategoriesFactory.getCategories($scope.currentItem.categorytype);
@@ -82,7 +85,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
 })
 
 // CATEGORIES CONTROLLER
-moneyleashapp.controller('CategoriesController', function ($scope, $state, $ionicHistory, $ionicListDelegate, CategoriesFactory, PickCategoryService, PickCategoryTypeService) {
+moneyleashapp.controller('CategoriesController', function ($scope, $state, $ionicHistory, $ionicListDelegate, $ionicActionSheet, CategoriesFactory, PickCategoryService, PickCategoryTypeService) {
   
     // CREATE
     $scope.createCategory = function (title) {
@@ -104,25 +107,61 @@ moneyleashapp.controller('CategoriesController', function ($scope, $state, $ioni
     };
 
     // GET CATEGORIES
-    $scope.groups = [];
-    $scope.categories = CategoriesFactory.getCategoriesByTypeAndGroup('Expense');
-    $scope.categories.$loaded().then(function () {
-        var currentCategory = '_DEFAULT_';
-        var group = {};
-        angular.forEach($scope.categories, function (category) {
-            currentCategory = category.categoryparent;
-            if (currentCategory == "") {
-                group = {
-                    name: category.categoryname,
-                    items: []
-                };
-                $scope.groups.push(group);
-            } else {
-                if (category.categoryparent == currentCategory) {
-                    group.items.push(category);
+    $scope.list = function () {
+        $scope.categories = CategoriesFactory.getCategoriesByTypeAndGroup('Expense');
+        $scope.groups = [];
+        $scope.categories.$loaded().then(function () {
+            var currentCategory = '_DEFAULT_';
+            var group = {};
+            angular.forEach($scope.categories, function (category) {
+                currentCategory = category.categoryparent;
+                if (currentCategory == "") {
+                    group = {
+                        name: category.categoryname,
+                        items: []
+                    };
+                    $scope.groups.push(group);
+                } else {
+                    if (category.categoryparent == currentCategory) {
+                        group.items.push(category);
+                    }
                 }
-            }
+            })
         })
-    })
+    };
+
+    // EDIT
+    $scope.editCategory = function ($event, category) {
+        $ionicListDelegate.closeOptionButtons();
+        $state.go('app.category', { categoryid: category.$id, type: category.categorytype });
+    };
+
+    // DELETE
+    $scope.deleteCategory = function (category) {
+        // Show the action sheet
+        $ionicActionSheet.show({
+            destructiveText: 'Delete Account',
+            titleText: 'Are you sure you want to delete ' + category.categoryname + '? This will permanently delete the account from the app.',
+            cancelText: 'Cancel',
+            cancel: function () {
+                // add cancel code..
+            },
+            buttonClicked: function (index) {
+                //Called when one of the non-destructive buttons is clicked,
+                //with the index of the button that was clicked and the button object.
+                //Return true to close the action sheet, or false to keep it opened.
+                return true;
+            },
+            destructiveButtonClicked: function () {
+                //Called when the destructive button is clicked.
+                //Return true to close the action sheet, or false to keep it opened.
+                $ionicListDelegate.closeOptionButtons();
+                $scope.categories.$remove(category).then(function (newChildRef) {
+                    newChildRef.key() === category.$id;
+                })
+                return true;
+            }
+        });
+    };
 
 })

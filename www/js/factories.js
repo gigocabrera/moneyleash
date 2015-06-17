@@ -56,6 +56,7 @@ angular.module('moneyleash.factories', [])
         var fbAuth = fb.getAuth();
         var categories = {};
         var categoriesByType = {};
+        var categoryRef = {};
         return {
             getCategories: function (type) {
                 ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryname');
@@ -67,13 +68,17 @@ angular.module('moneyleash.factories', [])
                 categoriesByType = $firebaseArray(ref);
                 return categoriesByType;
             },
-            getCategory: function (categoryid) {
+            getCategory: function (categoryid, type) {
                 var deferred = $q.defer();
-                ref = fb.child("membercategories").child(fbAuth.uid).child(categoryid);
+                ref = fb.child("membercategories").child(fbAuth.uid).child(type).child(categoryid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
+            },
+            getCategoryRef: function (categoryid, type) {
+                categoryRef = fb.child("membercategories").child(fbAuth.uid).child(type).child(categoryid);
+                return categoryRef;
             },
         };
     })

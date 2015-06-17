@@ -254,7 +254,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         }
     })
     .state('app.category', {
-        url: "/category",
+        url: "/category/:categoryid/:type",
         views: {
             'menuContent': {
                 templateUrl: "templates/category.html",
