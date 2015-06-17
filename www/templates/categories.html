@@ -6,14 +6,21 @@
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createCategory('Add')"></button>
     </ion-nav-buttons>
     <ion-content class="has-header">
-        
-        <ion-list>
+        <ion-list can-swipe="listCanSwipe">
             <div ng-repeat="group in groups | orderBy:'name' ">
-                <ion-item class="item-divider" ng-class="{active: isGroupShown(group)}">
+                <ion-item class="item">
                     {{ group.name }}
                 </ion-item>
-                <ion-item class="item-accordion ml-accordion" ng-repeat="item in group.items">
-                    {{ item.categoryname }}
+                <ion-item class="item" ng-repeat="item in group.items" ng-click="handleSwipeAndTap($event, item)" href="#">
+                    <div class="ml-indent">
+                        {{ item.categoryname }}
+                        <ion-option-button class="button-energized" ng-click="editTransaction($event, transaction)">
+                            &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                        </ion-option-button>
+                        <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction)">
+                            Delete
+                        </ion-option-button>
+                    </div>
                 </ion-item>
             </div>
         </ion-list>

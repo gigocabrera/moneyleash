@@ -82,7 +82,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
 })
 
 // CATEGORIES CONTROLLER
-moneyleashapp.controller('CategoriesController', function ($scope, $state, $ionicHistory, CategoriesFactory, PickCategoryService, PickCategoryTypeService) {
+moneyleashapp.controller('CategoriesController', function ($scope, $state, $ionicHistory, $ionicListDelegate, CategoriesFactory, PickCategoryService, PickCategoryTypeService) {
   
     // CREATE
     $scope.createCategory = function (title) {
@@ -90,6 +90,18 @@ moneyleashapp.controller('CategoriesController', function ($scope, $state, $ioni
         PickCategoryService.categorySelected = '';
         $state.go('app.category');
     }
+
+    // SWIPE
+    $scope.listCanSwipe = true;
+    $scope.handleSwipeAndTap = function ($event, transaction) {
+        $event.stopPropagation();
+        var options = $event.currentTarget.querySelector('.item-options');
+        if (!options.classList.contains('invisible')) {
+            $ionicListDelegate.closeOptionButtons();
+        } else {
+            // TODO: Add filter by payee option
+        }
+    };
 
     // GET CATEGORIES
     $scope.groups = [];
