@@ -1,4 +1,29 @@
 
+// PICK TRANSACTION CATEGORY CONTROLLER
+moneyleashapp.controller('PickTransactionCategoryController', function ($scope, $state, $ionicHistory, CategoriesFactory, PickTransactionTypeService, PickTransactionCategoryService) {
+    //
+    // To fetch categories, we need to know the transaction type (Expense/Income)
+    //
+    if (PickTransactionTypeService.typeSelected === '') {
+        $scope.TransactionCategoryList = '';
+    } else {
+        $scope.TransactionCategoryList = CategoriesFactory.getParentCategories(PickTransactionTypeService.typeSelected);
+        $scope.TransactionCategoryList.$loaded().then(function () {
+            $scope.items = [];
+            angular.forEach($scope.TransactionCategoryList, function (category) {
+                if (category.categoryparent === "") {
+                    $scope.items.push(category);
+                }
+            })
+        });
+    };
+    $scope.currentItem = { categoryname: PickTransactionCategoryService.categorySelected };
+    $scope.categorychanged = function (item) {
+        PickTransactionCategoryService.updateCategory(item.categoryname);
+        $ionicHistory.goBack();
+    };
+})
+
 // TRANSACTION-TYPE CONTROLLER
 moneyleashapp.controller('PickTransactionTypeController', function ($scope, $state, $ionicHistory, PickTransactionTypeService) {
     $scope.TransactionTypeList = [
@@ -13,7 +38,7 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, AccountTypeService) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService) {
    
     $scope.transactions = [];
     $scope.AccountTitle = '';
@@ -39,9 +64,13 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         'type': '',
         'typedisplay': ''
     };
-    $scope.currentItem = { typedisplay: AccountTypeService.typeSelected };
+
+    $scope.currentItem = { typedisplay: PickTransactionTypeService.typeSelected };
+    $scope.currentItem = { category: PickTransactionCategoryService.categorySelected };
+
     $scope.$on('$ionicView.beforeEnter', function () {
-        $scope.currentItem.typedisplay = AccountTypeService.typeSelected;
+        $scope.currentItem.category = PickTransactionCategoryService.categorySelected;
+        $scope.currentItem.typedisplay = PickTransactionTypeService.typeSelected;
         $scope.isTransfer = ($scope.currentItem.typedisplay === "Transfer") ? true : false;
     });
 

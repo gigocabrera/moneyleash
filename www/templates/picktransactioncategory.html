@@ -1,0 +1,7 @@
+<ion-view view-title="Select Category">
+    <ion-content>
+        <ion-item class="mlcategories mlSmallerFont" ng-repeat="item in TransactionCategoryList | orderBy:'categoryname' " ng-click="categorychanged(item)" ng-model="currentItem.categoryname">
+            {{ item.categoryname }}
+        </ion-item>
+    </ion-content>
+</ion-view>

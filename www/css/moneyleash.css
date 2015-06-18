@@ -553,7 +553,6 @@ i.customChevronForm {
 i.customChevronForm:before {
     color: #ff7100;
     font-size: 16px;
-    
 }
 .item-select select {
     padding: 8px 48px 10px 16px;

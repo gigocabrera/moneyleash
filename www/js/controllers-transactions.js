@@ -1,6 +1,6 @@
 
 // TRANSACTIONS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $timeout, AccountsFactory) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickTransactionTypeService) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
@@ -42,6 +42,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
 
     // CREATE
     $scope.createTransaction = function (title) {
+        PickTransactionTypeService.typeSelected = '';
         $state.go('app.transaction', { accountId: $stateParams.accountId, transactionId: '' });
     }
 

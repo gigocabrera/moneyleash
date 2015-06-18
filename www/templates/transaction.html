@@ -6,7 +6,7 @@
         <div class="ion-list">
             <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactiontype">
                 <i class="icon fa fa-university placeholder-icon"></i>
-                <input type="text" placeholder="Account Type" ng-model="currentItem.typedisplay">
+                <input type="text" placeholder="Transaction Type" ng-model="currentItem.typedisplay">
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
             <div ng-hide="!isTransfer">
@@ -27,7 +27,7 @@
                     <input type="text" placeholder="Payee" ng-model="currentItem.payee">
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
-                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickcategory">
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactioncategory">
                     <i class="icon fa fa-thumb-tack placeholder-icon"></i>
                     <input type="text" placeholder="Category" ng-model="currentItem.category">
                     <i class="icon ion-chevron-right customChevronForm"></i>

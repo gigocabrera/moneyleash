@@ -12,8 +12,8 @@ moneyleashapp.controller('PickParentCategoryController', function ($scope, $stat
                     $scope.items.push(category);
                 }
             })
-        });
-    }
+        })
+    };
     $scope.currentItem = { categoryparent: PickParentCategoryService.cat };
     $scope.categorychanged = function (item) {
         PickParentCategoryService.updateCategory(item.categoryname);

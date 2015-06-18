@@ -258,10 +258,10 @@ angular.module('moneyleash.factories', [])
             this.typeSelected = value;
         }
     })
-    .service("AccountTypeService", function () {
-        var AccountType = this;
-        AccountType.updateType = function (value) {
-            this.typeSelected = value;
+    .service("PickTransactionCategoryService", function () {
+        var transcat = this;
+        transcat.updateCategory = function (value) {
+            this.categorySelected = value;
         }
     })
 

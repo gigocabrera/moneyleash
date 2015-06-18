@@ -220,6 +220,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.picktransactioncategory', {
+        url: "/picktransactioncategory",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactioncategory.html",
+                controller: "PickTransactionCategoryController"
+            }
+        }
+    })
 
     // ACCOUNT TYPES
     .state('app.accounttypes', {
