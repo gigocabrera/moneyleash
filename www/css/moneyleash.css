@@ -574,3 +574,17 @@ i.mlpaddingright {
 .mlcategoriesbutton {
     min-height: 37px;
 }
+.circle-icon-green {
+    font-size: 16px;
+    background: #66AF36;
+    color: #fff;
+    padding: 4px 7px 3px 7px;
+    border-radius: 50%;
+}
+.circle-icon-red {
+    font-size: 16px;
+    background: #FF5E2E;
+    color: #fff;
+    padding: 4px 7px 3px 7px;
+    border-radius: 50%;
+}
