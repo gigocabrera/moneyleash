@@ -271,12 +271,12 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
-    .state('app.pickcategory', {
-        url: "/pickcategory",
+    .state('app.pickparentcategory', {
+        url: "/pickparentcategory",
         views: {
             'menuContent': {
-                templateUrl: "templates/pickcategory.html",
-                controller: "PickCategoryController"
+                templateUrl: "templates/pickparentcategory.html",
+                controller: "PickParentCategoryController"
             }
         }
     })

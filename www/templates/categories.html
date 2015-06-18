@@ -7,12 +7,23 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list>
-            <ion-item class="item" ng-repeat="category in categories | orderBy:'categoryname' " ng-click="handleSwipeAndTap($event, category)" href="#">
-                {{ category.categoryname }}
-                <ion-option-button class="button-energized" ng-click="editCategory($event, category)">
+            <div class="item item-divider mlSmallerFont">Income Categories</div>
+            <ion-item class="mlcategories mlSmallerFont" ng-repeat="category in incomecategories | orderBy:'categorysort' " ng-click="handleSwipeAndTap($event, category)" href="#" ng-class="{mlindent: category.categoryparent !== ''}">
+                <i class="fa fa-thumb-tack mlpaddingright mlSmallerFont" ng-class="{amountRed: category.categorytype == 'Expense', amountGreen: category.categorytype == 'Income'}"></i>{{ category.categoryname }}
+                <ion-option-button class="button-energized mlcategoriesbutton" ng-click="editCategory($event, category)">
                     &nbsp;&nbsp;Edit&nbsp;&nbsp;
                 </ion-option-button>
-                <ion-option-button class="button-assertive" ng-click="deleteCategory(category)">
+                <ion-option-button class="button-assertive mlcategoriesbutton" ng-click="deleteCategory(category)">
+                    Delete
+                </ion-option-button>
+            </ion-item>
+            <div class="item item-divider mlSmallerFont">Expense Categories</div>
+            <ion-item class="mlcategories mlSmallerFont" ng-repeat="category in expensecategories | orderBy:'categorysort' " ng-click="handleSwipeAndTap($event, category)" href="#" ng-class="{mlindent: category.categoryparent !== ''}">
+                <i class="fa fa-thumb-tack mlpaddingright mlSmallerFont" ng-class="{amountRed: category.categorytype == 'Expense', amountGreen: category.categorytype == 'Income'}"></i>{{ category.categoryname }}
+                <ion-option-button class="button-energized mlcategoriesbutton" ng-click="editCategory($event, category)">
+                    &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                </ion-option-button>
+                <ion-option-button class="button-assertive mlcategoriesbutton" ng-click="deleteCategory(category)">
                     Delete
                 </ion-option-button>
             </ion-item>

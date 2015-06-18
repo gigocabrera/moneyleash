@@ -1,16 +1,22 @@
 
-// PICK CATEGORY CONTROLLER
-moneyleashapp.controller('PickCategoryController', function ($scope, $state, $ionicHistory, CategoriesFactory, PickCategoryService, PickCategoryTypeService) {
-
+// PICK PARENT CATEGORY CONTROLLER
+moneyleashapp.controller('PickParentCategoryController', function ($scope, $state, $ionicHistory, CategoriesFactory, PickParentCategoryService, PickCategoryTypeService) {
     if (PickCategoryTypeService.typeSelected === '') {
-        $scope.CategoryList = '';
+        $scope.ParentCategoryList = '';
     } else {
-        $scope.CategoryList = CategoriesFactory.getCategories(PickCategoryTypeService.typeSelected);
+        $scope.ParentCategoryList = CategoriesFactory.getParentCategories(PickCategoryTypeService.typeSelected);
+        $scope.ParentCategoryList.$loaded().then(function () {
+            $scope.items = [];
+            angular.forEach($scope.ParentCategoryList, function (category) {
+                if (category.categoryparent === "") {
+                    $scope.items.push(category);
+                }
+            })
+        });
     }
-    $scope.currentItem = { categoryparent: PickCategoryService.cat };
+    $scope.currentItem = { categoryparent: PickParentCategoryService.cat };
     $scope.categorychanged = function (item) {
-        PickCategoryService.updateCategory(item.categoryname);
-        console.log(item.categoryname);
+        PickParentCategoryService.updateCategory(item.categoryname);
         $ionicHistory.goBack();
     };
 })
@@ -20,7 +26,6 @@ moneyleashapp.controller('PickCategoryTypeController', function ($scope, $state,
     $scope.CategoryTypeList = [
           { text: 'Income', value: 'Income' },
           { text: 'Expense', value: 'Expense' }];
-
     $scope.currentItem = { categorytype: PickCategoryTypeService.type };
     $scope.itemchanged = function (item) {
         PickCategoryTypeService.updateType(item.value);
@@ -29,18 +34,18 @@ moneyleashapp.controller('PickCategoryTypeController', function ($scope, $state,
 })
 
 // CATEGORY CONTROLLER
-moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicHistory, $stateParams, CategoriesFactory, PickCategoryService, PickCategoryTypeService) {
+moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicHistory, $stateParams, CategoriesFactory, PickParentCategoryService, PickCategoryTypeService) {
 
     $scope.inEditMode = false;
     $scope.allowParent = false;
-    $scope.typeSelected = '';
     $scope.currentItem = {
         'categoryname': '',
         'categorytype': '',
-        'categoryparent': ''
+        'categoryparent': '',
+        'categorysort': ''
     };
     $scope.$on('$ionicView.beforeEnter', function () {
-        $scope.currentItem.categoryparent = PickCategoryService.categorySelected;
+        $scope.currentItem.categoryparent = PickParentCategoryService.categorySelected;
         $scope.currentItem.categorytype = PickCategoryTypeService.typeSelected;
     });
 
@@ -53,13 +58,17 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
         $scope.inEditMode = true;
         CategoriesFactory.getCategory($stateParams.categoryid, $stateParams.type).then(function (category) {
             $scope.currentItem = category;
-            console.log(category);
         });
         $scope.CategoryTitle = "Edit Category";
     }
 
     // SAVE
     $scope.saveCategory = function (currentItem) {
+        if ($scope.currentItem.categoryparent === '') {
+            $scope.currentItem.categorysort = $scope.currentItem.categoryname;
+        } else {
+            $scope.currentItem.categorysort = $scope.currentItem.categoryparent + ":" + $scope.currentItem.categoryname;
+        }
         if ($scope.inEditMode) {
             // Update
             var onComplete = function (error) {
@@ -85,12 +94,12 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
 })
 
 // CATEGORIES CONTROLLER
-moneyleashapp.controller('CategoriesController', function ($scope, $state, $ionicHistory, $ionicListDelegate, $ionicActionSheet, CategoriesFactory, PickCategoryService, PickCategoryTypeService) {
+moneyleashapp.controller('CategoriesController', function ($scope, $filter, $state, $ionicHistory, $ionicListDelegate, $ionicActionSheet, CategoriesFactory, PickParentCategoryService, PickCategoryTypeService) {
   
     // CREATE
     $scope.createCategory = function (title) {
         PickCategoryTypeService.typeSelected = '';
-        PickCategoryService.categorySelected = '';
+        PickParentCategoryService.categorySelected = '';
         $state.go('app.category');
     }
 
@@ -101,33 +110,22 @@ moneyleashapp.controller('CategoriesController', function ($scope, $state, $ioni
         var options = $event.currentTarget.querySelector('.item-options');
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
-        } else {
-            // TODO: Add filter by payee option
-        }
+        } else {}
     };
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.list();
+    });
 
     // GET CATEGORIES
     $scope.list = function () {
-        $scope.categories = CategoriesFactory.getCategoriesByTypeAndGroup('Expense');
-        $scope.groups = [];
-        $scope.categories.$loaded().then(function () {
-            var currentCategory = '_DEFAULT_';
-            var group = {};
-            angular.forEach($scope.categories, function (category) {
-                currentCategory = category.categoryparent;
-                if (currentCategory == "") {
-                    group = {
-                        name: category.categoryname,
-                        items: []
-                    };
-                    $scope.groups.push(group);
-                } else {
-                    if (category.categoryparent == currentCategory) {
-                        group.items.push(category);
-                    }
-                }
-            })
-        })
+        var orderBy = $filter('orderBy');
+        $scope.expensecategories = CategoriesFactory.getCategoriesByTypeAndGroup('Expense');
+        $scope.expensecategories.$loaded().then(function () {
+        });
+        $scope.incomecategories = CategoriesFactory.getCategoriesByTypeAndGroup('Income');
+        $scope.incomecategories.$loaded().then(function () {
+        });
     };
 
     // EDIT
@@ -141,24 +139,25 @@ moneyleashapp.controller('CategoriesController', function ($scope, $state, $ioni
         // Show the action sheet
         $ionicActionSheet.show({
             destructiveText: 'Delete Account',
-            titleText: 'Are you sure you want to delete ' + category.categoryname + '? This will permanently delete the account from the app.',
+            titleText: 'Are you sure you want to delete ' + category.categoryname + '? This will permanently delete the account from the app',
             cancelText: 'Cancel',
             cancel: function () {
                 // add cancel code..
             },
             buttonClicked: function (index) {
-                //Called when one of the non-destructive buttons is clicked,
-                //with the index of the button that was clicked and the button object.
-                //Return true to close the action sheet, or false to keep it opened.
                 return true;
             },
             destructiveButtonClicked: function () {
-                //Called when the destructive button is clicked.
-                //Return true to close the action sheet, or false to keep it opened.
                 $ionicListDelegate.closeOptionButtons();
-                $scope.categories.$remove(category).then(function (newChildRef) {
-                    newChildRef.key() === category.$id;
-                })
+                if (category.categorytype === 'Income') {
+                    $scope.incomecategories.$remove(category).then(function (newChildRef) {
+                        newChildRef.key() === category.$id;
+                    })
+                } else {
+                    $scope.expensecategories.$remove(category).then(function (newChildRef) {
+                        newChildRef.key() === category.$id;
+                    })
+                }
                 return true;
             }
         });

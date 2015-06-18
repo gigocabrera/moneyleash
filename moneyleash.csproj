@@ -2874,7 +2874,7 @@
     <Content Include="www\templates\login.html" />
     <Content Include="www\templates\payees.html" />
     <Content Include="www\templates\personalprofile.html" />
-    <Content Include="www\templates\pickcategory.html" />
+    <Content Include="www\templates\pickparentcategory.html" />
     <Content Include="www\templates\pickcategorytype.html" />
     <Content Include="www\templates\picktransactiontype.html" />
     <Content Include="www\templates\popover.html" />

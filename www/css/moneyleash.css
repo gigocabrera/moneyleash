@@ -23,11 +23,11 @@
 */
 /* Action Sheet */
 .action-sheet-title {
-    font-size: 16px;
+    font-size: 18px;
     color: #505050;
 }
 .action-sheet .button {
-    font: 16px 'PT Sans', sans-serif;
+    font: 18px 'PT Sans', sans-serif;
 }
 .button.button-dark.button-clear {
     font-size: 16px;
@@ -558,6 +558,19 @@ i.customChevronForm:before {
 .item-select select {
     padding: 8px 48px 10px 16px;
 }
-.ml-indent {
+.mlindent {
     padding-left: 35px;
+}
+i.mlpaddingright {
+    margin-right: 8px;
+}
+.mlSmallerFont
+{
+    font-size: 18px;
+}
+.mlcategories a.item-content {
+    padding: 10px 16px 10px 16px;
+}
+.mlcategoriesbutton {
+    min-height: 37px;
 }

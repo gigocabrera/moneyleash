@@ -55,6 +55,7 @@ angular.module('moneyleash.factories', [])
         var ref = {};
         var fbAuth = fb.getAuth();
         var categories = {};
+        var parentcategories = {};
         var categoriesByType = {};
         var categoryRef = {};
         return {
@@ -62,6 +63,11 @@ angular.module('moneyleash.factories', [])
                 ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryname');
                 categories = $firebaseArray(ref);
                 return categories;
+            },
+            getParentCategories: function (type) {
+                ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryparent');
+                parentcategories = $firebaseArray(ref);
+                return parentcategories;
             },
             getCategoriesByTypeAndGroup: function (type) {
                 ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryparent');
@@ -233,7 +239,7 @@ angular.module('moneyleash.factories', [])
         }
     })
 
-    .service("PickCategoryService", function () {
+    .service("PickParentCategoryService", function () {
         var cat = this;
         cat.updateCategory = function (value) {
             this.categorySelected = value;
@@ -241,19 +247,20 @@ angular.module('moneyleash.factories', [])
     })
     .service("PickCategoryTypeService", function () {
         var type = this;
+        type.typeSelected = 'Expense';
         type.updateType = function (value) {
             this.typeSelected = value;
         }
     })
     .service("PickTransactionTypeService", function () {
-        var type = this;
-        type.updateType = function (value) {
+        var TransactionType = this;
+        TransactionType.updateType = function (value) {
             this.typeSelected = value;
         }
     })
     .service("AccountTypeService", function () {
-        var type = this;
-        type.updateType = function (value) {
+        var AccountType = this;
+        AccountType.updateType = function (value) {
             this.typeSelected = value;
         }
     })
