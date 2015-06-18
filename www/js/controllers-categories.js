@@ -14,7 +14,7 @@ moneyleashapp.controller('PickParentCategoryController', function ($scope, $stat
             })
         })
     };
-    $scope.currentItem = { categoryparent: PickParentCategoryService.cat };
+    $scope.currentItem = { categoryname: PickParentCategoryService.categorySelected };
     $scope.categorychanged = function (item) {
         PickParentCategoryService.updateCategory(item.categoryname);
         $ionicHistory.goBack();
@@ -26,7 +26,7 @@ moneyleashapp.controller('PickCategoryTypeController', function ($scope, $state,
     $scope.CategoryTypeList = [
           { text: 'Income', value: 'Income' },
           { text: 'Expense', value: 'Expense' }];
-    $scope.currentItem = { categorytype: PickCategoryTypeService.type };
+    $scope.currentItem = { categorytype: PickCategoryTypeService.typeSelected };
     $scope.itemchanged = function (item) {
         PickCategoryTypeService.updateType(item.value);
         $ionicHistory.goBack();
@@ -58,6 +58,8 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
         $scope.inEditMode = true;
         CategoriesFactory.getCategory($stateParams.categoryid, $stateParams.type).then(function (category) {
             $scope.currentItem = category;
+            PickCategoryTypeService.typeSelected = $scope.currentItem.categorytype;
+            PickParentCategoryService.categorySelected = $scope.currentItem.categoryparent;
         });
         $scope.CategoryTitle = "Edit Category";
     }

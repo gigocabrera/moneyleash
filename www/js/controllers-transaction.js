@@ -27,10 +27,10 @@ moneyleashapp.controller('PickTransactionCategoryController', function ($scope, 
 // TRANSACTION-TYPE CONTROLLER
 moneyleashapp.controller('PickTransactionTypeController', function ($scope, $state, $ionicHistory, PickTransactionTypeService) {
     $scope.TransactionTypeList = [
-          { text: 'Expense', value: 'Expense' },
-          { text: 'Income', value: 'Income' },
-          { text: 'Transfer', value: 'Transfer' }];
-    $scope.currentItem = { typedisplay: PickTransactionTypeService.type };
+        { text: 'Income', value: 'Income' },
+        { text: 'Expense', value: 'Expense' },
+        { text: 'Transfer', value: 'Transfer' }];
+    $scope.currentItem = { typedisplay: PickTransactionTypeService.typeSelected };
     $scope.itemchanged = function (item) {
         PickTransactionTypeService.updateType(item.value);
         $ionicHistory.goBack();
@@ -65,8 +65,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         'typedisplay': ''
     };
 
-    $scope.currentItem = { typedisplay: PickTransactionTypeService.typeSelected };
-    $scope.currentItem = { category: PickTransactionCategoryService.categorySelected };
+    //$scope.currentItem = { typedisplay: PickTransactionTypeService.typeSelected };
+    //$scope.currentItem = { category: PickTransactionCategoryService.categorySelected };
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.currentItem.category = PickTransactionCategoryService.categorySelected;
@@ -90,6 +90,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
             }
             $scope.currentItem = transaction;
             $scope.isTransfer = $scope.currentItem.istransfer;
+            PickTransactionTypeService.typeSelected = $scope.currentItem.typedisplay
+            PickTransactionCategoryService.categorySelected = $scope.currentItem.category;
         });
         $scope.TransactionTitle = "Edit Transaction";
     }

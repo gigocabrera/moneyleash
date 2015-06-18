@@ -247,7 +247,6 @@ angular.module('moneyleash.factories', [])
     })
     .service("PickCategoryTypeService", function () {
         var type = this;
-        type.typeSelected = 'Expense';
         type.updateType = function (value) {
             this.typeSelected = value;
         }
