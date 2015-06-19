@@ -4,7 +4,7 @@ var fb = '';
 fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker', 'ngAnimate', 'ion-affix'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker', 'ngAnimate', 'ion-affix', 'pickadate'])
 
 moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth) {
     $ionicPlatform.ready(function () {
@@ -226,6 +226,24 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/picktransactioncategory.html",
                 controller: "PickTransactionCategoryController"
+            }
+        }
+    })
+    .state('app.picktransactiondate', {
+        url: "/picktransactiondate",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactiondate.html",
+                controller: "PickTransactionDateController"
+            }
+        }
+    })
+    .state('app.picktransactionamount', {
+        url: "/picktransactionamount",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactionamount.html",
+                controller: "PickTransactionAmountController"
             }
         }
     })

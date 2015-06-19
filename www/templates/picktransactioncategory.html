@@ -1,9 +1,11 @@
 <ion-view view-title="Select Category">
     <ion-content>
-        <ion-radio ng-repeat="item in TransactionCategoryList | orderBy:'categoryname'"
+        <ion-radio ng-repeat="item in TransactionCategoryList | orderBy:'categorysort'"
                    ng-value="item.categoryname"
                    ng-change="categorychanged(item)"
-                   ng-model="currentItem.categoryname">
+                   ng-model="currentItem.categoryname"
+                   class="mlcategories mlSmallerFont"
+                   ng-class="{mlindent: item.categoryparent !== ''}">
             {{ item.categoryname }}
         </ion-radio>
     </ion-content>

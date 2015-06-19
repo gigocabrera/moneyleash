@@ -1,20 +1,31 @@
 
+// PICK TRANSACTION AMOUNT CONTROLLER
+moneyleashapp.controller('PickTransactionAmountController', function ($scope, $ionicHistory) {
+
+    
+})
+
+// PICK TRANSACTION DATE CONTROLLER
+moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionDateService) {
+    
+    $scope.myDate = '';
+    //$scope.currentItem = { categoryname: PickParentCategoryService.categorySelected };
+    $scope.dateChanged = function (transDate) {
+        PickTransactionDateService.updateDate(transDate);
+        $ionicHistory.goBack();
+    };
+})
+
 // PICK TRANSACTION CATEGORY CONTROLLER
-moneyleashapp.controller('PickTransactionCategoryController', function ($scope, $state, $ionicHistory, CategoriesFactory, PickTransactionTypeService, PickTransactionCategoryService) {
+moneyleashapp.controller('PickTransactionCategoryController', function ($scope, $ionicHistory, CategoriesFactory, PickTransactionTypeService, PickTransactionCategoryService) {
     //
-    // To fetch categories, we need to know the transaction type (Expense/Income)
+    // To fetch categories, we need to know the transaction type first (Expense/Income)
     //
     if (PickTransactionTypeService.typeSelected === '') {
         $scope.TransactionCategoryList = '';
     } else {
-        $scope.TransactionCategoryList = CategoriesFactory.getParentCategories(PickTransactionTypeService.typeSelected);
+        $scope.TransactionCategoryList = CategoriesFactory.getCategoriesByTypeAndGroup(PickTransactionTypeService.typeSelected);
         $scope.TransactionCategoryList.$loaded().then(function () {
-            $scope.items = [];
-            angular.forEach($scope.TransactionCategoryList, function (category) {
-                if (category.categoryparent === "") {
-                    $scope.items.push(category);
-                }
-            })
         });
     };
     $scope.currentItem = { categoryname: PickTransactionCategoryService.categorySelected };
@@ -24,7 +35,7 @@ moneyleashapp.controller('PickTransactionCategoryController', function ($scope, 
     };
 })
 
-// TRANSACTION-TYPE CONTROLLER
+// PICK TRANSACTION TYPE CONTROLLER
 moneyleashapp.controller('PickTransactionTypeController', function ($scope, $state, $ionicHistory, PickTransactionTypeService) {
     $scope.TransactionTypeList = [
         { text: 'Income', value: 'Income' },
@@ -38,7 +49,7 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionDateService) {
    
     $scope.transactions = [];
     $scope.AccountTitle = '';
@@ -65,12 +76,12 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         'typedisplay': ''
     };
 
-    //$scope.currentItem = { typedisplay: PickTransactionTypeService.typeSelected };
-    //$scope.currentItem = { category: PickTransactionCategoryService.categorySelected };
-
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.currentItem.category = PickTransactionCategoryService.categorySelected;
         $scope.currentItem.typedisplay = PickTransactionTypeService.typeSelected;
+        if (PickTransactionDateService.dateSelected !== '') {
+            $scope.currentItem.date = moment(PickTransactionDateService.dateSelected).format("MMMM DD, YYYY");
+        }
         $scope.isTransfer = ($scope.currentItem.typedisplay === "Transfer") ? true : false;
     });
 
@@ -92,6 +103,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
             $scope.isTransfer = $scope.currentItem.istransfer;
             PickTransactionTypeService.typeSelected = $scope.currentItem.typedisplay
             PickTransactionCategoryService.categorySelected = $scope.currentItem.category;
+            PickTransactionDateService.dateSelected = $scope.currentItem.date;
         });
         $scope.TransactionTitle = "Edit Transaction";
     }

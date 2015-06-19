@@ -24,7 +24,7 @@
             <div ng-hide="isTransfer">
                 <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickpayee">
                     <i class="icon fa fa-user placeholder-icon"></i>
-                    <input type="text" placeholder="Payee" ng-model="currentItem.payee">
+                    <input type="text" placeholder="Payee" ng-model="currentItem.payee" autocorrect="on" autocapitalize="words" ng-maxlength="25">
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
                 <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactioncategory">
@@ -33,17 +33,16 @@
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
             </div>
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickamount">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionamount">
                 <i class="icon fa fa-money placeholder-icon"></i>
                 <input type="text" placeholder="Amount" ng-model="currentItem.amount" valid-number>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
-            <label class="item item-input moneyleashLabel">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactiondate">
                 <i class="icon fa fa-calendar placeholder-icon"></i>
-                <ionic-datepicker idate="currentItem.date">
-                    <button class="moneyleashDatePicker">{{ currentItem.date | date:'MMMM dd, yyyy' }}</button>
-                </ionic-datepicker>
-            </label>
+                <input type="text" placeholder="Transaction Date" ng-model="currentItem.date" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
             <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picknotes">
                 <i class="icon fa fa-file-text placeholder-icon"></i>
                 <input type="text" placeholder="Notes" ng-model="currentItem.notes">

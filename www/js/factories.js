@@ -263,5 +263,11 @@ angular.module('moneyleash.factories', [])
             this.categorySelected = value;
         }
     })
+    .service("PickTransactionDateService", function () {
+        var transdate = this;
+        transdate.updateDate = function (value) {
+            this.dateSelected = value;
+        }
+    })
 
 ;
