@@ -1,15 +1,34 @@
 
 // PICK TRANSACTION AMOUNT CONTROLLER
-moneyleashapp.controller('PickTransactionAmountController', function ($scope, $ionicHistory) {
+moneyleashapp.controller('PickTransactionAmountController', function ($scope, $ionicHistory, PickTransactionAmountService) {
 
-    
+    $scope.clearValue = true;
+    $scope.displayValue = 0;
+    $scope.digitClicked = function (digit) {
+        if (digit === 'C') {
+            $scope.displayValue = '';
+            $scope.clearValue = true;
+        } else if (digit === '.') {
+            $scope.displayValue = $scope.displayValue + digit;
+        } else if (digit === 'B') {
+            $scope.displayValue = $scope.displayValue.substring(0, $scope.displayValue.length - 1);
+        } else if (digit === 'D') {
+            PickTransactionAmountService.updateAmount($scope.displayValue);
+            $ionicHistory.goBack();
+        } else {
+            if ($scope.clearValue) {
+                $scope.displayValue = digit;
+                $scope.clearValue = false;
+            } else {
+                $scope.displayValue = $scope.displayValue + digit;
+            }
+        }
+    };
+
 })
 
 // PICK TRANSACTION DATE CONTROLLER
 moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionDateService) {
-    
-    $scope.myDate = '';
-    //$scope.currentItem = { categoryname: PickParentCategoryService.categorySelected };
     $scope.dateChanged = function (transDate) {
         PickTransactionDateService.updateDate(transDate);
         $ionicHistory.goBack();
@@ -49,7 +68,7 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionDateService) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionDateService, PickTransactionAmountService) {
    
     $scope.transactions = [];
     $scope.AccountTitle = '';
@@ -77,8 +96,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
     };
 
     $scope.$on('$ionicView.beforeEnter', function () {
-        $scope.currentItem.category = PickTransactionCategoryService.categorySelected;
         $scope.currentItem.typedisplay = PickTransactionTypeService.typeSelected;
+        $scope.currentItem.category = PickTransactionCategoryService.categorySelected;        
+        $scope.currentItem.amount = PickTransactionAmountService.amountSelected;
         if (PickTransactionDateService.dateSelected !== '') {
             $scope.currentItem.date = moment(PickTransactionDateService.dateSelected).format("MMMM DD, YYYY");
         }
@@ -118,10 +138,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
 
         // Handle transaction type
         if ($scope.currentItem.typedisplay.toUpperCase() === "TRANSFER" && currentItem.accountToId === $stateParams.accountId) {
-            $scope.currentItem.type = 'income';
+            $scope.currentItem.type = 'Income';
             $scope.currentItem.istransfer = true;
         } else if ($scope.currentItem.typedisplay.toUpperCase() === "TRANSFER" && currentItem.accountToId !== $stateParams.accountId) {
-            $scope.currentItem.type = 'expense';
+            $scope.currentItem.type = 'Expense';
             $scope.currentItem.istransfer = true;
         } else {
             $scope.currentItem.type = $scope.currentItem.typedisplay;

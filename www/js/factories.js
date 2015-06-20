@@ -155,7 +155,7 @@ angular.module('moneyleash.factories', [])
 
                     // Create initial transaction for begining balance under new account node
                     var initialTransaction = {
-                        type: 'income',
+                        type: 'Income',
                         payee: 'Begining Balance',
                         category: 'Begining Balance',
                         amount: currentItem.balancebegining,
@@ -267,6 +267,12 @@ angular.module('moneyleash.factories', [])
         var transdate = this;
         transdate.updateDate = function (value) {
             this.dateSelected = value;
+        }
+    })
+    .service("PickTransactionAmountService", function () {
+        var transamount = this;
+        transamount.updateAmount = function (value) {
+            this.amountSelected = value;
         }
     })
 

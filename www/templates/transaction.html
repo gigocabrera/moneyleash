@@ -1,6 +1,6 @@
 <ion-view title={{TransactionTitle}}>
     <ion-nav-buttons side="right">
-        <button class="button button-clear button-positive customHeaderSize" ng-click="saveTransaction(currentItem)">Save</button>
+        <button class="button button-clear button-white customHeaderSize" ng-click="saveTransaction(currentItem)">Save</button>
     </ion-nav-buttons>
     <ion-content has-header="true">
         <div class="ion-list">
@@ -35,7 +35,7 @@
             </div>
             <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionamount">
                 <i class="icon fa fa-money placeholder-icon"></i>
-                <input type="text" placeholder="Amount" ng-model="currentItem.amount" valid-number>
+                <input type="text" placeholder="Amount" ng-model="currentItem.amount" readonly>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactiondate">

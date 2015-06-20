@@ -1,111 +1,32 @@
-<ion-view view-title="Type Transaction Amount" ng-init="Calc.init()">
-    <ion-nav-buttons side="right">
-        <button class="button button-clear button-positive customHeaderSize" ng-click="dateChanged(myDate)">Save</button>
-    </ion-nav-buttons>
+<ion-view view-title="Type Transaction Amount">
     <ion-content>
         <div>
-            <input id="resultInput" type="text" value="" />
+            <input id="resultInput" type="text" value="{{ displayValue }}" />
             <table id="basic" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td><button data-keypress="55" data-char="7" ng-click="Calc.append(this); return false;">7</button></td>
-                    <td><button data-keypress="56" data-char="8" ng-click="Calc.append(this); return false;">8</button></td>
-                    <td><button data-keypress="57" data-char="9" ng-click="Calc.append(this); return false;">9</button></td>
-                    <td><button data-keydown="46" ng-click="Calc.clear(); return false;" class="functionKey">C</button></td>
+                    <td><button ng-click="digitClicked('7')">7</button></td>
+                    <td><button ng-click="digitClicked('8')">8</button></td>
+                    <td><button ng-click="digitClicked('9')">9</button></td>
+                    <td><button ng-click="digitClicked('C')" class="functionKey">C</button></td>
                 </tr>
                 <tr>
-                    <td><button data-keypress="52" data-char="4" ng-click="Calc.append(this); return false;">4</button></td>
-                    <td><button data-keypress="53" data-char="5" ng-click="Calc.append(this); return false;">5</button></td>
-                    <td><button data-keypress="54" data-char="6" ng-click="Calc.append(this); return false;">6</button></td>
-                    <td><button data-keydown="8" ng-click="Calc.backspace(); return false;" class="functionKey">&laquo;</button></td>
+                    <td><button ng-click="digitClicked('4')">4</button></td>
+                    <td><button ng-click="digitClicked('5')">5</button></td>
+                    <td><button ng-click="digitClicked('6')">6</button></td>
+                    <td><button ng-click="digitClicked('B')" class="functionKey"><strong>&laquo;</strong></button></td>
                 </tr>
                 <tr>
-                    <td><button data-keypress="49" data-char="1" ng-click="Calc.append(this)">1</button></td>
-                    <td><button data-keypress="50" data-char="2" ng-click="Calc.append(this); return false;">2</button></td>
-                    <td><button data-keypress="51" data-char="3" ng-click="Calc.append(this); return false;">3</button></td>
+                    <td><button ng-click="digitClicked('1')">1</button></td>
+                    <td><button ng-click="digitClicked('2')">2</button></td>
+                    <td><button ng-click="digitClicked('3')">3</button></td>
                     <td class="disabledKey"></td>
                 </tr>
                 <tr>
-                    <td><button data-keypress="46" data-char="." ng-click="Calc.append(this); return false;"><strong>.</strong></button></td>
-                    <td colspan="2"><button data-keypress="48" data-char="0" ng-click="Calc.append(this); return false;">0</button></td>
-                    <td><button class="functionKey">Done</button></td>
+                    <td><button ng-click="digitClicked('.')"><strong>.</strong></button></td>
+                    <td colspan="2"><button ng-click="digitClicked('0')">0</button></td>
+                    <td><button ng-click="digitClicked('D')" class="functionKey">Done</button></td>
                 </tr>
             </table>
         </div>
-        <script type="text/javascript" language="javascript">
-            var Calc = (function () {
-                var MAX_CHARS_SHOWABLE_IN_RESULT_INPUT = 1000;
-                var resultInput = null;
-                var calcStr = "";
-                return new function () {
-                    var _self = this;
-                    this.insert_at_cursor = function (_inputField, _str) {
-                        // TODO: this doesn't yet work correctly in all browsers.
-                        _inputField.focus();
-                        // IE support
-                        if (document.selection) {
-                            sel = document.selection.createRange();
-                            sel.text = _str;
-                        }
-                            // MOZILLA/NETSCAPE support
-                        else if (_inputField.selectionStart || _inputField.selectionStart == '0') {
-                            var startPos = _inputField.selectionStart;
-                            var endPos = _inputField.selectionEnd;
-                            _inputField.value = _inputField.value.substring(0, startPos) + _str + _inputField.value.substring(endPos, _inputField.value.length);
-                        } else {
-                            _inputField.value += _str;
-                        }
-                    }
-                    this.input_keypress_handler = function (e) {
-                        var buttons = document.getElementsByTagName("button");
-                        for (var i = 0; i < buttons.length; ++i) {
-                            if (buttons[i].hasAttribute("data-keypress") && e.charCode == parseInt(buttons[i].getAttribute("data-keypress"))) {
-                                _self.insert_at_cursor(resultInput, buttons[i].getAttribute("data-char"));
-                                break;
-                            }
-                        }
-                        // only allow backspace (8) and del (46) from this point onwards
-                        if (8 != e.keyCode && 46 != e.keyCode) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }
-                        calcStr = resultInput.value;
-                    }
-                    this.begin_direct_edit = function () {
-                        resultInput.value = calcStr;
-                        return false;
-                    }
-                    this.end_direct_edit = function () {
-                        _self.update_result_display();
-                        return false;
-                    }
-                    this.init = function () {
-                        resultInput = document.getElementById("resultInput");
-                        resultInput.onfocus = _self.begin_direct_edit;
-                        resultInput.onblur = _self.end_direct_edit;
-                        resultInput.onkeypress = _self.input_keypress_handler;
-                    }
-                    this.update_result_display = function () {
-                        if (calcStr.length >= MAX_CHARS_SHOWABLE_IN_RESULT_INPUT)
-                            resultInput.value = calcStr.substr(calcStr.length - MAX_CHARS_SHOWABLE_IN_RESULT_INPUT);
-                        else
-                            resultInput.value = calcStr;
-                    }
-                    this.append = function (_buttonElem) {
-                        calcStr += _buttonElem.getAttribute("data-char");
-                        _self.update_result_display();
-                    }
-                    this.clear = function () {
-                        calcStr = "";
-                        _self.update_result_display();
-                    }
-
-                    this.backspace = function () {
-                        if (1 <= calcStr.length)
-                            calcStr = calcStr.substr(0, calcStr.length - 1);
-                        _self.update_result_display();
-                    }
-                }
-            })();
-        </script>
     </ion-content>
 </ion-view>
