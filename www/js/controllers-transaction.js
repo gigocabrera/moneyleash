@@ -121,9 +121,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
             }
             $scope.currentItem = transaction;
             $scope.isTransfer = $scope.currentItem.istransfer;
+            $scope.currentItem.date = moment(dtTransDate).format("MMMM DD, YYYY");
             PickTransactionTypeService.typeSelected = $scope.currentItem.typedisplay
             PickTransactionCategoryService.categorySelected = $scope.currentItem.category;
-            PickTransactionDateService.dateSelected = $scope.currentItem.date;
+            PickTransactionDateService.dateSelected = moment($scope.currentItem.date).format("MMMM DD, YYYY");
         });
         $scope.TransactionTitle = "Edit Transaction";
     }
@@ -166,7 +167,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
             if (isNaN($scope.currentItem.photo)) {
                 $scope.currentItem.photo = "";
             }
-            $scope.currentItem.type = $scope.currentItem.type.toLowerCase();
             var sync = AccountsFactory.getTransactions($stateParams.accountId);
             sync.$add($scope.currentItem).then(function (newChildRef) {
                 $scope.currentItem = {
