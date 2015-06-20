@@ -194,7 +194,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
 
     // TRANSACTIONS
     .state('app.transactionsByDay', {
-        url: "/accounts/:accountId/:accountName",
+        url: "/accounts/transactionsByDay/:accountId/:accountName",
         views: {
             'menuContent': {
                 templateUrl: "templates/transactionsByDay.html",
@@ -203,7 +203,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         }
     })
     .state('app.transaction', {
-        url: "/transactions/:accountId/:accountName/:transactionId/:transactionName",
+        url: "/accounts/transactionsByDay/transaction/:accountId/:accountName/:transactionId/:transactionName",
         views: {
             'menuContent': {
                 templateUrl: "templates/transaction.html",

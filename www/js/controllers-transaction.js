@@ -4,6 +4,9 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
 
     $scope.clearValue = true;
     $scope.displayValue = 0;
+    if (typeof PickTransactionAmountService.amountSelected != 'undenifed') {
+        $scope.displayValue = PickTransactionAmountService.amountSelected;
+    }
     $scope.digitClicked = function (digit) {
         if (digit === 'C') {
             $scope.displayValue = '';
@@ -12,6 +15,7 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
             $scope.displayValue = $scope.displayValue + digit;
         } else if (digit === 'B') {
             $scope.displayValue = $scope.displayValue.substring(0, $scope.displayValue.length - 1);
+            $scope.clearValue = false;
         } else if (digit === 'D') {
             PickTransactionAmountService.updateAmount($scope.displayValue);
             $ionicHistory.goBack();
@@ -24,7 +28,6 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
             }
         }
     };
-
 })
 
 // PICK TRANSACTION DATE CONTROLLER
@@ -99,7 +102,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         $scope.currentItem.typedisplay = PickTransactionTypeService.typeSelected;
         $scope.currentItem.category = PickTransactionCategoryService.categorySelected;        
         $scope.currentItem.amount = PickTransactionAmountService.amountSelected;
-        if (PickTransactionDateService.dateSelected !== '') {
+        if (typeof PickTransactionDateService.dateSelected != 'undefined') {
             $scope.currentItem.date = moment(PickTransactionDateService.dateSelected).format("MMMM DD, YYYY");
         }
         $scope.isTransfer = ($scope.currentItem.typedisplay === "Transfer") ? true : false;
@@ -117,14 +120,15 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
             if (isNaN(dtTransDate)) {
                 transaction.date = "";
             } else {
-                transaction.date = dtTransDate;
+                dtTransDate = dtTransDate.toISOString();
+                PickTransactionDateService.dateSelected = dtTransDate;
+                transaction.date = moment(new Date(dtTransDate)).format("MMMM DD, YYYY");
             }
             $scope.currentItem = transaction;
             $scope.isTransfer = $scope.currentItem.istransfer;
-            $scope.currentItem.date = moment(dtTransDate).format("MMMM DD, YYYY");
             PickTransactionTypeService.typeSelected = $scope.currentItem.typedisplay
             PickTransactionCategoryService.categorySelected = $scope.currentItem.category;
-            PickTransactionDateService.dateSelected = moment($scope.currentItem.date).format("MMMM DD, YYYY");
+            PickTransactionAmountService.amountSelected = $scope.currentItem.amount;
         });
         $scope.TransactionTitle = "Edit Transaction";
     }
@@ -176,6 +180,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         }
         $rootScope.hide();
         $scope.currentItem = {};
-        $state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName });
+        $state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName }, { reload: true });
     }
 })

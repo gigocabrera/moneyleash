@@ -605,6 +605,9 @@ i.mlpaddingright {
 .pickadate-cell .pickadate-enabled{
     color: #000;
 }
+.pickadate-cell .pickadate-active {
+    background-color: #dc7000;
+}
 
 /* NumberPad */
 #resultInput {
