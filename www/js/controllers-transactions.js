@@ -56,7 +56,8 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     };
 
     // GET TRANSACTIONS
-    $scope.list = function () {
+    var init = function () {
+        console.log("dogs");
         $scope.groups = [];
         $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
 
@@ -157,5 +158,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         });
     };
 
+    init();
 
 })

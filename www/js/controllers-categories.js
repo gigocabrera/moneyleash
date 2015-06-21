@@ -121,7 +121,7 @@ moneyleashapp.controller('CategoriesController', function ($scope, $filter, $sta
 
     // GET CATEGORIES
     $scope.list = function () {
-        var orderBy = $filter('orderBy');
+        console.log("cats");
         $scope.expensecategories = CategoriesFactory.getCategoriesByTypeAndGroup('Expense');
         $scope.expensecategories.$loaded().then(function () {
         });

@@ -109,11 +109,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         $scope.currentItem.category = PickTransactionCategoryService.categorySelected;
         $scope.currentItem.amount = PickTransactionAmountService.amountSelected;
         if (typeof PickTransactionDateService.dateSelected != 'undefined' && PickTransactionDateService.dateSelected != '') {
-            console.log("HH " + PickTransactionDateService.dateSelected);
             // format date to be displayed
             var format = 'MMMM dd, yyyy';
             $scope.currentItem.date = dateFilter(PickTransactionDateService.dateSelected, format);
-            console.log("TT " + $scope.currentItem.date);
         }
         $scope.isTransfer = ($scope.currentItem.typedisplay === "Transfer") ? true : false;
     });
@@ -191,7 +189,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
                 };
             });
         }
-        $rootScope.hide();
         $scope.currentItem = {};
         $state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName });
     }
