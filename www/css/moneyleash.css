@@ -582,7 +582,7 @@ i.mlpaddingright {
 .mlcategoriesbutton {
     min-height: 37px;
 }
-.circle-icon-green {
+.circleIconGreen {
     font-size: 16px;
     background: #66AF36;
     color: #fff;
@@ -590,7 +590,7 @@ i.mlpaddingright {
     border-radius: 50%;
     margin-right: 5px;
 }
-.circle-icon-red {
+.circleIconRed {
     font-size: 16px;
     background: #FF5E2E;
     color: #fff;
@@ -666,3 +666,18 @@ i.mlpaddingright {
             cursor: pointer;
             background-color: #babbbe;
         }
+
+.pickCategoryIndent {
+    padding-left: 30px;
+}
+#pickCategoryIcons ul li:first-child {
+    padding-right: 8px;
+}
+#pickCategoryIcons ul li {
+    list-style-type: none;
+    display: inline;
+}
+#pickCategoryIcons ul li > i {
+  padding-left: 7px;
+  padding-right: 7px;
+}

@@ -4,9 +4,12 @@
                    ng-value="item.categoryname"
                    ng-change="categorychanged(item)"
                    ng-model="currentItem.categoryname"
-                   class="mlcategories mlSmallerFont"
-                   ng-class="{mlindent: item.categoryparent !== ''}">
-            {{ item.categoryname }}
+                   class="mlcategories mlSmallerFont">
+            <div id="pickCategoryIcons" ng-class="{pickCategoryIndent: item.categoryparent !== ''}">
+                <ul>
+                    <li><i class="fa fa-thumb-tack" ng-class="{circleIconRed: item.categorytype == 'Expense', circleIconGreen: item.categorytype == 'Income'}"></i>{{ item.categoryname }}</li>
+                </ul>
+            </div>
         </ion-radio>
     </ion-content>
 </ion-view>
