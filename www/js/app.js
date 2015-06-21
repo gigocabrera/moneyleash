@@ -53,6 +53,8 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
 
 moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $translateProvider) {
 
+    //$ionicConfigProvider.views.maxCache(0);
+
     /************************************/
     /* TRANSLATE                        */
     /************************************/
@@ -194,7 +196,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
 
     // TRANSACTIONS
     .state('app.transactionsByDay', {
-        url: "/accounts/transactionsByDay/:accountId/:accountName",
+        url: "/accounts/:accountId/:accountName",
         views: {
             'menuContent': {
                 templateUrl: "templates/transactionsByDay.html",
@@ -203,7 +205,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         }
     })
     .state('app.transaction', {
-        url: "/accounts/transactionsByDay/transaction/:accountId/:accountName/:transactionId/:transactionName",
+        url: "/transactions/:accountId/:accountName/:transactionId/:transactionName",
         views: {
             'menuContent': {
                 templateUrl: "templates/transaction.html",

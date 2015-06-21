@@ -126,14 +126,14 @@
     padding-left: 40px;
 }
 .customHeaderIcon:before {
-    color: #ffffff;
+    color: #ff7100;
     font-size: 32px;
 }
 .customHeaderIconSmall:before {
     font-size: 20px;
 }
 .bar .button.back-button {
-    color: #ffffff;
+    color: #ff7100;
 }
 button.customHeaderSize {
     font-size: 20px;
@@ -560,7 +560,7 @@ i.customChevronForm:before {
 .item-select select {
     padding: 8px 48px 10px 16px;
 }
-.mlindent {
+.mlcategories.mlindent a.item-content {
     padding-left: 35px;
 }
 i.mlpaddingright {

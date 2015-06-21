@@ -1,6 +1,6 @@
 
 // TRANSACTIONS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionAmountService, PickTransactionDateService) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionAmountService, PickTransactionDateService, dateFilter) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
@@ -45,7 +45,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         PickTransactionTypeService.typeSelected = '';
         PickTransactionCategoryService.categorySelected = '';
         PickTransactionAmountService.amountSelected = '';
-        PickTransactionDateService.dateSelected = '';        
+        PickTransactionDateService.dateSelected = '';
         $state.go('app.transaction', { accountId: $stateParams.accountId, transactionId: '' });
     }
 
@@ -56,49 +56,54 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     };
 
     // GET TRANSACTIONS
-    $scope.groups = [];
-    $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
+    $scope.list = function () {
+        $scope.groups = [];
+        $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
 
-    // Add grouping functionality for sticky affix elements
-    // https://github.com/aliok/ion-affix
-    $scope.transactions.$loaded().then(function () {
-        var dividers = [];
-        var transaction = {};
-        var currentDate = '';
-        var todaysDate = moment(new Date());
-        var previousDay = '';
-        var previousYear = '';
-        var output = [];
-        var groupValue = '';
-        var todayFlag = false;
-        var group = {};
-        angular.forEach($scope.transactions, function (transaction) {
-            currentDate = moment(transaction.date);
-            if (!previousDay || currentDate.day() !== previousDay || currentDate.year() !== previousYear) {
-                var dividerId = currentDate.format('dddd MMMM D, YYYY');
-                if (dividerId !== groupValue) {
-                    groupValue = dividerId;
-                    var tday = todaysDate.format('dddd MMMM D, YYYY');
-                    //console.log("tday: " + tday + ", " + dividerId);
-                    if (tday === dividerId) {
-                        todayFlag = true;
-                    } else {
-                        todayFlag = false;
+        // Add grouping functionality for sticky affix elements
+        // https://github.com/aliok/ion-affix
+        $scope.transactions.$loaded().then(function () {
+            //
+            var dividers = [];
+            var transaction = {};
+            var currentDate = '';
+            var todaysDate = new Date();
+            var previousDay = '';
+            var previousYear = '';
+            var output = [];
+            var groupValue = '';
+            var todayFlag = false;
+            var group = {};
+            var format = 'MMMM dd, yyyy';
+            //
+            angular.forEach($scope.transactions, function (transaction) {
+                currentDate = new Date(transaction.date);
+                if (!previousDay || currentDate.getDate() !== previousDay || currentDate.getFullYear() !== previousYear) {
+                    var dividerId = dateFilter(currentDate, format);
+                    if (dividerId !== groupValue) {
+                        groupValue = dividerId;
+                        var tday = dateFilter(todaysDate, format);
+                        //console.log("tday: " + tday + ", " + dividerId);
+                        if (tday === dividerId) {
+                            todayFlag = true;
+                        } else {
+                            todayFlag = false;
+                        }
+                        group = {
+                            label: groupValue,
+                            transactions: [],
+                            isToday: todayFlag
+                        };
+                        $scope.groups.push(group);
+                        //console.log(group);
                     }
-                    group = {
-                        label: groupValue,
-                        transactions: [],
-                        isToday: todayFlag
-                    };
-                    $scope.groups.push(group);
-                    //console.log(group);
                 }
-            }
-            group.transactions.push(transaction);
-            previousDay = currentDate.day();
-            previousYear = currentDate.year();
+                group.transactions.push(transaction);
+                previousDay = currentDate.getDate();
+                previousYear = currentDate.getFullYear();
+            })
         })
-    })
+    };
 
     // WATCH
     $scope.$watch('transactions', function () {

@@ -31,7 +31,13 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
 })
 
 // PICK TRANSACTION DATE CONTROLLER
-moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionDateService) {
+moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionDateService, dateFilter) {
+    
+    if (typeof PickTransactionDateService.dateSelected != 'undefined' && PickTransactionDateService.dateSelected != '') {
+        // format date to be used by pickadate directive
+        var format = 'yyyy-MM-dd';
+        $scope.myDate = dateFilter(PickTransactionDateService.dateSelected, format);
+    }
     $scope.dateChanged = function (transDate) {
         PickTransactionDateService.updateDate(transDate);
         $ionicHistory.goBack();
@@ -71,7 +77,7 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionDateService, PickTransactionAmountService) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionDateService, PickTransactionAmountService, dateFilter) {
    
     $scope.transactions = [];
     $scope.AccountTitle = '';
@@ -100,10 +106,14 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.currentItem.typedisplay = PickTransactionTypeService.typeSelected;
-        $scope.currentItem.category = PickTransactionCategoryService.categorySelected;        
+        $scope.currentItem.category = PickTransactionCategoryService.categorySelected;
         $scope.currentItem.amount = PickTransactionAmountService.amountSelected;
-        if (typeof PickTransactionDateService.dateSelected != 'undefined') {
-            $scope.currentItem.date = moment(PickTransactionDateService.dateSelected).format("MMMM DD, YYYY");
+        if (typeof PickTransactionDateService.dateSelected != 'undefined' && PickTransactionDateService.dateSelected != '') {
+            console.log("HH " + PickTransactionDateService.dateSelected);
+            // format date to be displayed
+            var format = 'MMMM dd, yyyy';
+            $scope.currentItem.date = dateFilter(PickTransactionDateService.dateSelected, format);
+            console.log("TT " + $scope.currentItem.date);
         }
         $scope.isTransfer = ($scope.currentItem.typedisplay === "Transfer") ? true : false;
     });
@@ -120,9 +130,12 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
             if (isNaN(dtTransDate)) {
                 transaction.date = "";
             } else {
+                // save date in ISO format in service
                 dtTransDate = dtTransDate.toISOString();
                 PickTransactionDateService.dateSelected = dtTransDate;
-                transaction.date = moment(new Date(dtTransDate)).format("MMMM DD, YYYY");
+                // format date to be displayed
+                var format = 'MMMM dd, yyyy';
+                transaction.date = dateFilter(dtTransDate, format);
             }
             $scope.currentItem = transaction;
             $scope.isTransfer = $scope.currentItem.istransfer;
@@ -180,6 +193,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         }
         $rootScope.hide();
         $scope.currentItem = {};
-        $state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName }, { reload: true });
+        $state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName });
     }
 })
