@@ -18,7 +18,7 @@
                                         <small>
                                             <div id="transactionIcons">
                                                 <ul>
-                                                    <li><i class="fa fa-thumb-tack"></i>{{transaction.category}}</li>
+                                                    <li><i class="fa fa-thumb-tack" ng-class="{textRed: transaction.type == 'Expense', textGreen: transaction.type == 'Income'}"></i>{{transaction.category}}</li>
                                                     <li><i ng-class="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
                                                     <li><i ng-class="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>
                                                     <li><i ng-class="{'fa fa-camera': transaction.photo.length > 0}"></i></li>
@@ -28,7 +28,7 @@
                                         </small>
                                     </span>
                                 </div>
-                                <div class="col-50 right customAccAmt" ng-class="{amountRed: transaction.type == 'Expense', amountGreen: transaction.type == 'Income'}">
+                                <div class="col-50 right customAccAmt" ng-class="{textRed: transaction.type == 'Expense', textGreen: transaction.type == 'Income'}">
                                     <span>
                                         {{transaction.amount | currency}}
                                         <small>
@@ -54,7 +54,7 @@
         <div class="buttons">
             <button class="button button-icon customFooterIcon" ng-click="showSearch()"><i class="fa fa-search"></i></button>
         </div>
-        <h1 class="title">Current Balance</h1>
+        <div class="footerTitle">Current: {{ currentBalance | currency }} | Cleared: {{ clearedBalance | currency }}</div>
         <div class="buttons">
             <button class="button button-icon customFooterIcon" ng-click="showFilters()"><i class="fa fa-filter"></i></button>
         </div>

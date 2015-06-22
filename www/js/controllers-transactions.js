@@ -111,10 +111,19 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         var total = 0;
         var cleared = 0;
         var runningBal = 0;
+        var clearedBal = 0;
         angular.forEach($scope.transactions, function (transaction) {
             total++;
             if (transaction.iscleared === true) {
                 cleared++;
+                if (transaction.type.toUpperCase() === "INCOME") {
+                    if (!isNaN(transaction.amount)) {
+                        clearedBal = clearedBal + parseFloat(transaction.amount);
+                    }
+                } else if (transaction.type.toUpperCase() === "EXPENSE") {
+                    clearedBal = clearedBal - parseFloat(transaction.amount);
+                }
+                transaction.clearedBal = clearedBal.toFixed(2);
             }
             if (transaction.type.toUpperCase() === "INCOME") {
                 if (!isNaN(transaction.amount)) {
@@ -128,6 +137,8 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         $scope.totalCount = total;
         $scope.clearedCount = cleared;
         $scope.pendingCount = total - cleared;
+        $scope.currentBalance = runningBal;
+        $scope.clearedBalance = clearedBal;
     }, true);
 
     // DELETE

@@ -22,7 +22,7 @@
                             </small>
                         </span>
                     </div>
-                    <div class="col-50 right customAccAmt" ng-class="{amountRed: transaction.type == 'Expense', amountGreen: transaction.type == 'Income'}">
+                    <div class="col-50 right customAccAmt" ng-class="{textRed: transaction.type == 'Expense', textGreen: transaction.type == 'Income'}">
                         <span>
                             {{account.balancetoday | currency}}
                             <small></small>

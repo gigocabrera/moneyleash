@@ -144,6 +144,9 @@ button.customHeaderSize {
 }
 .footerTitle {
     font: 14px 'PT Sans', sans-serif;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /***********************************/
@@ -201,10 +204,10 @@ button.customHeaderSize {
     color: #A0A0A0;
     font-weight: bold;
 }
-.amountRed {
+.textRed {
     color: #FF5E2E;
 }
-.amountGreen {
+.textGreen {
     color: #66AF36;
 }
 .item-right-edit {
@@ -660,7 +663,6 @@ i.mlpaddingright {
         #basic button.disabledKey {
             background-color: #000;
         }
-
         #basic button:hover {
             color: #000;
             cursor: pointer;
