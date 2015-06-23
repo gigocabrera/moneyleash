@@ -1,7 +1,7 @@
 
 angular.module('moneyleash.factories', [])
 
-    .factory('Auth', function ($firebaseAuth, $rootScope) {
+    .factory('Auth', function ($firebaseAuth) {
         return $firebaseAuth(fb);
     })
 
@@ -95,7 +95,6 @@ angular.module('moneyleash.factories', [])
         var accounts = {};
         var accounttypes = {};
         var transactions = {};
-        var accountsRef = {};
         var accountRef = {};
         var transactionRef = {};
         var transactionsRef = {};
@@ -227,7 +226,7 @@ angular.module('moneyleash.factories', [])
             });
         };
 
-        $rootScope.hide = function (text) {
+        $rootScope.hide = function () {
             $ionicLoading.hide();
         };
 

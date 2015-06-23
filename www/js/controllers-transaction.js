@@ -4,7 +4,7 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
 
     $scope.clearValue = true;
     $scope.displayValue = 0;
-    if (typeof PickTransactionAmountService.amountSelected != 'undenifed') {
+    if (typeof PickTransactionAmountService.amountSelected !== 'undenifed') {
         $scope.displayValue = PickTransactionAmountService.amountSelected;
     }
     $scope.digitClicked = function (digit) {
@@ -33,7 +33,7 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
 // PICK TRANSACTION DATE CONTROLLER
 moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionDateService, dateFilter) {
     
-    if (typeof PickTransactionDateService.dateSelected != 'undefined' && PickTransactionDateService.dateSelected != '') {
+    if (typeof PickTransactionDateService.dateSelected !== 'undefined' && PickTransactionDateService.dateSelected !== '') {
         // format date to be used by pickadate directive
         var format = 'yyyy-MM-dd';
         $scope.myDate = dateFilter(PickTransactionDateService.dateSelected, format);
@@ -108,7 +108,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         $scope.currentItem.typedisplay = PickTransactionTypeService.typeSelected;
         $scope.currentItem.category = PickTransactionCategoryService.categorySelected;
         $scope.currentItem.amount = PickTransactionAmountService.amountSelected;
-        if (typeof PickTransactionDateService.dateSelected != 'undefined' && PickTransactionDateService.dateSelected != '') {
+        if (typeof PickTransactionDateService.dateSelected !== 'undefined' && PickTransactionDateService.dateSelected !== '') {
             // format date to be displayed
             var format = 'MMMM dd, yyyy';
             $scope.currentItem.date = dateFilter(PickTransactionDateService.dateSelected, format);

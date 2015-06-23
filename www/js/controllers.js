@@ -2,7 +2,7 @@
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope, $rootScope, $state, $ionicActionSheet, fireBaseData, $ionicHistory, Auth) {
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet, $ionicHistory, Auth) {
 
     $scope.showMenuIcon = true;
 
@@ -21,6 +21,7 @@ moneyleashapp.controller('AppCtrl', function ($scope, $rootScope, $state, $ionic
                 //Called when one of the non-destructive buttons is clicked,
                 //with the index of the button that was clicked and the button object.
                 //Return true to close the action sheet, or false to keep it opened.
+                var myButton = index;
                 return true;
             },
             destructiveButtonClicked: function () {
@@ -42,7 +43,7 @@ moneyleashapp.controller('AboutController', function ($scope, $ionicSlideBoxDele
 })
 
 // INTRO CONTROLLER
-moneyleashapp.controller('IntroController', function ($scope, $state, $rootScope, $ionicHistory) {
+moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHistory) {
     $ionicHistory.clearHistory();
     $scope.hideBackButton = true;
     $scope.login = function () {
@@ -77,6 +78,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state
             $rootScope.hide();
             $state.go('app.dashboard');
         }).catch(function (error) {
+            console.log(error);
             $rootScope.hide();
             $rootScope.notify('Error', 'Email or Password is incorrect!');
         });
@@ -323,23 +325,23 @@ moneyleashapp.controller('DashboardController', function ($scope, $state, $state
       { id: 100 }
     ];
 })
+
+// Sample code - to be removed when going live
 moneyleashapp.controller('ItemDetailsCtrl', function ($scope, $state, $stateParams) {
-
     $scope.item = { id: $stateParams.itemId };
-
     $scope.sizechanged = function (item) {
+        var test = item;
         //$state.go('eventmenu.checkin');
     };
-
 })
 
 // RECURRING CONTROLLER
 moneyleashapp.controller('RecurringController', function ($scope) {
-
+    $scope.temp = '';
 })
 
 // ACCOUNT TYPE MODAL CONTROLLER
-.controller('AccountTypeModalController', function ($scope, AccountsFactory) {
+.controller('AccountTypeModalController', function ($scope) {
     $scope.hideModal = function () {
         $scope.modalCtrl.hide();
     };

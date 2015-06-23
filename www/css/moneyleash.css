@@ -235,14 +235,14 @@ button.customHeaderSize {
 }
 .transactionIsCleared .item-content {
     background-color: #eee;
-    -webkit-transition:all linear 0.5s;
-    -o-transition:all linear 0.5s;
-    transition:all linear 0.5s;
+    -webkit-transition: all linear 0.5s;
+    -o-transition: all linear 0.5s;
+    transition: all linear 0.5s;
 }
 .item-icon-right .item-content {
-    -webkit-transition:all linear 0.5s;
-    -o-transition:all linear 0.5s;
-    transition:all linear 0.5s;
+    -webkit-transition: all linear 0.5s;
+    -o-transition: all linear 0.5s;
+    transition: all linear 0.5s;
 }
 .item-toggle-option .toggle {
     position: absolute;
@@ -580,7 +580,7 @@ i.mlpaddingright {
     padding: 10px 49px 10px 16px;
 }
 .mlcategories .radio-icon {
-    padding: 7px 20px 7px 0px;
+    padding: 7px 20px 7px 0;
 }
 .mlcategoriesbutton {
     min-height: 37px;
@@ -650,7 +650,7 @@ i.mlpaddingright {
         padding: 0;
         border: none;
         text-align: center;
-        vertical-align: middle;
+        /* vertical-align: middle; */
         color: #000;
         background-color: #d0d1d4;
     }

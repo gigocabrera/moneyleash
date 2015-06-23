@@ -65,7 +65,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
     }
 
     // SAVE
-    $scope.saveCategory = function (currentItem) {
+    $scope.saveCategory = function () {
         if ($scope.currentItem.categoryparent === '') {
             $scope.currentItem.categorysort = $scope.currentItem.categoryname;
         } else {
@@ -99,7 +99,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
 moneyleashapp.controller('CategoriesController', function ($scope, $filter, $state, $ionicHistory, $ionicListDelegate, $ionicActionSheet, CategoriesFactory, PickParentCategoryService, PickCategoryTypeService) {
   
     // CREATE
-    $scope.createCategory = function (title) {
+    $scope.createCategory = function () {
         PickCategoryTypeService.typeSelected = '';
         PickParentCategoryService.categorySelected = '';
         $state.go('app.category');
@@ -146,6 +146,7 @@ moneyleashapp.controller('CategoriesController', function ($scope, $filter, $sta
                 // add cancel code..
             },
             buttonClicked: function (index) {
+                var myButton = index;
                 return true;
             },
             destructiveButtonClicked: function () {
