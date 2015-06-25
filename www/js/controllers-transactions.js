@@ -140,14 +140,15 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         $scope.currentBalance = runningBal;
         $scope.clearedBalance = clearedBal;
 
-        // We want to update account totals
-        AccountsFactory.getAccount($stateParams.accountId).then(function (account) {
-            $scope.temp = account;
-            $scope.temp.balancetoday = runningBal;
-            $scope.temp.balancecurrent = runningBal;
-            $scope.temp.balancecleared = clearedBal;            
-            AccountsFactory.updateAccount($stateParams.accountId, $scope.temp);            
-        });
+        //// We want to update account totals
+        //AccountsFactory.getAccount($stateParams.accountId).then(function (account) {
+        //    $scope.temp = account;
+        //    $scope.temp.balancetoday = runningBal;
+        //    $scope.temp.balancecurrent = runningBal;
+        //    $scope.temp.balancecleared = clearedBal;
+        //    //AccountsFactory.updateAccount($stateParams.accountId, $scope.temp);
+        //    console.log($scope.temp);
+        //});
 
     }, true);
 

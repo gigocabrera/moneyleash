@@ -200,7 +200,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         cache: false,
         views: {
             'menuContent': {
-                templateUrl: "templates/transactionsByDay.html",
+                templateUrl: "templates/transactions.html",
                 controller: 'TransactionsController'
             }
         }

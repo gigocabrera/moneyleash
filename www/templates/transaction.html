@@ -12,19 +12,19 @@
             <div ng-hide="!isTransfer">
                 <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccount">
                     <i class="icon fa fa-reply placeholder-icon"></i>
-                    <input type="text" placeholder="From Account" ng-model="currentItem.accountFrom" valid-number>
+                    <input type="text" placeholder="From Account" ng-model="currentItem.accountFrom">
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
                 <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccount">
                     <i class="icon fa fa-share placeholder-icon"></i>
-                    <input type="text" placeholder="To Account" ng-model="currentItem.accountTo" valid-number>
+                    <input type="text" placeholder="To Account" ng-model="currentItem.accountTo">
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
             </div>
             <div ng-hide="isTransfer">
-                <ion-item class="item-icon-left item-icon-right form-group" >
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionpayee">
                     <i class="icon fa fa-user placeholder-icon"></i>
-                    <input type="text" placeholder="Payee" ng-model="currentItem.payee" autocorrect="on" autocapitalize="words" ng-maxlength="25">
+                    <input type="text" placeholder="Payee" ng-model="currentItem.payee">
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
                 <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactioncategory">
