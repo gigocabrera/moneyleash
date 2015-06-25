@@ -1,12 +1,43 @@
 
 // TRANSACTIONS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionAmountService, PickTransactionDateService, dateFilter) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicPopover, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionAmountService, PickTransactionDateService, dateFilter) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
     $scope.inEditMode = false;
     $scope.editIndex = 0;
     $scope.SortingIsEnabled = false;
+
+    // SORT
+    $scope.reorderBtnText = '';
+    $scope.showSorting = function (isEnabled) {
+        $scope.SortingIsEnabled = !isEnabled;
+        $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
+        $scope.popover.hide();
+    };
+    $scope.moveItem = function (transaction, fromIndex, toIndex) {
+        //$scope.transactions.splice(fromIndex, 1);
+        //$scope.transactions.splice(toIndex, 0, transaction);
+        //console.log(fromIndex);
+        //console.log(toIndex);
+    };
+
+    // POPOVER
+    $scope.animation = 'slide-in-up';
+    $ionicPopover.fromTemplateUrl('templates/popover.html', {
+        scope: $scope,
+        animation: $scope.animation
+    }).then(function (popover) {
+        $scope.popover = popover;
+    });
+    $scope.replaceIcon = false;
+    $scope.openPopover = function ($event, replaceIt) {
+        $scope.popover.show($event);
+        // Hide after 5 seconds
+        //$timeout(function () {
+        //    $scope.popover.hide();
+        //}, 5000);
+    };
 
     // SHOW FILTERS - ACTION SHEET
     $scope.showFilters = function () {
