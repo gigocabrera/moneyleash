@@ -143,7 +143,7 @@ button.customHeaderSize {
     text-shadow: 0 -1px 0 #bfbfbf;
 }
 .footerTitle {
-    font: 14px 'PT Sans', sans-serif;
+    font: 16px 'PT Sans', sans-serif;
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
@@ -190,7 +190,7 @@ button.customHeaderSize {
     height: 37px;
     font-weight: bold;
     padding-right: 20px;
-    font-size: 16px;
+    font-size: 18px;
 }
 .customAccAmt span {
     position: relative;
@@ -205,7 +205,7 @@ button.customHeaderSize {
     font-weight: bold;
 }
 .textRed {
-    color: #FF5E2E;
+    color: #F33D24;
 }
 .textGreen {
     color: #66AF36;
@@ -222,7 +222,7 @@ button.customHeaderSize {
 #transactionIcons ul li {
     list-style-type: none;
     display: inline;
-    color: #A0A0A0;
+    color: #8C8C8C;
     font: 14px 'PT Sans', sans-serif;
 }
 #transactionIcons ul li > i {
@@ -587,6 +587,7 @@ i.mlpaddingright {
 }
 .circleIconGreen {
     font-size: 16px;
+    font-weight: bold;
     background: #66AF36;
     color: #fff;
     padding: 4px 7px 3px 7px;
@@ -595,6 +596,7 @@ i.mlpaddingright {
 }
 .circleIconRed {
     font-size: 16px;
+    font-weight: bold;
     background: #FF5E2E;
     color: #fff;
     padding: 4px 7px 3px 7px;
@@ -610,6 +612,15 @@ i.mlpaddingright {
 }
 .pickadate-cell .pickadate-active {
     background-color: #dc7000;
+}
+.pickadate-centered-heading {
+    font-weight: bold;
+}
+.pickadate-cell .pickadate-active {
+    font-weight: bold;
+}
+.pickadate a:visited, .pickadate a {
+    color: #387ef5;
 }
 
 /* NumberPad */
@@ -683,3 +694,4 @@ i.mlpaddingright {
   padding-left: 7px;
   padding-right: 7px;
 }
+/* Pick a Payee Search */

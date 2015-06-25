@@ -116,20 +116,20 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             total++;
             if (transaction.iscleared === true) {
                 cleared++;
-                if (transaction.type.toUpperCase() === "INCOME") {
+                if (transaction.type === "Income") {
                     if (!isNaN(transaction.amount)) {
                         clearedBal = clearedBal + parseFloat(transaction.amount);
                     }
-                } else if (transaction.type.toUpperCase() === "EXPENSE") {
+                } else if (transaction.type === "Expense") {
                     clearedBal = clearedBal - parseFloat(transaction.amount);
                 }
                 transaction.clearedBal = clearedBal.toFixed(2);
             }
-            if (transaction.type.toUpperCase() === "INCOME") {
+            if (transaction.type === "Income") {
                 if (!isNaN(transaction.amount)) {
                     runningBal = runningBal + parseFloat(transaction.amount);
                 }
-            } else if (transaction.type.toUpperCase() === "EXPENSE") {
+            } else if (transaction.type === "Expense") {
                 runningBal = runningBal - parseFloat(transaction.amount);
             }
             transaction.runningbal = runningBal.toFixed(2);
@@ -139,6 +139,16 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         $scope.pendingCount = total - cleared;
         $scope.currentBalance = runningBal;
         $scope.clearedBalance = clearedBal;
+
+        // We want to update account totals
+        AccountsFactory.getAccount($stateParams.accountId).then(function (account) {
+            $scope.temp = account;
+            $scope.temp.balancetoday = runningBal;
+            $scope.temp.balancecurrent = runningBal;
+            $scope.temp.balancecleared = clearedBal;            
+            AccountsFactory.updateAccount($stateParams.accountId, $scope.temp);            
+        });
+
     }, true);
 
     // DELETE

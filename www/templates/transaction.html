@@ -22,13 +22,13 @@
                 </ion-item>
             </div>
             <div ng-hide="isTransfer">
-                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickpayee">
+                <ion-item class="item-icon-left item-icon-right form-group" >
                     <i class="icon fa fa-user placeholder-icon"></i>
                     <input type="text" placeholder="Payee" ng-model="currentItem.payee" autocorrect="on" autocapitalize="words" ng-maxlength="25">
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
                 <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactioncategory">
-                    <i class="icon fa fa-thumb-tack placeholder-icon"></i>
+                    <i class="icon fa fa-tag placeholder-icon"></i>
                     <input type="text" placeholder="Category" ng-model="currentItem.category">
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>

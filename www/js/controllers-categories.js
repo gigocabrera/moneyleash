@@ -14,9 +14,9 @@ moneyleashapp.controller('PickParentCategoryController', function ($scope, $stat
             })
         })
     };
-    $scope.currentItem = { categoryname: PickParentCategoryService.categorySelected };
+    $scope.currentItem = { categoryname: PickParentCategoryService.parentcategorySelected };
     $scope.categorychanged = function (item) {
-        PickParentCategoryService.updateCategory(item.categoryname);
+        PickParentCategoryService.updateParentCategory(item.categoryname);
         $ionicHistory.goBack();
     };
 })
@@ -45,7 +45,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
         'categorysort': ''
     };
     $scope.$on('$ionicView.beforeEnter', function () {
-        $scope.currentItem.categoryparent = PickParentCategoryService.categorySelected;
+        $scope.currentItem.categoryparent = PickParentCategoryService.parentcategorySelected;
         $scope.currentItem.categorytype = PickCategoryTypeService.typeSelected;
     });
 
@@ -59,7 +59,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
         CategoriesFactory.getCategory($stateParams.categoryid, $stateParams.type).then(function (category) {
             $scope.currentItem = category;
             PickCategoryTypeService.typeSelected = $scope.currentItem.categorytype;
-            PickParentCategoryService.categorySelected = $scope.currentItem.categoryparent;
+            PickParentCategoryService.parentcategorySelected = $scope.currentItem.categoryparent;
         });
         $scope.CategoryTitle = "Edit Category";
     }
@@ -101,7 +101,7 @@ moneyleashapp.controller('CategoriesController', function ($scope, $filter, $sta
     // CREATE
     $scope.createCategory = function () {
         PickCategoryTypeService.typeSelected = '';
-        PickParentCategoryService.categorySelected = '';
+        PickParentCategoryService.parentcategorySelected = '';
         $state.go('app.category');
     }
 

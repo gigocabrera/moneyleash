@@ -1,6 +1,6 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $state, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
+moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
 
     $scope.accounts = [];
     $scope.networth = '';
@@ -27,9 +27,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $rootScope, $st
 
     // LIST
     $scope.list = function () {
-        $rootScope.show("syncing");
         $scope.accounts = AccountsFactory.getAccounts();
-        $rootScope.hide();
     }
 
     // EDIT
