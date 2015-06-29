@@ -18,8 +18,24 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     $scope.moveItem = function (transaction, fromIndex, toIndex) {
         //$scope.transactions.splice(fromIndex, 1);
         //$scope.transactions.splice(toIndex, 0, transaction);
-        //console.log(fromIndex);
-        //console.log(toIndex);
+
+        console.log(fromIndex);
+        console.log(toIndex);
+
+        var dtTransDate = new Date(transaction.date);
+        if (isNaN(dtTransDate)) {
+            transaction.date = "";
+        } else {
+            // save date in ISO format in service
+            dtTransDate = dtTransDate.toISOString();
+            
+            // format date to be displayed
+            //var format = 'MMMM dd, yyyy';
+
+            console.log(dtTransDate);
+        }
+
+        console.log(transaction);
     };
 
     // POPOVER
@@ -88,27 +104,30 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
 
     // GET TRANSACTIONS
     var init = function () {
-        
+        //
         $scope.groups = [];
         $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
-
-        // Add grouping functionality for sticky affix elements
-        // https://github.com/aliok/ion-affix
         $scope.transactions.$loaded().then(function () {
             //
-            var dividers = [];
             var transaction = {};
             var currentDate = '';
             var todaysDate = new Date();
             var previousDay = '';
             var previousYear = '';
-            var output = [];
             var groupValue = '';
             var todayFlag = false;
             var group = {};
             var format = 'MMMM dd, yyyy';
+            var total = 0;
+            var cleared = 0;
+            var runningBal = 0;
+            var clearedBal = 0;
             //
             angular.forEach($scope.transactions, function (transaction) {
+                //
+                // Add grouping functionality for sticky affix elements
+                // https://github.com/aliok/ion-affix
+                //
                 currentDate = new Date(transaction.date);
                 if (!previousDay || currentDate.getDate() !== previousDay || currentDate.getFullYear() !== previousYear) {
                     var dividerId = dateFilter(currentDate, format);
@@ -133,55 +152,47 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 group.transactions.push(transaction);
                 previousDay = currentDate.getDate();
                 previousYear = currentDate.getFullYear();
-            })
-        })
-    };
-
-    // WATCH
-    $scope.$watch('transactions', function () {
-        var total = 0;
-        var cleared = 0;
-        var runningBal = 0;
-        var clearedBal = 0;
-        angular.forEach($scope.transactions, function (transaction) {
-            total++;
-            if (transaction.iscleared === true) {
-                cleared++;
+                //
+                // Handle Running Balance
+                //
+                total++;
+                if (transaction.iscleared === true) {
+                    cleared++;
+                    if (transaction.type === "Income") {
+                        if (!isNaN(transaction.amount)) {
+                            clearedBal = clearedBal + parseFloat(transaction.amount);
+                        }
+                    } else if (transaction.type === "Expense") {
+                        clearedBal = clearedBal - parseFloat(transaction.amount);
+                    }
+                    transaction.clearedBal = clearedBal.toFixed(2);
+                }
                 if (transaction.type === "Income") {
                     if (!isNaN(transaction.amount)) {
-                        clearedBal = clearedBal + parseFloat(transaction.amount);
+                        runningBal = runningBal + parseFloat(transaction.amount);
                     }
                 } else if (transaction.type === "Expense") {
-                    clearedBal = clearedBal - parseFloat(transaction.amount);
+                    runningBal = runningBal - parseFloat(transaction.amount);
                 }
-                transaction.clearedBal = clearedBal.toFixed(2);
-            }
-            if (transaction.type === "Income") {
-                if (!isNaN(transaction.amount)) {
-                    runningBal = runningBal + parseFloat(transaction.amount);
-                }
-            } else if (transaction.type === "Expense") {
-                runningBal = runningBal - parseFloat(transaction.amount);
-            }
-            transaction.runningbal = runningBal.toFixed(2);
+                transaction.runningbal = runningBal.toFixed(2);
+            })
+            //
+            $scope.totalCount = total;
+            $scope.clearedCount = cleared;
+            $scope.pendingCount = total - cleared;
+            $scope.currentBalance = runningBal.toFixed(2);
+            $scope.clearedBalance = clearedBal.toFixed(2);
+
+            // We want to update account totals
+            AccountsFactory.getAccount($stateParams.accountId).then(function (account) {
+                $scope.temp = account;
+                $scope.temp.balancetoday = runningBal.toFixed(2);
+                $scope.temp.balancecurrent = runningBal.toFixed(2);
+                $scope.temp.balancecleared = clearedBal.toFixed(2);
+                AccountsFactory.updateAccount($stateParams.accountId, $scope.temp);
+            });
         })
-        $scope.totalCount = total;
-        $scope.clearedCount = cleared;
-        $scope.pendingCount = total - cleared;
-        $scope.currentBalance = runningBal;
-        $scope.clearedBalance = clearedBal;
-
-        //// We want to update account totals
-        //AccountsFactory.getAccount($stateParams.accountId).then(function (account) {
-        //    $scope.temp = account;
-        //    $scope.temp.balancetoday = runningBal;
-        //    $scope.temp.balancecurrent = runningBal;
-        //    $scope.temp.balancecleared = clearedBal;
-        //    //AccountsFactory.updateAccount($stateParams.accountId, $scope.temp);
-        //    console.log($scope.temp);
-        //});
-
-    }, true);
+    };
 
     // DELETE
     $scope.deleteTransaction = function (transaction) {
@@ -206,6 +217,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 $scope.transactions.$remove(transaction).then(function (newChildRef) {
                     newChildRef.key() === transaction.$id;
                 })
+                init();
                 return true;
             }
         });

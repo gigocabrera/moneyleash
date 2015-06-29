@@ -13,19 +13,39 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
 })
 
 // PICK TRANSACTION PAYEE CONTROLLER
-moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, FlightDataService) {
-    
-    $scope.data = { "airlines": [], "search": '' };
+moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeeDataService, PickTransactionPayeeService) {
 
+    $scope.data = { "payees": [], "search": '' };
     $scope.search = function () {
 
-        FlightDataService.searchAirlines($scope.data.search).then(
+        PayeeDataService.searchPayees($scope.data.search).then(
     		function (matches) {
-    		    $scope.data.airlines = matches;
+    		    $scope.data.payees = matches;
     		}
     	)
     }
 
+    // SAVE PAYEE
+    $scope.savePayee = function () {
+        $scope.currentItem = {
+            'payeename': $scope.data.search,
+            'lastcategory': '',
+            'lastcategoryid': '',
+            'lastamount': ''
+        };
+        var sync = PayeeDataService.getPayees();
+        var payeeid = '';
+        sync.$add($scope.currentItem).then(function (newChildRef) {
+            payeeid = newChildRef.key();
+            PickTransactionPayeeService.updatePayee($scope.currentItem.payeename, payeeid);
+            $ionicHistory.goBack();
+        });
+    }
+
+    $scope.selectPayee = function (payee) {
+        PickTransactionPayeeService.updatePayee(payee.payeename, payee.$id);
+        $ionicHistory.goBack();
+    }
 })
 
 // PICK TRANSACTION CATEGORY CONTROLLER
@@ -93,7 +113,7 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $rootScope, $ionicHistory, $stateParams, $ionicModal, $ionicListDelegate, $ionicActionSheet, $firebaseArray, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionDateService, PickTransactionAmountService, dateFilter) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionDateService, PickTransactionAmountService, PickTransactionPayeeService, dateFilter) {
    
     $scope.transactions = [];
     $scope.AccountTitle = '';
@@ -126,6 +146,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         $scope.currentItem.category = PickTransactionCategoryService.categorySelected;
         $scope.currentItem.categoryid = PickTransactionCategoryService.categoryid;
         $scope.currentItem.amount = PickTransactionAmountService.amountSelected;
+        $scope.currentItem.payee = PickTransactionPayeeService.payeeSelected;
+        $scope.currentItem.payeeid = PickTransactionPayeeService.payeeid;
         if (typeof PickTransactionDateService.dateSelected !== 'undefined' && PickTransactionDateService.dateSelected !== '') {
             // format date to be displayed
             var format = 'MMMM dd, yyyy';
@@ -164,7 +186,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
     }
 
     // SAVE
-    $scope.saveTransaction = function (currentItem) {
+    $scope.saveTransaction = function () {
 
         // Format date
         var dtTran = new Date($scope.currentItem.date);
@@ -184,7 +206,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
         }
 
         if ($scope.inEditMode) {
-            // Update
+            // Update Existing
             var onComplete = function (error) {
                 if (error) {
                     console.log('Synchronization failed');
@@ -194,7 +216,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $roo
             transactionRef.update($scope.currentItem, onComplete);
             $scope.inEditMode = false;
         } else {
-            // Create
+            // Create New
             if (isNaN($scope.currentItem.notes)) {
                 $scope.currentItem.notes = "";
             }

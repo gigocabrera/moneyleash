@@ -1,6 +1,6 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountController', function ($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicActionSheet, AccountsFactory, dateFilter) {
+moneyleashapp.controller('AccountController', function ($scope, $state, $stateParams, $ionicModal, $ionicActionSheet, AccountsFactory, dateFilter) {
 
     $scope.InitialTransactionId = '';
     $scope.AccountTitle = '';
@@ -57,8 +57,6 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
 
     // SAVE
     $scope.saveAccount = function (currentItem) {
-
-        $rootScope.show('Saving...');
         if ($scope.inEditMode) {
             $scope.currentItem.transactionid = $scope.InitialTransactionId;
             AccountsFactory.updateAccount($stateParams.accountId, $scope.currentItem);
@@ -75,7 +73,6 @@ moneyleashapp.controller('AccountController', function ($scope, $rootScope, $sta
             $scope.currentItem.dateopen = $scope.currentItem.dateopen.getTime();
             AccountsFactory.createNewAccount($scope.currentItem);
         }
-        $rootScope.hide();
         $scope.currentItem = {};
         $state.go('app.accounts');
     }

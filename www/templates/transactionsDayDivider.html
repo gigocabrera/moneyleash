@@ -1,0 +1,22 @@
+<ion-view title={{AccountTitle}}>
+    <ion-nav-buttons side="right">
+        <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createTransaction('Add')"></button>
+        <button class="button button-icon ion-ios-more" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive customHeaderSize" ng-click="showSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
+            
+            <content-item ng-repeat="transaction in transactions | reverselist" content="transaction"></content-item>
+            
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-dark">
+        <div class="buttons">
+            <button class="button button-icon customFooterIcon" ng-click="showSearch()"><i class="fa fa-search"></i></button>
+        </div>
+        <div class="footerTitle">Current: {{ currentBalance | currency }} | Cleared: {{ clearedBalance | currency }}</div>
+        <div class="buttons">
+            <button class="button button-icon customFooterIcon" ng-click="showFilters()"><i class="fa fa-filter"></i></button>
+        </div>
+    </ion-footer-bar>
+</ion-view>

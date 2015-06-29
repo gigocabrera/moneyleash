@@ -81,4 +81,42 @@ angular.module('moneyleash.directives', [])
 	    };
     })
 
+    //
+    // http://onehungrymind.com/angularjs-dynamic-templates/
+    //
+    .directive('contentItem', function ($compile) {
+        var transactionTemplate = '<div class="entry-photo"><h2>&nbsp;</h2><div class="entry-img"><span><a href="{{rootDirectory}}{{content.data}}"><img ng-src="{{rootDirectory}}{{content.data}}" alt="entry photo"></a></span></div><div class="entry-text"><div class="entry-title">{{content.title}}</div><div class="entry-copy">{{content.description}}</div></div></div>';
+        var dividerTemplate = '<div class="item item-divider SectionDivider" ion-affix data-affix-within-parent-with-class="ml_list" ng-class="{SectionDividerActive: group.isToday == true}">{{ group.label }}</div>';
+
+        var getTemplate = function(contentType) {
+            var template = '';
+
+            switch(contentType) {
+                case 'istransaction':
+                    template = imageTemplate;
+                    break;
+                case 'isdivider':
+                    template = videoTemplate;
+                    break;
+            }
+            return template;
+        }
+
+        var linker = function(scope, element, attrs) {
+            scope.rootDirectory = 'images/';
+
+            element.html(getTemplate(scope.content.content_type)).show();
+
+            $compile(element.contents())(scope);
+        }
+
+        return {
+            restrict: "E",
+            link: linker,
+            scope: {
+                content:'='
+            }
+        };
+    })
+
 ;

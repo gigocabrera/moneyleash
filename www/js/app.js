@@ -325,11 +325,20 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         url: "/payees",
         views: {
             'menuContent': {
-                templateUrl: "templates/payees.html"
+                templateUrl: "templates/payees.html",
+                controller: "PayeesController"
             }
         }
     })
-
+    .state('app.payee', {
+        url: "/payee",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/payee.html",
+                controller: "PayeesController"
+            }
+        }
+    })
     // BUDGETS
     .state('app.budgets', {
         url: "/budgets",

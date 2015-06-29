@@ -164,5 +164,4 @@ moneyleashapp.controller('CategoriesController', function ($scope, $filter, $sta
             }
         });
     };
-
 })
