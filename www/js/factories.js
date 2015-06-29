@@ -44,11 +44,17 @@ angular.module('moneyleash.factories', [])
         }
     ])
 
-    .service("CategoryTypeService", function () {
-        var cattype = this;
-        cattype.updateType = function (value) {
-            this.typeSelected = value;
-        }
+    .factory('PayeesFactory', function ($firebaseArray, $q) {
+        var ref = {};
+        var fbAuth = fb.getAuth();
+        var payees = {};
+        return {
+            getPayees: function () {
+                ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
+                categories = $firebaseArray(ref);
+                return categories;
+            },
+        };
     })
 
     .factory('CategoriesFactory', function ($firebaseArray, $q) {
@@ -87,28 +93,6 @@ angular.module('moneyleash.factories', [])
                 return categoryRef;
             },
         };
-    })
-
-    .factory('PayeeDataService', function ($firebaseArray, $q, $timeout) {
-        var ref = {};
-        var payees = {};
-        var fbAuth = fb.getAuth();
-        ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
-        payees = $firebaseArray(ref);
-        var searchPayees = function (searchFilter) {
-            //console.log('Searching airlines for ' + searchFilter);
-            var deferred = $q.defer();
-            var matches = payees.filter(function (payee) {
-                if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;
-            })
-            $timeout(function () {
-                deferred.resolve(matches);
-            }, 100);
-            return deferred.promise;
-        };
-        return {
-            searchPayees: searchPayees
-        }
     })
 
     .factory('AccountsFactory', function ($firebaseArray, $q) {
@@ -260,6 +244,13 @@ angular.module('moneyleash.factories', [])
         }
     })
 
+    .service("CategoryTypeService", function () {
+        var cattype = this;
+        cattype.updateType = function (value) {
+            this.typeSelected = value;
+        }
+    })
+
     .service("PickParentCategoryService", function () {
         var cat = this;
         cat.updateParentCategory = function (value) {
@@ -302,6 +293,28 @@ angular.module('moneyleash.factories', [])
         transpayee.updatePayee = function (value, id) {
             this.payeeSelected = value;
             this.payeeid = id;
+        }
+    })
+
+    .factory('PayeeDataService', function ($firebaseArray, $q, $timeout) {
+        var ref = {};
+        var payees = {};
+        var fbAuth = fb.getAuth();
+        ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
+        payees = $firebaseArray(ref);
+        var searchPayees = function (searchFilter) {
+            //console.log('Searching airlines for ' + searchFilter);
+            var deferred = $q.defer();
+            var matches = payees.filter(function (payee) {
+                if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;
+            })
+            $timeout(function () {
+                deferred.resolve(matches);
+            }, 100);
+            return deferred.promise;
+        };
+        return {
+            searchPayees: searchPayees
         }
     })
 

@@ -13,7 +13,7 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
 })
 
 // PICK TRANSACTION PAYEE CONTROLLER
-moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeeDataService, PickTransactionPayeeService) {
+moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeesFactory, PayeeDataService, PickTransactionPayeeService) {
 
     $scope.data = { "payees": [], "search": '' };
     $scope.search = function () {
@@ -33,7 +33,7 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $st
             'lastcategoryid': '',
             'lastamount': ''
         };
-        var sync = PayeeDataService.getPayees();
+        var sync = PayeesFactory.getPayees();
         var payeeid = '';
         sync.$add($scope.currentItem).then(function (newChildRef) {
             payeeid = newChildRef.key();

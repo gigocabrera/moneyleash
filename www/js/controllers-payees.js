@@ -56,7 +56,7 @@ moneyleashapp.controller('PayeeController', function ($scope, $state, $ionicHist
     }
 })
 
-// CATEGORIES CONTROLLER
+// PAYEES CONTROLLER
 moneyleashapp.controller('PayeesController', function ($scope, $filter, $state, $ionicListDelegate, $ionicActionSheet, PayeesFactory) {
   
     // CREATE
