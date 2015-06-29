@@ -13,7 +13,7 @@
                             <small>
                                 <div id="transactionIcons">
                                     <ul>
-                                        <li>{{transaction.date | date:'MM/dd/yyyy'}}</li>
+                                        <li>{{transaction.date | date:'MMMM dd, yyyy'}}</li>
                                         <li><i class="fa fa-thumb-tack"></i>{{transaction.category}}</li>
                                         <li><i ng-class="{'fa fa-camera': transaction.photo.length > 0}"></i></li>
                                         <li><i ng-class="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
