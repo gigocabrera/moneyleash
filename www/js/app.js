@@ -200,7 +200,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         cache: false,
         views: {
             'menuContent': {
-                templateUrl: "templates/transactions.html",
+                templateUrl: "templates/transactionsByDay.html",
                 controller: 'TransactionsController'
             }
         }
@@ -270,6 +270,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.accountpreferences', {
+        url: "/accountpreferences",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/settings-accountpreferences.html",
+                controller: 'AccountPreferencesController'
+            }
+        }
+    })
 
     // RECURRING
     .state('app.recurring', {
@@ -330,15 +339,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
-    .state('app.payee', {
-        url: "/payee",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/payee.html",
-                controller: "PayeesController"
-            }
-        }
-    })
+    
     // BUDGETS
     .state('app.budgets', {
         url: "/budgets",

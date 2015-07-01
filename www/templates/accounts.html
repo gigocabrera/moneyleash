@@ -15,7 +15,6 @@
                             <small>
                                 <div id="transactionIcons">
                                     <ul>
-                                        <li>{{account.dateopen | date:'MMMM dd, yyyy'}}</li>
                                         <li><i class="fa fa-thumb-tack"></i>{{account.accounttype}}</li>
                                     </ul>
                                 </div>
@@ -24,7 +23,7 @@
                     </div>
                     <div class="col-50 right customAccAmt" ng-class="{textRed: account.balancecurrent < 0, textGreen: account.balancecurrent > 0}">
                         <span>
-                            {{account.balancetoday | currency}}
+                            {{account.balancecleared | currency}}
                             <small></small>
                         </span>
                     </div>

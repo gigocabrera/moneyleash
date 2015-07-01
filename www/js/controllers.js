@@ -57,7 +57,7 @@ moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHist
 // LOGIN CONTROLLER
 moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state, Auth, fireBaseData) {
 
-    $scope.user = {email: '', password: ''};
+    $scope.user = {email: 'gigo@test.com', password: '123'};
 
     $scope.doLogIn = function (user) {
 

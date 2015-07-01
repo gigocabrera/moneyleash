@@ -18,7 +18,7 @@
                                         <small>
                                             <div id="transactionIcons">
                                                 <ul>
-                                                    <li><i class="fa fa-tag" ng-class="{textRed: transaction.type == 'Expense', textGreen: transaction.type == 'Income'}"></i>{{transaction.category}}</li>
+                                                    <li><i class="fa fa-tag"></i>{{transaction.category}}</li>
                                                     <li><i ng-class="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
                                                     <li><i ng-class="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>
                                                     <li><i ng-class="{'fa fa-camera': transaction.photo.length > 0}"></i></li>
@@ -35,10 +35,10 @@
                                             {{transaction.runningbal | currency}}
                                         </small>
                                     </span>
-                                    <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared" ng-change="transactions.$save(transaction)">
+                                    <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared" ng-change="clearTransaction(transaction)">
                                 </div>
                             </div>
-                            <ion-option-button class="button-energized" ng-click="editTransaction($event, transaction)">
+                            <ion-option-button class="button-energized" ng-click="editTransaction(transaction)">
                                 &nbsp;&nbsp;Edit&nbsp;&nbsp;
                             </ion-option-button>
                             <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction)">

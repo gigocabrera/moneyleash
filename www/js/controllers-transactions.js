@@ -100,13 +100,21 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     }
 
     // EDIT
-    $scope.editTransaction = function ($event, transaction) {
+    $scope.editTransaction = function (transaction) {
         $ionicListDelegate.closeOptionButtons();
         $state.go('app.transaction', { accountId: $stateParams.accountId, accountName: $stateParams.accountName, transactionId: transaction.$id, transactionName: transaction.payee });
     };
 
+    // CLEAR
+    $scope.clearTransaction = function (transaction) {
+        $scope.transactions.$save(transaction);
+        init();
+    }
+
     // GET TRANSACTIONS
     var init = function () {
+        //
+        //console.log("init start");
         //
         $scope.groups = [];
         $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);

@@ -1,4 +1,19 @@
 
+// ACCOUNT PREFERENCES CONTROLLER
+moneyleashapp.controller('AccountPreferencesController', function ($scope, $state, $ionicHistory, PickTransactionTypeService) {
+
+    $scope.TransactionTypeList = [
+        { text: 'Income', value: 'Income' },
+        { text: 'Expense', value: 'Expense' },
+        { text: 'Transfer', value: 'Transfer' }];
+    $scope.currentItem = { typedisplay: PickTransactionTypeService.typeSelected };
+    $scope.itemchanged = function (item) {
+        PickTransactionTypeService.updateType(item.value);
+        $ionicHistory.goBack();
+    };
+
+})
+
 // SETTINGS CONTROLLER
 moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $state, $ionicActionSheet, $translate, fireBaseData, $ionicHistory, Auth) {
 
@@ -12,15 +27,6 @@ moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $st
     $scope.checkOpt3 = false;
     $scope.radioChoice = 'B';
 
-    $scope.showPersonalProfile = function () {
-        $state.go('app.personalprofile');
-    };
-    $scope.showGroupProfile = function () {
-        //$state.go('app.groupprofile');
-    };
-    $scope.openAccountTypes = function () {
-        $state.go('app.accounttypes');
-    };
     $scope.showAbout = function () {
         $state.go('app.about');
     };

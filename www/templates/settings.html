@@ -5,25 +5,23 @@
     <ion-content>
         <ion-list>
             <div class="item item-divider SectionDivider">General Settings</div>
-            <ion-item ng-click="showPersonalProfile($event)" href="#" class="item-icon-right">
-                <div class="customPaddingSettings">
-                    Personal Profile
-                    <i class="icon ion-chevron-right"></i>
-                </div>
-            </ion-item>
-            <ion-item ng-click="showGroupProfile($event)" href="#" class="item-icon-right">
-                <div class="customPaddingSettings">
-                    Group Profile
-                    <i class="icon ion-chevron-right"></i>
-                </div>
+            <ion-item class="item-icon-left mlSmallerFont item-icon-right" ui-sref="app.personalprofile">
+                <i class="fa fa-user iconPadding"></i>
+                Personal Profile
+                <i class="icon ion-chevron-right"></i>
             </ion-item>
             <div class="item item-divider SectionDivider">Account Settings</div>
-            <ion-item ng-click="openAccountTypes($event)" href="#" class="item-icon-right">
-                <div class="customPaddingSettings">
-                    Account Types
-                    <i class="icon ion-chevron-right"></i>
-                </div>
+            <ion-item class="item-icon-left mlSmallerFont item-icon-right" ui-sref="app.accounttypes">
+                <i class="fa fa-thumb-tack iconPadding"></i>
+                Account Types
+                <i class="icon ion-chevron-right"></i>
             </ion-item>
+            <ion-item class="item-icon-left mlSmallerFont item-icon-right" ui-sref="app.accountpreferences">
+                <i class="fa fa-file-text iconPadding"></i>
+                Account Preferences
+                <i class="icon ion-chevron-right"></i>
+            </ion-item>
+            
             <div class="item item-divider SectionDivider">Other Settings</div>
             <ion-item ng-click="showAbout($event)" href="#" class="item-icon-right">
                 <div class="customPaddingSettings">
