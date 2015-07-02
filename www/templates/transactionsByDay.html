@@ -35,7 +35,7 @@
                                             {{transaction.runningbal | currency}}
                                         </small>
                                     </span>
-                                    <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared" ng-change="clearTransaction(transaction)">
+                                    <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared" ng-change="transactions.$save(transaction)">
                                 </div>
                             </div>
                             <ion-option-button class="button-energized" ng-click="editTransaction(transaction)">

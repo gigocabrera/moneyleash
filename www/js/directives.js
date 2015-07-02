@@ -119,4 +119,24 @@ angular.module('moneyleash.directives', [])
         };
     })
 
+    // 
+    // http://gonehybrid.com/how-to-group-items-in-ionics-collection-repeat/
+    //
+    .directive('dividerCollectionRepeat', function ($parse) {
+        return {
+            priority: 1001,
+            compile: compile
+        };
+
+        function compile(element, attr) {
+            var height = attr.itemHeight || '69';
+            attr.$set('itemHeight', 'transaction.isDivider ? 24 : ' + height);
+
+            element.children().attr('ng-hide', 'transaction.isDivider');
+            element.prepend(
+                '<div class="item item-divider SectionDivider ng-hide" ng-show="transaction.isDivider" ng-bind="transaction.divider"></div>'
+            );
+        }
+    })
+
 ;

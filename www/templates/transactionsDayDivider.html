@@ -1,13 +1,46 @@
-<ion-view title={{AccountTitle}}>
+<ion-view title={{AccountTitle}} ng-init="list()">
     <ion-nav-buttons side="right">
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createTransaction('Add')"></button>
-        <button class="button button-icon ion-ios-more" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive customHeaderSize" ng-click="showSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
     </ion-nav-buttons>
     <ion-content class="has-header">
-        <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            
-            <content-item ng-repeat="transaction in transactions | reverselist" content="transaction"></content-item>
-            
+        <ion-list can-swipe="listCanSwipe">
+            <div collection-repeat="transaction in transactions | reverselist | filter:searchText | groupByMonthYear" divider-collection-repeat>
+                <ion-item class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}">
+                    <div class="row">
+                        <div class="col-50 customTransDesc">
+                            <span>
+                                {{transaction.payee}}
+                                <small>
+                                    <div id="transactionIcons">
+                                        <ul>
+                                            <li><i class="fa fa-tag"></i>{{transaction.category}}</li>
+                                            <li><i ng-class="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
+                                            <li><i ng-class="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>
+                                            <li><i ng-class="{'fa fa-camera': transaction.photo.length > 0}"></i></li>
+                                            <li><i ng-class="{'fa fa-exchange': transaction.istransfer == true }"></i></li>
+                                        </ul>
+                                    </div>
+                                </small>
+                            </span>
+                        </div>
+                        <div class="col-50 right customAccAmt" ng-class="{textRed: transaction.type == 'Expense', textGreen: transaction.type == 'Income'}">
+                            <span>
+                                {{transaction.amount | currency}}
+                                <small>
+                                    {{transaction.runningbal | currency}}
+                                </small>
+                            </span>
+                            <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared" ng-change="transactions.$save(transaction)">
+                        </div>
+                    </div>
+                    <ion-option-button class="button-energized" ng-click="editTransaction(transaction)">
+                        &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                    </ion-option-button>
+                    <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction)">
+                        Delete
+                    </ion-option-button>
+                </ion-item>
+            </div>
         </ion-list>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-dark">
