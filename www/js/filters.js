@@ -76,39 +76,25 @@
         var dividers = {};
         return function (input) {
             if (!input || !input.length) return;
-            var todaysDate = new Date();
-            var todayFlag = false;
-            var format = 'MMMM DD, YYYY';
             var output = [],
-                previousDate,
-                currentDate,
-                previousDay = '',
-                previousYear = '';
+				previousDate,
+				currentDate;
             for (var i = 0, ii = input.length; i < ii && (item = input[i]) ; i++) {
                 currentDate = moment(item.date);
-                if (!previousDay || currentDate.date() !== previousDay || currentDate.year() !== previousYear) {
-                    var dividerId = moment(currentDate).format(format);
-                    //console.log("3: " + dividerId + " - " + item.payee);
+                if (!previousDate || !currentDate.isSame(previousDate)) {
+                    var dividerId = moment(currentDate).format('MMMM DD, YYYY');
                     if (!dividers[dividerId]) {
-                        //var tday = moment(todaysDate).format(format);
-                        //if (tday === dividerId) {
-                        //    todayFlag = true;
-                        //} else {
-                        //    todayFlag = false;
-                        //}
                         dividers[dividerId] = {
                             isDivider: true,
-                            divider: moment(currentDate).format(format)
+                            _id: dividerId,
+                            divider: currentDate.format('MMMM DD, YYYY')
                         };
-                        output.push(dividers[dividerId]);
-                        //console.log("4: " + dividers[dividerId]);
                     }
+                    output.push(dividers[dividerId]);
                 }
                 output.push(item);
-                previousDay = currentDate.date();
-                previousYear = currentDate.year();
+                previousDate = currentDate;
             }
-            //console.log(output);
             return output;
         };
     })

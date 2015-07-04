@@ -181,6 +181,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             PickTransactionCategoryService.categorySelected = $scope.currentItem.category;
             PickTransactionCategoryService.categoryid = $scope.currentItem.categoryid;
             PickTransactionAmountService.amountSelected = $scope.currentItem.amount;
+            PickTransactionPayeeService.payeeSelected = $scope.currentItem.payee;
+            PickTransactionPayeeService.payeeid = $scope.currentItem.payeeid;
         });
         $scope.TransactionTitle = "Edit Transaction";
     }
