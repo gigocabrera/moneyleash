@@ -1,10 +1,18 @@
 <ion-view title={{AccountTitle}} ng-init="list()">
     <ion-nav-buttons side="right">
+        <button class="button-icon fa fa-search customHeaderIcon customHeaderIconSmall" ng-click="showSearch()"></button>
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createTransaction('Add')"></button>
     </ion-nav-buttons>
-    <ion-content class="has-header">
+    <div class="bar bar-subheader CustomSubHeader">
+        <div class="row center">
+            <div class="col balancesRow colBorder">Today&nbsp;Balance</div>
+            <div class="col balancesRow colBorder">Current&nbsp;Balance <span>{{ currentBalance | currency }}</span></div>
+            <div class="col balancesRow">Cleared&nbsp;Balance <span>{{ clearedBalance | currency }}</span></div>
+        </div>
+    </div>
+    <ion-content class="has-header has-subheader">
         <ion-list can-swipe="listCanSwipe">
-            <div collection-repeat="transaction in transactions | reverselist | filter:searchText | groupByDayMonthYear" divider-collection-repeat>
+            <div collection-repeat="transaction in transactions | reverselist | filter:searchText | groupByDayMonthYear" divider-collection-repeat class="ml_list">
                 <ion-item class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
                     <div class="row">
                         <div class="col-50 customTransDesc">
@@ -43,13 +51,4 @@
             </div>
         </ion-list>
     </ion-content>
-    <ion-footer-bar align-title="left" class="bar-dark">
-        <div class="buttons">
-            <button class="button button-icon customFooterIcon" ng-click="showSearch()"><i class="fa fa-search"></i></button>
-        </div>
-        <div class="footerTitle">Current: {{ currentBalance | currency }} | Cleared: {{ clearedBalance | currency }}</div>
-        <div class="buttons">
-            <button class="button button-icon customFooterIcon" ng-click="showFilters()"><i class="fa fa-filter"></i></button>
-        </div>
-    </ion-footer-bar>
 </ion-view>

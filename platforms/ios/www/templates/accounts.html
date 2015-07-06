@@ -1,21 +1,44 @@
 <ion-view title="Accounts" ng-init="list()">
     <ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        <button menu-toggle="left" class="button button-icon icon ion-navicon customHeaderIcon"></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="right button button-icon icon ion-plus" ng-click="create()"></button>
+        <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createAccount('Add')"></button>
     </ion-nav-buttons>
-    <ion-content class="has-header">
+    <div class="bar bar-subheader CustomSubHeader">
+        <div class="subTitle">Net Worth: {{networth | currency}}</div>
+    </div>
+    <ion-content class="has-header has-subheader">
         <ion-list can-swipe="listCanSwipe">
-            <ion-item ng-repeat="account in data.accounts" itemid="account" ng-click="closeItem($event)" href="#" class="item-icon-right">
-                {{account.title}}
-                <ion-option-button class="button-calm" ng-click="edit(account)">
-                    Edit
+            <ion-item ng-repeat="account in accounts" ng-click="handleSwipeOptions($event, account)" href="#" class="item-icon-right">
+                <div class="row AccountScreenPadding">
+                    <div class="col-50 customAccDesc">
+                        <span>
+                            {{account.accountname}}
+                            <small>
+                                <div id="transactionIcons">
+                                    <ul>
+                                        <li><i class="fa fa-thumb-tack"></i>{{account.accounttype}}</li>
+                                    </ul>
+                                </div>
+                            </small>
+                        </span>
+                    </div>
+                    <div class="col-50 right customAccAmt" ng-class="{textRed: account.balancecurrent < 0, textGreen: account.balancecurrent > 0}">
+                        <span>
+                            {{account.balancecleared | currency}}
+                            <small></small>
+                        </span>
+                    </div>
+                </div>
+                <ion-option-button class="button-energized" ng-click="editAccount(account)">
+                    &nbsp;&nbsp;Edit&nbsp;&nbsp;
                 </ion-option-button>
-                <ion-option-button class="button-assertive" ng-click="delete(account)">
+                <ion-option-button class="button-assertive" ng-click="deleteAccount(account)">
                     Delete
                 </ion-option-button>
                 <i class="icon ion-chevron-right"></i>
+                <ion-reorder-button class="ion-navicon" on-reorder="moveItem(account, $fromIndex, $toIndex)"></ion-reorder-button>
             </ion-item>
         </ion-list>
     </ion-content>

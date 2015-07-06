@@ -12,6 +12,7 @@
     padding-top: 4px;
     padding-bottom: 3px;
     min-height: 25px;
+    /*background-color: #D3EAF0;*/
 }
 .SectionDividerActive {
     color: #FF5E2E;
@@ -46,16 +47,6 @@
     border-color: #e67300;
     background-color: #ff8000;
 }
-/* Styles for number pad 
-.row, .col {
-    text-align: center;
-}
-.col {
-    margin: 5px !important;
-    border-radius: 8px !important;
-    padding: 15px 0px !important;
-}
-*/
 /* force color red */
 .redtext {
     color: red;
@@ -110,11 +101,11 @@
     font-size: 24px;
 }
 .ion-chevron-right:before {
-    color: #b5b5b5;
+    color: #31C0E6;
     font-size: 14px;
 }
 .customChevronMenu:before {
-    color: #ff7100;
+    color: #31C0E6;
 }
 .item-complex.item-icon-right .item-content {
     padding-right: 40px;
@@ -125,15 +116,18 @@
 .item-icon-left {
     padding-left: 40px;
 }
+.CustomSubHeader {
+    background-color: #D3EAF0;
+}
 .customHeaderIcon:before {
-    color: #ff7100;
+    color: #31C0E6;
     font-size: 32px;
 }
 .customHeaderIconSmall:before {
     font-size: 20px;
 }
 .bar .button.back-button {
-    color: #ff7100;
+    color: #31C0E6;
 }
 button.customHeaderSize {
     font-size: 20px;
@@ -142,7 +136,7 @@ button.customHeaderSize {
     color: #fff;
     text-shadow: 0 -1px 0 #bfbfbf;
 }
-.footerTitle {
+.subTitle {
     font: 16px 'PT Sans', sans-serif;
     margin-top: 10px;
     margin-left: auto;
@@ -155,12 +149,29 @@ button.customHeaderSize {
 .row {
     padding: 0;
 }
+.col {
+    padding: 0;
+}
+.colBorder {
+    border-right: 1px solid #AED9E3;
+}
 .AccountScreenPadding {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.right{
+.right {
     text-align: right;
+}
+.center {
+    text-align: center;
+}
+.balancesRow {
+    font-weight: bold;
+    font: 13px 'PT Sans', sans-serif;
+}
+.balancesRow span {
+    font-weight: bold;
+    font-size: 15px;
 }
 .customAccDesc {
     text-align: left;
@@ -557,7 +568,7 @@ i.customChevronForm {
     background-color: transparent;
 }
 i.customChevronForm:before {
-    color: #ff7100;
+    color: #31C0E6;
     font-size: 16px;
 }
 .item-select select {

@@ -5,7 +5,10 @@
     <ion-nav-buttons side="right">
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createAccount('Add')"></button>
     </ion-nav-buttons>
-    <ion-content class="has-header">
+    <div class="bar bar-subheader CustomSubHeader">
+        <div class="subTitle">Net Worth: {{networth | currency}}</div>
+    </div>
+    <ion-content class="has-header has-subheader">
         <ion-list can-swipe="listCanSwipe">
             <ion-item ng-repeat="account in accounts" ng-click="handleSwipeOptions($event, account)" href="#" class="item-icon-right">
                 <div class="row AccountScreenPadding">
@@ -39,13 +42,4 @@
             </ion-item>
         </ion-list>
     </ion-content>
-    <ion-footer-bar align-title="left" class="bar-dark">
-        <div class="buttons">
-            <button class="button button-icon customFooterIcon" ng-click="showSearch()"><i class="fa fa-search"></i></button>
-        </div>
-        <h1 class="title">Net Worth: {{networth | currency}}</h1>
-        <div class="buttons">
-            <button class="button button-icon customFooterIcon" ng-click="showFilters()"><i class="fa fa-filter"></i></button>
-        </div>
-    </ion-footer-bar>
 </ion-view>

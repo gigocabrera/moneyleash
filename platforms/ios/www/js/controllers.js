@@ -1,177 +1,18 @@
+
 var moneyleashapp = angular.module('moneyleash.controllers', [])
-var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com/");
 
-// APP
-moneyleashapp.controller('AppCtrl', function ($scope) {
+// APP CONTROLLER : SIDE MENU
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet, $ionicHistory, Auth) {
 
-})
-
-// WALKTHROUGH
-moneyleashapp.controller('WalkthroughCtrl', function ($scope, $state) {
-    $scope.goToLogIn = function () {
-        $state.go('login');
-    };
-
-    $scope.goToSignUp = function () {
-        $state.go('signup');
-    };
-})
-
-moneyleashapp.controller("LoginController", function ($scope, $firebaseAuth, $state) {
-
-    $scope.login = function(username, password) {
-        var fbAuth = $firebaseAuth(fb);
-        fbAuth.$authWithPassword({
-            email: username,
-            password: password
-        }).then(function(authData) {
-            $state.go('app.accounts');
-        }).catch(function(error) {
-            alert("ERROR: " + error);
-        });
-    }
- 
-    $scope.register = function(username, password) {
-        var fbAuth = $firebaseAuth(fb);
-        fbAuth.$createUser({email: username, password: password}).then(function() {
-            return fbAuth.$authWithPassword({
-                email: username,
-                password: password
-            });
-        }).then(function(authData) {
-            $state.go('app.accounts');
-        }).catch(function(error) {
-            alert("ERROR " + error);
-        });
-    }
- 
-})
-
-moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
-    $scope.recoverPassword = function () {
-        $state.go('app.accounts');
-    };
-
-    $scope.goToLogIn = function () {
-        $state.go('login');
-    };
-
-    $scope.goToSignUp = function () {
-        $state.go('signup');
-    };
-
-    $scope.user = {};
-})
-
-// Account List Controller
-moneyleashapp.controller('AccountsController', function ($scope, $state, $firebaseObject, $ionicPopup, $ionicListDelegate) {
-
-    $scope.listCanSwipe = true;
-
-    $scope.closeItem = function ($event) {
-        $event.stopPropagation();
-        $ionicListDelegate.closeOptionButtons();
-    };
-
-    $scope.itemClick = function () {
-        console.info('itemClick');
-        document.getElementById('click-notify').style.display = 'block';
-        setTimeout(function () {
-            document.getElementById('click-notify').style.display = 'none';
-        }, 500);
-    };
-
-    $scope.data = {
-        showDelete: false
-    };
-
-    $scope.edit = function (item) {
-        alert('Edit Item: ' + item.title);
-    };
-
-    $scope.delete = function (item) {
-        alert('delete Item: ' + item.title);
-    };
-
-    $scope.list = function () {
-        fbAuth = fb.getAuth();
-        if (fbAuth) {
-            var syncObject = $firebaseObject(fb.child("users/" + fbAuth.uid));
-            syncObject.$bindTo($scope, "data");
-        }
-    }
-
-    $scope.create = function () {
-        $ionicPopup.prompt({
-            title: 'Enter a new ACCOUNT item',
-            inputType: 'text'
-        })
-        .then(function (result) {
-            if (result !== "") {
-                if ($scope.data.hasOwnProperty("accounts") !== true) {
-                    $scope.data.accounts = [];
-                }
-                $scope.data.accounts.push({ title: result });
-            } else {
-                console.log("Action not completed");
-            }
-        });
-    }
-
-    $scope.addAccount = function() {
-        $state.go('app.accountmaintenance');
-        //$scope.accounts.push({ title: 'New Account', id: 4 })
-    }
-})
-
-// Single Account Controller
-moneyleashapp.controller('AccountCtrl', function ($scope, $stateParams) {
-
-})
-
-// Recurring List Controller
-moneyleashapp.controller('RecurringListCtrl', function ($scope) {
-    
-    $scope.shouldShowDelete = false;
-    $scope.shouldShowReorder = false;
-    $scope.listCanSwipe = true
-
-    $scope.recurringlist = [
-        { title: 'Recurring1', id: 1 },
-        { title: 'Recurring2', id: 2 },
-        { title: 'Recurring3', id: 3 },
-    ];
-
-    $scope.addRecurringItem = function() {
-        $scope.recurringlist.push({title: 'New Recurring', id: 4})
-    }
-})
-
-// SETTINGS
-moneyleashapp.controller('SettingsCtrl', function ($scope, $ionicActionSheet, $state) {
-    $scope.airplaneMode = true;
-    $scope.wifi = false;
-    $scope.bluetooth = true;
-    $scope.personalHotspot = true;
-
-    $scope.checkOpt1 = true;
-    $scope.checkOpt2 = true;
-    $scope.checkOpt3 = false;
-
-    $scope.radioChoice = 'B';
+    $scope.showMenuIcon = true;
 
     // Triggered on a the logOut button click
     $scope.showLogOutMenu = function () {
 
         // Show the action sheet
-        var hideSheet = $ionicActionSheet.show({
-            //Here you can add some more buttons
-            // buttons: [
-            // { text: '<b>Share</b> This' },
-            // { text: 'Move' }
-            // ],
+        $ionicActionSheet.show({
             destructiveText: 'Logout',
-            titleText: 'Are you sure you want to logout? This app is awsome so I recommend you to stay.',
+            titleText: 'Are you sure you want to logout?',
             cancelText: 'Cancel',
             cancel: function () {
                 // add cancel code..
@@ -180,205 +21,283 @@ moneyleashapp.controller('SettingsCtrl', function ($scope, $ionicActionSheet, $s
                 //Called when one of the non-destructive buttons is clicked,
                 //with the index of the button that was clicked and the button object.
                 //Return true to close the action sheet, or false to keep it opened.
+                var myButton = index;
                 return true;
             },
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                $state.go('login');
+                $ionicHistory.clearCache();
+                Auth.$unauth();
+                $state.go('intro');
             }
         });
-
     };
 })
 
-// FORMS
-moneyleashapp.controller('FormsCtrl', function ($scope) {
-
+// ABOUT CONTROLLER
+moneyleashapp.controller('AboutController', function ($scope, $ionicSlideBoxDelegate) {
+    $scope.navSlide = function (index) {
+        $ionicSlideBoxDelegate.slide(index, 500);
+    }
 })
 
-// PROFILE
-moneyleashapp.controller('ProfileCtrl', function ($scope) {
-
+// INTRO CONTROLLER
+moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHistory) {
+    $ionicHistory.clearHistory();
+    $scope.hideBackButton = true;
+    $scope.login = function () {
+        $state.go('login');
+    };
+    $scope.register = function () {
+        $state.go('register');
+    };
 })
 
-// TINDER CARDS
-moneyleashapp.controller('TinderCardsCtrl', function ($scope, $http) {
+// LOGIN CONTROLLER
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state, Auth, fireBaseData) {
 
-    $scope.cards = [];
+    $scope.user = {email: 'gigo@test.com', password: '123'};
 
+    $scope.doLogIn = function (user) {
 
-    $scope.addCard = function (img, name) {
-        var newCard = { image: img, name: name };
-        newCard.id = Math.random();
-        $scope.cards.unshift(angular.extend({}, newCard));
+        $rootScope.show('Logging In...');
+
+        /* Check user fields*/
+        if (!user.email || !user.password) {
+            $rootScope.hide();
+            $rootScope.notify('Oops', 'Please check your Email or Password!');
+            return;
+        }
+
+        /* All good, let's authentify */
+        Auth.$authWithPassword({
+            email: user.email,
+            password: user.password
+        }).then(function (authData) {
+            $rootScope.hide();
+            $state.go('app.dashboard');
+        }).catch(function (error) {
+            console.log(error);
+            $rootScope.hide();
+            $rootScope.notify('Error', 'Email or Password is incorrect!');
+        });
+    }
+})
+
+//REGISTER CONTROLLER
+moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $firebase, $firebaseArray, $firebaseAuth, MembersFactory, fireBaseData) {
+
+    $scope.user = {};
+
+    $scope.goToLogIn = function () {
+        $state.go('login');
     };
 
-    $scope.addCards = function (count) {
-        $http.get('http://api.randomuser.me/?results=' + count).then(function (value) {
-            angular.forEach(value.data.results, function (v) {
-                $scope.addCard(v.user.picture.large, v.user.name.first + " " + v.user.name.last);
-            });
+    $scope.createMember = function (user) {
+        var firstname = user.firstname;
+        var lastname = user.lastname;
+        var email = user.email;
+        var password = user.password;
+
+        if (!firstname || !lastname || !email || !password) {
+            $rootScope.notify("Please enter valid credentials");
+            return false;
+        }
+
+        $rootScope.show('Registering...');
+
+        fb.createUser({
+            email: email,
+            password: password
+        }, function (error, userData) {
+            if (error) {
+                switch (error.code) {
+                    case "EMAIL_TAKEN":
+                        $rootScope.hide();
+                        $rootScope.notify('The new user account cannot be created because the email is already in use.');
+                        break;
+                    case "INVALID_EMAIL":
+                        $rootScope.hide();
+                        $rootScope.notify('The specified email is not a valid email.');
+                        break;
+                    default:
+                        $rootScope.hide();
+                        $rootScope.notify('Oops. Something went wrong.');
+                }
+            } else {
+                fb.authWithPassword({
+                    "email": email,
+                    "password": password
+                }, function (error, authData) {
+                    if (error) {
+                        $rootScope.hide();
+                        $rootScope.notify('Error', 'Login failed!');
+                    } else {
+                        /* PREPARE DATA FOR FIREBASE*/
+                        $scope.temp = {
+                            firstname: user.firstname,
+                            lastname: user.lastname,
+                            email: user.email,
+                            groupid: 0,
+                            datecreated: Date.now(),
+                            dateupdated: Date.now()
+                        }
+                        /* SAVE MEMBER DATA */
+                        var membersref = MembersFactory.ref();
+                        var newUser = membersref.child(authData.uid);
+                        newUser.update($scope.temp, function (ref) {
+                            $rootScope.hide();
+                            $state.go('app.about');
+                        });
+                        /* SAVE DEFAULT ACCOUNT TYPES DATA FOR THIS MEMBER */
+                        var newtyperef = membersref.child(authData.uid).child("accounttypes");
+                        var sync = $firebaseArray(newtyperef);
+                        sync.$add({ name: 'Checking', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                        sync.$add({ name: 'Savings', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                        sync.$add({ name: 'Credit Card', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                        sync.$add({ name: 'Debit Card', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                        sync.$add({ name: 'Investment', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                        sync.$add({ name: 'Brokerage', icon: '0' }).then(function (newChildRef) {
+                            $scope.temp = {
+                                accountid: newChildRef.key()
+                            };
+                        });
+                    }
+                });
+            }
         });
     };
 
-    $scope.addFirstCards = function () {
-        $scope.addCard("https://dl.dropboxusercontent.com/u/30675090/envato/tinder-cards/left.png", "Nope");
-        $scope.addCard("https://dl.dropboxusercontent.com/u/30675090/envato/tinder-cards/right.png", "Yes");
+})
+
+// FORGOT PASSWORD CONTROLLER
+moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
+
+    $scope.user = {};
+
+    $scope.recoverPassword = function (user) {
+        //$state.go('accounts');
+        //console.log(user.email);
     };
 
-    $scope.addFirstCards();
-    $scope.addCards(5);
-
-    $scope.cardDestroyed = function (index) {
-        $scope.cards.splice(index, 1);
-        $scope.addCards(1);
+    $scope.login = function () {
+        $state.go('login');
     };
 
-    $scope.transitionOut = function (card) {
-        console.log('card transition out');
-    };
-
-    $scope.transitionRight = function (card) {
-        console.log('card removed to the right');
-        console.log(card);
-    };
-
-    $scope.transitionLeft = function (card) {
-        console.log('card removed to the left');
-        console.log(card);
+    $scope.register = function () {
+        $state.go('register');
     };
 })
 
-
-// BOOKMARKS
-moneyleashapp.controller('BookMarksCtrl', function ($scope, $rootScope, BookMarkService, $state) {
-
-    $scope.bookmarks = BookMarkService.getBookmarks();
-
-    // When a new post is bookmarked, we should update bookmarks list
-    $rootScope.$on("new-bookmark", function (event) {
-        $scope.bookmarks = BookMarkService.getBookmarks();
-    });
-
-    $scope.goToFeedPost = function (link) {
-        window.open(link, '_blank', 'location=yes');
+// DASHBOARD CONTROLLER
+moneyleashapp.controller('DashboardController', function ($scope, $state, $stateParams) {
+    
+    $scope.editTransaction = function (item) {
+        //alert('Edit Item: ' + item.id);
+        $state.go('app.itemdetailsview', { itemId: item.id });
     };
-    $scope.goToWordpressPost = function (postId) {
-        $state.go('app.post', { postId: postId });
+    $scope.deleteTransaction = function (item) {
+        alert('Delete Item: ' + item.id);
+    };
+
+    $scope.items = [
+      { id: 0 },
+      { id: 1 },
+      { id: 2 },
+      { id: 3 },
+      { id: 4 },
+      { id: 5 },
+      { id: 6 },
+      { id: 7 },
+      { id: 8 },
+      { id: 9 },
+      { id: 10 },
+      { id: 11 },
+      { id: 12 },
+      { id: 13 },
+      { id: 14 },
+      { id: 15 },
+      { id: 16 },
+      { id: 17 },
+      { id: 18 },
+      { id: 19 },
+      { id: 20 },
+      { id: 21 },
+      { id: 22 },
+      { id: 23 },
+      { id: 24 },
+      { id: 25 },
+      { id: 26 },
+      { id: 27 },
+      { id: 28 },
+      { id: 29 },
+      { id: 30 },
+      { id: 31 },
+      { id: 32 },
+      { id: 33 },
+      { id: 34 },
+      { id: 35 },
+      { id: 36 },
+      { id: 37 },
+      { id: 38 },
+      { id: 39 },
+      { id: 40 },
+      { id: 41 },
+      { id: 42 },
+      { id: 43 },
+      { id: 44 },
+      { id: 45 },
+      { id: 46 },
+      { id: 47 },
+      { id: 48 },
+      { id: 49 },
+      { id: 50 }
+    ];
+})
+
+// Sample code - to be removed when going live
+moneyleashapp.controller('ItemDetailsCtrl', function ($scope, $state, $stateParams) {
+    $scope.item = { id: $stateParams.itemId };
+    $scope.sizechanged = function (item) {
+        var test = item;
+        //$state.go('eventmenu.checkin');
     };
 })
 
-// SLIDER
-moneyleashapp.controller('SliderCtrl', function ($scope, $http, $ionicSlideBoxDelegate) {
-
+// RECURRING CONTROLLER
+moneyleashapp.controller('RecurringController', function ($scope) {
+    $scope.temp = '';
 })
 
-// WORDPRESS
-moneyleashapp.controller('WordpressCtrl', function ($scope, $http, $ionicLoading, PostService, BookMarkService) {
-    $scope.posts = [];
-    $scope.page = 1;
-    $scope.totalPages = 1;
-
-    $scope.doRefresh = function () {
-        $ionicLoading.show({
-            template: 'Loading posts...'
-        });
-
-        //Always bring me the latest posts => page=1
-        PostService.getRecentPosts(1)
-		.then(function (data) {
-
-		    $scope.totalPages = data.pages;
-		    $scope.posts = PostService.shortenPosts(data.posts);
-
-		    $ionicLoading.hide();
-		    $scope.$broadcast('scroll.refreshComplete');
-		});
+// ACCOUNT TYPE MODAL CONTROLLER
+.controller('AccountTypeModalController', function ($scope) {
+    $scope.hideModal = function () {
+        $scope.modalCtrl.hide();
     };
-
-    $scope.loadMoreData = function () {
-        $scope.page += 1;
-
-        PostService.getRecentPosts($scope.page)
-		.then(function (data) {
-		    //We will update this value in every request because new posts can be created
-		    $scope.totalPages = data.pages;
-		    var new_posts = PostService.shortenPosts(data.posts);
-		    $scope.posts = $scope.posts.concat(new_posts);
-
-		    $scope.$broadcast('scroll.infiniteScrollComplete');
-		});
+    $scope.selectAccountType = function (type) {
+        $scope.currentItem.accounttype = type.name;
+        $scope.modalCtrl.hide();
     };
-
-    $scope.moreDataCanBeLoaded = function () {
-        return $scope.totalPages > $scope.page;
-    };
-
-    $scope.bookmarkPost = function (post) {
-        $ionicLoading.show({ template: 'Post Saved!', noBackdrop: true, duration: 1000 });
-        BookMarkService.bookmarkWordpressPost(post);
-    };
-
-    $scope.doRefresh();
-})
-
-// WORDPRESS POST
-moneyleashapp.controller('WordpressPostCtrl', function ($scope, $http, $stateParams, PostService, $ionicLoading) {
-
-    $ionicLoading.show({
-        template: 'Loading post...'
-    });
-
-    var postId = $stateParams.postId;
-    PostService.getPost(postId)
-	.then(function (data) {
-	    $scope.post = data.post;
-	    $ionicLoading.hide();
-	});
-
-    $scope.sharePost = function (link) {
-        window.plugins.socialsharing.share('Check this post here: ', null, null, link);
-    };
-})
-
-
-moneyleashapp.controller('ImagePickerCtrl', function ($scope, $rootScope, $cordovaCamera) {
-
-    $scope.images = [];
-
-    $scope.selImages = function () {
-
-        window.imagePicker.getPictures(
-			function (results) {
-			    for (var i = 0; i < results.length; i++) {
-			        console.log('Image URI: ' + results[i]);
-			        $scope.images.push(results[i]);
-			    }
-			    if (!$scope.$$phase) {
-			        $scope.$apply();
-			    }
-			}, function (error) {
-			    console.log('Error: ' + error);
-			}
-		);
-    };
-
-    $scope.removeImage = function (image) {
-        $scope.images = _.without($scope.images, image);
-    };
-
-    $scope.shareImage = function (image) {
-        window.plugins.socialsharing.share(null, null, image);
-    };
-
-    $scope.shareAll = function () {
-        window.plugins.socialsharing.share(null, null, $scope.images);
-    };
-})
-
-
-// LAYOUTS
-moneyleashapp.controller('LayoutsCtrl', function ($scope) {
-
+    $scope.data = { accountType: $scope.currentItem.accounttype };
 })

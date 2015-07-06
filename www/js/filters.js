@@ -72,6 +72,9 @@
         };
     })
 
+    // 
+    // http://gonehybrid.com/how-to-group-items-in-ionics-collection-repeat/
+    //
     moneyleashapp.filter('groupByDayMonthYear', function ($parse) {
         var dividers = {};
         return function (input) {

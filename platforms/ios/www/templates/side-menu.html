@@ -1,49 +1,74 @@
 <ion-side-menus enable-menu-with-back-views="false">
-    <ion-side-menu-content class="post-size-14px">
-        <ion-nav-bar class="bar app-top-bar">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-positive">
             <ion-nav-back-button>
             </ion-nav-back-button>
             <ion-nav-buttons side="left">
-                <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+                <button class="button button-icon button-clear ion-navicon customHeaderIcon customHeaderIconSize" menu-toggle="left"></button>
             </ion-nav-buttons>
         </ion-nav-bar>
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
-    <ion-side-menu side="left" class="main-menu" expose-aside-when="large">
+    <ion-side-menu side="left">
+        <ion-header-bar class="bar-stable">
+            <h1 class="HeaderTitle">Money Leash v1.0</h1>
+        </ion-header-bar>
         <ion-content>
             <ion-list>
-                <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.profile">
-                    <img ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg">
-                    <h2 class="greeting">Hi Monica</h2>
-                    <p class="message">Welcome back</p>
+                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.dashboard">
+                    <div class="customPaddingMenuItem">
+                        <i class="icon ion-ios-home-outline icon-left-smaller"></i>
+                        Dashboard
+                        <i class="icon ion-chevron-right customChevronMenu"></i>
+                    </div>
                 </ion-item>
                 <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.accounts">
-                    <i class="icon ion-clipboard"></i>
-                    <h2 class="menu-text">Accounts</h2>
+                    <div class="customPaddingMenuItem">
+                        <i class="icon ion-ios-browsers-outline icon-left-smaller"></i>
+                        Accounts
+                        <i class="icon ion-chevron-right customChevronMenu"></i>
+                    </div>
                 </ion-item>
-                <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.recurringlist">
-                    <i class="icon ion-loop"></i>
-                    <h2 class="menu-text">Recurring</h2>
+                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.categories">
+                    <div class="customPaddingMenuItem">
+                        <i class="icon ion-ios-pricetags-outline icon-left-smaller"></i>
+                        Categories
+                        <i class="icon ion-chevron-right customChevronMenu"></i>
+                    </div>
                 </ion-item>
-                <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.categories">
-                    <i class="icon ion-pricetags"></i>
-                    <h2 class="menu-text">Categories</h2>
+                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.payees">
+                    <div class="customPaddingMenuItem">
+                        <i class="icon ion-ios-flame-outline icon-left-smaller"></i>
+                        Payees
+                        <i class="icon ion-chevron-right customChevronMenu"></i>
+                    </div>
                 </ion-item>
-                <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.payees">
-                    <i class="icon ion-person-stalker"></i>
-                    <h2 class="menu-text">Payees</h2>
+                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.recurring">
+                    <div class="customPaddingMenuItem">
+                        <i class="icon ion-ios-loop icon-left-smaller"></i>
+                        Recurring
+                        <i class="icon ion-chevron-right customChevronMenu"></i>
+                    </div>
                 </ion-item>
-                <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.budgets">
-                    <i class="icon ion-wand"></i>
-                    <h2 class="menu-text">Budgets</h2>
+                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.budgets">
+                    <div class="customPaddingMenuItem">
+                        <i class="icon ion-ios-color-wand-outline icon-left-smaller"></i>
+                        Budgets
+                        <i class="icon ion-chevron-right customChevronMenu"></i>
+                    </div>
                 </ion-item>
-                <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.settings">
-                    <i class="icon ion-gear-a"></i>
-                    <h2 class="menu-text">Settings</h2>
+                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.settings">
+                    <div class="customPaddingMenuItem">
+                        <i class="icon ion-ios-gear-outline icon-left-smaller"></i>
+                        Settings
+                        <i class="icon ion-chevron-right customChevronMenu"></i>
+                    </div>
                 </ion-item>
-                <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.about">
-                    <i class="icon ion-pin"></i>
-                    <h2 class="menu-text">About</h2>
+                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ng-click="showLogOutMenu()">
+                    <div class="customPaddingMenuItem">
+                        <i class="icon ion-ios-undo-outline icon-left-smaller redtext"></i>
+                        <h2 class="menu-text redtext">Logout</h2>
+                    </div>
                 </ion-item>
             </ion-list>
         </ion-content>

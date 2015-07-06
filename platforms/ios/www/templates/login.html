@@ -1,24 +1,30 @@
-<ion-view title="Sign In">
-    <ion-content>
-        <div class="padding-left padding-top padding-right">
-            <h1>Welcome</h1>
-        </div>
-        <div>
+<ion-view view-title="{{'SIGNIN' | translate}}" cache-view="false">
+    <ion-nav-bar class="bar-stable">
+        <h4>{{'SIGNIN' | translate}}</h4>
+    </ion-nav-bar>
+    <ion-content scroll="false">
+        <form name="LoginForm" ng-submit="doLogin(user)">
             <div class="list list-inset">
-                <label class="item item-input">
-                    <input ng-model="username" type="text" placeholder="Username" />
+                <label class="item item-input ml-login-input">
+                    <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
                 </label>
-                <label class="item item-input">
-                    <input ng-model="password" type="password" placeholder="Password" />
+                <label class="item item-input ml-login-input">
+                    <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
                 </label>
             </div>
             <div class="padding">
-                <button ng-click="login(username, password)" class="button button-block button-stable">Sign In</button>
-                <button ng-click="register(username, password)" class="button button-block button-dark">Register</button>
-                <p>
-                    Sign into this application
-                </p>
+                <input type="submit" class="button button-block button-energized button-theme" ng-click="doLogIn(user)" placeholder="{{"SIGNIN" | translate}}" />
+                <div class="row">
+                    <div class="col">
+                        <a href="#/forgot-password" class="mlLinksBlue">{{"REGISTER_FORGOTPASSWORD" | translate}}</a>
+                    </div>
+                    <div class="col">
+                        <p class="text-right">
+                            <a href="#/register" class="mlLinksBlue">{{"REGISTER_DONTHAVEACCOUNT" | translate}}</a>
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
     </ion-content>
 </ion-view>

@@ -1,45 +1,45 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
-
-    <!-- build:css dist_css/styles.css -->
-    <link href="css/ionic.app.css" rel="stylesheet">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">    
+    <title>Money Leash</title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="lib/ionic-datepicker/dist/style.css" rel="stylesheet">
+    <link href="lib/datePicker/css/angular-pickadate.css" rel="stylesheet">
+    <link href="lib/ion-autocomplete/dist/ion-autocomplete.min.css" rel="stylesheet">
     <link href="css/moneyleash.css" rel="stylesheet">
-    <!-- endbuild -->
 
-    <script src="http://maps.google.com/maps/api/js"></script>
-    <!-- build:js dist_js/modules.js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="lib/angular-resource/angular-resource.min.js"></script>
-    <script src="lib/underscore/underscore-min.js"></script>
-    <script src="lib/ngmap/build/scripts/ng-map.min.js"></script>
-    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
-    <script src="lib/moment/min/moment.min.js"></script>
-    <script src="lib/angular-moment/angular-moment.min.js"></script>
-    <script src="lib/angular-slugify/dist/angular-slugify.min.js"></script>
-    <script src="lib/collide/collide.js"></script>
-    <script src="lib/ionic-contrib-tinder-cards/ionic.tdcards.js"></script>
-    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
-    <!-- endbuild -->
-    
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.js"></script> 
+    <script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.1.1/angularfire.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.4/angular-filter.min.js"></script>
 
-    <!-- build:js dist_js/app.js -->
-    <script src="js/firebase.js"></script>
-    <script src="js/angularfire.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
+    <script src="js/controllers-categories.js"></script>
+    <script src="js/controllers-payees.js"></script>
+    <script src="js/controllers-accounts.js"></script>
+    <script src="js/controllers-account.js"></script>
+    <script src="js/controllers-settings.js"></script>
+    <script src="js/controllers-personalprofile.js"></script>
+    <script src="js/controllers-accounttypes.js"></script>
+    <script src="js/controllers-transactions.js"></script>
+    <script src="js/controllers-transaction.js"></script>
     <script src="js/directives.js"></script>
-    <script src="js/filters.js"></script>
-    <script src="js/services.js"></script>
     <script src="js/factories.js"></script>
-    <script src="js/templates.js"></script>
-    <script src="js/config.js"></script>
-    <!-- endbuild -->
+    <script src="js/filters.js"></script>
+    <script src="js/angular-translate.min.js"></script>
+    <script src="lib/ionic-datepicker/dist/templates.js"></script>
+    <script src="lib/ionic-datepicker/dist/ionic-datepicker.js"></script>
+    <script src="lib/datePicker/js/angular-pickadate.js"></script>
+    <script src="lib/ion-autocomplete/dist/ion-autocomplete.min.js"></script>
+    <script src="js/ion-affix.js"></script>
+    <script src="js/moment.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="cordova.js"></script>
 
 </head>
 <body ng-app="moneyleash" class="platform-ios platform-cordova platform-webview">

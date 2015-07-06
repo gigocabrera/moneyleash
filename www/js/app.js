@@ -4,9 +4,9 @@ var fb = '';
 fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker', 'ngAnimate', 'ion-affix', 'pickadate'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngCordova', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ionic-datepicker', 'ngAnimate', 'ion-affix', 'pickadate'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth) {
+moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ionicLoading, $state, Auth) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -15,7 +15,9 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
         }
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
-            StatusBar.styleDefault();
+            //StatusBar.styleDefault();
+            $cordovaStatusbar.overlaysWebView(true);
+            $cordovaStatusBar.style(1)
         }
         $rootScope.settings = {
             'languages': [{

@@ -1,212 +1,321 @@
+
 angular.module('moneyleash.factories', [])
 
-.factory('FeedLoader', function ($resource){
-  return $resource('http://ajax.googleapis.com/ajax/services/feed/load', {}, {
-    fetch: { method: 'JSONP', params: {v: '1.0', callback: 'JSON_CALLBACK'} }
-  });
-})
+    .factory('Auth', function ($firebaseAuth) {
+        return $firebaseAuth(fb);
+    })
 
+    .factory('MembersFactory', function ($firebaseArray, $q) {
+        var ref = fb.child("members");
+        return {
+            ref: function () {
+                return ref;
+            },
+            getMembers: function () {
+                var members = $firebaseArray(ref);
+                return members;
+            },
+            getMember: function (userid) {
+                var deferred = $q.defer();
+                var memberRef = ref.child(userid);
+                memberRef.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
+        };
+    })
 
-// Factory for node-pushserver (running locally in this case), if you are using other push notifications server you need to change this
-.factory('NodePushServer', function ($http){
-  // Configure push notifications server address
-  // 		- If you are running a local push notifications server you can test this by setting the local IP (on mac run: ipconfig getifaddr en1)
-  var push_server_address = "http://192.168.1.102:8000";
+    .factory("AccountWithBalance", ["$firebaseArray",
+        function($firebaseArray) {
+            var AccountWithBalance = $firebaseArray.$extend({
+                getBalance: function() {
+                    var balance = 0;
+                    // the array data is located in this.$list
+                    angular.forEach(this.$list, function(rec) {
+                        balance += rec.startbalance;
+                    });
+                    return balance;
+                }
+            });
+            return function(listRef) {
+                return new AccountWithBalance(listRef);
+            }
+        }
+    ])
 
-  return {
-    // Stores the device token in a db using node-pushserver
-    // type:  Platform type (ios, android etc)
-    storeDeviceToken: function(type, regId) {
-      // Create a random userid to store with it
-      var user = {
-        user: 'user' + Math.floor((Math.random() * 10000000) + 1),
-        type: type,
-        token: regId
-      };
-      console.log("Post token for registered device with data " + JSON.stringify(user));
+    .factory('PayeesFactory', function ($firebaseArray, $q) {
+        var ref = {};
+        var fbAuth = fb.getAuth();
+        var payees = {};
+        return {
+            getPayees: function () {
+                ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
+                categories = $firebaseArray(ref);
+                return categories;
+            },
+        };
+    })
 
-      $http.post(push_server_address+'/subscribe', JSON.stringify(user))
-      .success(function (data, status) {
-        console.log("Token stored, device is successfully subscribed to receive push notifications.");
-      })
-      .error(function (data, status) {
-        console.log("Error storing device token." + data + " " + status);
-      });
-    },
-    // CURRENTLY NOT USED!
-    // Removes the device token from the db via node-pushserver API unsubscribe (running locally in this case).
-    // If you registered the same device with different userids, *ALL* will be removed. (It's recommended to register each
-    // time the app opens which this currently does. However in many cases you will always receive the same device token as
-    // previously so multiple userids will be created with the same token unless you add code to check).
-    removeDeviceToken: function(token) {
-      var tkn = {"token": token};
-      $http.post(push_server_address+'/unsubscribe', JSON.stringify(tkn))
-      .success(function (data, status) {
-        console.log("Token removed, device is successfully unsubscribed and will not receive push notifications.");
-      })
-      .error(function (data, status) {
-        console.log("Error removing device token." + data + " " + status);
-      });
-    }
-  };
-})
+    .factory('CategoriesFactory', function ($firebaseArray, $q) {
+        var ref = {};
+        var fbAuth = fb.getAuth();
+        var categories = {};
+        var parentcategories = {};
+        var categoriesByType = {};
+        var categoryRef = {};
+        return {
+            getCategories: function (type) {
+                ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryname');
+                categories = $firebaseArray(ref);
+                return categories;
+            },
+            getParentCategories: function (type) {
+                ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryparent');
+                parentcategories = $firebaseArray(ref);
+                return parentcategories;
+            },
+            getCategoriesByTypeAndGroup: function (type) {
+                ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryparent');
+                categoriesByType = $firebaseArray(ref);
+                return categoriesByType;
+            },
+            getCategory: function (categoryid, type) {
+                var deferred = $q.defer();
+                ref = fb.child("membercategories").child(fbAuth.uid).child(type).child(categoryid);
+                ref.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
+            getCategoryRef: function (categoryid, type) {
+                categoryRef = fb.child("membercategories").child(fbAuth.uid).child(type).child(categoryid);
+                return categoryRef;
+            },
+        };
+    })
 
+    .factory('AccountsFactory', function ($firebaseArray, $q) {
+        var ref = {};
+        var fbAuth = fb.getAuth();
+        var accounts = {};
+        var accounttypes = {};
+        var transactions = {};
+        var accountRef = {};
+        var transactionRef = {};
+        var transactionsRef = {};
+        return {
+            ref: function (userid) {
+                ref = fb.child("members").child(userid).child("accounts");
+                return ref;
+            },
+            getAccounts: function () {
+                ref = fb.child("memberaccounts").child(fbAuth.uid);
+                accounts = $firebaseArray(ref);
+                return accounts;
+            },
+            getAccount: function (accountid) {
+                var deferred = $q.defer();
+                ref = fb.child("memberaccounts").child(fbAuth.uid).child(accountid);
+                ref.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
+            getAccountRef: function (accountid) {
+                accountRef = fb.child("memberaccounts").child(fbAuth.uid).child(accountid);
+                return accountRef;
+            },
+            getAccountTypes: function () {
+                ref = fb.child("memberaccounttypes").child(fbAuth.uid);
+                accounttypes = $firebaseArray(ref);
+                return accounttypes;
+            },
+            getTransaction: function (accountid, transactionid) {
+                var deferred = $q.defer();
+                ref = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
+                ref.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
+            },
+            getTransactions: function (accountid) {
+                ref = fb.child("membertransactions").child(fbAuth.uid).child(accountid);
+                transactions = $firebaseArray(ref);
+                return transactions;
+            },
+            getTransactionsByDate: function (accountid) {
+                ref = fb.child("membertransactions").child(fbAuth.uid).child(accountid).orderByChild('date');
+                transactions = $firebaseArray(ref);
+                return transactions;
+            },
+            getTransactionRef: function (accountid, transactionid) {
+                transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
+                return transactionRef;
+            },
+            createNewAccount: function (currentItem) {
 
-.factory('AdMob', function ($window){
-  var admob = $window.AdMob;
+                // Create the account
+                accounts.$add(currentItem).then(function (newChildRef) {
 
-  if(admob)
-  {
-    // Register AdMob events
-    // new events, with variable to differentiate: adNetwork, adType, adEvent
-    document.addEventListener('onAdFailLoad', function(data){
-      console.log('error: ' + data.error +
-      ', reason: ' + data.reason +
-      ', adNetwork:' + data.adNetwork +
-      ', adType:' + data.adType +
-      ', adEvent:' + data.adEvent); // adType: 'banner' or 'interstitial'
-    });
-    document.addEventListener('onAdLoaded', function(data){
-      console.log('onAdLoaded: ' + data);
-    });
-    document.addEventListener('onAdPresent', function(data){
-      console.log('onAdPresent: ' + data);
-    });
-    document.addEventListener('onAdLeaveApp', function(data){
-      console.log('onAdLeaveApp: ' + data);
-    });
-    document.addEventListener('onAdDismiss', function(data){
-      console.log('onAdDismiss: ' + data);
-    });
+                    // Create initial transaction for begining balance under new account node
+                    var initialTransaction = {
+                        type: 'Income',
+                        payee: 'Begining Balance',
+                        category: 'Begining Balance',
+                        amount: currentItem.balancebegining,
+                        date: currentItem.dateopen,
+                        notes: '',
+                        photo: '',
+                        iscleared: 'false',
+                        isrecurring: 'false'
+                    };
+                    if (currentItem.autoclear.checked) {
+                        initialTransaction.iscleared = 'true';
+                    }
+                    var ref = fb.child("membertransactions").child(fbAuth.uid).child(newChildRef.key());
+                    ref.push(initialTransaction);
 
-    var defaultOptions = {
-      // bannerId: admobid.banner,
-      // interstitialId: admobid.interstitial,
-      // adSize: 'SMART_BANNER',
-      // width: integer, // valid when set adSize 'CUSTOM'
-      // height: integer, // valid when set adSize 'CUSTOM'
-      position: admob.AD_POSITION.BOTTOM_CENTER,
-      // offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
-      bgColor: 'black', // color name, or '#RRGGBB'
-      // x: integer,		// valid when set position to 0 / POS_XY
-      // y: integer,		// valid when set position to 0 / POS_XY
-      isTesting: true, // set to true, to receiving test ad for testing purpose
-      // autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
-    };
-    var admobid = {};
+                    // Update account with transaction id
+                    newChildRef.update({ transactionid: ref.key() })
+                });
+            },
+            updateAccount: function (accountid, currentItem) {
+                var dtOpen = new Date(currentItem.dateopen);
+                if (isNaN(dtOpen)) {
+                    currentItem.dateopen = "";
+                } else {
+                    dtOpen = +dtOpen;
+                    currentItem.dateopen = dtOpen;
+                }
+                // Update account
+                accountRef = fb.child("memberaccounts").child(fbAuth.uid).child(accountid);
+                accountRef.update(currentItem);
 
-    if(ionic.Platform.isAndroid())
-    {
-      admobid = { // for Android
-        banner: 'ca-app-pub-6869992474017983/9375997553',
-        interstitial: 'ca-app-pub-6869992474017983/1657046752'
-      };
-    }
+                //// Update transaction
+                //var initialTransaction = {
+                //    amount: currentItem.balancebegining,
+                //    date: dtOpen
+                //};
+                //var initialTransRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(currentItem.transactionid);
+                //initialTransRef.update(initialTransaction);
+            },
+            deleteTransaction: function (accountid, transactionid) {
+                transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
+                transactionRef.remove();
+            }
+        };
+    })
 
-    if(ionic.Platform.isIOS())
-    {
-      admobid = { // for iOS
-        banner: 'ca-app-pub-6869992474017983/4806197152',
-        interstitial: 'ca-app-pub-6869992474017983/7563979554'
-      };
-    }
+    .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {
 
-    admob.setOptions(defaultOptions);
+        var currentData = {
+            currentUser: false,
+            currentGroup: false,
+            idadmin: false
+        };
 
-    // Prepare the ad before showing it
-    // 		- (for example at the beginning of a game level)
-    admob.prepareInterstitial({
-      adId: admobid.interstitial,
-      autoShow: false,
-      success: function(){
-        console.log('interstitial prepared');
-      },
-      error: function(){
-        console.log('failed to prepare interstitial');
-      }
-    });
-  }
-  else
-  {
-    console.log("No AdMob?");
-  }
+        $rootScope.notify = function (title, text) {
+            $ionicPopup.alert({
+                title: title ? title : 'Error',
+                template: text
+            });
+        };
 
-  return {
-    showBanner: function() {
-      if(admob)
-      {
-        admob.createBanner({
-          adId:admobid.banner,
-          position:admob.AD_POSITION.BOTTOM_CENTER,
-          autoShow:true,
-          success: function(){
-            console.log('banner created');
-          },
-          error: function(){
-            console.log('failed to create banner');
-          }
-        });
-      }
-    },
-    showInterstitial: function() {
-      if(admob)
-      {
-        // If you didn't prepare it before, you can show it like this
-        // admob.prepareInterstitial({adId:admobid.interstitial, autoShow:autoshow});
+        $rootScope.show = function (text) {
+            $rootScope.loading = $ionicLoading.show({
+                template: '<ion-spinner icon="ios"></ion-spinner><br>' + text,
+                animation: 'fade-in',
+                showBackdrop: true,
+                maxWidth: 200,
+                showDelay: 0
+            });
+        };
 
-        // If you did prepare it before, then show it like this
-        // 		- (for example: check and show it at end of a game level)
-        admob.showInterstitial();
-      }
-    },
-    removeAds: function() {
-      if(admob)
-      {
-        admob.removeBanner();
-      }
-    }
-  };
-})
+        $rootScope.hide = function () {
+            $ionicLoading.hide();
+        };
 
-.factory('iAd', function ($window){
-  var iAd = $window.iAd;
+        return {
 
-  // preppare and load ad resource in background, e.g. at begining of game level
-  if(iAd) {
-    iAd.prepareInterstitial( { autoShow:false } );
-  }
-  else
-  {
-    console.log("No iAd?");
-  }
+            clearData: function () {
+                currentData = false;
+            },
+        }
+    })
 
-  return {
-    showBanner: function() {
-      if(iAd)
-      {
-        // show a default banner at bottom
-        iAd.createBanner({
-          position:iAd.AD_POSITION.BOTTOM_CENTER,
-          autoShow:true
-        });
-      }
-    },
-    showInterstitial: function() {
-      // ** Notice: iAd interstitial Ad only supports iPad.
-      if(iAd)
-      {
-        // If you did prepare it before, then show it like this
-        // 		- (for example: check and show it at end of a game level)
-        iAd.showInterstitial();
-      }
-    },
-    removeAds: function() {
-      if(iAd)
-      {
-        iAd.removeBanner();
-      }
-    }
-  };
-})
+    .service("CategoryTypeService", function () {
+        var cattype = this;
+        cattype.updateType = function (value) {
+            this.typeSelected = value;
+        }
+    })
+
+    .service("PickParentCategoryService", function () {
+        var cat = this;
+        cat.updateParentCategory = function (value) {
+            this.parentcategorySelected = value;
+        }
+    })
+    .service("PickCategoryTypeService", function () {
+        var type = this;
+        type.updateType = function (value) {
+            this.typeSelected = value;
+        }
+    })
+    .service("PickTransactionTypeService", function () {
+        var TransactionType = this;
+        TransactionType.updateType = function (value) {
+            this.typeSelected = value;
+        }
+    })
+    .service("PickTransactionCategoryService", function () {
+        var transcat = this;
+        transcat.updateCategory = function (value, id) {
+            this.categorySelected = value;
+            this.categoryid = id;
+        }
+    })
+    .service("PickTransactionDateService", function () {
+        var transdate = this;
+        transdate.updateDate = function (value) {
+            this.dateSelected = value;
+        }
+    })
+    .service("PickTransactionAmountService", function () {
+        var transamount = this;
+        transamount.updateAmount = function (value) {
+            this.amountSelected = value;
+        }
+    })
+    .service("PickTransactionPayeeService", function () {
+        var transpayee = this;
+        transpayee.updatePayee = function (value, id) {
+            this.payeeSelected = value;
+            this.payeeid = id;
+        }
+    })
+
+    .factory('PayeeDataService', function ($firebaseArray, $q, $timeout) {
+        var ref = {};
+        var payees = {};
+        var fbAuth = fb.getAuth();
+        ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
+        payees = $firebaseArray(ref);
+        var searchPayees = function (searchFilter) {
+            //console.log('Searching airlines for ' + searchFilter);
+            var deferred = $q.defer();
+            var matches = payees.filter(function (payee) {
+                if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;
+            })
+            $timeout(function () {
+                deferred.resolve(matches);
+            }, 100);
+            return deferred.promise;
+        };
+        return {
+            searchPayees: searchPayees
+        }
+    })
 
 ;
