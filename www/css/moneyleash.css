@@ -126,6 +126,9 @@
 .customHeaderIconSmall:before {
     font-size: 20px;
 }
+.extraMarginRight {
+    margin-right: 10px;
+}
 .bar .button.back-button {
     color: #31C0E6;
 }
@@ -525,9 +528,9 @@ button.customHeaderSize {
 .moneyleashTip {
     font-size: 14px;
 }
-.ng-hide-add,
-.ng-hide-remove {
-    display: none !important;
+.ng-hide-add, .ng-hide-remove {
+    /* ensure visibility during the transition */
+    display: block !important; /* yes, important */
 }
 /***********************/
 /* SLIDER SLIDE STYLES */
@@ -539,7 +542,7 @@ button.customHeaderSize {
     height: 50px;
 }
 .form-group i {
-    background:#eeeeee;
+    background:#D3EAF0;
     color: #919191;
     width: 65px;
 }
@@ -625,7 +628,7 @@ i.mlpaddingright {
     color: #000;
 }
 .pickadate-cell .pickadate-active {
-    background-color: #dc7000;
+    background-color: #31C0E6;
 }
 .pickadate-centered-heading {
     font-weight: bold;
@@ -711,4 +714,17 @@ i.mlpaddingright {
 /* Pick a Payee Search */
 .iconPadding {
     margin-right: 10px;
+}
+/* Slide Animation */
+.cssSlideUp {
+    transition: .5s linear all;
+    height: 40px;
+    overflow: hidden;
+    background-color: #d9534f;
+    text-align: center;
+    padding-top: 10px;
+    color: #fff;
+}
+.cssSlideUp.ng-hide {
+    height:0;
 }

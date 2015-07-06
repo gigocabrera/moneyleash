@@ -1,5 +1,6 @@
 <ion-view view-title="Select Category">
     <ion-content>
+        <div class="item item-divider mlSmallerFont CustomSubHeader">{{ categoriesDividerTitle }}</div>
         <ion-radio ng-repeat="item in TransactionCategoryList | orderBy:'categorysort'"
                    ng-value="item.categoryname"
                    ng-change="categorychanged(item)"

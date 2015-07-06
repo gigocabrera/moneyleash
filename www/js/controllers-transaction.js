@@ -56,6 +56,7 @@ moneyleashapp.controller('PickTransactionCategoryController', function ($scope, 
     if (PickTransactionTypeService.typeSelected === '') {
         $scope.TransactionCategoryList = '';
     } else {
+        $scope.categoriesDividerTitle = PickTransactionTypeService.typeSelected;
         $scope.TransactionCategoryList = CategoriesFactory.getCategoriesByTypeAndGroup(PickTransactionTypeService.typeSelected);
         $scope.TransactionCategoryList.$loaded().then(function () {
         });
@@ -115,6 +116,7 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
 // TRANSACTION CONTROLLER
 moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionDateService, PickTransactionAmountService, PickTransactionPayeeService, dateFilter) {
    
+    $scope.hideValidationMessage = true;
     $scope.transactions = [];
     $scope.AccountTitle = '';
     $scope.inEditMode = false;
@@ -142,6 +144,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     };
 
     $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.hideValidationMessage = true;
         $scope.currentItem.typedisplay = PickTransactionTypeService.typeSelected;
         $scope.currentItem.category = PickTransactionCategoryService.categorySelected;
         $scope.currentItem.categoryid = PickTransactionCategoryService.categoryid;
@@ -190,6 +193,33 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     // SAVE
     $scope.saveTransaction = function () {
 
+        // Validate form data
+        if (typeof $scope.currentItem.typedisplay == 'undefined' || $scope.currentItem.typedisplay == '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select Transaction Type"
+            return;
+        }
+        if (typeof $scope.currentItem.payee == 'undefined' || $scope.currentItem.payee == '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select a Payee"
+            return;
+        }
+        if (typeof $scope.currentItem.category == 'undefined' || $scope.currentItem.category == '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select a Category"
+            return;
+        }
+        if (typeof $scope.currentItem.amount == 'undefined' || $scope.currentItem.amount == '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please enter an amount for this transaction"
+            return;
+        }
+        if (typeof $scope.currentItem.date == 'undefined' || $scope.currentItem.date == '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select a date for this transaction"
+            return;
+        }
+
         // Format date
         var dtTran = new Date($scope.currentItem.date);
         dtTran = +dtTran;
@@ -233,7 +263,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             });
         }
         $scope.currentItem = {};
-        //$state.go('app.transactionsByDay', { accountId: $stateParams.accountId, accountName: $stateParams.accountName });
         $ionicHistory.goBack();
     }
 })
