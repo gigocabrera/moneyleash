@@ -1,24 +1,23 @@
 
 // PICK TRANSACTION TYPE CONTROLLER
-moneyleashapp.controller('PickTransactionTypeController', function ($scope, $state, $ionicHistory, PickTransactionTypeService) {
+moneyleashapp.controller('PickTransactionTypeController', function ($scope, $state, $ionicHistory, PickTransactionServices) {
     $scope.TransactionTypeList = [
         { text: 'Income', value: 'Income' },
         { text: 'Expense', value: 'Expense' },
         { text: 'Transfer', value: 'Transfer' }];
-    $scope.currentItem = { typedisplay: PickTransactionTypeService.typeSelected };
+    $scope.currentItem = { typedisplay: PickTransactionServices.typeSelected };
     $scope.itemchanged = function (item) {
-        PickTransactionTypeService.updateType(item.value);
+        PickTransactionServices.updateType(item.value);
         $ionicHistory.goBack();
     };
 })
 
 // PICK TRANSACTION PAYEE CONTROLLER
-moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeesFactory, PayeeDataService, PickTransactionPayeeService) {
+moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeesFactory, PayeesFactory, PickTransactionServices) {
 
     $scope.data = { "payees": [], "search": '' };
     $scope.search = function () {
-
-        PayeeDataService.searchPayees($scope.data.search).then(
+        PayeesFactory.searchPayees($scope.data.search).then(
     		function (matches) {
     		    $scope.data.payees = matches;
     		}
@@ -37,44 +36,44 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $st
         var payeeid = '';
         sync.$add($scope.currentItem).then(function (newChildRef) {
             payeeid = newChildRef.key();
-            PickTransactionPayeeService.updatePayee($scope.currentItem.payeename, payeeid);
+            PickTransactionServices.updatePayee($scope.currentItem.payeename, payeeid);
             $ionicHistory.goBack();
         });
     }
 
     $scope.selectPayee = function (payee) {
-        PickTransactionPayeeService.updatePayee(payee.payeename, payee.$id);
+        PickTransactionServices.updatePayee(payee.payeename, payee.$id);
         $ionicHistory.goBack();
     }
 })
 
 // PICK TRANSACTION CATEGORY CONTROLLER
-moneyleashapp.controller('PickTransactionCategoryController', function ($scope, $ionicHistory, CategoriesFactory, PickTransactionTypeService, PickTransactionCategoryService) {
+moneyleashapp.controller('PickTransactionCategoryController', function ($scope, $ionicHistory, CategoriesFactory, PickTransactionServices) {
     //
     // To fetch categories, we need to know the transaction type first (Expense/Income)
     //
-    if (PickTransactionTypeService.typeSelected === '') {
+    if (PickTransactionServices.typeSelected === '') {
         $scope.TransactionCategoryList = '';
     } else {
-        $scope.categoriesDividerTitle = PickTransactionTypeService.typeSelected;
-        $scope.TransactionCategoryList = CategoriesFactory.getCategoriesByTypeAndGroup(PickTransactionTypeService.typeSelected);
+        $scope.categoriesDividerTitle = PickTransactionServices.typeSelected;
+        $scope.TransactionCategoryList = CategoriesFactory.getCategoriesByTypeAndGroup(PickTransactionServices.typeSelected);
         $scope.TransactionCategoryList.$loaded().then(function () {
         });
     };
-    $scope.currentItem = { categoryname: PickTransactionCategoryService.categorySelected };
+    $scope.currentItem = { categoryname: PickTransactionServices.categorySelected };
     $scope.categorychanged = function (item) {
-        PickTransactionCategoryService.updateCategory(item.categoryname, item.$id);
+        PickTransactionServices.updateCategory(item.categoryname, item.$id);
         $ionicHistory.goBack();
     };
 })
 
 // PICK TRANSACTION AMOUNT CONTROLLER
-moneyleashapp.controller('PickTransactionAmountController', function ($scope, $ionicHistory, PickTransactionAmountService) {
+moneyleashapp.controller('PickTransactionAmountController', function ($scope, $ionicHistory, PickTransactionServices) {
 
     $scope.clearValue = true;
     $scope.displayValue = 0;
-    if (typeof PickTransactionAmountService.amountSelected !== 'undenifed') {
-        $scope.displayValue = PickTransactionAmountService.amountSelected;
+    if (typeof PickTransactionServices.amountSelected !== 'undenifed') {
+        $scope.displayValue = PickTransactionServices.amountSelected;
     }
     $scope.digitClicked = function (digit) {
         if (digit === 'C') {
@@ -86,7 +85,7 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
             $scope.displayValue = $scope.displayValue.substring(0, $scope.displayValue.length - 1);
             $scope.clearValue = false;
         } else if (digit === 'D') {
-            PickTransactionAmountService.updateAmount($scope.displayValue);
+            PickTransactionServices.updateAmount($scope.displayValue);
             $ionicHistory.goBack();
         } else {
             if ($scope.clearValue) {
@@ -100,23 +99,24 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
 })
 
 // PICK TRANSACTION DATE CONTROLLER
-moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionDateService, dateFilter) {
+moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionServices, dateFilter) {
     
-    if (typeof PickTransactionDateService.dateSelected !== 'undefined' && PickTransactionDateService.dateSelected !== '') {
+    if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
         // format date to be used by pickadate directive
         var format = 'yyyy-MM-dd';
-        $scope.myDate = dateFilter(PickTransactionDateService.dateSelected, format);
+        $scope.myDate = dateFilter(PickTransactionServices.dateSelected, format);
     }
     $scope.dateChanged = function (transDate) {
-        PickTransactionDateService.updateDate(transDate);
+        PickTransactionServices.updateDate(transDate);
         $ionicHistory.goBack();
     };
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionTypeService, PickTransactionCategoryService, PickTransactionDateService, PickTransactionAmountService, PickTransactionPayeeService, dateFilter) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, dateFilter) {
    
     $scope.hideValidationMessage = true;
+    $scope.loadedClass = 'hidden';
     $scope.transactions = [];
     $scope.AccountTitle = '';
     $scope.inEditMode = false;
@@ -145,16 +145,16 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.hideValidationMessage = true;
-        $scope.currentItem.typedisplay = PickTransactionTypeService.typeSelected;
-        $scope.currentItem.category = PickTransactionCategoryService.categorySelected;
-        $scope.currentItem.categoryid = PickTransactionCategoryService.categoryid;
-        $scope.currentItem.amount = PickTransactionAmountService.amountSelected;
-        $scope.currentItem.payee = PickTransactionPayeeService.payeeSelected;
-        $scope.currentItem.payeeid = PickTransactionPayeeService.payeeid;
-        if (typeof PickTransactionDateService.dateSelected !== 'undefined' && PickTransactionDateService.dateSelected !== '') {
+        $scope.currentItem.typedisplay = PickTransactionServices.typeSelected;
+        $scope.currentItem.category = PickTransactionServices.categorySelected;
+        $scope.currentItem.categoryid = PickTransactionServices.categoryid;
+        $scope.currentItem.amount = PickTransactionServices.amountSelected;
+        $scope.currentItem.payee = PickTransactionServices.payeeSelected;
+        $scope.currentItem.payeeid = PickTransactionServices.payeeid;
+        if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
             // format date to be displayed
             var format = 'MMMM dd, yyyy';
-            $scope.currentItem.date = dateFilter(PickTransactionDateService.dateSelected, format);
+            $scope.currentItem.date = dateFilter(PickTransactionServices.dateSelected, format);
         }
         $scope.isTransfer = ($scope.currentItem.typedisplay === "Transfer") ? true : false;
     });
@@ -173,19 +173,19 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             } else {
                 // save date in ISO format in service
                 dtTransDate = dtTransDate.toISOString();
-                PickTransactionDateService.dateSelected = dtTransDate;
+                PickTransactionServices.dateSelected = dtTransDate;
                 // format date to be displayed
                 var format = 'MMMM dd, yyyy';
                 transaction.date = dateFilter(dtTransDate, format);
             }
             $scope.currentItem = transaction;
             $scope.isTransfer = $scope.currentItem.istransfer;
-            PickTransactionTypeService.typeSelected = $scope.currentItem.typedisplay
-            PickTransactionCategoryService.categorySelected = $scope.currentItem.category;
-            PickTransactionCategoryService.categoryid = $scope.currentItem.categoryid;
-            PickTransactionAmountService.amountSelected = $scope.currentItem.amount;
-            PickTransactionPayeeService.payeeSelected = $scope.currentItem.payee;
-            PickTransactionPayeeService.payeeid = $scope.currentItem.payeeid;
+            PickTransactionServices.typeSelected = $scope.currentItem.typedisplay
+            PickTransactionServices.categorySelected = $scope.currentItem.category;
+            PickTransactionServices.categoryid = $scope.currentItem.categoryid;
+            PickTransactionServices.amountSelected = $scope.currentItem.amount;
+            PickTransactionServices.payeeSelected = $scope.currentItem.payee;
+            PickTransactionServices.payeeid = $scope.currentItem.payeeid;
         });
         $scope.TransactionTitle = "Edit Transaction";
     }

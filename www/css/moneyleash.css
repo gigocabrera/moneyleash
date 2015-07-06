@@ -532,6 +532,9 @@ button.customHeaderSize {
     /* ensure visibility during the transition */
     display: block !important; /* yes, important */
 }
+.ng-cloak {
+  display: none !important;
+}
 /***********************/
 /* SLIDER SLIDE STYLES */
 .slider-slide {
