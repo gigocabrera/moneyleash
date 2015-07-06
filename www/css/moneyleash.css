@@ -142,6 +142,9 @@ button.customHeaderSize {
     margin-left: auto;
     margin-right: auto;
 }
+.button.button-positive.button-clear {
+    color: #31C0E6;
+}
 
 /***********************************/
 /* ACCOUNTS & TRANSACTIONS SCREENS */
@@ -216,10 +219,10 @@ button.customHeaderSize {
     font-weight: bold;
 }
 .textRed {
-    color: #F33D24;
+    color: #CE1B31;
 }
 .textGreen {
-    color: #66AF36;
+    color: #1AAC57;
 }
 .item-right-edit {
     width: 60px;
@@ -599,7 +602,7 @@ i.mlpaddingright {
 .circleIconGreen {
     font-size: 16px;
     font-weight: bold;
-    background: #66AF36;
+    background: #1AAC57;
     color: #fff;
     padding: 4px 7px 3px 7px;
     border-radius: 50%;
@@ -608,7 +611,7 @@ i.mlpaddingright {
 .circleIconRed {
     font-size: 16px;
     font-weight: bold;
-    background: #FF5E2E;
+    background: #CE1B31;
     color: #fff;
     padding: 4px 7px 3px 7px;
     border-radius: 50%;
@@ -631,7 +634,7 @@ i.mlpaddingright {
     font-weight: bold;
 }
 .pickadate a:visited, .pickadate a {
-    color: #387ef5;
+    color: #31C0E6;
 }
 
 /* NumberPad */
