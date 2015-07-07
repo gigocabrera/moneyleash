@@ -51,16 +51,6 @@
 .redtext {
     color: red;
 }
-.bar.bar-stable {
-    border-bottom: #b2b2b2 1px solid;
-}
-.bar.bar-calm {
-    border-bottom: #000 1px solid;
-    background-color: #00aff0;
-}
-.bar.bar-balanced {
-    border-bottom: #505050 1px solid;
-}
 /* Spin animation for ion-loop */
 .spinner svg {
   width: 28px;
@@ -70,18 +60,23 @@
 /***************/
 /* MENU SCREEN */
 .customPaddingMenuItem {
-    padding: 4px 40px 4px 11px;
+    padding: 4px 40px 4px 17px
 }
 /* Menu Icons and Chevron Icons */
-.bar-stable .HeaderTitle {
+.bar-menu {
+    background-color: #31C0E6;
+    width: 100%;
+    padding: 0;
+}
+.bar-menu .HeaderTitle {
     text-align: left;
     font-size: 17px;
-    padding-left: 10px;
-    padding-top: 10px;
-    color: #ff8000;
+    padding-left: 15px;
+    padding-top: 12px;
+    color: #fff;
     font-weight: bolder;
 }
-.bar.bar-stable .title {
+.bar.bar-menu .title {
     color: #ff8000;
     font-weight: bolder;
 }
@@ -98,7 +93,8 @@
     padding-left: 7px;
 }
 .icon-left-smaller:before {
-    font-size: 24px;
+    font-size: 18px;
+    font-weight: bold;
 }
 .ion-chevron-right:before {
     color: #31C0E6;
@@ -107,8 +103,23 @@
 .customChevronMenu:before {
     color: #31C0E6;
 }
+/* Menu item text style */
 .item-complex.item-icon-right .item-content {
     padding-right: 40px;
+    font-weight: normal;
+    color: #172F39;    
+}
+.circleIconBlue {
+    font-size: 16px;
+    font-weight: bold;
+    background: #31C0E6;
+    color: #fff;
+    padding: 0 0 2px 2px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-top: 13px;
+    width: 35px;
+    max-height: 35px;
 }
 .item-complex.item-icon-left .item-content {
     padding-left: 40px;
@@ -725,6 +736,7 @@ i.mlpaddingright {
     text-align: center;
     padding-top: 10px;
     color: #fff;
+    border-top: solid 1px #000;
 }
 .cssSlideUp.ng-hide {
     height:0;
