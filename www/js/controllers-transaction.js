@@ -13,7 +13,7 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
 })
 
 // PICK TRANSACTION PAYEE CONTROLLER
-moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeesFactory, PayeesFactory, PickTransactionServices) {
+moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeesFactory, PickTransactionServices) {
 
     $scope.data = { "payees": [], "search": '' };
     $scope.search = function () {

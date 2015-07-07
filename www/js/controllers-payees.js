@@ -1,6 +1,6 @@
 
 // PAYEE CONTROLLER
-moneyleashapp.controller('PayeeController', function ($scope, $state, $ionicHistory, $stateParams, PayeesFactory) {
+moneyleashapp.controller('PayeeController', function ($scope, $state, $ionicHistory, $stateParams, PayeesService) {
 
     $scope.inEditMode = false;
     $scope.currentItem = {
@@ -57,7 +57,7 @@ moneyleashapp.controller('PayeeController', function ($scope, $state, $ionicHist
 })
 
 // PAYEES CONTROLLER
-moneyleashapp.controller('PayeesController', function ($scope, $filter, $state, $ionicListDelegate, $ionicActionSheet, PayeesFactory) {
+moneyleashapp.controller('PayeesController', function ($scope, $filter, $state, $ionicListDelegate, $ionicActionSheet, PayeesService) {
   
     // CREATE
     $scope.createPayee = function () {
@@ -80,7 +80,7 @@ moneyleashapp.controller('PayeesController', function ($scope, $filter, $state, 
 
     // GET PAYEES
     $scope.list = function () {
-        $scope.payees = PayeesFactory.getPayees();
+        $scope.payees = PayeesService.getPayees();
         $scope.payees.$loaded().then(function () {
 
         });

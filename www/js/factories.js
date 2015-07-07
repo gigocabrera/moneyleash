@@ -26,19 +26,6 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory('PayeesFactory', function ($firebaseArray, $q) {
-        var ref = {};
-        var fbAuth = fb.getAuth();
-        var payees = {};
-        return {
-            getPayees: function () {
-                ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
-                categories = $firebaseArray(ref);
-                return categories;
-            },
-        };
-    })
-
     .factory('CategoriesFactory', function ($firebaseArray, $q) {
         var ref = {};
         var fbAuth = fb.getAuth();
@@ -186,6 +173,19 @@ angular.module('moneyleash.factories', [])
                 transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
                 transactionRef.remove();
             }
+        };
+    })
+
+    .factory('PayeesService', function ($firebaseArray, $q) {
+        var ref = {};
+        var fbAuth = fb.getAuth();
+        var payees = {};
+        return {
+            getPayees: function () {
+                ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
+                payees = $firebaseArray(ref);
+                return payees;
+            },
         };
     })
 
