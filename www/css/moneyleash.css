@@ -47,10 +47,6 @@
     border-color: #e67300;
     background-color: #ff8000;
 }
-/* force color red */
-.redtext {
-    color: red;
-}
 /* Spin animation for ion-loop */
 .spinner svg {
   width: 28px;
@@ -91,6 +87,7 @@
     width: 25px;
     text-align: center;
     padding-left: 7px;
+    color: #31C0E6;
 }
 .icon-left-smaller:before {
     font-size: 18px;
@@ -112,9 +109,9 @@
 .circleIconBlue {
     font-size: 16px;
     font-weight: bold;
-    background: #31C0E6;
+    background: #172F39;
     color: #fff;
-    padding: 0 0 2px 2px;
+    padding: 0 0 0 2px;
     border-radius: 50%;
     margin-right: 5px;
     margin-top: 13px;
