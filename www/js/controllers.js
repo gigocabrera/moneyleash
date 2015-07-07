@@ -71,16 +71,17 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state
         }
 
         /* All good, let's authentify */
-        Auth.$authWithPassword({
-            email: user.email,
-            password: user.password
-        }).then(function (authData) {
-            $rootScope.hide();
-            $state.go('app.dashboard');
-        }).catch(function (error) {
-            console.log(error);
-            $rootScope.hide();
-            $rootScope.notify('Error', 'Email or Password is incorrect!');
+        var ref = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
+        ref.authWithPassword({
+            "email": "gigo@test.com",
+            "password": "123"
+        }, function (error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                $rootScope.hide();
+                $state.go('app.dashboard');
+            }
         });
     }
 })

@@ -26,24 +26,6 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory("AccountWithBalance", ["$firebaseArray",
-        function($firebaseArray) {
-            var AccountWithBalance = $firebaseArray.$extend({
-                getBalance: function() {
-                    var balance = 0;
-                    // the array data is located in this.$list
-                    angular.forEach(this.$list, function(rec) {
-                        balance += rec.startbalance;
-                    });
-                    return balance;
-                }
-            });
-            return function(listRef) {
-                return new AccountWithBalance(listRef);
-            }
-        }
-    ])
-
     .factory('PayeesFactory', function ($firebaseArray, $q) {
         var ref = {};
         var fbAuth = fb.getAuth();

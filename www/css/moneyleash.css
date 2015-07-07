@@ -528,9 +528,10 @@ button.customHeaderSize {
 .moneyleashTip {
     font-size: 14px;
 }
-.ng-hide-add,
+.ng-hide-add, 
 .ng-hide-remove {
-    display: none !important;
+    /* ensure visibility during the transition */
+    display: block !important; /* yes, important */
 }
 /***********************/
 /* SLIDER SLIDE STYLES */

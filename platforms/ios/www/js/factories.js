@@ -207,21 +207,40 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {
+    .factory('PayeesFactory', function ($firebaseArray, $q, $timeout) {
+        var ref = {};
+        var payees = {};
+        var fbAuth = fb.getAuth();
+        ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
+        payees = $firebaseArray(ref);
+        var searchPayees = function (searchFilter) {
+            //console.log('Searching airlines for ' + searchFilter);
+            var deferred = $q.defer();
+            var matches = payees.filter(function (payee) {
+                if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;
+            })
+            $timeout(function () {
+                deferred.resolve(matches);
+            }, 100);
+            return deferred.promise;
+        };
+        return {
+            searchPayees: searchPayees
+        }
+    })
 
+    .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {
         var currentData = {
             currentUser: false,
             currentGroup: false,
             idadmin: false
         };
-
         $rootScope.notify = function (title, text) {
             $ionicPopup.alert({
                 title: title ? title : 'Error',
                 template: text
             });
         };
-
         $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({
                 template: '<ion-spinner icon="ios"></ion-spinner><br>' + text,
@@ -231,11 +250,9 @@ angular.module('moneyleash.factories', [])
                 showDelay: 0
             });
         };
-
         $rootScope.hide = function () {
             $ionicLoading.hide();
         };
-
         return {
 
             clearData: function () {
@@ -263,58 +280,30 @@ angular.module('moneyleash.factories', [])
             this.typeSelected = value;
         }
     })
-    .service("PickTransactionTypeService", function () {
-        var TransactionType = this;
-        TransactionType.updateType = function (value) {
+
+    // Transaction Pick Lists
+    .service("PickTransactionServices", function () {
+        var transactionType = this;
+        var transCategory = this;
+        var transPayee = this;
+        var transDate = this;
+        var transAmount = this;
+        transactionType.updateType = function (value) {
             this.typeSelected = value;
         }
-    })
-    .service("PickTransactionCategoryService", function () {
-        var transcat = this;
-        transcat.updateCategory = function (value, id) {
+        transCategory.updateCategory = function (value, id) {
             this.categorySelected = value;
             this.categoryid = id;
         }
-    })
-    .service("PickTransactionDateService", function () {
-        var transdate = this;
-        transdate.updateDate = function (value) {
-            this.dateSelected = value;
-        }
-    })
-    .service("PickTransactionAmountService", function () {
-        var transamount = this;
-        transamount.updateAmount = function (value) {
-            this.amountSelected = value;
-        }
-    })
-    .service("PickTransactionPayeeService", function () {
-        var transpayee = this;
-        transpayee.updatePayee = function (value, id) {
+        transPayee.updatePayee = function (value, id) {
             this.payeeSelected = value;
             this.payeeid = id;
         }
-    })
-
-    .factory('PayeeDataService', function ($firebaseArray, $q, $timeout) {
-        var ref = {};
-        var payees = {};
-        var fbAuth = fb.getAuth();
-        ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
-        payees = $firebaseArray(ref);
-        var searchPayees = function (searchFilter) {
-            //console.log('Searching airlines for ' + searchFilter);
-            var deferred = $q.defer();
-            var matches = payees.filter(function (payee) {
-                if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;
-            })
-            $timeout(function () {
-                deferred.resolve(matches);
-            }, 100);
-            return deferred.promise;
-        };
-        return {
-            searchPayees: searchPayees
+        transDate.updateDate = function (value) {
+            this.dateSelected = value;
+        }
+        transAmount.updateAmount = function (value) {
+            this.amountSelected = value;
         }
     })
 

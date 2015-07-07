@@ -47,16 +47,6 @@
     border-color: #e67300;
     background-color: #ff8000;
 }
-/* Styles for number pad 
-.row, .col {
-    text-align: center;
-}
-.col {
-    margin: 5px !important;
-    border-radius: 8px !important;
-    padding: 15px 0px !important;
-}
-*/
 /* force color red */
 .redtext {
     color: red;
@@ -136,6 +126,9 @@
 .customHeaderIconSmall:before {
     font-size: 20px;
 }
+.extraMarginRight {
+    margin-right: 10px;
+}
 .bar .button.back-button {
     color: #31C0E6;
 }
@@ -152,6 +145,9 @@ button.customHeaderSize {
     margin-left: auto;
     margin-right: auto;
 }
+.button.button-positive.button-clear {
+    color: #31C0E6;
+}
 
 /***********************************/
 /* ACCOUNTS & TRANSACTIONS SCREENS */
@@ -159,12 +155,29 @@ button.customHeaderSize {
 .row {
     padding: 0;
 }
+.col {
+    padding: 0;
+}
+.colBorder {
+    border-right: 1px solid #AED9E3;
+}
 .AccountScreenPadding {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.right{
+.right {
     text-align: right;
+}
+.center {
+    text-align: center;
+}
+.balancesRow {
+    font-weight: bold;
+    font: 13px 'PT Sans', sans-serif;
+}
+.balancesRow span {
+    font-weight: bold;
+    font-size: 15px;
 }
 .customAccDesc {
     text-align: left;
@@ -209,10 +222,10 @@ button.customHeaderSize {
     font-weight: bold;
 }
 .textRed {
-    color: #F33D24;
+    color: #CE1B31;
 }
 .textGreen {
-    color: #66AF36;
+    color: #1AAC57;
 }
 .item-right-edit {
     width: 60px;
@@ -529,7 +542,7 @@ button.customHeaderSize {
     height: 50px;
 }
 .form-group i {
-    background:#eeeeee;
+    background:#D3EAF0;
     color: #919191;
     width: 65px;
 }
@@ -592,7 +605,7 @@ i.mlpaddingright {
 .circleIconGreen {
     font-size: 16px;
     font-weight: bold;
-    background: #66AF36;
+    background: #1AAC57;
     color: #fff;
     padding: 4px 7px 3px 7px;
     border-radius: 50%;
@@ -601,7 +614,7 @@ i.mlpaddingright {
 .circleIconRed {
     font-size: 16px;
     font-weight: bold;
-    background: #FF5E2E;
+    background: #CE1B31;
     color: #fff;
     padding: 4px 7px 3px 7px;
     border-radius: 50%;
@@ -615,7 +628,7 @@ i.mlpaddingright {
     color: #000;
 }
 .pickadate-cell .pickadate-active {
-    background-color: #dc7000;
+    background-color: #31C0E6;
 }
 .pickadate-centered-heading {
     font-weight: bold;
@@ -624,7 +637,7 @@ i.mlpaddingright {
     font-weight: bold;
 }
 .pickadate a:visited, .pickadate a {
-    color: #387ef5;
+    color: #31C0E6;
 }
 
 /* NumberPad */
@@ -701,4 +714,17 @@ i.mlpaddingright {
 /* Pick a Payee Search */
 .iconPadding {
     margin-right: 10px;
+}
+/* Slide Animation */
+.cssSlideUp {
+    transition: .5s linear all;
+    height: 40px;
+    overflow: hidden;
+    background-color: #d9534f;
+    text-align: center;
+    padding-top: 10px;
+    color: #fff;
+}
+.cssSlideUp.ng-hide {
+    height:0;
 }
