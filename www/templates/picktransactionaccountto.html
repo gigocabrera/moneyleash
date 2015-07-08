@@ -1,0 +1,10 @@
+<ion-view view-title="Select Account From">
+    <ion-content>
+        <ion-radio ng-repeat="account in TransactionAccountList"
+                   ng-value="account.accountname"
+                   ng-change="itemchanged(account)"
+                   ng-model="currentItem.accountFrom">
+            {{ account.accountname }}
+        </ion-radio>
+    </ion-content>
+</ion-view>

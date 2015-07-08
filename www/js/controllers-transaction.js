@@ -12,8 +12,36 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
     };
 })
 
+// PICK TRANSACTION ACCOUNT FROM CONTROLLER
+moneyleashapp.controller('PickTransactionAccountFromController', function ($scope, $state, $ionicHistory, AccountsFactory, PickTransactionServices) {
+    //
+    // Get accounts
+    //
+    $scope.TransactionAccountList = AccountsFactory.getAccounts();
+    $scope.TransactionAccountList.$loaded().then(function () {});
+    $scope.currentItem = { accountFrom: PickTransactionServices.accountFromSelected };
+    $scope.itemchanged = function (account) {
+        PickTransactionServices.updateAccountFrom(account.accountname, account.$id);
+        $ionicHistory.goBack();
+    };
+})
+
+// PICK TRANSACTION ACCOUNT TO CONTROLLER
+moneyleashapp.controller('PickTransactionAccountToController', function ($scope, $state, $ionicHistory, AccountsFactory, PickTransactionServices) {
+    //
+    // Get accounts
+    //
+    $scope.TransactionAccountList = AccountsFactory.getAccounts();
+    $scope.TransactionAccountList.$loaded().then(function () { });
+    $scope.currentItem = { accountFrom: PickTransactionServices.accountToSelected };
+    $scope.itemchanged = function (account) {
+        PickTransactionServices.updateAccountTo(account.accountname, account.$id);
+        $ionicHistory.goBack();
+    };
+})
+
 // PICK TRANSACTION PAYEE CONTROLLER
-moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeesFactory, PickTransactionServices) {
+moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeesFactory, PayeesService, PickTransactionServices) {
 
     $scope.data = { "payees": [], "search": '' };
     $scope.search = function () {
@@ -32,7 +60,7 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $st
             'lastcategoryid': '',
             'lastamount': ''
         };
-        var sync = PayeesFactory.getPayees();
+        var sync = PayeesService.getPayees();
         var payeeid = '';
         sync.$add($scope.currentItem).then(function (newChildRef) {
             payeeid = newChildRef.key();
@@ -123,6 +151,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     $scope.isTransfer = false;
     $scope.uid = '';
     $scope.editIndex = '';
+    $scope.ItemFrom = {};
+    $scope.ItemTo = {};
     $scope.currentItem = {
         'accountFrom': '',
         'accountFromId': '',
@@ -151,6 +181,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         $scope.currentItem.amount = PickTransactionServices.amountSelected;
         $scope.currentItem.payee = PickTransactionServices.payeeSelected;
         $scope.currentItem.payeeid = PickTransactionServices.payeeid;
+        $scope.currentItem.accountFrom = PickTransactionServices.accountFromSelected;
+        $scope.currentItem.accountFromId = PickTransactionServices.accountFromId;
+        $scope.currentItem.accountTo = PickTransactionServices.accountToSelected;
+        $scope.currentItem.accountToId = PickTransactionServices.accountToId;
         if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
             // format date to be displayed
             var format = 'MMMM dd, yyyy';
@@ -186,6 +220,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             PickTransactionServices.amountSelected = $scope.currentItem.amount;
             PickTransactionServices.payeeSelected = $scope.currentItem.payee;
             PickTransactionServices.payeeid = $scope.currentItem.payeeid;
+            PickTransactionServices.accountFromSelected = $scope.currentItem.accountFrom;
+            PickTransactionServices.accountFromId = $scope.currentItem.accountFromId;
+            PickTransactionServices.accountToSelected = $scope.currentItem.accountTo;
+            PickTransactionServices.accountToId = $scope.currentItem.accountToId;
         });
         $scope.TransactionTitle = "Edit Transaction";
     }
@@ -194,27 +232,31 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     $scope.saveTransaction = function () {
 
         // Validate form data
-        if (typeof $scope.currentItem.typedisplay == 'undefined' || $scope.currentItem.typedisplay == '') {
+        if (typeof $scope.currentItem.typedisplay === 'undefined' || $scope.currentItem.typedisplay === '') {
             $scope.hideValidationMessage = false;
             $scope.validationMessage = "Please select Transaction Type"
             return;
         }
-        if (typeof $scope.currentItem.payee == 'undefined' || $scope.currentItem.payee == '') {
-            $scope.hideValidationMessage = false;
-            $scope.validationMessage = "Please select a Payee"
-            return;
+        if ($scope.currentItem.typedisplay === 'Transfer') {
+            // Do not validate payee and category if this is a transfer
+        } else {
+            if (typeof $scope.currentItem.payee === 'undefined' || $scope.currentItem.payee === '') {
+                $scope.hideValidationMessage = false;
+                $scope.validationMessage = "Please select a Payee"
+                return;
+            }
+            if (typeof $scope.currentItem.category === 'undefined' || $scope.currentItem.category === '') {
+                $scope.hideValidationMessage = false;
+                $scope.validationMessage = "Please select a Category"
+                return;
+            }
         }
-        if (typeof $scope.currentItem.category == 'undefined' || $scope.currentItem.category == '') {
-            $scope.hideValidationMessage = false;
-            $scope.validationMessage = "Please select a Category"
-            return;
-        }
-        if (typeof $scope.currentItem.amount == 'undefined' || $scope.currentItem.amount == '') {
+        if (typeof $scope.currentItem.amount === 'undefined' || $scope.currentItem.amount === '') {
             $scope.hideValidationMessage = false;
             $scope.validationMessage = "Please enter an amount for this transaction"
             return;
         }
-        if (typeof $scope.currentItem.date == 'undefined' || $scope.currentItem.date == '') {
+        if (typeof $scope.currentItem.date === 'undefined' || $scope.currentItem.date === '') {
             $scope.hideValidationMessage = false;
             $scope.validationMessage = "Please select a date for this transaction"
             return;
@@ -226,19 +268,29 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         $scope.currentItem.date = dtTran;
 
         // Handle transaction type
-        if ($scope.currentItem.typedisplay.toUpperCase() === "TRANSFER" && currentItem.accountToId === $stateParams.accountId) {
+        if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId === $scope.currentItem.accountToId) {
             $scope.currentItem.type = 'Income';
+            $scope.currentItem.category = 'Tranfer';
+            $scope.currentItem.categoryid = 'Tranfer';
             $scope.currentItem.istransfer = true;
-        } else if ($scope.currentItem.typedisplay.toUpperCase() === "TRANSFER" && currentItem.accountToId !== $stateParams.accountId) {
+        } else if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId !== $scope.currentItem.accountToId) {
             $scope.currentItem.type = 'Expense';
+            $scope.currentItem.category = 'Tranfer';
+            $scope.currentItem.categoryid = 'Tranfer';
             $scope.currentItem.istransfer = true;
         } else {
+            $scope.currentItem.accountFrom = '';
+            $scope.currentItem.accountFromId = '';
+            $scope.currentItem.accountTo = '';
+            $scope.currentItem.accountToId = '';
             $scope.currentItem.type = $scope.currentItem.typedisplay;
             $scope.currentItem.istransfer = false;
         }
 
         if ($scope.inEditMode) {
+            //
             // Update Existing
+            //
             var onComplete = function (error) {
                 if (error) {
                     console.log('Synchronization failed');
@@ -248,19 +300,47 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             transactionRef.update($scope.currentItem, onComplete);
             $scope.inEditMode = false;
         } else {
+            //
             // Create New
+            //
             if (isNaN($scope.currentItem.notes)) {
                 $scope.currentItem.notes = "";
             }
             if (isNaN($scope.currentItem.photo)) {
                 $scope.currentItem.photo = "";
             }
-            var sync = AccountsFactory.getTransactions($stateParams.accountId);
-            sync.$add($scope.currentItem).then(function (newChildRef) {
-                $scope.currentItem = {
-                    accountid: newChildRef.key()
-                };
-            });
+
+            if ($scope.currentItem.typedisplay === 'Transfer') {
+
+                angular.copy($scope.currentItem, $scope.ItemFrom);
+                angular.copy($scope.currentItem, $scope.ItemTo);
+                //
+                // Create the 'Account FROM' transaction
+                //
+                if ($stateParams.accountId === $scope.ItemFrom.accountFromId) {
+                    $scope.ItemFrom.payee = 'Tranfer from ' + $scope.ItemFrom.accountFrom;
+                    $scope.ItemFrom.type = 'Income';
+                } else {
+                    $scope.ItemFrom.payee = 'Tranfer to ' + $scope.ItemFrom.accountTo;
+                    $scope.ItemFrom.type = 'Expense';
+                }
+                AccountsFactory.createTransaction($scope.ItemFrom, $scope.ItemFrom.accountFromId);
+                //
+                // Create the 'Account TO' transaction
+                //
+                if ($stateParams.accountId === $scope.ItemTo.accountToId) {
+                    $scope.ItemTo.payee = 'Tranfer from ' + $scope.ItemTo.accountFrom;
+                    $scope.ItemTo.type = 'Income';
+                } else {
+                    $scope.ItemTo.payee = 'Tranfer to ' + $scope.ItemTo.accountTo;
+                    $scope.ItemTo.type = 'Expense';
+                }
+                AccountsFactory.createTransaction($scope.ItemTo, $scope.ItemTo.accountToId);
+                
+            } else {
+                AccountsFactory.createTransaction($scope.currentItem, $stateParams.accountId);
+            }
+            
         }
         $scope.currentItem = {};
         $ionicHistory.goBack();

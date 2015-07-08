@@ -225,6 +225,24 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.picktransactionaccountfrom', {
+        url: "/picktransactionaccountfrom",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactionaccountfrom.html",
+                controller: "PickTransactionAccountFromController"
+            }
+        }
+    })
+    .state('app.picktransactionaccountto', {
+        url: "/picktransactionaccountto",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactionaccountto.html",
+                controller: "PickTransactionAccountToController"
+            }
+        }
+    })
     .state('app.picktransactionpayee', {
         url: "/picktransactionpayee",
         views: {

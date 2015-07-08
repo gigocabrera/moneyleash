@@ -623,6 +623,8 @@
     <Content Include="www\templates\personalprofile.html" />
     <Content Include="www\templates\pickparentcategory.html" />
     <Content Include="www\templates\pickcategorytype.html" />
+    <Content Include="www\templates\picktransactionaccountfrom.html" />
+    <Content Include="www\templates\picktransactionaccountto.html" />
     <Content Include="www\templates\picktransactionamount.html" />
     <Content Include="www\templates\picktransactioncategory.html" />
     <Content Include="www\templates\picktransactiondate.html" />
