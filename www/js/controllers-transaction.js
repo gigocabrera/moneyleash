@@ -320,22 +320,26 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 if ($stateParams.accountId === $scope.ItemFrom.accountFromId) {
                     $scope.ItemFrom.payee = 'Tranfer from ' + $scope.ItemFrom.accountFrom;
                     $scope.ItemFrom.type = 'Income';
+                    AccountsFactory.createTransaction($scope.ItemFrom, $scope.ItemFrom.accountToId);
                 } else {
                     $scope.ItemFrom.payee = 'Tranfer to ' + $scope.ItemFrom.accountTo;
                     $scope.ItemFrom.type = 'Expense';
+                    AccountsFactory.createTransaction($scope.ItemFrom, $scope.ItemFrom.accountFromId);
                 }
-                AccountsFactory.createTransaction($scope.ItemFrom, $scope.ItemFrom.accountFromId);
+                console.log($scope.ItemFrom);
                 //
                 // Create the 'Account TO' transaction
                 //
                 if ($stateParams.accountId === $scope.ItemTo.accountToId) {
                     $scope.ItemTo.payee = 'Tranfer from ' + $scope.ItemTo.accountFrom;
                     $scope.ItemTo.type = 'Income';
+                    AccountsFactory.createTransaction($scope.ItemTo, $scope.ItemTo.accountToId);
                 } else {
                     $scope.ItemTo.payee = 'Tranfer to ' + $scope.ItemTo.accountTo;
                     $scope.ItemTo.type = 'Expense';
+                    AccountsFactory.createTransaction($scope.ItemTo, $scope.ItemTo.accountToId);
                 }
-                AccountsFactory.createTransaction($scope.ItemTo, $scope.ItemTo.accountToId);
+                console.log($scope.ItemTo);
                 
             } else {
                 AccountsFactory.createTransaction($scope.currentItem, $stateParams.accountId);
