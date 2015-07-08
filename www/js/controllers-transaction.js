@@ -337,7 +337,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 } else {
                     $scope.ItemTo.payee = 'Tranfer to ' + $scope.ItemTo.accountTo;
                     $scope.ItemTo.type = 'Expense';
-                    AccountsFactory.createTransaction($scope.ItemTo, $scope.ItemTo.accountToId);
+                    AccountsFactory.createTransaction($scope.ItemTo, $scope.ItemTo.accountFromId);
                 }
                 console.log($scope.ItemTo);
                 
