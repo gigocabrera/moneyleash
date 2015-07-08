@@ -298,6 +298,12 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             };
             var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
             transactionRef.update($scope.currentItem, onComplete);
+
+            //console.log($scope.ItemFrom);
+            if ($scope.currentItem.typedisplay === 'Transfer') {
+                
+            }
+
             $scope.inEditMode = false;
         } else {
             //
@@ -326,7 +332,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                     $scope.ItemFrom.type = 'Expense';
                     AccountsFactory.createTransaction($scope.ItemFrom, $scope.ItemFrom.accountFromId);
                 }
-                console.log($scope.ItemFrom);
                 //
                 // Create the 'Account TO' transaction
                 //
@@ -339,7 +344,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                     $scope.ItemTo.type = 'Expense';
                     AccountsFactory.createTransaction($scope.ItemTo, $scope.ItemTo.accountFromId);
                 }
-                console.log($scope.ItemTo);
                 
             } else {
                 AccountsFactory.createTransaction($scope.currentItem, $stateParams.accountId);

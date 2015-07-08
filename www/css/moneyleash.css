@@ -479,12 +479,14 @@ button.customHeaderSize {
     padding-right: 0;
 }
 .placeholder-icon {
-    background:#eeeeee;
     color: #919191;
     padding-right: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
     text-align: center;
+}
+.icon-bg {
+    background:#eeeeee;
 }
 .item-input .icon {
     min-width: 65px;
@@ -550,7 +552,7 @@ button.customHeaderSize {
     height: 50px;
 }
 .form-group i {
-    background:#D3EAF0;
+    background:#eeeeee;
     color: #919191;
     width: 65px;
 }
@@ -622,7 +624,7 @@ i.mlpaddingright {
 .circleIconRed {
     font-size: 16px;
     font-weight: bold;
-    background: #d9534f;
+    background: #CE1B31;
     color: #fff;
     padding: 4px 7px 3px 7px;
     border-radius: 50%;
@@ -655,9 +657,9 @@ i.mlpaddingright {
     height: 50px;
     margin-right: 0 auto;
     padding-right: 10px;
-    font-size: 1.25em;
+    font-size: 1.35em;
     background-color: #e6e6e6;
-    border: none;
+    border: solid 2px #A0A0A0;
     text-align: right;
 }
 

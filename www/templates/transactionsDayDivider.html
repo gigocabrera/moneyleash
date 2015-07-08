@@ -1,11 +1,11 @@
 <ion-view title={{AccountTitle}} ng-init="list()">
     <ion-nav-buttons side="right">
-        <button class="button-icon fa fa-search customHeaderIcon customHeaderIconSmall extraMarginRight" ng-click="showSearch()"></button>
+        <button class="button-icon fa fa-search customHeaderIcon customHeaderIconSmall extraMarginRight" ng-click="showFilterBar()"></button>
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createTransaction('Add')"></button>
     </ion-nav-buttons>
     <div class="bar bar-subheader CustomSubHeader">
         <div class="row center">
-            <div class="col balancesRow colBorder">Total&nbsp;Transactions<br /><span>{{ totalCount }}</span></div>
+            <div class="col balancesRow colBorder">Total / Cleared<br /><span>{{ totalCount }} / {{ clearedCount }}</span></div>
             <div class="col balancesRow colBorder">Current&nbsp;Balance <span>{{ currentBalance | currency }}</span></div>
             <div class="col balancesRow">Cleared&nbsp;Balance <span>{{ clearedBalance | currency }}</span></div>
         </div>

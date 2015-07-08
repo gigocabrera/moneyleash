@@ -1,11 +1,74 @@
 
 // TRANSACTIONS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicPopover, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickTransactionServices, dateFilter) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicPopover, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickTransactionServices, dateFilter, $ionicFilterBar) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
     $scope.inEditMode = false;
     $scope.editIndex = 0;
+    //$scope.SortingIsEnabled = false;
+
+    //// SORT
+    //$scope.reorderBtnText = '';
+    //$scope.showSorting = function (isEnabled) {
+    //    $scope.SortingIsEnabled = !isEnabled;
+    //    $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
+    //    $scope.popover.hide();
+    //};
+    //$scope.moveItem = function (transaction, fromIndex, toIndex) {
+    //    //$scope.transactions.splice(fromIndex, 1);
+    //    //$scope.transactions.splice(toIndex, 0, transaction);
+    //    console.log(fromIndex);
+    //    console.log(toIndex);
+    //    var dtTransDate = new Date(transaction.date);
+    //    if (isNaN(dtTransDate)) {
+    //        transaction.date = "";
+    //    } else {
+    //        // save date in ISO format in service
+    //        dtTransDate = dtTransDate.toISOString();            
+    //        // format date to be displayed
+    //        //var format = 'MMMM dd, yyyy';
+    //        console.log(dtTransDate);
+    //    }
+    //    console.log(transaction);
+    //};
+
+    //// POPOVER
+    //$scope.animation = 'slide-in-up';
+    //$ionicPopover.fromTemplateUrl('templates/popover.html', {
+    //    scope: $scope,
+    //    animation: $scope.animation
+    //}).then(function (popover) {
+    //    $scope.popover = popover;
+    //});
+    //$scope.replaceIcon = false;
+    //$scope.openPopover = function ($event, replaceIt) {
+    //    $scope.popover.show($event);
+    //    // Hide after 5 seconds
+    //    //$timeout(function () {
+    //    //    $scope.popover.hide();
+    //    //}, 5000);
+    //};
+
+    //// SHOW FILTERS - ACTION SHEET
+    //$scope.showFilters = function () {
+    //    $ionicActionSheet.show({
+    //        buttons: [
+    //          { text: 'Show All Transactions' },
+    //          { text: 'Active Transactions' },
+    //          { text: 'Cleared Transactions' }
+    //        ],
+    //        titleText: '<strong>FILTER</strong>',
+    //        cancelText: 'Cancel',
+    //        cancel: function () {
+    //            // add cancel code..
+    //        },
+    //        buttonClicked: function (index) {
+    //            //$scope.transactions = $filter('transactionsFilter')('active');
+    //            return true;
+    //        }
+    //    });
+    //};
 
     // SWIPE
     $scope.listCanSwipe = true;
@@ -44,6 +107,18 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     // GET TRANSACTIONS
     $scope.list = function () {
         $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
+    };
+
+    // SEARCH TRANSACTIONS
+    var filterBarInstance;
+    $scope.showFilterBar = function () {
+        filterBarInstance = $ionicFilterBar.show({
+            items: $scope.transactions,
+            update: function (filteredItems) {
+                $scope.transactions = filteredItems;
+            },
+            filterProperties: 'payee'
+        });
     };
 
     // DELETE
