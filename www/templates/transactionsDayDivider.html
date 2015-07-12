@@ -31,7 +31,7 @@
                                 </small>
                             </span>
                         </div>
-                        <div class="col-50 right customAccAmt" ng-class="{textRed: transaction.type == 'Expense', textGreen: transaction.type == 'Income'}">
+                        <div class="col-50 right customAccAmt {{ transaction.type }}">
                             <span>
                                 {{transaction.amount | currency}}
                                 <small>

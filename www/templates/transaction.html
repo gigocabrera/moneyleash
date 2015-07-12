@@ -3,7 +3,7 @@
         <button class="button button-clear button-positive customHeaderSize" ng-click="saveTransaction()">Save</button>
     </ion-nav-buttons>
     <ion-content has-header="true">
-        <div ng-hide="hideValidationMessage" class="cssSlideUp ng-scope">
+        <div ng-hide="hideValidationMessage" class="cssSlideUp ng-hide">
             <div class="validationDiv">
                 <p>
                     {{ validationMessage }}
@@ -16,7 +16,7 @@
                 <input type="text" placeholder="Transaction Type" ng-model="currentItem.typedisplay">
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
-            <div ng-hide="!isTransfer">
+            <div ng-hide="!isTransfer" class="ng-hide">
                 <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionaccountfrom">
                     <i class="icon fa fa-reply placeholder-icon"></i>
                     <input type="text" placeholder="From Account" ng-model="currentItem.accountFrom">
@@ -28,7 +28,7 @@
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
             </div>
-            <div ng-hide="isTransfer">
+            <div ng-hide="isTransfer" ng-cloak>
                 <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionpayee">
                     <i class="icon fa fa-user placeholder-icon"></i>
                     <input type="text" placeholder="Payee" ng-model="currentItem.payee">

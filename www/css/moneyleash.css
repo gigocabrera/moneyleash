@@ -17,6 +17,11 @@
 .SectionDividerActive {
     color: #FF5E2E;
 }
+/* ng-cloak */
+[ng-cloak]
+{
+  display: none !important;
+}
 /* Padding for all ion-item ng-repeat lists 
 .item-complex .item-content {
     padding: 8px 45px 15px 16px;
@@ -53,10 +58,10 @@
   height: 28px;
 }
 
-/***************/
-/* MENU SCREEN */
+/********************/
+/* LEFT MENU SCREEN */
 .customPaddingMenuItem {
-    padding: 4px 40px 4px 17px
+    padding: 0 40px 0 13px
 }
 /* Menu Icons and Chevron Icons */
 .bar-menu {
@@ -87,10 +92,11 @@
     width: 25px;
     text-align: center;
     padding-left: 7px;
+    text-shadow: 2px 2px #eeeeee;
 }
 .icon-left-smaller:before {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: normal;
 }
 .ion-chevron-right:before {
     color: #31C0E6;
@@ -103,7 +109,7 @@
 .item-complex.item-icon-right .item-content {
     padding-right: 40px;
     font-weight: normal;
-    color: #172F39;    
+    color: #172F39;
 }
 .circleIconBlue {
     font-size: 16px;
@@ -180,7 +186,7 @@ button.customHeaderSize {
 }
 .balancesRow {
     font-weight: bold;
-    font: 13px 'PT Sans', sans-serif;
+    font: 13px 'PT Sans Narrow', sans-serif;
 }
 .balancesRow span {
     font-weight: bold;
@@ -231,7 +237,13 @@ button.customHeaderSize {
 .textRed {
     color: #CE1B31;
 }
+.Expense {
+    color: #CE1B31;
+}
 .textGreen {
+    color: #1AAC57;
+}
+.Income {
     color: #1AAC57;
 }
 .item-right-edit {
@@ -615,7 +627,7 @@ i.mlpaddingright {
 .circleIconGreen {
     font-size: 16px;
     font-weight: bold;
-    background: #1AAC57;
+    background: #91BF64;
     color: #fff;
     padding: 4px 7px 3px 7px;
     border-radius: 50%;
@@ -624,7 +636,7 @@ i.mlpaddingright {
 .circleIconRed {
     font-size: 16px;
     font-weight: bold;
-    background: #CE1B31;
+    background: #d9534f;
     color: #fff;
     padding: 4px 7px 3px 7px;
     border-radius: 50%;

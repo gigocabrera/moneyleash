@@ -4,7 +4,7 @@ var fb = '';
 fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngCordova', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ngAnimate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngCordova', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar'])
 
 moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ionicLoading, $state, Auth) {
     $ionicPlatform.ready(function () {
@@ -179,6 +179,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     // ACCOUNTS
     .state('app.accounts', {
         url: "/accounts",
+        cache: true,
         views: {
             'menuContent': {
                 templateUrl: "templates/accounts.html",
@@ -199,7 +200,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     // TRANSACTIONS
     .state('app.transactionsByDay', {
         url: "/accounts/:accountId/:accountName",
-        cache: false,
+        cache: true,
         views: {
             'menuContent': {
                 templateUrl: "templates/transactionsDayDivider.html",
