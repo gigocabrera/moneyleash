@@ -12,8 +12,8 @@
     </div>
     <ion-content class="has-header has-subheader">
         <ion-list can-swipe="listCanSwipe">
-            <div collection-repeat="transaction in transactions | reverselist | filter:searchText | groupByDayMonthYear" divider-collection-repeat class="ml_list">
-                <ion-item class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
+            <div collection-repeat="transaction in transactions | reverselist | filter:searchText | groupByDayMonthYear" divider-collection-repeat>
+                <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
                     <div class="row">
                         <div class="col-50 customTransDesc">
                             <span>

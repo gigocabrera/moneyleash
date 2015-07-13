@@ -163,7 +163,9 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             // Handle Running Balance
             //
             total++;
+            transaction.ClearedClass = '';
             if (transaction.iscleared === true) {
+                transaction.ClearedClass = 'transactionIsCleared';
                 cleared++;
                 if (transaction.type === "Income") {
                     if (!isNaN(transaction.amount)) {
