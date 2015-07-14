@@ -61,7 +61,8 @@
 /********************/
 /* LEFT MENU SCREEN */
 .customPaddingMenuItem {
-    padding: 0 40px 0 13px
+    padding: 0 40px 0 13px;
+    text-shadow: 1px 1px #eeeeee;
 }
 /* Menu Icons and Chevron Icons */
 .bar-menu {

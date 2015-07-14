@@ -26,37 +26,6 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory("AccountWithBalance", ["$firebaseArray",
-        function($firebaseArray) {
-            var AccountWithBalance = $firebaseArray.$extend({
-                getBalance: function() {
-                    var balance = 0;
-                    // the array data is located in this.$list
-                    angular.forEach(this.$list, function(rec) {
-                        balance += rec.startbalance;
-                    });
-                    return balance;
-                }
-            });
-            return function(listRef) {
-                return new AccountWithBalance(listRef);
-            }
-        }
-    ])
-
-    .factory('PayeesFactory', function ($firebaseArray, $q) {
-        var ref = {};
-        var fbAuth = fb.getAuth();
-        var payees = {};
-        return {
-            getPayees: function () {
-                ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
-                categories = $firebaseArray(ref);
-                return categories;
-            },
-        };
-    })
-
     .factory('CategoriesFactory', function ($firebaseArray, $q) {
         var ref = {};
         var fbAuth = fb.getAuth();
@@ -101,6 +70,7 @@ angular.module('moneyleash.factories', [])
         var accounts = {};
         var accounttypes = {};
         var transactions = {};
+        var transactionsByDate = {};
         var accountRef = {};
         var transactionRef = {};
         var transactionsRef = {};
@@ -146,8 +116,8 @@ angular.module('moneyleash.factories', [])
             },
             getTransactionsByDate: function (accountid) {
                 ref = fb.child("membertransactions").child(fbAuth.uid).child(accountid).orderByChild('date');
-                transactions = $firebaseArray(ref);
-                return transactions;
+                transactionsByDate = $firebaseArray(ref);
+                return transactionsByDate;
             },
             getTransactionRef: function (accountid, transactionid) {
                 transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
@@ -200,10 +170,29 @@ angular.module('moneyleash.factories', [])
                 //var initialTransRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(currentItem.transactionid);
                 //initialTransRef.update(initialTransaction);
             },
+            createTransaction: function (currentItem, accountId) {
+                var transRef = fb.child("membertransactions").child(fbAuth.uid).child(accountId);
+                var sync = $firebaseArray(transRef);
+                sync.$add(currentItem).then(function (newChildRef) {
+                });
+            },
             deleteTransaction: function (accountid, transactionid) {
                 transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
                 transactionRef.remove();
             }
+        };
+    })
+
+    .factory('PayeesService', function ($firebaseArray, $q) {
+        var ref = {};
+        var fbAuth = fb.getAuth();
+        var payees = {};
+        return {
+            getPayees: function () {
+                ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
+                payees = $firebaseArray(ref);
+                return payees;
+            },
         };
     })
 
@@ -288,6 +277,8 @@ angular.module('moneyleash.factories', [])
         var transPayee = this;
         var transDate = this;
         var transAmount = this;
+        var transAccountFrom = this;
+        var transAccountTo = this;
         transactionType.updateType = function (value) {
             this.typeSelected = value;
         }
@@ -304,6 +295,14 @@ angular.module('moneyleash.factories', [])
         }
         transAmount.updateAmount = function (value) {
             this.amountSelected = value;
+        }
+        transAccountFrom.updateAccountFrom = function (value, id) {
+            this.accountFromSelected = value;
+            this.accountFromId = id;
+        }
+        transAccountTo.updateAccountTo = function (value, id) {
+            this.accountToSelected = value;
+            this.accountToId = id;
         }
     })
 

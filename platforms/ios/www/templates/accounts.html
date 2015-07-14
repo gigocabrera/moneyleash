@@ -1,4 +1,4 @@
-<ion-view title="Accounts" ng-init="list()">
+<ion-view title="Accounts">
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon icon ion-navicon customHeaderIcon"></button>
     </ion-nav-buttons>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-50 right customAccAmt" ng-class="{textRed: account.balancecurrent < 0, textGreen: account.balancecurrent > 0}">
                         <span>
-                            {{account.balancecleared | currency}}
+                            {{ account.balancecleared | currency }}
                             <small></small>
                         </span>
                     </div>

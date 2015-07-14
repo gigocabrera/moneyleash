@@ -17,6 +17,11 @@
 .SectionDividerActive {
     color: #FF5E2E;
 }
+/* ng-cloak */
+[ng-cloak]
+{
+  display: none !important;
+}
 /* Padding for all ion-item ng-repeat lists 
 .item-complex .item-content {
     padding: 8px 45px 15px 16px;
@@ -47,41 +52,33 @@
     border-color: #e67300;
     background-color: #ff8000;
 }
-/* force color red */
-.redtext {
-    color: red;
-}
-.bar.bar-stable {
-    border-bottom: #b2b2b2 1px solid;
-}
-.bar.bar-calm {
-    border-bottom: #000 1px solid;
-    background-color: #00aff0;
-}
-.bar.bar-balanced {
-    border-bottom: #505050 1px solid;
-}
 /* Spin animation for ion-loop */
 .spinner svg {
   width: 28px;
   height: 28px;
 }
 
-/***************/
-/* MENU SCREEN */
+/********************/
+/* LEFT MENU SCREEN */
 .customPaddingMenuItem {
-    padding: 4px 40px 4px 11px;
+    padding: 0 40px 0 13px;
+    text-shadow: 1px 1px #eeeeee;
 }
 /* Menu Icons and Chevron Icons */
-.bar-stable .HeaderTitle {
+.bar-menu {
+    background-color: #31C0E6;
+    width: 100%;
+    padding: 0;
+}
+.bar-menu .HeaderTitle {
     text-align: left;
     font-size: 17px;
-    padding-left: 10px;
-    padding-top: 10px;
-    color: #ff8000;
+    padding-left: 15px;
+    padding-top: 12px;
+    color: #fff;
     font-weight: bolder;
 }
-.bar.bar-stable .title {
+.bar.bar-menu .title {
     color: #ff8000;
     font-weight: bolder;
 }
@@ -96,9 +93,11 @@
     width: 25px;
     text-align: center;
     padding-left: 7px;
+    text-shadow: 2px 2px #eeeeee;
 }
 .icon-left-smaller:before {
     font-size: 24px;
+    font-weight: normal;
 }
 .ion-chevron-right:before {
     color: #31C0E6;
@@ -107,8 +106,23 @@
 .customChevronMenu:before {
     color: #31C0E6;
 }
+/* Menu item text style */
 .item-complex.item-icon-right .item-content {
     padding-right: 40px;
+    font-weight: normal;
+    color: #172F39;
+}
+.circleIconBlue {
+    font-size: 16px;
+    font-weight: bold;
+    background: #31C0E6;
+    color: #fff;
+    padding: 0 0 0 2px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-top: 13px;
+    width: 35px;
+    max-height: 35px;
 }
 .item-complex.item-icon-left .item-content {
     padding-left: 40px;
@@ -173,7 +187,7 @@ button.customHeaderSize {
 }
 .balancesRow {
     font-weight: bold;
-    font: 13px 'PT Sans', sans-serif;
+    font: 13px 'PT Sans Narrow', sans-serif;
 }
 .balancesRow span {
     font-weight: bold;
@@ -224,7 +238,13 @@ button.customHeaderSize {
 .textRed {
     color: #CE1B31;
 }
+.Expense {
+    color: #CE1B31;
+}
 .textGreen {
+    color: #1AAC57;
+}
+.Income {
     color: #1AAC57;
 }
 .item-right-edit {
@@ -472,12 +492,14 @@ button.customHeaderSize {
     padding-right: 0;
 }
 .placeholder-icon {
-    background:#eeeeee;
     color: #919191;
     padding-right: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
     text-align: center;
+}
+.icon-bg {
+    background:#eeeeee;
 }
 .item-input .icon {
     min-width: 65px;
@@ -528,10 +550,7 @@ button.customHeaderSize {
 .moneyleashTip {
     font-size: 14px;
 }
-.ng-hide-add,
-.ng-hide-remove {
-    display: none !important;
-}
+
 /***********************/
 /* SLIDER SLIDE STYLES */
 .slider-slide {
@@ -542,7 +561,7 @@ button.customHeaderSize {
     height: 50px;
 }
 .form-group i {
-    background:#D3EAF0;
+    background:#eeeeee;
     color: #919191;
     width: 65px;
 }
@@ -605,7 +624,7 @@ i.mlpaddingright {
 .circleIconGreen {
     font-size: 16px;
     font-weight: bold;
-    background: #1AAC57;
+    background: #91BF64;
     color: #fff;
     padding: 4px 7px 3px 7px;
     border-radius: 50%;
@@ -614,7 +633,7 @@ i.mlpaddingright {
 .circleIconRed {
     font-size: 16px;
     font-weight: bold;
-    background: #CE1B31;
+    background: #d9534f;
     color: #fff;
     padding: 4px 7px 3px 7px;
     border-radius: 50%;
@@ -647,9 +666,9 @@ i.mlpaddingright {
     height: 50px;
     margin-right: 0 auto;
     padding-right: 10px;
-    font-size: 1.25em;
+    font-size: 1.35em;
     background-color: #e6e6e6;
-    border: none;
+    border: solid 2px #A0A0A0;
     text-align: right;
 }
 
@@ -722,7 +741,7 @@ i.mlpaddingright {
     overflow: hidden;
     background-color: #d9534f;
     text-align: center;
-    padding-top: 10px;
+    padding-top: 8px;
     color: #fff;
 }
 .cssSlideUp.ng-hide {

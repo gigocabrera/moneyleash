@@ -25,10 +25,11 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicL
         $state.go('app.account', { accountId: '-1', isNew: 'True' });
     }
 
-    // LIST
-    $scope.list = function () {
-        $scope.accounts = AccountsFactory.getAccounts();
-    }
+    //// LIST
+    //$scope.list = function () {
+    //    $scope.accounts = AccountsFactory.getAccounts();
+    //}
+    $scope.accounts = AccountsFactory.getAccounts();
 
     // EDIT
     $scope.editAccount = function (account) {

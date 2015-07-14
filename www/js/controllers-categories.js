@@ -107,12 +107,14 @@ moneyleashapp.controller('CategoriesController', function ($scope, $filter, $sta
 
     // SWIPE
     $scope.listCanSwipe = true;
-    $scope.handleSwipeAndTap = function ($event, transaction) {
+    $scope.handleSwipeAndTap = function ($event, category) {
         $event.stopPropagation();
         var options = $event.currentTarget.querySelector('.item-options');
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
-        } else {}
+        } else {
+            $state.go('app.category', { categoryid: category.$id, type: category.categorytype });
+        }
     };
 
     $scope.$on('$ionicView.beforeEnter', function () {
@@ -129,11 +131,11 @@ moneyleashapp.controller('CategoriesController', function ($scope, $filter, $sta
         });
     };
 
-    // EDIT
-    $scope.editCategory = function ($event, category) {
-        $ionicListDelegate.closeOptionButtons();
-        $state.go('app.category', { categoryid: category.$id, type: category.categorytype });
-    };
+    //// EDIT
+    //$scope.editCategory = function ($event, category) {
+    //    $ionicListDelegate.closeOptionButtons();
+    //    $state.go('app.category', { categoryid: category.$id, type: category.categorytype });
+    //};
 
     // DELETE
     $scope.deleteCategory = function (category) {

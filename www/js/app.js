@@ -17,7 +17,8 @@ moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ioni
             // org.apache.cordova.statusbar required
             //StatusBar.styleDefault();
             $cordovaStatusbar.overlaysWebView(true);
-            $cordovaStatusBar.style(1)
+            //$cordovaStatusBar.style(1)
+            $cordovaStatusbar.styleHex('#ED1C24');
         }
         $rootScope.settings = {
             'languages': [{
@@ -37,14 +38,14 @@ moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ioni
                 $state.go("intro");
             }
         });
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            $ionicLoading.show({
-                template: '<ion-spinner icon="ios"></ion-spinner><br>'
-            });
-        });
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            $ionicLoading.hide();
-        });
+        //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        //    $ionicLoading.show({
+        //        template: '<ion-spinner icon="ios"></ion-spinner><br>'
+        //    });
+        //});
+        //$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        //    $ionicLoading.hide();
+        //});
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             if (error === "AUTH_REQUIRED") {
                 $state.go("signin");

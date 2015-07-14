@@ -525,7 +525,6 @@
     <Content Include="platforms\ios\www\js\controllers-personalprofile.js" />
     <Content Include="platforms\ios\www\js\controllers-settings.js" />
     <Content Include="platforms\ios\www\js\controllers-transaction.js" />
-    <Content Include="platforms\ios\www\js\controllers-transactions - Copy.js" />
     <Content Include="platforms\ios\www\js\controllers-transactions.js" />
     <Content Include="platforms\ios\www\js\controllers.js" />
     <Content Include="platforms\ios\www\js\directives.js" />
@@ -608,7 +607,6 @@
     <Content Include="platforms\ios\www\templates\recurring.html" />
     <Content Include="platforms\ios\www\templates\register.html" />
     <Content Include="platforms\ios\www\templates\reports.html" />
-    <Content Include="platforms\ios\www\templates\settings-accountpreferences.html" />
     <Content Include="platforms\ios\www\templates\settings.html" />
     <Content Include="platforms\ios\www\templates\side-menu.html" />
     <Content Include="platforms\ios\www\templates\transaction.html" />

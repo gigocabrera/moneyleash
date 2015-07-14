@@ -4,7 +4,7 @@ var fb = '';
 fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngCordova', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ngAnimate', 'ion-affix', 'pickadate'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngCordova', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar'])
 
 moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ionicLoading, $state, Auth) {
     $ionicPlatform.ready(function () {
@@ -17,7 +17,8 @@ moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ioni
             // org.apache.cordova.statusbar required
             //StatusBar.styleDefault();
             $cordovaStatusbar.overlaysWebView(true);
-            $cordovaStatusBar.style(1)
+            //$cordovaStatusBar.style(1)
+            $cordovaStatusbar.styleHex('#ED1C24');
         }
         $rootScope.settings = {
             'languages': [{
@@ -37,14 +38,14 @@ moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ioni
                 $state.go("intro");
             }
         });
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            $ionicLoading.show({
-                template: '<ion-spinner icon="ios"></ion-spinner><br>'
-            });
-        });
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            $ionicLoading.hide();
-        });
+        //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        //    $ionicLoading.show({
+        //        template: '<ion-spinner icon="ios"></ion-spinner><br>'
+        //    });
+        //});
+        //$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        //    $ionicLoading.hide();
+        //});
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             if (error === "AUTH_REQUIRED") {
                 $state.go("signin");
@@ -179,6 +180,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     // ACCOUNTS
     .state('app.accounts', {
         url: "/accounts",
+        cache: true,
         views: {
             'menuContent': {
                 templateUrl: "templates/accounts.html",
@@ -199,7 +201,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     // TRANSACTIONS
     .state('app.transactionsByDay', {
         url: "/accounts/:accountId/:accountName",
-        cache: false,
+        cache: true,
         views: {
             'menuContent': {
                 templateUrl: "templates/transactionsDayDivider.html",
@@ -222,6 +224,24 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/picktransactiontype.html",
                 controller: "PickTransactionTypeController"
+            }
+        }
+    })
+    .state('app.picktransactionaccountfrom', {
+        url: "/picktransactionaccountfrom",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactionaccountfrom.html",
+                controller: "PickTransactionAccountFromController"
+            }
+        }
+    })
+    .state('app.picktransactionaccountto', {
+        url: "/picktransactionaccountto",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactionaccountto.html",
+                controller: "PickTransactionAccountToController"
             }
         }
     })
