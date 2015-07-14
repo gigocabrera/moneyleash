@@ -6,7 +6,9 @@
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createAccount('Add')"></button>
     </ion-nav-buttons>
     <div class="bar bar-subheader CustomSubHeader">
-        <div class="subTitle">Net Worth: {{networth | currency}}</div>
+        <div class="row center">
+            <div class="col netWorthRow colBorder"><span>Net Worth: <strong>{{ netWorth | currency }}</strong></span></div>
+        </div>
     </div>
     <ion-content class="has-header has-subheader">
         <ion-list can-swipe="listCanSwipe">
@@ -24,10 +26,9 @@
                             </small>
                         </span>
                     </div>
-                    <div class="col-50 right customAccAmt" ng-class="{textRed: account.balancecurrent < 0, textGreen: account.balancecurrent > 0}">
+                    <div class="col-50 right customAccAmt {{ account.BalanceClass }}">
                         <span>
                             {{ account.balancecleared | currency }}
-                            <small></small>
                         </span>
                     </div>
                 </div>

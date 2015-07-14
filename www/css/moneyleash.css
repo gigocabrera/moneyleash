@@ -194,6 +194,12 @@ button.customHeaderSize {
     font-weight: normal;
     font-size: 15px;
 }
+.netWorthRow span {
+    margin-top: 8px;
+    display: block;
+    font-weight: normal;
+    font: 18px 'PT Sans Narrow', sans-serif;
+}
 .customAccDesc {
     text-align: left;
     height: 37px;
@@ -226,7 +232,7 @@ button.customHeaderSize {
 }
 .customAccAmt span {
     position: relative;
-    top: 1px;
+    top: 8px;
 }
 .customAccAmt span small {
     position: absolute;
@@ -673,7 +679,7 @@ i.mlpaddingright {
     padding-right: 10px;
     font-size: 1.35em;
     background-color: #e6e6e6;
-    border: solid 2px #A0A0A0;
+    border: solid 1px #A0A0A0;
     text-align: right;
 }
 

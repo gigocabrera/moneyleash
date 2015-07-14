@@ -64,4 +64,24 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicL
             }
         });
     };
+
+    // WATCH
+    $scope.$watch('accounts', function () {
+        var clearedBal = 0;
+        var netWorth = 0;
+        angular.forEach($scope.accounts, function (account) {
+            account.BalanceClass = '';
+            clearedBal = parseFloat(account.balancecleared);
+            console.log(clearedBal);
+            netWorth = netWorth + clearedBal;
+            console.log(netWorth);
+            if (clearedBal > 0) {
+                account.BalanceClass = 'textGreen';
+            } else {
+                account.BalanceClass = 'textRed';
+            }
+        })
+        $scope.netWorth = netWorth.toFixed(2);
+    }, true);
+
 })
