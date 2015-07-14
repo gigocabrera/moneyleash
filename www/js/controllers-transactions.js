@@ -78,7 +78,14 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            // TODO: Add filter by payee option
+            var target = event.srcElement;
+            //console.log(target.className);
+            if (target.className.contains('toggleTransactionCleared')) {
+                //console.log('clear transaction');
+            } else {
+                //console.log('edit transaction');
+                $state.go('app.transaction', { accountId: $stateParams.accountId, accountName: $stateParams.accountName, transactionId: transaction.$id, transactionName: transaction.payee });
+            }
         }
     };
 
@@ -98,11 +105,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         $state.go('app.transaction', { accountId: $stateParams.accountId, transactionId: '' });
     }
 
-    // EDIT
-    $scope.editTransaction = function (transaction) {
-        $ionicListDelegate.closeOptionButtons();
-        $state.go('app.transaction', { accountId: $stateParams.accountId, accountName: $stateParams.accountName, transactionId: transaction.$id, transactionName: transaction.payee });
-    };
+    //// EDIT
+    //$scope.editTransaction = function (transaction) {
+    //    $ionicListDelegate.closeOptionButtons();
+    //    $state.go('app.transaction', { accountId: $stateParams.accountId, accountName: $stateParams.accountName, transactionId: transaction.$id, transactionName: transaction.payee });
+    //};
 
     // GET TRANSACTIONS
     $scope.list = function () {

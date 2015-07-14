@@ -17,8 +17,7 @@ moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ioni
             // org.apache.cordova.statusbar required
             //StatusBar.styleDefault();
             $cordovaStatusbar.overlaysWebView(true);
-            //$cordovaStatusBar.style(1)
-            $cordovaStatusbar.styleHex('#ED1C24');
+            $cordovaStatusBar.style(2);
         }
         $rootScope.settings = {
             'languages': [{

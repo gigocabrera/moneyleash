@@ -62,7 +62,7 @@
 /* LEFT MENU SCREEN */
 .customPaddingMenuItem {
     padding: 0 40px 0 13px;
-    text-shadow: 1px 1px #eeeeee;
+    text-shadow: 2px 2px #eeeeee;
 }
 /* Menu Icons and Chevron Icons */
 .bar-menu {
@@ -190,7 +190,8 @@ button.customHeaderSize {
     font: 13px 'PT Sans Narrow', sans-serif;
 }
 .balancesRow span {
-    font-weight: bold;
+     display: block;
+    font-weight: normal;
     font-size: 15px;
 }
 .customAccDesc {

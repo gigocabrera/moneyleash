@@ -5,14 +5,14 @@
     </ion-nav-buttons>
     <div class="bar bar-subheader CustomSubHeader">
         <div class="row center">
-            <div class="col balancesRow colBorder">Total / Cleared<br /><span>{{ totalCount }} / {{ clearedCount }}</span></div>
-            <div class="col balancesRow colBorder">Current&nbsp;Balance <span>{{ currentBalance | currency }}</span></div>
-            <div class="col balancesRow">Cleared&nbsp;Balance <span>{{ clearedBalance | currency }}</span></div>
+            <div class="col balancesRow colBorder"><span>Total / Cleared</span><span><strong>{{ totalCount }} / {{ clearedCount }}</strong></span></div>
+            <div class="col balancesRow colBorder"><span>Current Balance</span><span><strong>{{ currentBalance | currency }}</strong></span></div>
+            <div class="col balancesRow"><span>Cleared Balance</span><span><strong>{{ clearedBalance | currency }}</strong></span></div>
         </div>
     </div>
     <ion-content class="has-header has-subheader">
         <ion-list can-swipe="listCanSwipe">
-            <div collection-repeat="transaction in transactions | reverselist | filter:searchText | groupByDayMonthYear" divider-collection-repeat>
+            <div ng-repeat="transaction in transactions | reverselist | filter:searchText | groupByDayMonthYear" divider-collection-repeat>
                 <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
                     <div class="row">
                         <div class="col-50 customTransDesc">
@@ -41,9 +41,6 @@
                             <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared" ng-change="transactions.$save(transaction)">
                         </div>
                     </div>
-                    <ion-option-button class="button-energized" ng-click="editTransaction(transaction)">
-                        &nbsp;&nbsp;Edit&nbsp;&nbsp;
-                    </ion-option-button>
                     <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction)">
                         Delete
                     </ion-option-button>
