@@ -3,30 +3,37 @@
         <button class="button button-clear button-positive customHeaderIcon customHeaderIconSmall" ng-click="saveAccount(currentItem)">Save</button>
     </ion-nav-buttons>
     <ion-content has-header="true">
-        <div class="list">
-            <label class="item item-input moneyleashLabel">
+        <div ng-hide="hideValidationMessage" class="cssSlideUp ng-hide">
+            <div class="validationDiv">
+                <p>
+                    {{ validationMessage }}
+                </p>
+            </div>
+        </div>
+        <div class="ion-list">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccountname">
                 <i class="icon fa fa-clipboard placeholder-icon"></i>
-                <input type="text" ng-model="currentItem.accountname" placeholder="Account Name" autocorrect="on" autocapitalize="words" ng-maxlength="25">
-            </label>
-            <label class="item item-input moneyleashLabel">
+                <input type="text" ng-model="currentItem.accountname" placeholder="Account Name" autocorrect="on" autocapitalize="words" ng-maxlength="15">
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccountamount">
                 <i class="icon fa fa-money placeholder-icon"></i>
-                <input type="text" placeholder="Begining Balance" ng-model="currentItem.balancebegining" valid-number>
-            </label>
-            <label class="item item-input moneyleashLabel">
+                <input type="text" placeholder="Begining Balance" ng-model="currentItem.balancebegining" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccountdate">
                 <i class="icon fa fa-calendar placeholder-icon"></i>
-                date here
-            </label>
-            <label class="item item-input moneyleashLabel" ng-click="openModal()">
+                <input type="text" placeholder="Account Open Date" ng-model="currentItem.dateopen" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccounttype">
                 <i class="icon fa fa-university placeholder-icon"></i>
-                <label>{{currentItem.accounttype}}</label>
-            </label>
-            <label class="item item-input moneyleashLabel">
-                <i class="icon fa fa-check-square placeholder-icon"></i>
-                <ion-toggle ng-model="currentItem.autoclear">Auto Clear</ion-toggle>
-            </label>
+                <input type="text" placeholder="Account Type" ng-model="currentItem.accounttype">
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
             <div class="list list-inset" ng-show="inEditMode">
                 <p class="moneyleashTip">Warning: Updating the begining balance will also affect the transaction associated with it!</p>
-            </div>
+            </div>            
         </div>
     </ion-content>
 </ion-view>

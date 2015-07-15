@@ -1104,6 +1104,10 @@
     <Content Include="www\templates\login.html" />
     <Content Include="www\templates\payees.html" />
     <Content Include="www\templates\personalprofile.html" />
+    <Content Include="www\templates\pickaccountamount.html" />
+    <Content Include="www\templates\pickaccountdate.html" />
+    <Content Include="www\templates\pickaccountname.html" />
+    <Content Include="www\templates\pickaccounttype.html" />
     <Content Include="www\templates\pickparentcategory.html" />
     <Content Include="www\templates\pickcategorytype.html" />
     <Content Include="www\templates\picktransactionaccountfrom.html" />

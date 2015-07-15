@@ -196,6 +196,42 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.pickaccountname', {
+        url: "/pickaccountname",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickaccountname.html",
+                controller: "PickAccountNameController"
+            }
+        }
+    })
+    .state('app.pickaccountamount', {
+        url: "/pickaccountamount",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickaccountamount.html",
+                controller: "PickAccountAmountController"
+            }
+        }
+    })
+    .state('app.pickaccountdate', {
+        url: "/pickaccountdate",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickaccountdate.html",
+                controller: "PickAccountDateController"
+            }
+        }
+    })
+    .state('app.pickaccounttype', {
+        url: "/pickaccounttype",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickaccounttype.html",
+                controller: "PickAccountTypeController"
+            }
+        }
+    })
 
     // TRANSACTIONS
     .state('app.transactionsByDay', {

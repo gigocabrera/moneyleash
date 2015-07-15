@@ -144,6 +144,7 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
 moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, dateFilter) {
    
     $scope.hideValidationMessage = true;
+    $scope.isBasic = true;
     $scope.loadedClass = 'hidden';
     $scope.transactions = [];
     $scope.AccountTitle = '';

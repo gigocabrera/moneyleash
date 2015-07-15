@@ -130,6 +130,9 @@
 .item-icon-left {
     padding-left: 40px;
 }
+.bar.bar-subheader.CustomSubHeader {
+  padding-top: 3px;
+}
 .CustomSubHeader {
     background-color: #D3EAF0;
 }
@@ -235,6 +238,24 @@ button.customHeaderSize {
     top: 8px;
 }
 .customAccAmt span small {
+    position: absolute;
+    font: 16px 'PT Sans Narrow', sans-serif;
+    top: 20px;
+    right: 0;
+    color: #A0A0A0;
+    font-weight: bold;
+}
+.customTransAmt {
+    height: 37px;
+    font-weight: bold;
+    padding-right: 20px;
+    font-size: 18px;
+}
+.customTransAmt span {
+    position: relative;
+    top: 1px;
+}
+.customTransAmt span small {
     position: absolute;
     font: 16px 'PT Sans Narrow', sans-serif;
     top: 20px;

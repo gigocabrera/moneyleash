@@ -72,9 +72,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicL
         angular.forEach($scope.accounts, function (account) {
             account.BalanceClass = '';
             clearedBal = parseFloat(account.balancecleared);
-            console.log(clearedBal);
             netWorth = netWorth + clearedBal;
-            console.log(netWorth);
             if (clearedBal > 0) {
                 account.BalanceClass = 'textGreen';
             } else {

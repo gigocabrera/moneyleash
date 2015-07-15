@@ -50,16 +50,18 @@
                 <input type="text" placeholder="Transaction Date" ng-model="currentItem.date" readonly>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picknotes">
-                <i class="icon fa fa-file-text placeholder-icon"></i>
-                <input type="text" placeholder="Notes" ng-model="currentItem.notes">
-                <i class="icon ion-chevron-right customChevronForm"></i>
-            </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickphoto">
-                <i class="icon fa fa-camera placeholder-icon"></i>
-                <input type="text" placeholder="Photo" ng-model="currentItem.photo">
-                <i class="icon ion-chevron-right customChevronForm"></i>
-            </ion-item>
+            <div ng-hide="isBasic" ng-cloak>
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picknotes">
+                    <i class="icon fa fa-file-text placeholder-icon"></i>
+                    <input type="text" placeholder="Notes" ng-model="currentItem.notes">
+                    <i class="icon ion-chevron-right customChevronForm"></i>
+                </ion-item>
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickphoto">
+                    <i class="icon fa fa-camera placeholder-icon"></i>
+                    <input type="text" placeholder="Photo" ng-model="currentItem.photo">
+                    <i class="icon ion-chevron-right customChevronForm"></i>
+                </ion-item>
+            </div>
         </div>
     </ion-content>
 </ion-view>
