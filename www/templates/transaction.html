@@ -28,7 +28,7 @@
                     <i class="icon ion-chevron-right customChevronForm"></i>
                 </ion-item>
             </div>
-            <div ng-hide="isTransfer" ng-cloak>
+            <div ng-hide="isTransfer">
                 <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionpayee">
                     <i class="icon fa fa-user placeholder-icon"></i>
                     <input type="text" placeholder="Payee" ng-model="currentItem.payee">
@@ -50,7 +50,7 @@
                 <input type="text" placeholder="Transaction Date" ng-model="currentItem.date" readonly>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
-            <div ng-hide="isBasic" ng-cloak>
+            <div ng-hide="isBasic" class="ng-hide">
                 <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picknotes">
                     <i class="icon fa fa-file-text placeholder-icon"></i>
                     <input type="text" placeholder="Notes" ng-model="currentItem.notes">

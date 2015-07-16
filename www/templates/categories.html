@@ -11,9 +11,6 @@
             <ion-item class="mlcategories mlSmallerFont" ng-repeat="category in incomecategories | orderBy:'categorysort' " ng-click="handleSwipeAndTap($event, category)" href="#" ng-class="{mlindent: category.categoryparent !== ''}">
                 <i class="icon ion-ios-pricetags-outline circleIconGreen"></i>
                 {{ category.categoryname }}
-                <ion-option-button class="button-energized mlcategoriesbutton" ng-click="editCategory($event, category)">
-                    &nbsp;&nbsp;Edit&nbsp;&nbsp;
-                </ion-option-button>
                 <ion-option-button class="button-assertive mlcategoriesbutton" ng-click="deleteCategory(category)">
                     Delete
                 </ion-option-button>

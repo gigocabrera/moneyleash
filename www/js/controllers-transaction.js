@@ -289,24 +289,37 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         }
 
         if ($scope.inEditMode) {
-            //
-            // Update Existing
-            //
+            
             var onComplete = function (error) {
                 if (error) {
                     console.log('Synchronization failed');
                 }
             };
+            //
+            // Update Transaction
+            //
             var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
             transactionRef.update($scope.currentItem, onComplete);
+            //
+            // Update transaction under category
+            //
+            var categoryTransactionRef = AccountsFactory.getCategoriesTransactionRef($scope.currentItem.categoryid, $stateParams.transactionId);
+            var categoryTransaction = {
+                payee: $scope.currentItem.payee,
+                amount: $scope.currentItem.amount,
+                date: $scope.currentItem.date
+            };
+            categoryTransactionRef.update(categoryTransaction, onComplete);
 
+            //TODO
             //console.log($scope.ItemFrom);
             if ($scope.currentItem.typedisplay === 'Transfer') {
                 
             }
-
             $scope.inEditMode = false;
+
         } else {
+
             //
             // Create New
             //
@@ -318,7 +331,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             }
 
             if ($scope.currentItem.typedisplay === 'Transfer') {
-
+                //
+                // Save Transfer
+                //
                 angular.copy($scope.currentItem, $scope.ItemFrom);
                 angular.copy($scope.currentItem, $scope.ItemTo);
                 //
@@ -347,6 +362,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 }
                 
             } else {
+                //
+                // Save Transaction
+                //
                 AccountsFactory.createTransaction($scope.currentItem, $stateParams.accountId);
             }
             

@@ -123,6 +123,10 @@ angular.module('moneyleash.factories', [])
                 transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
                 return transactionRef;
             },
+            getCategoriesTransactionRef: function (categoryid, transactionid) {
+                transactionRef = fb.child("membercategoriestransactions").child(fbAuth.uid).child(categoryid).child(transactionid);
+                return transactionRef;
+            },
             createNewAccount: function (currentItem) {
 
                 // Create the account
@@ -174,6 +178,16 @@ angular.module('moneyleash.factories', [])
                 var transRef = fb.child("membertransactions").child(fbAuth.uid).child(accountId);
                 var sync = $firebaseArray(transRef);
                 sync.$add(currentItem).then(function (newChildRef) {
+                    //
+                    // Save transaction under category
+                    //
+                    var categoryTransactionRef = fb.child("membercategoriestransactions").child(fbAuth.uid).child(currentItem.categoryid).child(newChildRef.key());
+                    var categoryTransaction = {
+                        payee: currentItem.payee,
+                        amount: currentItem.amount,
+                        date: currentItem.date
+                    };
+                    categoryTransactionRef.push(categoryTransaction);
                 });
             },
             deleteTransaction: function (accountid, transactionid) {

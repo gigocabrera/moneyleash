@@ -131,12 +131,6 @@ moneyleashapp.controller('CategoriesController', function ($scope, $filter, $sta
         });
     };
 
-    //// EDIT
-    //$scope.editCategory = function ($event, category) {
-    //    $ionicListDelegate.closeOptionButtons();
-    //    $state.go('app.category', { categoryid: category.$id, type: category.categorytype });
-    //};
-
     // DELETE
     $scope.deleteCategory = function (category) {
         // Show the action sheet
