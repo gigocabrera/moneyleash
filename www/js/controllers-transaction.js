@@ -141,10 +141,10 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, dateFilter) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, CurrentUserService, dateFilter) {
    
     $scope.hideValidationMessage = true;
-    $scope.isBasic = true;
+    $scope.isFree = true;
     $scope.loadedClass = 'hidden';
     $scope.transactions = [];
     $scope.AccountTitle = '';
@@ -173,6 +173,14 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         'type': '',
         'typedisplay': ''
     };
+
+    // Get User Settings
+    if (CurrentUserService.paymentplan === 'FREE') {
+        $scope.isFree = true;
+    } else {
+        $scope.isFree = false;
+    }
+    console.log(CurrentUserService);
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.hideValidationMessage = true;

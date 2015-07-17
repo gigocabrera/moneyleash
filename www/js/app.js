@@ -124,6 +124,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
       // LOGIN
       .state('login', {
           url: "/login",
+          cache: false,
           templateUrl: "templates/login.html",
           controller: 'LoginController',
           resolve: {

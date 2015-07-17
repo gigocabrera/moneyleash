@@ -2,7 +2,14 @@
     <ion-nav-buttons side="right">
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createTransaction('Add')"></button>
     </ion-nav-buttons>
-    <ion-content has-header="true">
+    <div class="bar bar-subheader CustomSubHeader">
+        <div class="row center">
+            <div class="col balancesRow colBorder"><span>Expense</span><span><strong>{{ displayname }}</strong></span></div>
+            <div class="col balancesRow colBorder"><span>Income</span></div>
+            <div class="col balancesRow"><span>Cleared Balance</span></div>
+        </div>
+    </div>
+    <ion-content class="has-header has-subheader">
         <ion-list can-swipe="true">
             <ion-item ng-repeat="item in items">
                 {{ item.id }}

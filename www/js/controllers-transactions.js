@@ -6,15 +6,16 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     $scope.AccountTitle = $stateParams.accountName;
     $scope.inEditMode = false;
     $scope.editIndex = 0;
-    //$scope.SortingIsEnabled = false;
+    $scope.SortingIsEnabled = false;
 
-    //// SORT
-    //$scope.reorderBtnText = '';
-    //$scope.showSorting = function (isEnabled) {
-    //    $scope.SortingIsEnabled = !isEnabled;
-    //    $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
-    //    $scope.popover.hide();
-    //};
+    // SORT
+    $scope.reorderBtnText = '';
+    $scope.showSorting = function (isEnabled) {
+        $scope.SortingIsEnabled = !isEnabled;
+        $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
+        //$scope.popover.hide();
+    };
+    
     //$scope.moveItem = function (transaction, fromIndex, toIndex) {
     //    //$scope.transactions.splice(fromIndex, 1);
     //    //$scope.transactions.splice(toIndex, 0, transaction);
@@ -50,25 +51,27 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     //    //}, 5000);
     //};
 
-    //// SHOW FILTERS - ACTION SHEET
-    //$scope.showFilters = function () {
-    //    $ionicActionSheet.show({
-    //        buttons: [
-    //          { text: 'Show All Transactions' },
-    //          { text: 'Active Transactions' },
-    //          { text: 'Cleared Transactions' }
-    //        ],
-    //        titleText: '<strong>FILTER</strong>',
-    //        cancelText: 'Cancel',
-    //        cancel: function () {
-    //            // add cancel code..
-    //        },
-    //        buttonClicked: function (index) {
-    //            //$scope.transactions = $filter('transactionsFilter')('active');
-    //            return true;
-    //        }
-    //    });
-    //};
+    // SHOW FILTERS - ACTION SHEET
+    $scope.moreOptions = function () {
+        $ionicActionSheet.show({
+            buttons: [
+              { text: 'Show All Transactions' },
+              { text: 'Active Transactions' },
+              { text: 'Cleared Transactions' }
+            ],
+            titleText: '<strong>FILTER</strong>',
+            cancelText: 'Cancel',
+            cancel: function () {
+                // add cancel code..
+                $ionicListDelegate.closeOptionButtons();
+            },
+            buttonClicked: function (index) {
+                //$scope.transactions = $filter('transactionsFilter')('active');
+                $ionicListDelegate.closeOptionButtons();
+                return true;
+            }
+        });
+    };
 
     // SWIPE
     $scope.listCanSwipe = true;

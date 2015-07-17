@@ -5,27 +5,28 @@
         </button>
     </ion-nav-buttons>
     <ion-content has-header="true">
-        <div class="list">
-            <label class="item item-input">
-                <span class="input-label">{{'FORM_FIRSTNAME' | translate}}</span>
-                <input type="text" ng-model="member.firstname" />
-            </label>
-            <label class="item item-input">
-                <span class="input-label">{{'FORM_LASTNAME' | translate}}</span>
-                <input type="text" ng-model="member.lastname" />
-            </label>
-            <label class="item item-input">
-                <span class="input-label">{{'FORM_EMAIL' | translate}}</span>
-                <input type="text" ng-model="member.email" ng-disabled="true">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Date Created</span>
-                <input type="text" ng-model="member.datecreated" ng-disabled="true">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Date Updated</span>
-                <input type="text" ng-model="member.dateupdated" ng-disabled="true">
-            </label>
+        <div class="ion-list">
+            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
+                <i class="icon fa fa-user placeholder-icon"></i>
+                <input type="text" placeholder="First Name" ng-model="member.firstname">
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
+                <i class="icon fa fa-user placeholder-icon"></i>
+                <input type="text" placeholder="Last Name" ng-model="member.lastname">
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
+                <i class="icon fa fa-envelope-o placeholder-icon"></i>
+                <input type="text" placeholder="Email" ng-model="member.email" readonly>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
+                <i class="icon fa fa-calendar placeholder-icon"></i>
+                <input type="text" placeholder="Date Created" ng-model="member.datecreated" readonly>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
+                <i class="icon fa fa-unlock placeholder-icon"></i>
+                <input type="text" placeholder="Payment Plan" ng-model="member.paymentplan" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
         </div>
     </ion-content>
 </ion-view>

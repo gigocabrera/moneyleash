@@ -7,6 +7,7 @@ angular.module('moneyleash.factories', [])
 
     .factory('MembersFactory', function ($firebaseArray, $q) {
         var ref = fb.child("members");
+        var fbAuth = fb.getAuth();
         return {
             ref: function () {
                 return ref;
@@ -15,9 +16,9 @@ angular.module('moneyleash.factories', [])
                 var members = $firebaseArray(ref);
                 return members;
             },
-            getMember: function (userid) {
+            getMember: function () {
                 var deferred = $q.defer();
-                var memberRef = ref.child(userid);
+                var memberRef = ref.child(fbAuth.uid);
                 memberRef.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
@@ -232,38 +233,6 @@ angular.module('moneyleash.factories', [])
         }
     })
 
-    .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {
-        var currentData = {
-            currentUser: false,
-            currentGroup: false,
-            idadmin: false
-        };
-        $rootScope.notify = function (title, text) {
-            $ionicPopup.alert({
-                title: title ? title : 'Error',
-                template: text
-            });
-        };
-        $rootScope.show = function (text) {
-            $rootScope.loading = $ionicLoading.show({
-                template: '<ion-spinner icon="ios"></ion-spinner><br>' + text,
-                animation: 'fade-in',
-                showBackdrop: true,
-                maxWidth: 200,
-                showDelay: 0
-            });
-        };
-        $rootScope.hide = function () {
-            $ionicLoading.hide();
-        };
-        return {
-
-            clearData: function () {
-                currentData = false;
-            },
-        }
-    })
-
     .service("CategoryTypeService", function () {
         var cattype = this;
         cattype.updateType = function (value) {
@@ -281,6 +250,17 @@ angular.module('moneyleash.factories', [])
         var type = this;
         type.updateType = function (value) {
             this.typeSelected = value;
+        }
+    })
+
+    // Current User
+    .service("CurrentUserService", function () {
+        var thisUser = this;
+        thisUser.updateUser = function (user) {
+            this.firstname = user.firstname;
+            this.lastname = user.lastname;
+            this.email = user.email;
+            this.paymentplan = user.paymentplan;
         }
     })
 

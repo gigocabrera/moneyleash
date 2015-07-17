@@ -15,7 +15,7 @@ moneyleashapp.controller('AccountPreferencesController', function ($scope, $stat
 })
 
 // SETTINGS CONTROLLER
-moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $state, $ionicActionSheet, $translate, fireBaseData, $ionicHistory, Auth) {
+moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $state, $ionicActionSheet, $translate, $ionicHistory, Auth) {
 
     // DUMMY SETTINGS
     $scope.airplaneMode = true;
@@ -26,10 +26,6 @@ moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $st
     $scope.checkOpt2 = true;
     $scope.checkOpt3 = false;
     $scope.radioChoice = 'B';
-
-    $scope.showAbout = function () {
-        $state.go('app.about');
-    };
 
     // Triggered on a the logOut button click
     $scope.showLogOutMenu = function () {
@@ -51,7 +47,6 @@ moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $st
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                fireBaseData.clearData();
                 $ionicHistory.clearCache();
                 Auth.$unauth();
                 $state.go("intro");

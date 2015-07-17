@@ -1,7 +1,7 @@
 <ion-view title={{AccountTitle}} ng-init="list()">
     <ion-nav-buttons side="right">
         <button class="button-icon fa fa-search customHeaderIcon customHeaderIconSmall extraMarginRight" ng-click="showFilterBar()"></button>
-        <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createTransaction('Add')"></button>
+        <button class="button button-icon ion-ios-more customHeaderIcon" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive customHeaderSize" ng-click="showSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
     </ion-nav-buttons>
     <div class="bar bar-subheader CustomSubHeader">
         <div class="row center">
@@ -11,8 +11,8 @@
         </div>
     </div>
     <ion-content class="has-header has-subheader">
-        <ion-list can-swipe="listCanSwipe">
-            <div ng-repeat="transaction in transactions | reverselist | filter:searchText | groupByDayMonthYear" divider-collection-repeat>
+        <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
+            <div ng-repeat="transaction in transactions | reverselist | groupByDayMonthYear" divider-collection-repeat>
                 <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
                     <div class="row">
                         <div class="col-50 customTransDesc">
@@ -41,11 +41,26 @@
                             <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared" ng-change="transactions.$save(transaction)">
                         </div>
                     </div>
+                    <ion-option-button class="button-stable" ng-click="moreOptions()">
+                        &nbsp;More&nbsp;
+                    </ion-option-button>
                     <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction)">
                         Delete
                     </ion-option-button>
+                    <ion-reorder-button class="ion-navicon" on-reorder="moveItem(transaction, $fromIndex, $toIndex)"></ion-reorder-button>
                 </ion-item>
             </div>
         </ion-list>
     </ion-content>
+    <ion-footer-bar align-title="left" class="CustomFooter">
+        <div class="row center">
+            <div class="col footerRow iconBackArrow">
+                <i class="ion-ios-arrow-thin-left" ng-click="$ionicGoBack()"></i>
+            </div>
+            <div class="col footerRow iconCircle">
+                <i class="fa fa-plus-circle" ng-click="createTransaction('Add')"></i>
+            </div>
+            <div class="col footerRow"><span></span></div>
+        </div>
+    </ion-footer-bar>
 </ion-view>

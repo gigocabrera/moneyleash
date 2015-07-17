@@ -63,6 +63,7 @@
 .customPaddingMenuItem {
     padding: 0 40px 0 13px;
     text-shadow: 2px 2px #eeeeee;
+    font: 20px 'PT Sans Narrow', sans-serif;
 }
 /* Menu Icons and Chevron Icons */
 .bar-menu {
@@ -92,7 +93,7 @@
     display: block;
     width: 25px;
     text-align: center;
-    padding-left: 7px;
+    padding-left: 9px;
     text-shadow: 2px 2px #eeeeee;
 }
 .icon-left-smaller:before {
@@ -124,8 +125,9 @@
     width: 35px;
     max-height: 35px;
 }
+/* Menu item padding */
 .item-complex.item-icon-left .item-content {
-    padding-left: 40px;
+    padding: 14px 49px 14px 40px;
 }
 .item-icon-left {
     padding-left: 40px;
@@ -151,10 +153,6 @@
 }
 button.customHeaderSize {
     font-size: 20px;
-}
-.customFooterIcon:before {
-    color: #fff;
-    text-shadow: 0 -1px 0 #bfbfbf;
 }
 .subTitle {
     font: 16px 'PT Sans', sans-serif;
@@ -193,7 +191,32 @@ button.customHeaderSize {
     font: 13px 'PT Sans Narrow', sans-serif;
 }
 .balancesRow span {
-     display: block;
+    display: block;
+    font-weight: normal;
+    font-size: 15px;
+}
+.CustomFooter {
+    background-color: #fff;
+}
+.customFooterIcon:before {
+    color: #fff;
+    text-shadow: 0 -1px 0 #bfbfbf;
+}
+.footerRow i {
+    margin-top: -13px;
+}
+.iconCircle i:before {
+    font-weight: bold;
+    font-size: 57px;
+    color: #31C0E6;
+    text-shadow: 1px 1px #bfbfbf;
+}
+.iconBackArrow i:before {
+    font-weight: bold;
+    font-size: 35px;
+}
+.footerRow span {
+    display: block;
     font-weight: normal;
     font-size: 15px;
 }
@@ -505,7 +528,13 @@ button.customHeaderSize {
 .customPaddingSettings {
     padding: 0 40px 0 11px;
 }
-
+.customPaddingSettingsItem {
+    padding: 0 40px 0 8px;
+    font: 17px 'PT Sans Narrow', sans-serif;
+}
+.customPaddingSettingsItem i:before {
+    font-size: 18px;
+}
 /*******************/
 /*  ABOUT SCREEN   */
 .slider { height: 100%; text-align: center }
@@ -612,12 +641,15 @@ button.customHeaderSize {
     line-height: 25px;
 }
 .form-group input[type="text"] {
-    margin-top: -4px;
+    margin-top: 0;
     padding-left: 35px;
     padding-top: 0;
     padding-bottom: 0;
     font-size: 20px;
     background-color: transparent;
+}
+.customMarginTop input[type="text"] {
+    margin-top: -11px;
 }
 i.customChevronForm {
     background-color: #fff;

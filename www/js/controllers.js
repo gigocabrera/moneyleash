@@ -55,18 +55,25 @@ moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHist
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state, Auth, fireBaseData) {
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, Auth, CurrentUserService) {
 
     $scope.user = {email: 'gigo@test.com', password: '123'};
+    $scope.notify = function (title, text) {
+        $ionicPopup.alert({
+            title: title ? title : 'Error',
+            template: text
+        });
+    };
 
     $scope.doLogIn = function (user) {
-
-        $rootScope.show('Logging In...');
+        $ionicLoading.show({
+            template: '<ion-spinner icon="ios"></ion-spinner><br>Loggin In...'
+        });
 
         /* Check user fields*/
         if (!user.email || !user.password) {
-            $rootScope.hide();
-            $rootScope.notify('Oops', 'Please check your Email or Password!');
+            $ionicLoading.hide();
+            $scope.notify('Oops', 'Please check your Email or Password!');
             return;
         }
 
@@ -79,7 +86,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state
             if (error) {
                 console.log("Login Failed!", error);
             } else {
-                $rootScope.hide();
+                $ionicLoading.hide();
                 $state.go('app.dashboard');
             }
         });
@@ -87,7 +94,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $state
 })
 
 //REGISTER CONTROLLER
-moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $firebase, $firebaseArray, $firebaseAuth, MembersFactory, fireBaseData) {
+moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $firebase, $firebaseArray, $firebaseAuth, MembersFactory) {
 
     $scope.user = {};
 
@@ -212,8 +219,14 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 })
 
 // DASHBOARD CONTROLLER
-moneyleashapp.controller('DashboardController', function ($scope, $state, $stateParams) {
+moneyleashapp.controller('DashboardController', function ($scope, $state, $stateParams, MembersFactory, CurrentUserService) {
     
+    // Load global user settings
+    MembersFactory.getMember().then(function (user) {
+        CurrentUserService.updateUser(user);
+        $scope.displayname = CurrentUserService.firstname;
+    });
+
     $scope.editTransaction = function (item) {
         //alert('Edit Item: ' + item.id);
         $state.go('app.itemdetailsview', { itemId: item.id });
