@@ -192,7 +192,8 @@ angular.module('moneyleash.factories', [])
                     var categoryTransaction = {
                         payee: currentItem.payee,
                         amount: currentItem.amount,
-                        date: currentItem.date
+                        date: currentItem.date,
+                        type: currentItem.type
                     };
                     categoryTransactionRef.update(categoryTransaction);
                     //
@@ -202,9 +203,20 @@ angular.module('moneyleash.factories', [])
                     var payeeTransaction = {
                         payee: currentItem.payee,
                         amount: currentItem.amount,
-                        date: currentItem.date
+                        date: currentItem.date,
+                        type: currentItem.type
                     };
                     payeeTransactionRef.update(payeeTransaction);
+                    //
+                    // Save payee-category relationship
+                    //
+                    var payeeRef = fb.child("memberpayees").child(fbAuth.uid).child(currentItem.payeeid);
+                    var payee = {
+                        lastamount: currentItem.amount,
+                        lastcategory: currentItem.category,
+                        lastcategoryid: currentItem.categoryid
+                    };
+                    payeeRef.update(payee);
                 });
             },
             deleteTransaction: function (accountid, transactionid) {
@@ -218,11 +230,16 @@ angular.module('moneyleash.factories', [])
         var ref = {};
         var fbAuth = fb.getAuth();
         var payees = {};
+        var payeeRef = {};
         return {
             getPayees: function () {
                 ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
                 payees = $firebaseArray(ref);
                 return payees;
+            },
+            getPayeeRef: function (payeeid) {
+                payeeRef = fb.child("memberpayees").child(fbAuth.uid).child(payeeid);
+                return payeeRef;
             },
         };
     })
@@ -316,9 +333,16 @@ angular.module('moneyleash.factories', [])
             this.categorySelected = value;
             this.categoryid = id;
         }
-        transPayee.updatePayee = function (value, id) {
-            this.payeeSelected = value;
-            this.payeeid = id;
+        //transPayee.updatePayee = function (value, id) {
+        //    this.payeeSelected = value;
+        //    this.payeeid = id;
+        //}
+        transPayee.updatePayee = function (payee) {
+            this.payeeSelected = payee.payeename;
+            this.categorySelected = payee.lastcategory;
+            this.categoryid = payee.lastcategoryid;
+            this.amountSelected = payee.lastamount;
+            this.payeeid = payee.$id;
         }
         transDate.updateDate = function (value) {
             this.dateSelected = value;

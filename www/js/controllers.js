@@ -2,9 +2,19 @@
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet, $ionicHistory, Auth) {
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet, $ionicHistory, Auth, MembersFactory) {
 
     $scope.showMenuIcon = true;
+    $scope.isFree = true;
+
+    // Load global user settings
+    MembersFactory.getMember().then(function (user) {
+        if (user.paymentplan === 'FREE') {
+            $scope.isFree = true;
+        } else {
+            $scope.isFree = false;
+        }
+    });
 
     // Triggered on a the logOut button click
     $scope.showLogOutMenu = function () {
