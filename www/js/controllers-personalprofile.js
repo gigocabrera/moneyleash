@@ -1,6 +1,6 @@
 
 // REGISTER CONTROLLER
-moneyleashapp.controller('PersonalProfileController', function ($scope, $rootScope, $state, MembersFactory, dateFilter) {
+moneyleashapp.controller('PersonalProfileController', function ($scope, $state, MembersFactory, dateFilter) {
 
     $scope.getProfile = function () {
         MembersFactory.getMember().then(function (user) {
@@ -45,7 +45,6 @@ moneyleashapp.controller('PersonalProfileController', function ($scope, $rootSco
             dateupdated: dtUpdated
         }
         myUser.update(temp, function () {
-            $rootScope.hide();
             $state.go('app.settings');
         });
     };

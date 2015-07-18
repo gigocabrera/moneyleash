@@ -180,7 +180,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     } else {
         $scope.isFree = false;
     }
-    console.log(CurrentUserService);
+    //console.log(CurrentUserService);
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.hideValidationMessage = true;
@@ -311,13 +311,23 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             //
             // Update transaction under category
             //
-            var categoryTransactionRef = AccountsFactory.getCategoriesTransactionRef($scope.currentItem.categoryid, $stateParams.transactionId);
+            var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef($scope.currentItem.categoryid, $stateParams.transactionId);
             var categoryTransaction = {
                 payee: $scope.currentItem.payee,
                 amount: $scope.currentItem.amount,
                 date: $scope.currentItem.date
             };
             categoryTransactionRef.update(categoryTransaction, onComplete);
+            //
+            // Update transaction under payee
+            //
+            var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef($scope.currentItem.payeeid, $stateParams.transactionId);
+            var payeeTransaction = {
+                payee: $scope.currentItem.payee,
+                amount: $scope.currentItem.amount,
+                date: $scope.currentItem.date
+            };
+            payeeTransactionRef.update(payeeTransaction, onComplete);
 
             //TODO
             //console.log($scope.ItemFrom);

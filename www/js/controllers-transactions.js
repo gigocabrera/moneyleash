@@ -16,23 +16,24 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         //$scope.popover.hide();
     };
     
-    //$scope.moveItem = function (transaction, fromIndex, toIndex) {
-    //    //$scope.transactions.splice(fromIndex, 1);
-    //    //$scope.transactions.splice(toIndex, 0, transaction);
-    //    console.log(fromIndex);
-    //    console.log(toIndex);
-    //    var dtTransDate = new Date(transaction.date);
-    //    if (isNaN(dtTransDate)) {
-    //        transaction.date = "";
-    //    } else {
-    //        // save date in ISO format in service
-    //        dtTransDate = dtTransDate.toISOString();            
-    //        // format date to be displayed
-    //        //var format = 'MMMM dd, yyyy';
-    //        console.log(dtTransDate);
-    //    }
-    //    console.log(transaction);
-    //};
+    $scope.moveItem = function (transaction, fromIndex, toIndex) {
+        //$scope.transactions.splice(fromIndex, 1);
+        //$scope.transactions.splice(toIndex, 0, transaction);
+        console.log(transaction);
+        console.log(fromIndex);
+        console.log(toIndex);
+        //var dtTransDate = new Date(transaction.date);
+        //if (isNaN(dtTransDate)) {
+        //    transaction.date = "";
+        //} else {
+        //    // save date in ISO format in service
+        //    dtTransDate = dtTransDate.toISOString();            
+        //    // format date to be displayed
+        //    //var format = 'MMMM dd, yyyy';
+        //    console.log(dtTransDate);
+        //}
+        //console.log(transaction);
+    };
 
     //// POPOVER
     //$scope.animation = 'slide-in-up';
@@ -82,11 +83,8 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
             $ionicListDelegate.closeOptionButtons();
         } else {
             var target = event.srcElement;
-            //console.log(target.className);
             if (target.className.contains('toggleTransactionCleared')) {
-                //console.log('clear transaction');
             } else {
-                //console.log('edit transaction');
                 $state.go('app.transaction', { accountId: $stateParams.accountId, accountName: $stateParams.accountName, transactionId: transaction.$id, transactionName: transaction.payee });
             }
         }
@@ -107,12 +105,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         PickTransactionServices.accountToId = '';
         $state.go('app.transaction', { accountId: $stateParams.accountId, transactionId: '' });
     }
-
-    //// EDIT
-    //$scope.editTransaction = function (transaction) {
-    //    $ionicListDelegate.closeOptionButtons();
-    //    $state.go('app.transaction', { accountId: $stateParams.accountId, accountName: $stateParams.accountName, transactionId: transaction.$id, transactionName: transaction.payee });
-    //};
 
     // GET TRANSACTIONS
     $scope.list = function () {
@@ -151,6 +143,19 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
                 $ionicListDelegate.closeOptionButtons();
+                //
+                // Delete transaction under category
+                //
+                var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);
+                categoryTransactionRef.remove();
+                //
+                // Delete transaction under payee
+                //
+                var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
+                payeeTransactionRef.remove();
+                //
+                // Delete transaction
+                //
                 $scope.transactions.$remove(transaction).then(function (newChildRef) {
                     newChildRef.key() === transaction.$id;
                 })

@@ -72,6 +72,8 @@ angular.module('moneyleash.factories', [])
         var accounttypes = {};
         var transactions = {};
         var transactionsByDate = {};
+        var transactionsbycategoryRef = {};
+        var transactionsbypayeeRef = {};
         var accountRef = {};
         var transactionRef = {};
         var transactionsRef = {};
@@ -124,9 +126,13 @@ angular.module('moneyleash.factories', [])
                 transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
                 return transactionRef;
             },
-            getCategoriesTransactionRef: function (categoryid, transactionid) {
-                transactionRef = fb.child("membercategoriestransactions").child(fbAuth.uid).child(categoryid).child(transactionid);
-                return transactionRef;
+            getTransactionByCategoryRef: function (categoryid, transactionid) {
+                transactionsbycategoryRef = fb.child("membertransactionsbycategory").child(fbAuth.uid).child(categoryid).child(transactionid);
+                return transactionsbycategoryRef;
+            },
+            getTransactionByPayeeRef: function (payeeid, transactionid) {
+                transactionsbypayeeRef = fb.child("membertransactionsbypayee").child(fbAuth.uid).child(payeeid).child(transactionid);
+                return transactionsbypayeeRef;
             },
             createNewAccount: function (currentItem) {
 
@@ -182,13 +188,23 @@ angular.module('moneyleash.factories', [])
                     //
                     // Save transaction under category
                     //
-                    var categoryTransactionRef = fb.child("membercategoriestransactions").child(fbAuth.uid).child(currentItem.categoryid).child(newChildRef.key());
+                    var categoryTransactionRef = fb.child("membertransactionsbycategory").child(fbAuth.uid).child(currentItem.categoryid).child(newChildRef.key());
                     var categoryTransaction = {
                         payee: currentItem.payee,
                         amount: currentItem.amount,
                         date: currentItem.date
                     };
-                    categoryTransactionRef.push(categoryTransaction);
+                    categoryTransactionRef.update(categoryTransaction);
+                    //
+                    // Save transaction under payee
+                    //
+                    var payeeTransactionRef = fb.child("membertransactionsbypayee").child(fbAuth.uid).child(currentItem.payeeid).child(newChildRef.key());
+                    var payeeTransaction = {
+                        payee: currentItem.payee,
+                        amount: currentItem.amount,
+                        date: currentItem.date
+                    };
+                    payeeTransactionRef.update(payeeTransaction);
                 });
             },
             deleteTransaction: function (accountid, transactionid) {
