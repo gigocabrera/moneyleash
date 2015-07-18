@@ -639,6 +639,7 @@ button.customHeaderSize {
 .form-group a.item-content input[type="text"] {
     height: 25px;
     line-height: 25px;
+    width: 100%;
 }
 .form-group input[type="text"] {
     margin-top: 0;
@@ -649,7 +650,7 @@ button.customHeaderSize {
     background-color: transparent;
 }
 .customMarginTop input[type="text"] {
-    margin-top: -11px;
+    margin-top: -10px;
 }
 i.customChevronForm {
     background-color: #fff;

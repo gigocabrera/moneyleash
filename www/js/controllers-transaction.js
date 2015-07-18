@@ -5,9 +5,9 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
         { text: 'Income', value: 'Income' },
         { text: 'Expense', value: 'Expense' },
         { text: 'Transfer', value: 'Transfer' }];
-    $scope.currentItem = { typedisplay: PickTransactionServices.typeSelected };
+    $scope.currentItem = { typedisplay: PickTransactionServices.typeDisplaySelected };
     $scope.itemchanged = function (item) {
-        PickTransactionServices.updateType(item.value);
+        PickTransactionServices.updateType(item.value, item.value);
         $ionicHistory.goBack();
     };
 })
@@ -22,6 +22,8 @@ moneyleashapp.controller('PickTransactionAccountFromController', function ($scop
     $scope.currentItem = { accountFrom: PickTransactionServices.accountFromSelected };
     $scope.itemchanged = function (account) {
         PickTransactionServices.updateAccountFrom(account.accountname, account.$id);
+        PickTransactionServices.categorySelected = '';
+        PickTransactionServices.categoryid = '';
         $ionicHistory.goBack();
     };
 })
@@ -36,6 +38,8 @@ moneyleashapp.controller('PickTransactionAccountToController', function ($scope,
     $scope.currentItem = { accountFrom: PickTransactionServices.accountToSelected };
     $scope.itemchanged = function (account) {
         PickTransactionServices.updateAccountTo(account.accountname, account.$id);
+        PickTransactionServices.categorySelected = '';
+        PickTransactionServices.categoryid = '';
         $ionicHistory.goBack();
     };
 })
@@ -80,11 +84,11 @@ moneyleashapp.controller('PickTransactionCategoryController', function ($scope, 
     //
     // To fetch categories, we need to know the transaction type first (Expense/Income)
     //
-    if (PickTransactionServices.typeSelected === '') {
+    if (PickTransactionServices.typeInternalSelected === '') {
         $scope.TransactionCategoryList = '';
     } else {
-        $scope.categoriesDividerTitle = PickTransactionServices.typeSelected;
-        $scope.TransactionCategoryList = CategoriesFactory.getCategoriesByTypeAndGroup(PickTransactionServices.typeSelected);
+        $scope.categoriesDividerTitle = PickTransactionServices.typeInternalSelected;
+        $scope.TransactionCategoryList = CategoriesFactory.getCategoriesByTypeAndGroup(PickTransactionServices.typeInternalSelected);
         $scope.TransactionCategoryList.$loaded().then(function () {
         });
     };
@@ -154,6 +158,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     $scope.editIndex = '';
     $scope.ItemFrom = {};
     $scope.ItemTo = {};
+    $scope.ItemOriginalTransfer = {};
     $scope.currentItem = {
         'accountFrom': '',
         'accountFromId': '',
@@ -185,14 +190,13 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.hideValidationMessage = true;
-        $scope.currentItem.typedisplay = PickTransactionServices.typeSelected;
-
+        $scope.currentItem.typedisplay = PickTransactionServices.typeDisplaySelected;
+        $scope.currentItem.type = PickTransactionServices.typeInternalSelected;
         $scope.currentItem.payee = PickTransactionServices.payeeSelected;
         $scope.currentItem.payeeid = PickTransactionServices.payeeid;
         $scope.currentItem.category = PickTransactionServices.categorySelected;
         $scope.currentItem.categoryid = PickTransactionServices.categoryid;
         $scope.currentItem.amount = PickTransactionServices.amountSelected;
-
         $scope.currentItem.accountFrom = PickTransactionServices.accountFromSelected;
         $scope.currentItem.accountFromId = PickTransactionServices.accountFromId;
         $scope.currentItem.accountTo = PickTransactionServices.accountToSelected;
@@ -203,6 +207,12 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             $scope.currentItem.date = dateFilter(PickTransactionServices.dateSelected, format);
         }
         $scope.isTransfer = ($scope.currentItem.typedisplay === "Transfer") ? true : false;
+        // Handle transaction type
+        if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId === $scope.currentItem.accountToId) {
+            PickTransactionServices.typeInternalSelected = 'Income';
+        } else if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId !== $scope.currentItem.accountToId) {
+            PickTransactionServices.typeInternalSelected = 'Expense';
+        }
     });
 
     // EDIT / CREATE ACCOUNT
@@ -226,7 +236,11 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             }
             $scope.currentItem = transaction;
             $scope.isTransfer = $scope.currentItem.istransfer;
-            PickTransactionServices.typeSelected = $scope.currentItem.typedisplay
+            if ($scope.isTransfer) {
+                angular.copy(transaction, $scope.ItemOriginalTransfer);
+            }
+            PickTransactionServices.typeDisplaySelected = $scope.currentItem.typedisplay;
+            PickTransactionServices.typeInternalSelected = $scope.currentItem.type;
             PickTransactionServices.categorySelected = $scope.currentItem.category;
             PickTransactionServices.categoryid = $scope.currentItem.categoryid;
             PickTransactionServices.amountSelected = $scope.currentItem.amount;
@@ -282,13 +296,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         // Handle transaction type
         if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId === $scope.currentItem.accountToId) {
             $scope.currentItem.type = 'Income';
-            $scope.currentItem.category = 'Tranfer';
-            $scope.currentItem.categoryid = 'Tranfer';
             $scope.currentItem.istransfer = true;
         } else if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId !== $scope.currentItem.accountToId) {
             $scope.currentItem.type = 'Expense';
-            $scope.currentItem.category = 'Tranfer';
-            $scope.currentItem.categoryid = 'Tranfer';
             $scope.currentItem.istransfer = true;
         } else {
             $scope.currentItem.accountFrom = '';
@@ -300,15 +310,14 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         }
 
         if ($scope.inEditMode) {
-            
+            //
+            // Update Existing Transaction
+            //
             var onComplete = function (error) {
                 if (error) {
                     console.log('Synchronization failed');
                 }
             };
-            //
-            // Update Transaction
-            //
             var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
             transactionRef.update($scope.currentItem, onComplete);
             //
@@ -342,19 +351,28 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 lastcategory: $scope.currentItem.category,
                 lastcategoryid: $scope.currentItem.categoryid
             };
-            payeeRef.update(payee);a
+            payeeRef.update(payee);
             //
             //TODO: finish transfer logic here
             //
             //console.log($scope.ItemFrom);
-            if ($scope.currentItem.typedisplay === 'Transfer') {
-                
+            if ($scope.ItemOriginalTransfer.istransfer) {
+                //
+                // Update transfer relationship
+                //
+                if ($scope.currentItem.typedisplay !== "Transfer") {
+                    // User changed transaction type from Transfer to something else. We need to delete the otehr record in the transfer
+                    
+                } else {
+                    // This transaction is still a transfer, just update both transactions in the transfer
+
+                }
             }
             $scope.inEditMode = false;
             //
         } else {
             //
-            // Create New
+            // Create New Transaction
             //
             if (isNaN($scope.currentItem.notes)) {
                 $scope.currentItem.notes = "";

@@ -92,7 +92,8 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
 
     // CREATE
     $scope.createTransaction = function (title) {
-        PickTransactionServices.typeSelected = '';
+        PickTransactionServices.typeDisplaySelected = '';
+        PickTransactionServices.typeInternalSelected = '';
         PickTransactionServices.categorySelected = '';
         PickTransactionServices.categoryid = '';
         PickTransactionServices.amountSelected = '';
@@ -159,6 +160,13 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 $scope.transactions.$remove(transaction).then(function (newChildRef) {
                     newChildRef.key() === transaction.$id;
                 })
+                //
+                // Delete transfer if applicable
+                //
+                if (transaction.istransfer == 'true') {
+                    var transferRef = AccountsFactory.getTransactionRef($stateParams.accountId, transaction.$id);
+                    transferRef.remove();
+                }
                 return true;
             }
         });

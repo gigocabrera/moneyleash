@@ -231,11 +231,17 @@ angular.module('moneyleash.factories', [])
         var fbAuth = fb.getAuth();
         var payees = {};
         var payeeRef = {};
+        var transactionsByPayeeRef = {};
         return {
             getPayees: function () {
                 ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
                 payees = $firebaseArray(ref);
                 return payees;
+            },
+            getTransactionsByPayee: function (payeeid) {
+                ref = fb.child("membertransactionsbypayee").child(fbAuth.uid).child(payeeid);
+                transactionsByPayeeRef = $firebaseArray(ref);
+                return transactionsByPayeeRef;
             },
             getPayeeRef: function (payeeid) {
                 payeeRef = fb.child("memberpayees").child(fbAuth.uid).child(payeeid);
@@ -251,7 +257,6 @@ angular.module('moneyleash.factories', [])
         ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
         payees = $firebaseArray(ref);
         var searchPayees = function (searchFilter) {
-            //console.log('Searching airlines for ' + searchFilter);
             var deferred = $q.defer();
             var matches = payees.filter(function (payee) {
                 if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;
@@ -326,17 +331,14 @@ angular.module('moneyleash.factories', [])
         var transAmount = this;
         var transAccountFrom = this;
         var transAccountTo = this;
-        transactionType.updateType = function (value) {
-            this.typeSelected = value;
+        transactionType.updateType = function (value, type) {
+            this.typeDisplaySelected = value;
+            this.typeInternalSelected = type;
         }
         transCategory.updateCategory = function (value, id) {
             this.categorySelected = value;
             this.categoryid = id;
         }
-        //transPayee.updatePayee = function (value, id) {
-        //    this.payeeSelected = value;
-        //    this.payeeid = id;
-        //}
         transPayee.updatePayee = function (payee) {
             this.payeeSelected = payee.payeename;
             this.categorySelected = payee.lastcategory;
