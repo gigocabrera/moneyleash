@@ -163,10 +163,10 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 //
                 // Delete transfer if applicable
                 //
-                if (transaction.istransfer == 'true') {
-                    var transferRef = AccountsFactory.getTransactionRef($stateParams.accountId, transaction.$id);
-                    transferRef.remove();
-                }
+                //if (transaction.istransfer == 'true') {
+                //    var transferRef = AccountsFactory.getTransactionRef($stateParams.accountId, transaction.$id);
+                //    transferRef.remove();
+                //}
                 return true;
             }
         });

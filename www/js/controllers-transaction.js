@@ -74,7 +74,7 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $st
     }
 
     $scope.selectPayee = function (payee) {
-        PickTransactionServices.updatePayee(payee);
+        PickTransactionServices.updatePayee(payee, payee.$id);
         $ionicHistory.goBack();
     }
 })
@@ -355,17 +355,27 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             //
             //TODO: finish transfer logic here
             //
-            //console.log($scope.ItemFrom);
             if ($scope.ItemOriginalTransfer.istransfer) {
                 //
                 // Update transfer relationship
                 //
                 if ($scope.currentItem.typedisplay !== "Transfer") {
-                    // User changed transaction type from Transfer to something else. We need to delete the otehr record in the transfer
+                    //
+                    // User changed transaction type from Transfer to something else. We need to delete the other record in the transfer
+                    //
+                    //if ($stateParams.accountId === $scope.ItemFrom.accountFromId) {
+                    //    var transRef = AccountsFactory.getTransactionRef($scope.ItemFrom.accountToId, $scope.ItemFrom.accountToId);
+                    //    transRef.remove();
+                    //} else {
+                    //    var transRef = AccountsFactory.getTransactionRef(transaction.categoryid, transaction.$id);
+                    //    transRef.remove();
+                    //}
                     
                 } else {
                     // This transaction is still a transfer, just update both transactions in the transfer
-
+                    //
+                    // Update the 'Account FROM' transaction
+                    //
                 }
             }
             $scope.inEditMode = false;
@@ -380,44 +390,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             if (isNaN($scope.currentItem.photo)) {
                 $scope.currentItem.photo = "";
             }
-
-            if ($scope.currentItem.typedisplay === 'Transfer') {
-                //
-                // Save Transfer
-                //
-                angular.copy($scope.currentItem, $scope.ItemFrom);
-                angular.copy($scope.currentItem, $scope.ItemTo);
-                //
-                // Create the 'Account FROM' transaction
-                //
-                if ($stateParams.accountId === $scope.ItemFrom.accountFromId) {
-                    $scope.ItemFrom.payee = 'Tranfer from ' + $scope.ItemFrom.accountFrom;
-                    $scope.ItemFrom.type = 'Income';
-                    AccountsFactory.createTransaction($scope.ItemFrom, $scope.ItemFrom.accountToId);
-                } else {
-                    $scope.ItemFrom.payee = 'Tranfer to ' + $scope.ItemFrom.accountTo;
-                    $scope.ItemFrom.type = 'Expense';
-                    AccountsFactory.createTransaction($scope.ItemFrom, $scope.ItemFrom.accountFromId);
-                }
-                //
-                // Create the 'Account TO' transaction
-                //
-                if ($stateParams.accountId === $scope.ItemTo.accountToId) {
-                    $scope.ItemTo.payee = 'Tranfer from ' + $scope.ItemTo.accountFrom;
-                    $scope.ItemTo.type = 'Income';
-                    AccountsFactory.createTransaction($scope.ItemTo, $scope.ItemTo.accountToId);
-                } else {
-                    $scope.ItemTo.payee = 'Tranfer to ' + $scope.ItemTo.accountTo;
-                    $scope.ItemTo.type = 'Expense';
-                    AccountsFactory.createTransaction($scope.ItemTo, $scope.ItemTo.accountFromId);
-                }
-                
-            } else {
-                //
-                // Save Transaction
-                //
-                AccountsFactory.createTransaction($scope.currentItem, $stateParams.accountId);
-            }
+            //
+            // Save Transaction
+            //
+            AccountsFactory.createTransaction($stateParams.accountId, $scope.currentItem);
             
         }
         $scope.currentItem = {};

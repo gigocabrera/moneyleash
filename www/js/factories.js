@@ -181,7 +181,31 @@ angular.module('moneyleash.factories', [])
                 //var initialTransRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(currentItem.transactionid);
                 //initialTransRef.update(initialTransaction);
             },
-            createTransaction: function (currentItem, accountId) {
+            createTransaction: function (currentAccountId, currentItem) {
+                //
+                var accountId = '';
+                var otherAccountId = '';
+                var OtherTransaction = {};
+                //
+                if (currentItem.istransfer) {
+                    angular.copy(currentItem, OtherTransaction);
+                    if (currentAccountId === currentItem.accountToId) {
+                        //For current account: transfer is coming into the current account as an income
+                        currentItem.type = 'Income';
+                        accountId = currentItem.accountToId;
+                        otherAccountId = currentItem.accountFromId;
+                        OtherTransaction.type = 'Expense';
+                    } else {
+                        //For current account: transfer is moving into the other account as an expense
+                        currentItem.type = 'Expense';
+                        accountId = currentItem.accountFromId;
+                        otherAccountId = currentItem.accountToId;
+                        OtherTransaction.type = 'Income';
+                    }
+                } else {
+                    accountId = currentAccountId;
+                }
+
                 var transRef = fb.child("membertransactions").child(fbAuth.uid).child(accountId);
                 var sync = $firebaseArray(transRef);
                 sync.$add(currentItem).then(function (newChildRef) {
@@ -217,6 +241,18 @@ angular.module('moneyleash.factories', [])
                         lastcategoryid: currentItem.categoryid
                     };
                     payeeRef.update(payee);
+
+                    if (currentItem.istransfer) {
+                        // Save the other transaction, get the transaction id and link it to this transaction
+                        var othertransRef = fb.child("membertransactions").child(fbAuth.uid).child(otherAccountId);
+                        var sync = $firebaseArray(othertransRef);
+                        sync.$add(OtherTransaction).then(function (otherChildRef) {
+
+                            // Update this transaction with other transaction id
+                            newChildRef.update({ linkedtransactionid: otherChildRef.key() })
+
+                        });
+                    }
                 });
             },
             deleteTransaction: function (accountid, transactionid) {
@@ -339,12 +375,12 @@ angular.module('moneyleash.factories', [])
             this.categorySelected = value;
             this.categoryid = id;
         }
-        transPayee.updatePayee = function (payee) {
+        transPayee.updatePayee = function (payee, id) {
             this.payeeSelected = payee.payeename;
             this.categorySelected = payee.lastcategory;
             this.categoryid = payee.lastcategoryid;
             this.amountSelected = payee.lastamount;
-            this.payeeid = payee.$id;
+            this.payeeid = id;
         }
         transDate.updateDate = function (value) {
             this.dateSelected = value;
