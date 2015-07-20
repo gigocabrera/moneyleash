@@ -129,7 +129,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         // Show the action sheet
         $ionicActionSheet.show({
             destructiveText: 'Delete Account',
-            titleText: 'Are you sure you want to delete ' + transaction.payee + '? This will permanently delete the account from the app.',
+            titleText: 'Are you sure you want to delete ' + transaction.payee + '? This will permanently delete the transaction from the account',
             cancelText: 'Cancel',
             cancel: function () {
                 // add cancel code..
@@ -155,18 +155,24 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
                 payeeTransactionRef.remove();
                 //
+                // Delete transfer if applicable
+                //
+                if (transaction.istransfer) {
+                    var otherAccountId = '';
+                    if ($stateParams.accountId === transaction.accountToId) {
+                        otherAccountId = transaction.accountFromId;
+                    } else {
+                        otherAccountId = transaction.accountToId;
+                    }
+                    var transferRef = AccountsFactory.getTransactionRef(otherAccountId, transaction.linkedtransactionid);
+                    transferRef.remove();
+                }
+                //
                 // Delete transaction
                 //
                 $scope.transactions.$remove(transaction).then(function (newChildRef) {
                     newChildRef.key() === transaction.$id;
                 })
-                //
-                // Delete transfer if applicable
-                //
-                //if (transaction.istransfer == 'true') {
-                //    var transferRef = AccountsFactory.getTransactionRef($stateParams.accountId, transaction.$id);
-                //    transferRef.remove();
-                //}
                 return true;
             }
         });

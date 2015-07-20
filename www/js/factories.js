@@ -243,14 +243,17 @@ angular.module('moneyleash.factories', [])
                     payeeRef.update(payee);
 
                     if (currentItem.istransfer) {
+                        //
                         // Save the other transaction, get the transaction id and link it to this transaction
+                        //
+                        OtherTransaction.linkedtransactionid = newChildRef.key();
                         var othertransRef = fb.child("membertransactions").child(fbAuth.uid).child(otherAccountId);
                         var sync = $firebaseArray(othertransRef);
                         sync.$add(OtherTransaction).then(function (otherChildRef) {
-
+                            //
                             // Update this transaction with other transaction id
                             newChildRef.update({ linkedtransactionid: otherChildRef.key() })
-
+                            //
                         });
                     }
                 });

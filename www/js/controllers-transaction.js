@@ -158,7 +158,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     $scope.editIndex = '';
     $scope.ItemFrom = {};
     $scope.ItemTo = {};
-    $scope.ItemOriginalTransfer = {};
+    $scope.ItemOriginal = {};
     $scope.currentItem = {
         'accountFrom': '',
         'accountFromId': '',
@@ -236,9 +236,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             }
             $scope.currentItem = transaction;
             $scope.isTransfer = $scope.currentItem.istransfer;
-            if ($scope.isTransfer) {
-                angular.copy(transaction, $scope.ItemOriginalTransfer);
-            }
             PickTransactionServices.typeDisplaySelected = $scope.currentItem.typedisplay;
             PickTransactionServices.typeInternalSelected = $scope.currentItem.type;
             PickTransactionServices.categorySelected = $scope.currentItem.category;
@@ -256,6 +253,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
 
     // SAVE
     $scope.saveTransaction = function () {
+
+        if ($scope.currentItem.isTransfer) {
+            angular.copy($scope.currentItem, $scope.ItemOriginal);
+        }
 
         // Validate form data
         if (typeof $scope.currentItem.typedisplay === 'undefined' || $scope.currentItem.typedisplay === '') {
@@ -355,27 +356,27 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             //
             //TODO: finish transfer logic here
             //
-            if ($scope.ItemOriginalTransfer.istransfer) {
+            if ($scope.ItemOriginal.istransfer) {
                 //
                 // Update transfer relationship
                 //
                 if ($scope.currentItem.typedisplay !== "Transfer") {
                     //
-                    // User changed transaction type from Transfer to something else. We need to delete the other record in the transfer
+                    // User changed transaction type from 'Transfer' to something else. Delete transfer if applicable.
                     //
-                    //if ($stateParams.accountId === $scope.ItemFrom.accountFromId) {
-                    //    var transRef = AccountsFactory.getTransactionRef($scope.ItemFrom.accountToId, $scope.ItemFrom.accountToId);
-                    //    transRef.remove();
-                    //} else {
-                    //    var transRef = AccountsFactory.getTransactionRef(transaction.categoryid, transaction.$id);
-                    //    transRef.remove();
-                    //}
-                    
+                    var otherAccountId = '';
+                    if ($stateParams.accountId === transaction.accountToId) {
+                        otherAccountId = transaction.accountFromId;
+                    } else {
+                        otherAccountId = transaction.accountToId;
+                    }
+                    var transferRef = AccountsFactory.getTransactionRef(otherAccountId, $scope.ItemOriginal.linkedtransactionid);
+                    transferRef.remove();
+                    //
                 } else {
+                    //
                     // This transaction is still a transfer, just update both transactions in the transfer
-                    //
-                    // Update the 'Account FROM' transaction
-                    //
+                    //                    
                 }
             }
             $scope.inEditMode = false;
