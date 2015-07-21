@@ -247,16 +247,15 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             PickTransactionServices.accountFromId = $scope.currentItem.accountFromId;
             PickTransactionServices.accountToSelected = $scope.currentItem.accountTo;
             PickTransactionServices.accountToId = $scope.currentItem.accountToId;
+            if ($scope.currentItem.istransfer) {
+                angular.copy($scope.currentItem, $scope.ItemOriginal);
+            }
         });
         $scope.TransactionTitle = "Edit Transaction";
     }
 
     // SAVE
     $scope.saveTransaction = function () {
-
-        if ($scope.currentItem.isTransfer) {
-            angular.copy($scope.currentItem, $scope.ItemOriginal);
-        }
 
         // Validate form data
         if (typeof $scope.currentItem.typedisplay === 'undefined' || $scope.currentItem.typedisplay === '') {
@@ -356,6 +355,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             //
             //TODO: finish transfer logic here
             //
+            console.log($scope.ItemOriginal.istransfer);
+            console.log($scope.currentItem.typedisplay);
             if ($scope.ItemOriginal.istransfer) {
                 //
                 // Update transfer relationship
@@ -365,10 +366,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                     // User changed transaction type from 'Transfer' to something else. Delete transfer if applicable.
                     //
                     var otherAccountId = '';
-                    if ($stateParams.accountId === transaction.accountToId) {
-                        otherAccountId = transaction.accountFromId;
+                    if ($stateParams.accountId === $scope.ItemOriginal.accountToId) {
+                        otherAccountId = $scope.ItemOriginal.accountFromId;
                     } else {
-                        otherAccountId = transaction.accountToId;
+                        otherAccountId = $scope.ItemOriginal.accountToId;
                     }
                     var transferRef = AccountsFactory.getTransactionRef(otherAccountId, $scope.ItemOriginal.linkedtransactionid);
                     transferRef.remove();
