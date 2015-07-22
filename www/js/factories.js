@@ -159,7 +159,7 @@ angular.module('moneyleash.factories', [])
                         initialTransaction.iscleared = 'true';
                     }
                     var ref = fb.child("membertransactions").child(authData.uid).child(newChildRef.key());
-                    ref.push(initialTransaction);
+                    ref.update(initialTransaction);
 
                     // Update account with transaction id
                     newChildRef.update({ transactionid: ref.key() })

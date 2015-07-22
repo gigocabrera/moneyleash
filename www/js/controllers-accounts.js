@@ -1,6 +1,6 @@
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
+moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickAccountServices) {
 
     $scope.accounts = [];
     $scope.networth = '';
@@ -22,13 +22,14 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicL
 
     // CREATE ACCOUNT
     $scope.createAccount = function (title) {
+        PickAccountServices.nameSelected = '';
+        PickAccountServices.amountSelected = '';
+        PickAccountServices.typeSelected = '';
+        PickAccountServices.dateSelected = '';
         $state.go('app.account', { accountId: '-1', isNew: 'True' });
     }
 
-    //// LIST
-    //$scope.list = function () {
-    //    $scope.accounts = AccountsFactory.getAccounts();
-    //}
+    // LIST
     $scope.accounts = AccountsFactory.getAccounts();
 
     // EDIT

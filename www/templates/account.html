@@ -13,7 +13,7 @@
         <div class="ion-list">
             <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccountname">
                 <i class="icon fa fa-clipboard placeholder-icon"></i>
-                <input type="text" ng-model="currentItem.accountname" placeholder="Account Name" autocorrect="on" autocapitalize="words" ng-maxlength="15">
+                <input type="text" ng-model="currentItem.accountname" placeholder="Account Name" readonly>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccountamount">
@@ -28,7 +28,7 @@
             </ion-item>
             <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccounttype">
                 <i class="icon fa fa-university placeholder-icon"></i>
-                <input type="text" placeholder="Account Type" ng-model="currentItem.accounttype">
+                <input type="text" placeholder="Account Type" ng-model="currentItem.accounttype" readonly>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
             <div class="list list-inset" ng-show="inEditMode">
