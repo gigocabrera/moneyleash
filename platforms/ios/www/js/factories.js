@@ -1,10 +1,6 @@
 
 angular.module('moneyleash.factories', [])
 
-    .factory('Auth', function ($firebaseAuth) {
-        return $firebaseAuth(fb);
-    })
-
     .factory('MembersFactory', function ($firebaseArray, $q) {
         var ref = fb.child("members");
         return {

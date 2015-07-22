@@ -1,22 +1,35 @@
-<ion-view class="intro-view">
-    <ion-content scroll="false">
-        <div class="top-content row">
-            <div class="col col-center">
-                <h1><strong>MoneyLeash</strong></h1>
-                <h4>Don't let your money run wild!</h4>
-                <img ng-src="img/logo.png">
-                <h4>Keep it on a leash...</h4>
-            </div>
-        </div>
-        <div class="bottom-content row">
-            <div class="col col-center">
-                <button class="button button-block button-energized" ng-click="login()">
-                    {{'SIGNIN' | translate}}
-                </button>
-                <button class="sign-up button button-block button-stable" ng-click="register()">
-                    {{'REGISTER' | translate}}
-                </button>
-            </div>
-        </div>
+<ion-view hide-nav-bar="true" class="background-intro">
+    <ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false" scroll="false">
+        <ion-slide-box show-pager="true">
+            <ion-slide>
+                <a href="#" class="logo"><span>$</span></a>
+                <h1 style="color: #fff;text-align: center;"><strong>MoneyLeash</strong></h1>
+                <p class="tagline">Don't let your money run wild.<br />Keep it on a leash!</p>
+            </ion-slide>
+            <ion-slide>
+                <h1 style="color: #FFF;text-align: center;">Track Expenses</h1>
+                <p class="tagline">Explanation of how tracking is awesome in this application.</p>
+                <img src="http://placehold.it/180x180&text=Image">
+            </ion-slide>
+            <ion-slide>
+                <h1 style="color: #FFF;text-align: center;">Share Expenses</h1>
+                <p class="tagline">Explanation of how sharing expenses is awesome in this application.</p>
+                <img src="http://placehold.it/180x180&text=Image">
+            </ion-slide>
+        </ion-slide-box>
     </ion-content>
+    <ion-footer-bar class="bar-dark">
+        <div class="row">
+            <div class="col">
+                <a ng-click="login()" class="button-intro button-dark">
+                    I have an account
+                </a>
+            </div>
+            <div class="col">
+                <a ng-click="register()" class="button-intro button-stable">
+                    {{"REGISTER" | translate}}
+                </a>
+            </div>
+        </div>
+    </ion-footer-bar>
 </ion-view>

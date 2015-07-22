@@ -352,11 +352,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 lastcategoryid: $scope.currentItem.categoryid
             };
             payeeRef.update(payee);
-            //
-            //TODO: finish transfer logic here
-            //
-            console.log($scope.ItemOriginal.istransfer);
-            console.log($scope.currentItem.typedisplay);
+            
             if ($scope.ItemOriginal.istransfer) {
                 //
                 // Update transfer relationship
@@ -377,7 +373,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 } else {
                     //
                     // This transaction is still a transfer, just update both transactions in the transfer
-                    //                    
+                    //
+                    //
+                    //TODO: finish transfer logic here
+                    //
                 }
             }
             $scope.inEditMode = false;

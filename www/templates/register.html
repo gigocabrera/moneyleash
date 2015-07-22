@@ -3,6 +3,13 @@
         <h4>{{'SIGNIN' | translate}}</h4>
     </ion-nav-bar>
     <ion-content scroll="false">
+        <div ng-hide="hideValidationMessage" class="cssSlideUp ng-hide">
+            <div class="validationDiv">
+                <p>
+                    {{ validationMessage }}
+                </p>
+            </div>
+        </div>
         <form name="RegisterForm" ng-submit="createMember(user)">
             <div class="list list-inset">
                 <label class="item item-input ml-login-input">

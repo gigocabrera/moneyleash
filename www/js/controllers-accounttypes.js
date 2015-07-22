@@ -1,7 +1,7 @@
 
 
 // ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
+moneyleashapp.controller('AccountTypesController', function ($scope, $state, $ionicModal, $ionicListDelegate, $ionicActionSheet, AccountsFactory) {
 
     $scope.inEditMode = false;
     $scope.editIndex = 0;
@@ -48,9 +48,7 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $rootScope,
 
     // LIST
     $scope.list = function () {
-        $rootScope.show("syncing");
         $scope.accounttypes = AccountsFactory.getAccountTypes();
-        $rootScope.hide();
     }
 
     // EDIT

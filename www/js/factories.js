@@ -7,59 +7,63 @@ angular.module('moneyleash.factories', [])
 
     .factory('MembersFactory', function ($firebaseArray, $q) {
         var ref = fb.child("members");
-        var fbAuth = fb.getAuth();
+        var authData = fb.getAuth();
         return {
             ref: function () {
                 return ref;
             },
             getMembers: function () {
-                var members = $firebaseArray(ref);
-                return members;
+                if (authData) {
+                    var members = $firebaseArray(ref);
+                    return members;
+                }
             },
             getMember: function () {
-                var deferred = $q.defer();
-                var memberRef = ref.child(fbAuth.uid);
-                memberRef.once("value", function (snap) {
-                    deferred.resolve(snap.val());
-                });
-                return deferred.promise;
+                if (authData) {
+                    var deferred = $q.defer();
+                    var memberRef = ref.child(authData.uid);
+                    memberRef.once("value", function (snap) {
+                        deferred.resolve(snap.val());
+                    });
+                    return deferred.promise;
+                }
             },
         };
     })
 
     .factory('CategoriesFactory', function ($firebaseArray, $q) {
         var ref = {};
-        var fbAuth = fb.getAuth();
         var categories = {};
         var parentcategories = {};
         var categoriesByType = {};
         var categoryRef = {};
+        var authData = fb.getAuth();
         return {
             getCategories: function (type) {
-                ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryname');
+                ref = fb.child("membercategories").child(authData.uid).child(type).orderByChild('categoryname');
                 categories = $firebaseArray(ref);
                 return categories;
             },
             getParentCategories: function (type) {
-                ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryparent');
+                ref = fb.child("membercategories").child(authData.uid).child(type).orderByChild('categoryparent');
                 parentcategories = $firebaseArray(ref);
                 return parentcategories;
             },
             getCategoriesByTypeAndGroup: function (type) {
-                ref = fb.child("membercategories").child(fbAuth.uid).child(type).orderByChild('categoryparent');
+                ref = fb.child("membercategories").child(authData.uid).child(type).orderByChild('categoryparent');
                 categoriesByType = $firebaseArray(ref);
                 return categoriesByType;
             },
             getCategory: function (categoryid, type) {
                 var deferred = $q.defer();
-                ref = fb.child("membercategories").child(fbAuth.uid).child(type).child(categoryid);
+                ref = fb.child("membercategories").child(authData.uid).child(type).child(categoryid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
             getCategoryRef: function (categoryid, type) {
-                categoryRef = fb.child("membercategories").child(fbAuth.uid).child(type).child(categoryid);
+                categoryRef = fb.child("membercategories").child(authData.uid).child(type).child(categoryid);
                 return categoryRef;
             },
         };
@@ -67,7 +71,6 @@ angular.module('moneyleash.factories', [])
 
     .factory('AccountsFactory', function ($firebaseArray, $q) {
         var ref = {};
-        var fbAuth = fb.getAuth();
         var accounts = {};
         var accounttypes = {};
         var transactions = {};
@@ -77,61 +80,62 @@ angular.module('moneyleash.factories', [])
         var accountRef = {};
         var transactionRef = {};
         var transactionsRef = {};
+        var authData = fb.getAuth();
         return {
             ref: function (userid) {
                 ref = fb.child("members").child(userid).child("accounts");
                 return ref;
             },
             getAccounts: function () {
-                ref = fb.child("memberaccounts").child(fbAuth.uid);
+                ref = fb.child("memberaccounts").child(authData.uid);
                 accounts = $firebaseArray(ref);
                 return accounts;
             },
             getAccount: function (accountid) {
                 var deferred = $q.defer();
-                ref = fb.child("memberaccounts").child(fbAuth.uid).child(accountid);
+                ref = fb.child("memberaccounts").child(authData.uid).child(accountid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
             getAccountRef: function (accountid) {
-                accountRef = fb.child("memberaccounts").child(fbAuth.uid).child(accountid);
+                accountRef = fb.child("memberaccounts").child(authData.uid).child(accountid);
                 return accountRef;
             },
             getAccountTypes: function () {
-                ref = fb.child("memberaccounttypes").child(fbAuth.uid);
+                ref = fb.child("memberaccounttypes").child(authData.uid);
                 accounttypes = $firebaseArray(ref);
                 return accounttypes;
             },
             getTransaction: function (accountid, transactionid) {
                 var deferred = $q.defer();
-                ref = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
+                ref = fb.child("membertransactions").child(authData.uid).child(accountid).child(transactionid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
             getTransactions: function (accountid) {
-                ref = fb.child("membertransactions").child(fbAuth.uid).child(accountid);
+                ref = fb.child("membertransactions").child(authData.uid).child(accountid);
                 transactions = $firebaseArray(ref);
                 return transactions;
             },
             getTransactionsByDate: function (accountid) {
-                ref = fb.child("membertransactions").child(fbAuth.uid).child(accountid).orderByChild('date');
+                ref = fb.child("membertransactions").child(authData.uid).child(accountid).orderByChild('date');
                 transactionsByDate = $firebaseArray(ref);
                 return transactionsByDate;
             },
             getTransactionRef: function (accountid, transactionid) {
-                transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
+                transactionRef = fb.child("membertransactions").child(authData.uid).child(accountid).child(transactionid);
                 return transactionRef;
             },
             getTransactionByCategoryRef: function (categoryid, transactionid) {
-                transactionsbycategoryRef = fb.child("membertransactionsbycategory").child(fbAuth.uid).child(categoryid).child(transactionid);
+                transactionsbycategoryRef = fb.child("membertransactionsbycategory").child(authData.uid).child(categoryid).child(transactionid);
                 return transactionsbycategoryRef;
             },
             getTransactionByPayeeRef: function (payeeid, transactionid) {
-                transactionsbypayeeRef = fb.child("membertransactionsbypayee").child(fbAuth.uid).child(payeeid).child(transactionid);
+                transactionsbypayeeRef = fb.child("membertransactionsbypayee").child(authData.uid).child(payeeid).child(transactionid);
                 return transactionsbypayeeRef;
             },
             createNewAccount: function (currentItem) {
@@ -154,7 +158,7 @@ angular.module('moneyleash.factories', [])
                     if (currentItem.autoclear.checked) {
                         initialTransaction.iscleared = 'true';
                     }
-                    var ref = fb.child("membertransactions").child(fbAuth.uid).child(newChildRef.key());
+                    var ref = fb.child("membertransactions").child(authData.uid).child(newChildRef.key());
                     ref.push(initialTransaction);
 
                     // Update account with transaction id
@@ -170,7 +174,7 @@ angular.module('moneyleash.factories', [])
                     currentItem.dateopen = dtOpen;
                 }
                 // Update account
-                accountRef = fb.child("memberaccounts").child(fbAuth.uid).child(accountid);
+                accountRef = fb.child("memberaccounts").child(authData.uid).child(accountid);
                 accountRef.update(currentItem);
 
                 //// Update transaction
@@ -178,7 +182,7 @@ angular.module('moneyleash.factories', [])
                 //    amount: currentItem.balancebegining,
                 //    date: dtOpen
                 //};
-                //var initialTransRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(currentItem.transactionid);
+                //var initialTransRef = fb.child("membertransactions").child(authData.uid).child(accountid).child(currentItem.transactionid);
                 //initialTransRef.update(initialTransaction);
             },
             createTransaction: function (currentAccountId, currentItem) {
@@ -206,13 +210,13 @@ angular.module('moneyleash.factories', [])
                     accountId = currentAccountId;
                 }
 
-                var transRef = fb.child("membertransactions").child(fbAuth.uid).child(accountId);
+                var transRef = fb.child("membertransactions").child(authData.uid).child(accountId);
                 var sync = $firebaseArray(transRef);
                 sync.$add(currentItem).then(function (newChildRef) {
                     //
                     // Save transaction under category
                     //
-                    var categoryTransactionRef = fb.child("membertransactionsbycategory").child(fbAuth.uid).child(currentItem.categoryid).child(newChildRef.key());
+                    var categoryTransactionRef = fb.child("membertransactionsbycategory").child(authData.uid).child(currentItem.categoryid).child(newChildRef.key());
                     var categoryTransaction = {
                         payee: currentItem.payee,
                         amount: currentItem.amount,
@@ -223,7 +227,7 @@ angular.module('moneyleash.factories', [])
                     //
                     // Save transaction under payee
                     //
-                    var payeeTransactionRef = fb.child("membertransactionsbypayee").child(fbAuth.uid).child(currentItem.payeeid).child(newChildRef.key());
+                    var payeeTransactionRef = fb.child("membertransactionsbypayee").child(authData.uid).child(currentItem.payeeid).child(newChildRef.key());
                     var payeeTransaction = {
                         payee: currentItem.payee,
                         amount: currentItem.amount,
@@ -234,7 +238,7 @@ angular.module('moneyleash.factories', [])
                     //
                     // Save payee-category relationship
                     //
-                    var payeeRef = fb.child("memberpayees").child(fbAuth.uid).child(currentItem.payeeid);
+                    var payeeRef = fb.child("memberpayees").child(authData.uid).child(currentItem.payeeid);
                     var payee = {
                         lastamount: currentItem.amount,
                         lastcategory: currentItem.category,
@@ -247,7 +251,7 @@ angular.module('moneyleash.factories', [])
                         // Save the other transaction, get the transaction id and link it to this transaction
                         //
                         OtherTransaction.linkedtransactionid = newChildRef.key();
-                        var othertransRef = fb.child("membertransactions").child(fbAuth.uid).child(otherAccountId);
+                        var othertransRef = fb.child("membertransactions").child(authData.uid).child(otherAccountId);
                         var sync = $firebaseArray(othertransRef);
                         sync.$add(OtherTransaction).then(function (otherChildRef) {
                             //
@@ -259,7 +263,7 @@ angular.module('moneyleash.factories', [])
                 });
             },
             deleteTransaction: function (accountid, transactionid) {
-                transactionRef = fb.child("membertransactions").child(fbAuth.uid).child(accountid).child(transactionid);
+                transactionRef = fb.child("membertransactions").child(authData.uid).child(accountid).child(transactionid);
                 transactionRef.remove();
             }
         };
@@ -267,23 +271,23 @@ angular.module('moneyleash.factories', [])
 
     .factory('PayeesService', function ($firebaseArray, $q) {
         var ref = {};
-        var fbAuth = fb.getAuth();
         var payees = {};
         var payeeRef = {};
         var transactionsByPayeeRef = {};
+        var authData = fb.getAuth();
         return {
             getPayees: function () {
-                ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
+                ref = fb.child("memberpayees").child(authData.uid).orderByChild('payeename');
                 payees = $firebaseArray(ref);
                 return payees;
             },
             getTransactionsByPayee: function (payeeid) {
-                ref = fb.child("membertransactionsbypayee").child(fbAuth.uid).child(payeeid);
+                ref = fb.child("membertransactionsbypayee").child(authData.uid).child(payeeid);
                 transactionsByPayeeRef = $firebaseArray(ref);
                 return transactionsByPayeeRef;
             },
             getPayeeRef: function (payeeid) {
-                payeeRef = fb.child("memberpayees").child(fbAuth.uid).child(payeeid);
+                payeeRef = fb.child("memberpayees").child(authData.uid).child(payeeid);
                 return payeeRef;
             },
         };
@@ -292,8 +296,8 @@ angular.module('moneyleash.factories', [])
     .factory('PayeesFactory', function ($firebaseArray, $q, $timeout) {
         var ref = {};
         var payees = {};
-        var fbAuth = fb.getAuth();
-        ref = fb.child("memberpayees").child(fbAuth.uid).orderByChild('payeename');
+        var authData = fb.getAuth();
+        ref = fb.child("memberpayees").child(authData.uid).orderByChild('payeename');
         payees = $firebaseArray(ref);
         var searchPayees = function (searchFilter) {
             var deferred = $q.defer();

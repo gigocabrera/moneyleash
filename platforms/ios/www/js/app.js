@@ -291,15 +291,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
-    .state('app.accountpreferences', {
-        url: "/accountpreferences",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/settings-accountpreferences.html",
-                controller: 'AccountPreferencesController'
-            }
-        }
-    })
+    //.state('app.accountpreferences', {
+    //    url: "/accountpreferences",
+    //    views: {
+    //        'menuContent': {
+    //            templateUrl: "templates/settings-accountpreferences.html",
+    //            controller: 'AccountPreferencesController'
+    //        }
+    //    }
+    //})
 
     // RECURRING
     .state('app.recurring', {

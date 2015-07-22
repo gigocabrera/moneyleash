@@ -2,19 +2,9 @@
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet, $ionicHistory, Auth, MembersFactory) {
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet, $ionicHistory, MembersFactory) {
 
     $scope.showMenuIcon = true;
-    $scope.isFree = true;
-
-    // Load global user settings
-    MembersFactory.getMember().then(function (user) {
-        if (user.paymentplan === 'FREE') {
-            $scope.isFree = true;
-        } else {
-            $scope.isFree = false;
-        }
-    });
 
     // Triggered on a the logOut button click
     $scope.showLogOutMenu = function () {
@@ -38,7 +28,7 @@ moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet,
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
                 $ionicHistory.clearCache();
-                Auth.$unauth();
+                fb.unauth();
                 $state.go('intro');
             }
         });
@@ -65,9 +55,10 @@ moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHist
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, Auth, CurrentUserService) {
+moneyleashapp.controller("LoginController", function ($scope, $ionicLoading, $ionicPopup, $state, CurrentUserService) {
 
-    $scope.user = {email: 'gigo@test.com', password: '123'};
+    //$scope.user = {email: 'gigo@test.com', password: '123'};
+    $scope.user = {};
     $scope.notify = function (title, text) {
         $ionicPopup.alert({
             title: title ? title : 'Error',
@@ -90,8 +81,8 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
         /* All good, let's authentify */
         var ref = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
         ref.authWithPassword({
-            "email": "gigo@test.com",
-            "password": "123"
+            "email": user.email,
+            "password": user.password
         }, function (error, authData) {
             if (error) {
                 console.log("Login Failed!", error);
@@ -104,7 +95,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
 })
 
 //REGISTER CONTROLLER
-moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $firebase, $firebaseArray, $firebaseAuth, MembersFactory) {
+moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicLoading, $firebase, $firebaseArray, MembersFactory) {
 
     $scope.user = {};
 
@@ -118,12 +109,31 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
         var email = user.email;
         var password = user.password;
 
-        if (!firstname || !lastname || !email || !password) {
-            $rootScope.notify("Please enter valid credentials");
-            return false;
+        // Validate form data
+        if (typeof user.firstname === 'undefined' || user.firstname === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please enter your first name"
+            return;
+        }
+        if (typeof user.lastname === 'undefined' || user.lastname === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please enter your last name"
+            return;
+        }
+        if (typeof user.email === 'undefined' || user.email === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please enter your email"
+            return;
+        }
+        if (typeof user.password === 'undefined' || user.password === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please enter your password"
+            return;
         }
 
-        $rootScope.show('Registering...');
+        $ionicLoading.show({
+            template: '<ion-spinner icon="ios"></ion-spinner><br>Registering...'
+        });
 
         fb.createUser({
             email: email,
@@ -132,75 +142,62 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
             if (error) {
                 switch (error.code) {
                     case "EMAIL_TAKEN":
-                        $rootScope.hide();
-                        $rootScope.notify('The new user account cannot be created because the email is already in use.');
+                        $ionicLoading.hide();
+                        $scope.hideValidationMessage = false;
+                        $scope.validationMessage = "The email entered is already in use"
                         break;
                     case "INVALID_EMAIL":
-                        $rootScope.hide();
-                        $rootScope.notify('The specified email is not a valid email.');
+                        $ionicLoading.hide();
+                        $scope.hideValidationMessage = false;
+                        $scope.validationMessage = "The specified email is not a valid email"
                         break;
                     default:
-                        $rootScope.hide();
-                        $rootScope.notify('Oops. Something went wrong.');
+                        $ionicLoading.hide();
+                        $scope.hideValidationMessage = false;
+                        $scope.validationMessage = "Oops. Something went wrong"
                 }
             } else {
+
                 fb.authWithPassword({
                     "email": email,
                     "password": password
                 }, function (error, authData) {
                     if (error) {
-                        $rootScope.hide();
-                        $rootScope.notify('Error', 'Login failed!');
+                        $ionicLoading.hide();
+                        $scope.hideValidationMessage = false;
+                        $scope.validationMessage = "Error. Login failed!"
                     } else {
+
                         /* PREPARE DATA FOR FIREBASE*/
                         $scope.temp = {
                             firstname: user.firstname,
                             lastname: user.lastname,
                             email: user.email,
                             groupid: 0,
+                            paymentplan: 'FREE',
                             datecreated: Date.now(),
                             dateupdated: Date.now()
                         }
+
                         /* SAVE MEMBER DATA */
                         var membersref = MembersFactory.ref();
                         var newUser = membersref.child(authData.uid);
                         newUser.update($scope.temp, function (ref) {
-                            $rootScope.hide();
-                            $state.go('app.about');
+                            //console.log("user created");
                         });
+
                         /* SAVE DEFAULT ACCOUNT TYPES DATA FOR THIS MEMBER */
-                        var newtyperef = membersref.child(authData.uid).child("accounttypes");
-                        var sync = $firebaseArray(newtyperef);
-                        sync.$add({ name: 'Checking', icon: '0' }).then(function (newChildRef) {
-                            $scope.temp = {
-                                accountid: newChildRef.key()
-                            };
-                        });
-                        sync.$add({ name: 'Savings', icon: '0' }).then(function (newChildRef) {
-                            $scope.temp = {
-                                accountid: newChildRef.key()
-                            };
-                        });
-                        sync.$add({ name: 'Credit Card', icon: '0' }).then(function (newChildRef) {
-                            $scope.temp = {
-                                accountid: newChildRef.key()
-                            };
-                        });
-                        sync.$add({ name: 'Debit Card', icon: '0' }).then(function (newChildRef) {
-                            $scope.temp = {
-                                accountid: newChildRef.key()
-                            };
-                        });
-                        sync.$add({ name: 'Investment', icon: '0' }).then(function (newChildRef) {
-                            $scope.temp = {
-                                accountid: newChildRef.key()
-                            };
-                        });
-                        sync.$add({ name: 'Brokerage', icon: '0' }).then(function (newChildRef) {
-                            $scope.temp = {
-                                accountid: newChildRef.key()
-                            };
-                        });
+                        var ref = fb.child("memberaccounttypes").child(authData.uid);
+                        ref.push({ name: 'Checking', icon: '0' });
+                        ref.push({ name: 'Savings', icon: '0' });
+                        ref.push({ name: 'Credit Card', icon: '0' });
+                        ref.push({ name: 'Debit Card', icon: '0' });
+                        ref.push({ name: 'Investment', icon: '0' });
+                        ref.push({ name: 'Brokerage', icon: '0' });
+                        ref.push({ name: 'Checking', icon: '0' });
+                        
+                        $ionicLoading.hide();
+                        $state.go('app.dashboard');
                     }
                 });
             }
@@ -229,13 +226,13 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 })
 
 // DASHBOARD CONTROLLER
-moneyleashapp.controller('DashboardController', function ($scope, $state, $stateParams, MembersFactory, CurrentUserService) {
+moneyleashapp.controller('DashboardController', function ($scope, $state, $stateParams, CurrentUserService) {
     
-    // Load global user settings
-    MembersFactory.getMember().then(function (user) {
-        CurrentUserService.updateUser(user);
-        $scope.displayname = CurrentUserService.firstname;
-    });
+    //// Load global user settings
+    //MembersFactory.getMember().then(function (user) {
+    //    CurrentUserService.updateUser(user);
+    //    $scope.displayname = CurrentUserService.firstname;
+    //});
 
     $scope.editTransaction = function (item) {
         //alert('Edit Item: ' + item.id);

@@ -1,7 +1,6 @@
 
 /* FIREBASE */
-var fb = '';
-fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
+var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
 var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngCordova', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar'])
@@ -19,6 +18,7 @@ moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ioni
             $cordovaStatusbar.overlaysWebView(true);
             $cordovaStatusBar.style(2);
         }
+
         $rootScope.settings = {
             'languages': [{
                 'prefix': 'en',
@@ -31,12 +31,12 @@ moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ioni
 
         Auth.$onAuth(function (authData) {
             if (authData) {
-                
+                //console.log("Logged in as:", authData);
             } else {
-                $ionicLoading.hide();
                 $state.go("intro");
             }
         });
+
         //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         //    $ionicLoading.show({
         //        template: '<ion-spinner icon="ios"></ion-spinner><br>'
@@ -126,13 +126,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           url: "/login",
           cache: false,
           templateUrl: "templates/login.html",
-          controller: 'LoginController',
-          resolve: {
-              "currentAuth": ["Auth",
-                  function (Auth) {
-                      return Auth.$waitForAuth();
-                  }]
-          }
+          controller: 'LoginController'
       })
     
       // REGISTER
@@ -328,15 +322,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
-    .state('app.accountpreferences', {
-        url: "/accountpreferences",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/settings-accountpreferences.html",
-                controller: 'AccountPreferencesController'
-            }
-        }
-    })
+    //.state('app.accountpreferences', {
+    //    url: "/accountpreferences",
+    //    views: {
+    //        'menuContent': {
+    //            templateUrl: "templates/settings-accountpreferences.html",
+    //            controller: 'AccountPreferencesController'
+    //        }
+    //    }
+    //})
 
     // RECURRING
     .state('app.recurring', {

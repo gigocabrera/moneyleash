@@ -1,0 +1,34 @@
+<ion-view title="Transactions By Payee">
+    <ion-content class="has-header">
+        <ion-list>
+            <ion-item ng-repeat="transaction in transactionsbypayee | reverselist" href="#" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}">
+                <div class="row">
+                    <div class="col-50 customTransDesc">
+                        <span>
+                            {{transaction.payee}}
+                            <small>
+                                <div id="transactionIcons">
+                                    <ul>
+                                        <li>{{transaction.date | date:'MMMM dd, yyyy'}}</li>
+                                        <li><i class="fa fa-thumb-tack"></i>{{transaction.category}}</li>
+                                        <li><i ng-class="{'fa fa-camera': transaction.photo.length > 0}"></i></li>
+                                        <li><i ng-class="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
+                                    </ul>
+                                </div>
+                            </small>
+                        </span>
+                    </div>
+                    <div class="col-50 right customAccAmt" ng-class="{textRed: transaction.type == 'Expense', textGreen: transaction.type == 'Income'}">
+                        <span>
+                            {{transaction.amount | currency}}
+                            <small>
+                                {{transaction.runningbal | currency}}
+                            </small>
+                        </span>
+                        <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared">
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
