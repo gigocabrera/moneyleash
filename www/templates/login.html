@@ -1,9 +1,12 @@
-<ion-view view-title="{{'SIGNIN' | translate}}" cache-view="false">
-    <ion-nav-bar class="bar-positive">
-        <h4>{{'SIGNIN' | translate}}</h4>
-    </ion-nav-bar>
+<ion-view view-title="{{'SIGNIN' | translate}}" cache-view="false" class="loginScreen">
     <ion-content scroll="false">
         <form name="LoginForm" ng-submit="doLogin(user)">
+            <div>
+                <div class="introHeading">
+                    <h1>Login</h1>
+                    <i class="fa fa-unlock"></i>
+                </div>
+            </div>
             <div class="list list-inset">
                 <label class="item item-input ml-login-input">
                     <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">

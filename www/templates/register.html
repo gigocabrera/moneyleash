@@ -1,13 +1,9 @@
-<ion-view view-title="{{'REGISTER' | translate}}" cache-view="false">
-    <ion-nav-bar class="bar-positive">
-        <h4>{{'SIGNIN' | translate}}</h4>
-    </ion-nav-bar>
+<ion-view view-title="{{'REGISTER' | translate}}" cache-view="false" class="loginScreen">
     <ion-content scroll="false">
-        <div ng-hide="hideValidationMessage" class="cssSlideUp ng-hide">
-            <div class="validationDiv">
-                <p>
-                    {{ validationMessage }}
-                </p>
+        <div>
+            <div class="introHeading">
+                <h1>Register</h1>
+                <i class="ion-ionic"></i>
             </div>
         </div>
         <form name="RegisterForm" ng-submit="createMember(user)">

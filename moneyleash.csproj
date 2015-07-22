@@ -158,7 +158,6 @@
     <None Include="platforms\ios\www\lib\ionic\scss\_type.scss" />
     <None Include="platforms\ios\www\lib\ionic\scss\_util.scss" />
     <None Include="platforms\ios\www\lib\ionic\scss\_variables.scss" />
-    <None Include="platforms\ios\www\lib\ionic\version.json" />
     <None Include="platforms\ios\www\lib\ngCordova\bower.json" />
     <None Include="platforms\ios\www\lib\ngCordova\CHANGELOG.md" />
     <None Include="platforms\ios\www\lib\ngCordova\LICENSE" />
@@ -598,6 +597,8 @@
     <Content Include="platforms\ios\www\templates\personalprofile.html" />
     <Content Include="platforms\ios\www\templates\pickcategorytype.html" />
     <Content Include="platforms\ios\www\templates\pickparentcategory.html" />
+    <Content Include="platforms\ios\www\templates\picktransactionaccountfrom.html" />
+    <Content Include="platforms\ios\www\templates\picktransactionaccountto.html" />
     <Content Include="platforms\ios\www\templates\picktransactionamount.html" />
     <Content Include="platforms\ios\www\templates\picktransactioncategory.html" />
     <Content Include="platforms\ios\www\templates\picktransactiondate.html" />

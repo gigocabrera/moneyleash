@@ -3,6 +3,22 @@
 @import url("font-awesome.min.css");
 
 /* Intro Page */
+.slider-slide {
+    background-color: #1D7AC1;
+}
+.slidePadding {
+    margin-top: 60px;
+}
+.introHeading {
+    margin-top: 60px;
+    text-align: center;
+    font: 80px 'PT Sans', sans-serif;
+    color: #fff;
+}
+.introHeading h1 {
+    margin-bottom: 50px;
+    color: #fff;
+}
 .logo {
     position: relative;
     display: block;
@@ -23,11 +39,6 @@
 .tagline {
     text-align: center;
     color: #FFF;
-}
-.background-intro {
-    background-image: url('../img/logo.png');
-    background-size: cover;
-    background-position: center; 
 }
 .background-dark {
   background: #212121;
@@ -52,6 +63,145 @@
 .button-intro.button-positive {
     background: #f8d50e;
     color: #000;
+}
+.loginScreen {
+    border: solid 10px #fff;
+    background-color: #1D7AC1;
+}
+
+/*******************/
+/*  INTRO SCREEN   */
+
+.mlLinksBlue {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+}
+.mlLinksGray {
+    text-decoration: none;
+    color: #fff;
+}
+.intro-view, .login-view, .signup-view, .forgot-password-view {
+    background-color: white !important;
+}
+    .intro-view ion-content:before, .login-view ion-content:before, .signup-view ion-content:before, .forgot-password-view ion-content:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+        opacity: 1.0;
+        display: block;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        -webkit-filter: blur(1px);
+        -moz-filter: blur(1px);
+        -o-filter: blur(1px);
+        -ms-filter: blur(1px);
+        filter: blur(1px);
+    }
+    .intro-view .top-content {
+        height: 75%;
+        text-align: center;
+    }
+        .intro-view .top-content h1 {
+            color: #ff8000;
+            font-family: "Segoe UI";
+        }
+    .intro-view .bottom-content {
+        height: 25%;
+        padding-top: 5px;
+        margin-top: 0;
+    }
+        .intro-view .bottom-content .button {
+            border: none;
+            color: #fff;
+            font-weight: bolder;
+            font-size: 20px;
+            line-height: 20px;
+        }
+        .intro-view .bottom-content .login.button {
+            background-color: rgba(12, 91, 224, 1.00);
+        }
+        .intro-view .bottom-content .sign-up.button {
+            background-color: rgba(164, 164, 164, 1.0);
+        }
+
+.signup-view {
+    background-color: #787878 !important;
+}
+
+    .signup-view .row {
+        height: 100%;
+    }
+
+    .signup-view .sign-up-container {
+        margin-bottom: 0;
+    }
+
+    .signup-view .bottom-content {
+        padding-top: 0;
+        border: none;
+    }
+
+        .signup-view .bottom-content .button {
+            margin: 0;
+            font-weight: bold;
+        }
+
+    .signup-view .alternative-actions {
+        margin: 0 10px;
+    }
+
+        .signup-view .alternative-actions .button {
+            padding: 0;
+            font-size: 14px;
+        }
+
+.forgot-password-view {
+    background-color: #787878 !important;
+}
+
+    .forgot-password-view .row {
+        height: 100%;
+    }
+
+    .forgot-password-view .forgot-password-container {
+        margin-bottom: 0;
+    }
+
+    .forgot-password-view .bottom-content {
+        padding-top: 0;
+        border: none;
+    }
+
+        .forgot-password-view .bottom-content .button {
+            margin: 0;
+            font-weight: bold;
+        }
+
+    .forgot-password-view .alternative-actions {
+        margin: 0 10px;
+    }
+
+        .forgot-password-view .alternative-actions .button {
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .forgot-password-view .alternative-actions .sign-up {
+            float: right;
+        }
+
+.logout-option {
+    text-align: center;
+}
+
+.settings-view {
+    background-color: #EAEAEA !important;
 }
 
 /* List Item Font Size */
@@ -428,141 +578,6 @@ button.customHeaderSize {
 
 .search-wrapper-light input, .search-wrapper-light input::-webkit-input-placeholder {
     color: #ffffff;
-}
-
-/*******************/
-/*  INTRO SCREEN   */
-
-.mlLinksBlue {
-    text-decoration: none;
-    color: blue;
-    font-size: 16px;
-}
-.mlLinksGray {
-    text-decoration: none;
-    color: blue;
-}
-.intro-view, .login-view, .signup-view, .forgot-password-view {
-    background-color: white !important;
-}
-    .intro-view ion-content:before, .login-view ion-content:before, .signup-view ion-content:before, .forgot-password-view ion-content:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: -1;
-        opacity: 1.0;
-        display: block;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        background-size: cover;
-        -webkit-filter: blur(1px);
-        -moz-filter: blur(1px);
-        -o-filter: blur(1px);
-        -ms-filter: blur(1px);
-        filter: blur(1px);
-    }
-    .intro-view .top-content {
-        height: 75%;
-        text-align: center;
-    }
-        .intro-view .top-content h1 {
-            color: #ff8000;
-            font-family: "Segoe UI";
-        }
-    .intro-view .bottom-content {
-        height: 25%;
-        padding-top: 5px;
-        margin-top: 0;
-    }
-        .intro-view .bottom-content .button {
-            border: none;
-            color: #fff;
-            font-weight: bolder;
-            font-size: 20px;
-            line-height: 20px;
-        }
-        .intro-view .bottom-content .login.button {
-            background-color: rgba(12, 91, 224, 1.00);
-        }
-        .intro-view .bottom-content .sign-up.button {
-            background-color: rgba(164, 164, 164, 1.0);
-        }
-
-.signup-view {
-    background-color: #787878 !important;
-}
-
-    .signup-view .row {
-        height: 100%;
-    }
-
-    .signup-view .sign-up-container {
-        margin-bottom: 0;
-    }
-
-    .signup-view .bottom-content {
-        padding-top: 0;
-        border: none;
-    }
-
-        .signup-view .bottom-content .button {
-            margin: 0;
-            font-weight: bold;
-        }
-
-    .signup-view .alternative-actions {
-        margin: 0 10px;
-    }
-
-        .signup-view .alternative-actions .button {
-            padding: 0;
-            font-size: 14px;
-        }
-
-.forgot-password-view {
-    background-color: #787878 !important;
-}
-
-    .forgot-password-view .row {
-        height: 100%;
-    }
-
-    .forgot-password-view .forgot-password-container {
-        margin-bottom: 0;
-    }
-
-    .forgot-password-view .bottom-content {
-        padding-top: 0;
-        border: none;
-    }
-
-        .forgot-password-view .bottom-content .button {
-            margin: 0;
-            font-weight: bold;
-        }
-
-    .forgot-password-view .alternative-actions {
-        margin: 0 10px;
-    }
-
-        .forgot-password-view .alternative-actions .button {
-            padding: 0;
-            font-size: 14px;
-        }
-
-        .forgot-password-view .alternative-actions .sign-up {
-            float: right;
-        }
-
-.logout-option {
-    text-align: center;
-}
-
-.settings-view {
-    background-color: #EAEAEA !important;
 }
 
 /*******************/
