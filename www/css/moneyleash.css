@@ -10,13 +10,13 @@
     margin-top: 60px;
 }
 .introHeading {
-    margin-top: 60px;
+    margin-top: 10%;
     text-align: center;
     font: 80px 'PT Sans', sans-serif;
     color: #fff;
 }
 .introHeading h1 {
-    margin-bottom: 50px;
+    margin-bottom: 5%;
     color: #fff;
 }
 .logo {
@@ -27,6 +27,7 @@
     width: 100px;
     height: 100px;
     background: #d9534f;
+    text-shadow: -1px -1px #000;
 }
 .logo span {
     font: 70px 'PT Sans', sans-serif;
@@ -39,6 +40,7 @@
 .tagline {
     text-align: center;
     color: #FFF;
+    font-size: 18px;
 }
 .background-dark {
   background: #212121;
@@ -65,13 +67,16 @@
     color: #000;
 }
 .loginScreen {
-    border: solid 10px #fff;
+    border: solid 10px transparent;
     background-color: #1D7AC1;
 }
 
 /*******************/
 /*  INTRO SCREEN   */
 
+.background-intro.pane{
+    background-color: #1D7AC1;
+}
 .mlLinksBlue {
     text-decoration: none;
     color: #fff;

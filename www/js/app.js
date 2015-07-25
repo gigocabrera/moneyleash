@@ -200,15 +200,6 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
-    .state('app.pickaccountamount', {
-        url: "/pickaccountamount",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/pickaccountamount.html",
-                controller: "PickAccountAmountController"
-            }
-        }
-    })
     .state('app.pickaccountdate', {
         url: "/pickaccountdate",
         views: {

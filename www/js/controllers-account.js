@@ -77,7 +77,6 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
         'accountname': '',
         'accounttype': '',
         'autoclear': 'false',
-        'balancebegining': '',
         'balancecleared': '0',
         'balancetoday': '0',
         'dateopen': '',
@@ -87,7 +86,6 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.hideValidationMessage = true;
         $scope.currentItem.accountname = PickAccountServices.nameSelected;
-        $scope.currentItem.balancebegining = PickAccountServices.amountSelected;
         $scope.currentItem.accounttype = PickAccountServices.typeSelected;
         if (typeof PickAccountServices.dateSelected !== 'undefined' && PickAccountServices.dateSelected !== '') {
             // format date to be displayed
@@ -145,11 +143,6 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
             $scope.validationMessage = "Please enter a name for this account"
             return;
         }
-        if (typeof $scope.currentItem.balancebegining === 'undefined' || $scope.currentItem.balancebegining === '') {
-            $scope.hideValidationMessage = false;
-            $scope.validationMessage = "Please enter the begining balance"
-            return;
-        }
         if (typeof $scope.currentItem.dateopen === 'undefined' || $scope.currentItem.dateopen === '') {
             $scope.hideValidationMessage = false;
             $scope.validationMessage = "Enter date when this account was opened"
@@ -173,12 +166,8 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
             $scope.currentItem.dateopen = dtTran;
 
             /* SAVE NEW ACCOUNT */
-            if ($scope.currentItem.autoclear) {
-                $scope.currentItem.balancecleared = $scope.currentItem.balancebegining;
-            } else {
-                $scope.currentItem.balancecleared = '0';
-            }
-            $scope.currentItem.balancetoday = $scope.currentItem.balancebegining;
+            $scope.currentItem.balancecleared = '0';
+            $scope.currentItem.balancetoday = '0';
             AccountsFactory.createNewAccount($scope.currentItem);
         }
         $scope.currentItem = {};

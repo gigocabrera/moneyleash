@@ -186,7 +186,7 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
                             //console.log("user created");
                         });
 
-                        /* SAVE DEFAULT ACCOUNT TYPES DATA FOR THIS MEMBER */
+                        /* SAVE DEFAULT ACCOUNT TYPES */
                         var ref = fb.child("memberaccounttypes").child(authData.uid);
                         ref.push({ name: 'Checking', icon: '0' });
                         ref.push({ name: 'Savings', icon: '0' });
@@ -195,7 +195,21 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
                         ref.push({ name: 'Investment', icon: '0' });
                         ref.push({ name: 'Brokerage', icon: '0' });
                         ref.push({ name: 'Checking', icon: '0' });
-                        
+
+                        /* SAVE DEFAULT CATEGORIES */
+                        var ref = fb.child("membercategories").child(authData.uid).child('Income');
+                        ref.push({ categoryname: 'Income', categoryparent: '', categorysort: 'Income', categorytype: 'Income' });
+                        ref.push({ categoryname: 'Beginning Balance', categoryparent: 'Income', categorysort: 'Income:Beginning Balance', categorytype: 'Income' });
+
+                        var ref = fb.child("membercategories").child(authData.uid).child('Expense');
+                        ref.push({ categoryname: 'Auto', categoryparent: '', categorysort: 'Auto', categorytype: 'Expense' });
+                        ref.push({ categoryname: 'Gasoline', categoryparent: 'Auto', categorysort: 'Auto:Gas', categorytype: 'Expense' });
+                        ref.push({ categoryname: 'Car Payment', categoryparent: 'Auto', categorysort: 'Auto:Car Payment', categorytype: 'Expense' });
+
+                        /* SAVE DEFAULT PAYEES */
+                        var ref = fb.child("memberpayees").child(authData.uid);
+                        ref.push({ lastamount: '', lastcategory: '', lastcategoryid: '', payeename: 'Beginning Balance' });
+
                         $ionicLoading.hide();
                         $state.go('app.dashboard');
                     }

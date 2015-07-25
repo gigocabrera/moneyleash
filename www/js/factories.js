@@ -143,26 +143,36 @@ angular.module('moneyleash.factories', [])
                 // Create the account
                 accounts.$add(currentItem).then(function (newChildRef) {
 
-                    // Create initial transaction for begining balance under new account node
-                    var initialTransaction = {
-                        type: 'Income',
-                        payee: 'Begining Balance',
-                        category: 'Begining Balance',
-                        amount: currentItem.balancebegining,
-                        date: currentItem.dateopen,
-                        notes: '',
-                        photo: '',
-                        iscleared: 'false',
-                        isrecurring: 'false'
-                    };
-                    if (currentItem.autoclear.checked) {
-                        initialTransaction.iscleared = 'true';
-                    }
-                    var ref = fb.child("membertransactions").child(authData.uid).child(newChildRef.key());
-                    ref.update(initialTransaction);
+                    //// Create initial transaction for begining balance under new account node
+                    //var initialTransaction = {
+                    //    accountFrom: '',
+                    //    accountFromId: '',
+                    //    accountTo: '',
+                    //    accountToId: '',
+                    //    amount: currentItem.balancebegining,
+                    //    category: 'Beginning Balance',
+                    //    categoryid: '',
+                    //    date: currentItem.dateopen,
+                    //    iscleared: false,
+                    //    isrecurring: false,
+                    //    istransfer: false,
+                    //    notes: '',
+                    //    payee: 'Beginning Balance',
+                    //    payeeid: '',
+                    //    photo: '',
+                    //    runningbal: currentItem.dateopen,
+                    //    runningbalance: currentItem.dateopen,
+                    //    type: 'Income',
+                    //    typedisplay: 'Income'
+                    //};
+                    //if (currentItem.autoclear.checked) {
+                    //    initialTransaction.iscleared = 'true';
+                    //}
+                    //var ref = fb.child("membertransactions").child(authData.uid).child(newChildRef.key());
+                    //ref.update(initialTransaction);
 
-                    // Update account with transaction id
-                    newChildRef.update({ transactionid: ref.key() })
+                    //// Update account with transaction id
+                    //newChildRef.update({ transactionid: ref.key() })
                 });
             },
             updateAccount: function (accountid, currentItem) {
