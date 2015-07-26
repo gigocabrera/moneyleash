@@ -139,41 +139,8 @@ angular.module('moneyleash.factories', [])
                 return transactionsbypayeeRef;
             },
             createNewAccount: function (currentItem) {
-
                 // Create the account
-                accounts.$add(currentItem).then(function (newChildRef) {
-
-                    //// Create initial transaction for begining balance under new account node
-                    //var initialTransaction = {
-                    //    accountFrom: '',
-                    //    accountFromId: '',
-                    //    accountTo: '',
-                    //    accountToId: '',
-                    //    amount: currentItem.balancebegining,
-                    //    category: 'Beginning Balance',
-                    //    categoryid: '',
-                    //    date: currentItem.dateopen,
-                    //    iscleared: false,
-                    //    isrecurring: false,
-                    //    istransfer: false,
-                    //    notes: '',
-                    //    payee: 'Beginning Balance',
-                    //    payeeid: '',
-                    //    photo: '',
-                    //    runningbal: currentItem.dateopen,
-                    //    runningbalance: currentItem.dateopen,
-                    //    type: 'Income',
-                    //    typedisplay: 'Income'
-                    //};
-                    //if (currentItem.autoclear.checked) {
-                    //    initialTransaction.iscleared = 'true';
-                    //}
-                    //var ref = fb.child("membertransactions").child(authData.uid).child(newChildRef.key());
-                    //ref.update(initialTransaction);
-
-                    //// Update account with transaction id
-                    //newChildRef.update({ transactionid: ref.key() })
-                });
+                accounts.$add(currentItem).then(function (newChildRef) { });
             },
             updateAccount: function (accountid, currentItem) {
                 var dtOpen = new Date(currentItem.dateopen);
@@ -186,14 +153,6 @@ angular.module('moneyleash.factories', [])
                 // Update account
                 accountRef = fb.child("memberaccounts").child(authData.uid).child(accountid);
                 accountRef.update(currentItem);
-
-                //// Update transaction
-                //var initialTransaction = {
-                //    amount: currentItem.balancebegining,
-                //    date: dtOpen
-                //};
-                //var initialTransRef = fb.child("membertransactions").child(authData.uid).child(accountid).child(currentItem.transactionid);
-                //initialTransRef.update(initialTransaction);
             },
             createTransaction: function (currentAccountId, currentItem) {
                 //
@@ -231,7 +190,8 @@ angular.module('moneyleash.factories', [])
                         payee: currentItem.payee,
                         amount: currentItem.amount,
                         date: currentItem.date,
-                        type: currentItem.type
+                        type: currentItem.type,
+                        iscleared: currentItem.iscleared
                     };
                     categoryTransactionRef.update(categoryTransaction);
                     //
@@ -242,7 +202,8 @@ angular.module('moneyleash.factories', [])
                         payee: currentItem.payee,
                         amount: currentItem.amount,
                         date: currentItem.date,
-                        type: currentItem.type
+                        type: currentItem.type,
+                        iscleared: currentItem.iscleared
                     };
                     payeeTransactionRef.update(payeeTransaction);
                     //

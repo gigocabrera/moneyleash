@@ -328,7 +328,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 payee: $scope.currentItem.payee,
                 amount: $scope.currentItem.amount,
                 date: $scope.currentItem.date,
-                type: $scope.currentItem.type
+                type: $scope.currentItem.type,
+                iscleared: currentItem.iscleared
             };
             categoryTransactionRef.update(categoryTransaction, onComplete);
             //
@@ -339,7 +340,8 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 payee: $scope.currentItem.payee,
                 amount: $scope.currentItem.amount,
                 date: $scope.currentItem.date,
-                type: $scope.currentItem.type
+                type: $scope.currentItem.type,
+                iscleared: currentItem.iscleared
             };
             payeeTransactionRef.update(payeeTransaction, onComplete);
             //
@@ -391,11 +393,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             if (isNaN($scope.currentItem.photo)) {
                 $scope.currentItem.photo = "";
             }
-            //
-            // Save Transaction
-            //
-            AccountsFactory.createTransaction($stateParams.accountId, $scope.currentItem);
-            
+            AccountsFactory.createTransaction($stateParams.accountId, $scope.currentItem);            
         }
         $scope.currentItem = {};
         $ionicHistory.goBack();

@@ -26,9 +26,12 @@
                             </small>
                         </span>
                     </div>
-                    <div class="col-50 right customAccAmt {{ account.BalanceClass }}">
+                    <div class="col-50 right customAccAmt  {{ account.BalanceClass }}">
                         <span>
                             {{ account.balancecleared | currency }}
+                            <small>
+                                {{ account.balancetoday | currency }}
+                            </small>
                         </span>
                     </div>
                 </div>

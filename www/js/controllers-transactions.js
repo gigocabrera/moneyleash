@@ -112,6 +112,43 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
     };
 
+    // SET TRANSACTION CLEAR
+    $scope.clearTransaction = function (transaction) {
+        //
+        // Update Existing Transaction
+        //
+        $scope.transactions.$save(transaction);
+        //
+        // Update transaction under category
+        //
+        var onComplete = function (error) {
+            if (error) {
+                console.log('Synchronization failed');
+            }
+        };
+        var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);
+        var categoryTransaction = {
+            payee: transaction.payee,
+            amount: transaction.amount,
+            date: transaction.date,
+            type: transaction.type,
+            iscleared: transaction.iscleared
+        };
+        categoryTransactionRef.update(categoryTransaction, onComplete);
+        //
+        // Update transaction under payee
+        //
+        var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
+        var payeeTransaction = {
+            payee: transaction.payee,
+            amount: transaction.amount,
+            date: transaction.date,
+            type: transaction.type,
+            iscleared: transaction.iscleared
+        };
+        payeeTransactionRef.update(payeeTransaction, onComplete);
+    };
+
     // SEARCH TRANSACTIONS
     var filterBarInstance;
     $scope.showFilterBar = function () {
