@@ -76,8 +76,10 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicL
             netWorth = netWorth + clearedBal;
             if (clearedBal > 0) {
                 account.BalanceClass = 'textGreen';
-            } else {
+            } else if (clearedBal < 0){
                 account.BalanceClass = 'textRed';
+            } else {
+                account.BalanceClass = 'textBlack';
             }
         })
         $scope.netWorth = netWorth.toFixed(2);

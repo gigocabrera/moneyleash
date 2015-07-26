@@ -487,6 +487,9 @@ button.customHeaderSize {
 .Expense {
     color: #CE1B31;
 }
+.textBlack {
+    color: #000;
+}
 .textGreen {
     color: #1AAC57;
 }
@@ -509,7 +512,6 @@ button.customHeaderSize {
     font: 14px 'PT Sans', sans-serif;
 }
 #transactionIcons ul li > i {
-  padding-left: 5px;
   padding-right: 5px;
   font-size: 11px;
 }
