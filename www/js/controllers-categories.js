@@ -91,7 +91,8 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
             });
         }
         $scope.currentItem = {};
-        $state.go('app.categories');
+        $ionicHistory.goBack();
+        //$state.go('app.categories');
     }
 })
 

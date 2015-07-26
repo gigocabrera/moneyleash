@@ -80,7 +80,7 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $st
 })
 
 // PICK TRANSACTION CATEGORY CONTROLLER
-moneyleashapp.controller('PickTransactionCategoryController', function ($scope, $ionicHistory, CategoriesFactory, PickTransactionServices) {
+moneyleashapp.controller('PickTransactionCategoryController', function ($scope, $state, $ionicHistory, CategoriesFactory, PickTransactionServices, PickCategoryTypeService, PickParentCategoryService) {
     //
     // To fetch categories, we need to know the transaction type first (Expense/Income)
     //
@@ -97,6 +97,12 @@ moneyleashapp.controller('PickTransactionCategoryController', function ($scope, 
         PickTransactionServices.updateCategory(item.categoryname, item.$id);
         $ionicHistory.goBack();
     };
+    // CREATE CATEGORY
+    $scope.createCategory = function () {
+        PickCategoryTypeService.typeSelected = '';
+        PickParentCategoryService.parentcategorySelected = '';
+        $state.go('app.category');
+    }
 })
 
 // PICK TRANSACTION AMOUNT CONTROLLER

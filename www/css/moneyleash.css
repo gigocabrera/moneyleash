@@ -405,7 +405,6 @@ button.customHeaderSize {
     font-weight: bold;
     font-size: 57px;
     color: #31C0E6;
-    text-shadow: 1px 1px #bfbfbf;
 }
 .iconBackArrow i:before {
     font-weight: bold;
@@ -722,7 +721,7 @@ i.customChevronForm:before {
     padding: 8px 48px 10px 16px;
 }
 .mlcategories.mlindent a.item-content {
-    padding-left: 35px;
+    padding-left: 50px;
 }
 i.mlpaddingright {
     margin-right: 8px;
