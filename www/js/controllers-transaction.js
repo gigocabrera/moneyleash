@@ -335,7 +335,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 amount: $scope.currentItem.amount,
                 date: $scope.currentItem.date,
                 type: $scope.currentItem.type,
-                iscleared: currentItem.iscleared
+                iscleared: $scope.currentItem.iscleared
             };
             categoryTransactionRef.update(categoryTransaction, onComplete);
             //
@@ -347,7 +347,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 amount: $scope.currentItem.amount,
                 date: $scope.currentItem.date,
                 type: $scope.currentItem.type,
-                iscleared: currentItem.iscleared
+                iscleared: $scope.currentItem.iscleared
             };
             payeeTransactionRef.update(payeeTransaction, onComplete);
             //
