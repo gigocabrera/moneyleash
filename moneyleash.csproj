@@ -1098,6 +1098,7 @@
     <Content Include="www\templates\budgets.html" />
     <Content Include="www\templates\categories.html" />
     <Content Include="www\templates\category.html" />
+    <Content Include="www\templates\categorytransactions.html" />
     <Content Include="www\templates\dashboard.html" />
     <Content Include="www\templates\forgot-password.html" />
     <Content Include="www\templates\intro.html" />

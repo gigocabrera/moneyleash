@@ -1,4 +1,9 @@
 
+// CATEGORY TRANSACTIONS CONTROLLER
+moneyleashapp.controller('CategoryTransactionsController', function ($scope, $stateParams, PayeesService) {
+    $scope.transactionsbycategory = PayeesService.getTransactionsByCategory($stateParams.categoryid);
+})
+
 // PICK PARENT CATEGORY CONTROLLER
 moneyleashapp.controller('PickParentCategoryController', function ($scope, $state, $ionicHistory, CategoriesFactory, PickParentCategoryService, PickCategoryTypeService) {
     if (PickCategoryTypeService.typeSelected === '') {
@@ -92,13 +97,32 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
         }
         $scope.currentItem = {};
         $ionicHistory.goBack();
-        //$state.go('app.categories');
     }
 })
 
 // CATEGORIES CONTROLLER
 moneyleashapp.controller('CategoriesController', function ($scope, $filter, $state, $ionicHistory, $ionicListDelegate, $ionicActionSheet, CategoriesFactory, PickParentCategoryService, PickCategoryTypeService) {
   
+    // SHOW FILTERS - ACTION SHEET
+    $scope.moreOptions = function (category) {
+        $ionicActionSheet.show({
+            buttons: [
+              { text: 'Show Transactions' }
+            ],
+            titleText: '<strong>FILTER</strong>',
+            cancelText: 'Cancel',
+            cancel: function () {
+                // add cancel code..
+                $ionicListDelegate.closeOptionButtons();
+            },
+            buttonClicked: function (index) {
+                $state.go('app.categorytransactions', { categoryid: category.$id });
+                $ionicListDelegate.closeOptionButtons();
+                return true;
+            }
+        });
+    };
+
     // CREATE
     $scope.createCategory = function () {
         PickCategoryTypeService.typeSelected = '';

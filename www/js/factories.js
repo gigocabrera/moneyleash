@@ -245,6 +245,7 @@ angular.module('moneyleash.factories', [])
         var payees = {};
         var payeeRef = {};
         var transactionsByPayeeRef = {};
+        var transactionsByCategoryRef = {};
         var authData = fb.getAuth();
         return {
             getPayees: function () {
@@ -256,6 +257,11 @@ angular.module('moneyleash.factories', [])
                 ref = fb.child("membertransactionsbypayee").child(authData.uid).child(payeeid);
                 transactionsByPayeeRef = $firebaseArray(ref);
                 return transactionsByPayeeRef;
+            },
+            getTransactionsByCategory: function (categoryid) {
+                ref = fb.child("membertransactionsbycategory").child(authData.uid).child(categoryid);
+                transactionsByCategoryRef = $firebaseArray(ref);
+                return transactionsByCategoryRef;
             },
             getPayeeRef: function (payeeid) {
                 payeeRef = fb.child("memberpayees").child(authData.uid).child(payeeid);

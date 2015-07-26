@@ -371,6 +371,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.categorytransactions', {
+        url: "/categorytransactions/:categoryid",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/categorytransactions.html",
+                controller: 'CategoryTransactionsController'
+            }
+        }
+    })
 
     // PAYEES
     .state('app.payees', {

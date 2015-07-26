@@ -11,8 +11,8 @@
             <ion-item class="mlcategories mlSmallerFont" ng-repeat="category in incomecategories | orderBy:'categorysort' " ng-click="handleSwipeAndTap($event, category)" href="#" ng-class="{mlindent: category.categoryparent !== ''}">
                 <i class="icon ion-ios-pricetags-outline circleIconGreen"></i>
                 {{ category.categoryname }}
-                <ion-option-button class="button-stable mlcategoriesbutton" ng-click="viewTransactions(category)">
-                    View Transactions
+                <ion-option-button class="button-stable mlcategoriesbutton" ng-click="moreOptions(category)">
+                    More
                 </ion-option-button>
                 <ion-option-button class="button-assertive mlcategoriesbutton" ng-click="deleteCategory(category)">
                     Delete
@@ -22,8 +22,8 @@
             <ion-item class="mlcategories mlSmallerFont" ng-repeat="category in expensecategories | orderBy:'categorysort' " ng-click="handleSwipeAndTap($event, category)" href="#" ng-class="{mlindent: category.categoryparent !== ''}">
                 <i class="icon ion-ios-pricetags-outline circleIconRed"></i>
                 {{ category.categoryname }}
-                <ion-option-button class="button-stable mlcategoriesbutton" ng-click="viewTransactions(category)">
-                    View Transactions
+                <ion-option-button class="button-stable mlcategoriesbutton" ng-click="moreOptions(category)">
+                    More
                 </ion-option-button>
                 <ion-option-button class="button-assertive mlcategoriesbutton" ng-click="deleteCategory(category)">
                     Delete
