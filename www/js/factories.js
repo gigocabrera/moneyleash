@@ -277,6 +277,7 @@ angular.module('moneyleash.factories', [])
         ref = fb.child("memberpayees").child(authData.uid).orderByChild('payeename');
         payees = $firebaseArray(ref);
         var searchPayees = function (searchFilter) {
+            console.log(searchFilter);
             var deferred = $q.defer();
             var matches = payees.filter(function (payee) {
                 if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;

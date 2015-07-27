@@ -139,4 +139,17 @@ angular.module('moneyleash.directives', [])
         }
     })
 
+    //
+    // http://forum.ionicframework.com/t/auto-focus-textbox-while-template-loads/6851/19
+    //
+    .directive('focusMe', function ($timeout) {
+        return {
+            link: function (scope, element, attrs) {
+                $timeout(function () {
+                    element[0].focus();
+                }, 250);
+            }
+        };
+    })
+
 ;

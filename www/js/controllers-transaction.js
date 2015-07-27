@@ -1,5 +1,5 @@
 
-// PICK TRANSACTION TYPE CONTROLLER
+// PICK TRANSACTION-TYPE CONTROLLER
 moneyleashapp.controller('PickTransactionTypeController', function ($scope, $state, $ionicHistory, PickTransactionServices) {
     $scope.TransactionTypeList = [
         { text: 'Income', value: 'Income' },
@@ -12,7 +12,7 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
     };
 })
 
-// PICK TRANSACTION ACCOUNT FROM CONTROLLER
+// PICK TRANSACTION ACCOUNT-FROM CONTROLLER
 moneyleashapp.controller('PickTransactionAccountFromController', function ($scope, $state, $ionicHistory, AccountsFactory, PickTransactionServices) {
     //
     // Get accounts
@@ -28,7 +28,7 @@ moneyleashapp.controller('PickTransactionAccountFromController', function ($scop
     };
 })
 
-// PICK TRANSACTION ACCOUNT TO CONTROLLER
+// PICK TRANSACTION ACCOUNT-TO CONTROLLER
 moneyleashapp.controller('PickTransactionAccountToController', function ($scope, $state, $ionicHistory, AccountsFactory, PickTransactionServices) {
     //
     // Get accounts
@@ -44,7 +44,7 @@ moneyleashapp.controller('PickTransactionAccountToController', function ($scope,
     };
 })
 
-// PICK TRANSACTION PAYEE CONTROLLER
+// PICK TRANSACTION-PAYEE CONTROLLER
 moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeesFactory, PayeesService, PickTransactionServices) {
 
     $scope.data = { "payees": [], "search": '' };

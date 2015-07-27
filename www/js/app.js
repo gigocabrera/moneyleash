@@ -3,21 +3,22 @@
 var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngCordova', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar'])
 
-moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ionicLoading, $state, Auth) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
         }
-        if (window.StatusBar) {
-            // org.apache.cordova.statusbar required
-            //StatusBar.styleDefault();
-            $cordovaStatusbar.overlaysWebView(true);
-            $cordovaStatusBar.style(2);
-        }
+        setTimeout(function () {
+            if (window.StatusBar) {
+                StatusBar.styleBlackTranslucent();
+                StatusBar.backgroundColorByName('black');
+            }
+        }, 300);
 
         $rootScope.settings = {
             'languages': [{
