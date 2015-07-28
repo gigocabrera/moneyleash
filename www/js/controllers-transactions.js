@@ -19,20 +19,10 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     $scope.moveItem = function (transaction, fromIndex, toIndex) {
         //$scope.transactions.splice(fromIndex, 1);
         //$scope.transactions.splice(toIndex, 0, transaction);
-        console.log(transaction);
-        console.log(fromIndex);
-        console.log(toIndex);
-        //var dtTransDate = new Date(transaction.date);
-        //if (isNaN(dtTransDate)) {
-        //    transaction.date = "";
-        //} else {
-        //    // save date in ISO format in service
-        //    dtTransDate = dtTransDate.toISOString();            
-        //    // format date to be displayed
-        //    //var format = 'MMMM dd, yyyy';
-        //    console.log(dtTransDate);
-        //}
+
         //console.log(transaction);
+        //console.log(fromIndex);
+        //console.log(toIndex);
     };
 
     //// POPOVER

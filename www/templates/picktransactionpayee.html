@@ -2,13 +2,10 @@
     <ion-nav-buttons side="right">
         <button class="button button-clear button-positive customHeaderSize" ng-click="savePayee()">Save</button>
     </ion-nav-buttons>
-    <ion-header-bar class="bar-subheader item-input-inset">
-        <label class="item-input-wrapper" focus-me>
-            <input type="text" placeholder="Search" ng-change="search()" ng-model="data.search">
-        </label>
-        <button class="button button-clear">
-            <i class="fa fa-search"></i>
-        </button>
+    <ion-header-bar class="bar bar-subheader item-input-inset">
+        <div class="item-input-wrapper">
+            <input type="search" placeholder="Search" ng-change="search()" ng-model="data.search" focus-me />
+        </div>
     </ion-header-bar>
     <ion-content>
         <ion-list>

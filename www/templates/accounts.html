@@ -7,7 +7,7 @@
     </ion-nav-buttons>
     <div class="bar bar-subheader CustomSubHeader">
         <div class="row center">
-            <div class="col netWorthRow colBorder"><span>Net Worth: <strong>{{ netWorth | currency }}</strong></span></div>
+            <div class="col netWorthRow colBorder"><span>Net Worth: <strong>{{ ::netWorth | currency }}</strong></span></div>
         </div>
     </div>
     <ion-content class="has-header has-subheader">
@@ -16,21 +16,21 @@
                 <div class="row AccountScreenPadding">
                     <div class="col-50 customAccDesc">
                         <span>
-                            {{account.accountname}}
+                            {{ ::account.accountname }}
                             <small>
                                 <div id="transactionIcons">
                                     <ul>
-                                        <li><i class="fa fa-thumb-tack"></i>{{account.accounttype}}</li>
+                                        <li><i class="fa fa-thumb-tack"></i>{{ ::account.accounttype }}</li>
                                     </ul>
                                 </div>
                             </small>
                         </span>
                     </div>
-                    <div class="col-50 right customAccAmt  {{ account.BalanceClass }}">
+                    <div class="col-50 right customAccAmt  {{ ::account.BalanceClass }}">
                         <span>
-                            {{ account.balancecleared | currency }}
+                            {{ ::account.balancecleared | currency }}
                             <small>
-                                {{ account.balancetoday | currency }}
+                                {{ ::account.balancetoday | currency }}
                             </small>
                         </span>
                     </div>

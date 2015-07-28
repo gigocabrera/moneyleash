@@ -5,23 +5,23 @@
     </ion-nav-buttons>
     <div class="bar bar-subheader CustomSubHeader">
         <div class="row center">
-            <div class="col balancesRow colBorder"><span>Total / Cleared</span><span><strong>{{ totalCount }} / {{ clearedCount }}</strong></span></div>
-            <div class="col balancesRow colBorder"><span>Current Balance</span><span><strong>{{ currentBalance | currency }}</strong></span></div>
-            <div class="col balancesRow"><span>Cleared Balance</span><span><strong>{{ clearedBalance | currency }}</strong></span></div>
+            <div class="col balancesRow colBorder"><span>Total / Cleared</span><span><strong>{{ ::totalCount }} / {{ ::clearedCount }}</strong></span></div>
+            <div class="col balancesRow colBorder"><span>Current Balance</span><span><strong>{{ ::currentBalance | currency }}</strong></span></div>
+            <div class="col balancesRow"><span>Cleared Balance</span><span><strong>{{ ::clearedBalance | currency }}</strong></span></div>
         </div>
     </div>
     <ion-content class="has-header has-subheader">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
             <div ng-repeat="transaction in transactions | reverselist | groupByDayMonthYear" divider-collection-repeat>
-                <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
+                <ion-item class="item-icon-right item item-complex item-right-editable {{ ::transaction.ClearedClass }}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
                     <div class="row">
                         <div class="col-50 customTransDesc">
                             <span>
-                                {{transaction.payee}}
+                                {{::transaction.payee}}
                                 <small>
                                     <div id="transactionIcons">
                                         <ul>
-                                            <li><i class="fa fa-thumb-tack"></i>{{transaction.category}}</li>
+                                            <li><i class="fa fa-thumb-tack"></i>{{::transaction.category}}</li>
                                             <li><i ng-class="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
                                             <li><i ng-class="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>
                                             <li><i ng-class="{'fa fa-camera': transaction.photo.length > 0}"></i></li>
@@ -31,11 +31,11 @@
                                 </small>
                             </span>
                         </div>
-                        <div class="col-50 right customTransAmt {{ transaction.type }}">
+                        <div class="col-50 right customTransAmt {{ ::transaction.type }}">
                             <span>
-                                {{transaction.amount | currency}}
+                                {{::transaction.amount | currency}}
                                 <small>
-                                    {{transaction.runningbal | currency}}
+                                    {{::transaction.runningbal | currency}}
                                 </small>
                             </span>
                             <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared" ng-change="clearTransaction(transaction)">
