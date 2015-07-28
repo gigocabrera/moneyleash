@@ -34,7 +34,7 @@
     color: #fff;
     position: absolute;
     top: 3px;
-    left: 32%;
+    left: 31px;
 }
 .tagline {
     text-align: center;
@@ -45,7 +45,7 @@
   background: #212121;
 }
 .button-intro {
-    margin-top: -5px;
+    margin-top: 0;
     margin-right: -30px;
     margin-bottom: -15px;
     display: block;
@@ -68,6 +68,9 @@
 .loginScreen {
     border: solid 10px transparent;
     background-color: #1D7AC1;
+}
+.bar.bar-dark.bar-footer {
+    padding: 0;
 }
 
 /*******************/
@@ -762,9 +765,20 @@ i.mlpaddingright {
     border-radius: 50%;
     margin-right: 5px;
 }
+
+/* Calendar */
+.pickadate-cell .pickadate-enabled {
+    font-size: 14px;
+}
+.pickadate a:visited, .pickadate a {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 .mlDatePadding {
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 15px;
 }
 .pickadate-cell .pickadate-enabled{
     color: #000;
@@ -789,7 +803,8 @@ i.mlpaddingright {
     height: 50px;
     margin-right: 0 auto;
     padding-right: 10px;
-    font-size: 1.35em;
+    font-weight: bold;
+    font-size: 20px;
     background-color: #e6e6e6;
     border: solid 1px #A0A0A0;
     text-align: right;
@@ -814,7 +829,7 @@ i.mlpaddingright {
 
     #basic button {
         display: block;
-        font-size: 100%;
+        font-size: 20px;
         width: 100%;
         min-height: 50px;
         padding: 0;

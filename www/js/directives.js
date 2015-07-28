@@ -146,8 +146,9 @@ angular.module('moneyleash.directives', [])
         return {
             link: function (scope, element, attrs) {
                 $timeout(function () {
+                    console.log(element[0]);
                     element[0].focus();
-                }, 250);
+                }, 300);
             }
         };
     })

@@ -149,7 +149,10 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         payeeTransactionRef.update(payeeTransaction, onComplete);
     };
 
+    //
     // SEARCH TRANSACTIONS
+    // https://github.com/djett41/ionic-filter-bar
+    //
     var filterBarInstance;
     $scope.showFilterBar = function () {
         filterBarInstance = $ionicFilterBar.show({
