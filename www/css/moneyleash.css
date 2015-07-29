@@ -402,11 +402,11 @@ button.customHeaderSize {
     text-shadow: 0 -1px 0 #bfbfbf;
 }
 .footerRow i {
-    margin-top: -13px;
+    margin-top: -18px;
 }
 .iconCircle i:before {
     font-weight: bold;
-    font-size: 57px;
+    font-size: 67px;
     color: #31C0E6;
 }
 .iconBackArrow i:before {
@@ -795,6 +795,9 @@ i.mlpaddingright {
 .pickadate a:visited, .pickadate a {
     color: #31C0E6;
 }
+.pickadate-cell li {
+    padding: 1.5% 0 1.5% 0;
+}
 
 /* NumberPad */
 #resultInput {
@@ -805,8 +808,7 @@ i.mlpaddingright {
     padding-right: 10px;
     font-weight: bold;
     font-size: 20px;
-    background-color: #e6e6e6;
-    border: solid 1px #A0A0A0;
+    background-color: #D3EAF0;
     text-align: right;
 }
 
@@ -831,7 +833,7 @@ i.mlpaddingright {
         display: block;
         font-size: 20px;
         width: 100%;
-        min-height: 50px;
+        min-height: 60px;
         padding: 0;
         border: none;
         text-align: center;
@@ -841,6 +843,7 @@ i.mlpaddingright {
     }
         #basic button.functionKey {
             background-color: #F98E12;
+            color: #fff;
         }
         #basic button.functionKey:hover {
             background-color: #ea7d05;

@@ -140,16 +140,20 @@ angular.module('moneyleash.directives', [])
     })
 
     //
-    // http://forum.ionicframework.com/t/auto-focus-textbox-while-template-loads/6851/19
+    // http://forum.ionicframework.com/t/facing-problem-with-autofocus-attribute/10261/2
     //
-    .directive('focusMe', function ($timeout) {
+    .directive('autoFocus', function ($timeout) {
         return {
-            link: function (scope, element, attrs) {
+            restrict: 'A',
+            link: function ($scope, $element) {
+                /*$scope.$on('$ionicView.afterEnter', function () {
+                    alert("pok");
+                });*/
                 $timeout(function () {
-                    element[0].focus();
-                }, 150);
+                    $element[0].focus();
+                }, 1000);
             }
-        };
+        }
     })
 
 ;

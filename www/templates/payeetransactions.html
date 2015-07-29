@@ -1,15 +1,15 @@
 <ion-view title="Transactions By Payee">
     <ion-content class="has-header">
         <ion-list>
-            <ion-item ng-repeat="transaction in transactionsbypayee | reverselist" href="#" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}">
+            <ion-item ng-repeat="transaction in transactionsbypayee | reverselist track by transaction.$id" href="#" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}">
                 <div class="row">
                     <div class="col-50 customTransDesc">
                         <span>
-                            {{transaction.payee}}
+                            {{ ::transaction.payee }}
                             <small>
                                 <div id="transactionIcons">
                                     <ul>
-                                        <li>{{transaction.date | date:'MMMM dd, yyyy'}}</li>
+                                        <li>{{ ::transaction.date | date:'MMMM dd, yyyy' }}</li>
                                     </ul>
                                 </div>
                             </small>
@@ -17,9 +17,9 @@
                     </div>
                     <div class="col-50 right customAccAmt" ng-class="{textRed: transaction.type == 'Expense', textGreen: transaction.type == 'Income'}">
                         <span>
-                            {{transaction.amount | currency}}
+                            {{ ::transaction.amount | currency }}
                             <small>
-                                {{transaction.runningbal | currency}}
+                                {{ ::transaction.runningbal | currency }}
                             </small>
                         </span>
                         <input class="toggleTransactionCleared" type="checkbox" ng-model="transaction.iscleared" ng-disabled="true">
