@@ -16,7 +16,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicL
         if (!options.classList.contains('invisible')) {
             $ionicListDelegate.closeOptionButtons();
         } else {
-            $state.go('app.transactionsByDay', { accountId: account.$id, accountName: account.accountname });
+            $state.go('app.transactionsDayDivider', { accountId: account.$id, accountName: account.accountname });
         }
     };
 

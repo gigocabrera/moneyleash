@@ -10,7 +10,7 @@
             <div class="item item-divider mlSmallerFont CustomSubHeader">Income Categories</div>
             <ion-item class="mlcategories mlSmallerFont" ng-repeat="category in incomecategories | orderBy:'categorysort' track by category.$id " ng-click="handleSwipeAndTap($event, category)" href="#" ng-class="{mlindent: category.categoryparent !== ''}">
                 <i class="icon ion-ios-pricetags-outline circleIconGreen"></i>
-                {{ ::category.categoryname }}
+                {{ category.categoryname }}
                 <ion-option-button class="button-stable mlcategoriesbutton" ng-click="moreOptions(category)">
                     More
                 </ion-option-button>
@@ -21,7 +21,7 @@
             <div class="item item-divider mlSmallerFont CustomSubHeader">Expense Categories</div>
             <ion-item class="mlcategories mlSmallerFont" ng-repeat="category in expensecategories | orderBy:'categorysort' track by category.$id " ng-click="handleSwipeAndTap($event, category)" href="#" ng-class="{mlindent: category.categoryparent !== ''}">
                 <i class="icon ion-ios-pricetags-outline circleIconRed"></i>
-                {{ ::category.categoryname }}
+                {{ category.categoryname }}
                 <ion-option-button class="button-stable mlcategoriesbutton" ng-click="moreOptions(category)">
                     More
                 </ion-option-button>

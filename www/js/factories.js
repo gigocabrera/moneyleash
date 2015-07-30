@@ -178,60 +178,61 @@ angular.module('moneyleash.factories', [])
                 } else {
                     accountId = currentAccountId;
                 }
+                //
+                // Save transaction
+                //
+                var ref = fb.child("membertransactions").child(authData.uid).child(accountId);
+                var newChildRef = ref.push(currentItem);
+                newChildRef.setWithPriority(currentItem, -1 * currentItem.date);
+                //
+                // Save transaction under category
+                //
+                var categoryTransactionRef = fb.child("membertransactionsbycategory").child(authData.uid).child(currentItem.categoryid).child(newChildRef.key());
+                var categoryTransaction = {
+                    payee: currentItem.payee,
+                    amount: currentItem.amount,
+                    date: currentItem.date,
+                    type: currentItem.type,
+                    iscleared: currentItem.iscleared
+                };
+                categoryTransactionRef.update(categoryTransaction);
+                //
+                // Save transaction under payee
+                //
+                var payeeTransactionRef = fb.child("membertransactionsbypayee").child(authData.uid).child(currentItem.payeeid).child(newChildRef.key());
+                var payeeTransaction = {
+                    payee: currentItem.payee,
+                    amount: currentItem.amount,
+                    date: currentItem.date,
+                    type: currentItem.type,
+                    iscleared: currentItem.iscleared
+                };
+                payeeTransactionRef.update(payeeTransaction);
+                //
+                // Save payee-category relationship
+                //
+                var payeeRef = fb.child("memberpayees").child(authData.uid).child(currentItem.payeeid);
+                var payee = {
+                    lastamount: currentItem.amount,
+                    lastcategory: currentItem.category,
+                    lastcategoryid: currentItem.categoryid
+                };
+                payeeRef.update(payee);
 
-                var transRef = fb.child("membertransactions").child(authData.uid).child(accountId);
-                var sync = $firebaseArray(transRef);
-                sync.$add(currentItem).then(function (newChildRef) {
+                if (currentItem.istransfer) {
                     //
-                    // Save transaction under category
+                    // Save the other transaction, get the transaction id and link it to this transaction
                     //
-                    var categoryTransactionRef = fb.child("membertransactionsbycategory").child(authData.uid).child(currentItem.categoryid).child(newChildRef.key());
-                    var categoryTransaction = {
-                        payee: currentItem.payee,
-                        amount: currentItem.amount,
-                        date: currentItem.date,
-                        type: currentItem.type,
-                        iscleared: currentItem.iscleared
-                    };
-                    categoryTransactionRef.update(categoryTransaction);
-                    //
-                    // Save transaction under payee
-                    //
-                    var payeeTransactionRef = fb.child("membertransactionsbypayee").child(authData.uid).child(currentItem.payeeid).child(newChildRef.key());
-                    var payeeTransaction = {
-                        payee: currentItem.payee,
-                        amount: currentItem.amount,
-                        date: currentItem.date,
-                        type: currentItem.type,
-                        iscleared: currentItem.iscleared
-                    };
-                    payeeTransactionRef.update(payeeTransaction);
-                    //
-                    // Save payee-category relationship
-                    //
-                    var payeeRef = fb.child("memberpayees").child(authData.uid).child(currentItem.payeeid);
-                    var payee = {
-                        lastamount: currentItem.amount,
-                        lastcategory: currentItem.category,
-                        lastcategoryid: currentItem.categoryid
-                    };
-                    payeeRef.update(payee);
-
-                    if (currentItem.istransfer) {
+                    OtherTransaction.linkedtransactionid = newChildRef.key();
+                    var othertransRef = fb.child("membertransactions").child(authData.uid).child(otherAccountId);
+                    var sync = $firebaseArray(othertransRef);
+                    sync.$add(OtherTransaction).then(function (otherChildRef) {
                         //
-                        // Save the other transaction, get the transaction id and link it to this transaction
+                        // Update this transaction with other transaction id
+                        newChildRef.update({ linkedtransactionid: otherChildRef.key() })
                         //
-                        OtherTransaction.linkedtransactionid = newChildRef.key();
-                        var othertransRef = fb.child("membertransactions").child(authData.uid).child(otherAccountId);
-                        var sync = $firebaseArray(othertransRef);
-                        sync.$add(OtherTransaction).then(function (otherChildRef) {
-                            //
-                            // Update this transaction with other transaction id
-                            newChildRef.update({ linkedtransactionid: otherChildRef.key() })
-                            //
-                        });
-                    }
-                });
+                    });
+                }
             },
             deleteTransaction: function (accountid, transactionid) {
                 transactionRef = fb.child("membertransactions").child(authData.uid).child(accountid).child(transactionid);
@@ -277,7 +278,7 @@ angular.module('moneyleash.factories', [])
         ref = fb.child("memberpayees").child(authData.uid).orderByChild('payeename');
         payees = $firebaseArray(ref);
         var searchPayees = function (searchFilter) {
-            console.log(searchFilter);
+            //console.log(searchFilter);
             var deferred = $q.defer();
             var matches = payees.filter(function (payee) {
                 if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;

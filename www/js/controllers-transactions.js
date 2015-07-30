@@ -20,7 +20,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         //$scope.transactions.splice(fromIndex, 1);
         //$scope.transactions.splice(toIndex, 0, transaction);
 
-        //console.log(transaction);
+        console.log(transaction);
         //console.log(fromIndex);
         //console.log(toIndex);
     };

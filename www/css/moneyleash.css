@@ -266,7 +266,7 @@
 }
 /* Menu Icons and Chevron Icons */
 .bar-menu {
-    background-color: #31C0E6;
+    background-color: #000;
     width: 100%;
     padding: 0;
 }
@@ -275,7 +275,7 @@
     font-size: 17px;
     padding-left: 15px;
     padding-top: 12px;
-    color: #fff;
+    color: #31C0E6;
     font-weight: bolder;
 }
 .bar.bar-menu .title {
@@ -583,9 +583,12 @@ button.customHeaderSize {
     margin-left: 5px;
     margin-right: 5px;
 }
-
 .search-wrapper-light input, .search-wrapper-light input::-webkit-input-placeholder {
     color: #ffffff;
+}
+.button.button-stable {
+    background-color: #b2b2b2;
+    color: #fff;
 }
 
 /*******************/

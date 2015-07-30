@@ -326,6 +326,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             };
             var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
             transactionRef.update($scope.currentItem, onComplete);
+            transactionRef.setPriority(-1 * $scope.currentItem.date);
             //
             // Update transaction under category
             //
