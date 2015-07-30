@@ -26,7 +26,7 @@
     border-radius: 50px;
     width: 100px;
     height: 100px;
-    background: #d9534f;
+    background: #F57D00;
 }
 .logo span {
     font: 70px 'PT Sans', sans-serif;
@@ -266,7 +266,7 @@
 }
 /* Menu Icons and Chevron Icons */
 .bar-menu {
-    background-color: #000;
+    background-color: #2E5B70;
     width: 100%;
     padding: 0;
 }
@@ -275,7 +275,7 @@
     font-size: 17px;
     padding-left: 15px;
     padding-top: 12px;
-    color: #31C0E6;
+    color: #fff;
     font-weight: bolder;
 }
 .bar.bar-menu .title {

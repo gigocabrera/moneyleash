@@ -122,7 +122,8 @@ angular.module('moneyleash.factories', [])
                 return transactions;
             },
             getTransactionsByDate: function (accountid) {
-                ref = fb.child("membertransactions").child(authData.uid).child(accountid).orderByChild('date');
+                //ref = fb.child("membertransactions").child(authData.uid).child(accountid).orderByChild('date');
+                ref = fb.child("membertransactions").child(authData.uid).child(accountid).orderByPriority();
                 transactionsByDate = $firebaseArray(ref);
                 return transactionsByDate;
             },
