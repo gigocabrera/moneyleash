@@ -218,9 +218,9 @@
 .SectionDivider {
     font-weight: normal;
     font: 13px 'PT Sans', sans-serif;
-    padding-top: 4px;
+    padding-top: 8px;
     padding-bottom: 3px;
-    min-height: 25px;
+    min-height: 35px;
     /*background-color: #D3EAF0;*/
 }
 .SectionDividerActive {
