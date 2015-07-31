@@ -228,7 +228,7 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         cache: true,
         views: {
             'menuContent': {
-                templateUrl: "templates/transactionsDayDivider.html",
+                templateUrl: "templates/transactionsByDay.html",
                 controller: 'TransactionsController'
             }
         }
