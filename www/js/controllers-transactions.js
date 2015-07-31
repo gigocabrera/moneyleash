@@ -195,6 +195,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         //
         // Update Existing Transaction
         //
+        if (transaction.iscleared) {
+            transaction.ClearedClass = 'transactionIsCleared';
+        } else {
+            transaction.ClearedClass = '';
+        }
         $scope.transactions.$save(transaction);
         //
         // Update transaction under category
