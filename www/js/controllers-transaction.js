@@ -1,6 +1,13 @@
 
+// PICK TRANSACTION PHOTO CONTROLLER
+moneyleashapp.controller('PickTransactionPhotoController', function ($scope, $ionicHistory, PickTransactionServices) {
+
+    $ionicHistory.goBack();
+
+})
+
 // PICK TRANSACTION-TYPE CONTROLLER
-moneyleashapp.controller('PickTransactionTypeController', function ($scope, $state, $ionicHistory, PickTransactionServices) {
+moneyleashapp.controller('PickTransactionTypeController', function ($scope, $ionicHistory, PickTransactionServices) {
     $scope.TransactionTypeList = [
         { text: 'Income', value: 'Income' },
         { text: 'Expense', value: 'Expense' },
@@ -13,7 +20,7 @@ moneyleashapp.controller('PickTransactionTypeController', function ($scope, $sta
 })
 
 // PICK TRANSACTION ACCOUNT-FROM CONTROLLER
-moneyleashapp.controller('PickTransactionAccountFromController', function ($scope, $state, $ionicHistory, AccountsFactory, PickTransactionServices) {
+moneyleashapp.controller('PickTransactionAccountFromController', function ($scope, $ionicHistory, AccountsFactory, PickTransactionServices) {
     //
     // Get accounts
     //
@@ -29,7 +36,7 @@ moneyleashapp.controller('PickTransactionAccountFromController', function ($scop
 })
 
 // PICK TRANSACTION ACCOUNT-TO CONTROLLER
-moneyleashapp.controller('PickTransactionAccountToController', function ($scope, $state, $ionicHistory, AccountsFactory, PickTransactionServices) {
+moneyleashapp.controller('PickTransactionAccountToController', function ($scope, $ionicHistory, AccountsFactory, PickTransactionServices) {
     //
     // Get accounts
     //
@@ -45,7 +52,7 @@ moneyleashapp.controller('PickTransactionAccountToController', function ($scope,
 })
 
 // PICK TRANSACTION-PAYEE CONTROLLER
-moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $state, $ionicHistory, PayeesFactory, PayeesService, PickTransactionServices) {
+moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $ionicHistory, PayeesFactory, PayeesService, PickTransactionServices) {
 
     $scope.data = { "payees": [], "search": '' };
     $scope.search = function () {
@@ -151,10 +158,9 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, PayeesService, MembersFactory, fireBaseData, dateFilter) {
-   
+moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, $cordovaCamera, AccountsFactory, PickTransactionServices, PayeesService, MembersFactory, fireBaseData, dateFilter) {
+
     $scope.hideValidationMessage = true;
-    $scope.isFree = true;
     $scope.loadedClass = 'hidden';
     $scope.transactions = [];
     $scope.AccountTitle = '';
@@ -184,15 +190,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         'type': '',
         'typedisplay': ''
     };
-
-    // Load global user settings
-    MembersFactory.getMember().then(function (user) {
-        if (user.paymentplan === 'FREE') {
-            $scope.isFree = true;
-        } else {
-            $scope.isFree = false;
-        }
-    });
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.hideValidationMessage = true;
@@ -361,7 +358,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 lastcategoryid: $scope.currentItem.categoryid
             };
             payeeRef.update(payee);
-            
+
             if ($scope.ItemOriginal.istransfer) {
                 //
                 // Update transfer relationship
@@ -403,9 +400,32 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             // Set current house member
             $scope.currentItem.addedby = fireBaseData.currentData.currentUser.firstname;
             //
-            AccountsFactory.createTransaction($stateParams.accountId, $scope.currentItem);            
+            AccountsFactory.createTransaction($stateParams.accountId, $scope.currentItem);
         }
         $scope.currentItem = {};
         $ionicHistory.goBack();
     }
-})
+
+    $scope.upload = function () {
+        var options = {
+            quality: 75,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: true,
+            encodingType: Camera.EncodingType.JPEG,
+            popoverOptions: CameraPopoverOptions,
+            targetWidth: 500,
+            targetHeight: 500,
+            saveToPhotoAlbum: false
+        };
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+            //syncArray.$add({ image: imageData }).then(function () {
+            //    alert("Image has been uploaded");
+            //});
+            $scope.currentItem.photo = imageData;
+        }, function (error) {
+            console.error(error);
+        });
+    }
+
+});

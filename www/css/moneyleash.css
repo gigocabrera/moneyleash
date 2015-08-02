@@ -519,7 +519,7 @@ button.customHeaderSize {
     font: 14px 'PT Sans', sans-serif;
 }
 #transactionIcons ul li > i {
-  padding-right: 5px;
+  padding-right: 3px;
   font-size: 11px;
 }
 .formLabelBold {
@@ -688,6 +688,10 @@ button.customHeaderSize {
 /* Form styles */
 .form-group {
     height: 50px;
+}
+.form-group img {
+    margin-left: 40px;
+    margin-top: -12px;
 }
 .form-group i {
     background:#eeeeee;

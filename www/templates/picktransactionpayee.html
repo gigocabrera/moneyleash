@@ -3,9 +3,10 @@
         <button class="button button-clear button-positive customHeaderSize" ng-click="savePayee()">Save</button>
     </ion-nav-buttons>
     <ion-header-bar class="bar bar-subheader item-input-inset">
-        <div class="item-input-wrapper">
-            <input type="search" placeholder="Search" ng-change="search()" ng-model="data.search" autocapitalize="words" auto-focus />
-        </div>
+        <label class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Search" ng-change="search()" ng-model="data.search" autocapitalize="words">
+        </label>
     </ion-header-bar>
     <ion-content>
         <ion-list>

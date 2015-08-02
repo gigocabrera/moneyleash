@@ -138,22 +138,4 @@ angular.module('moneyleash.directives', [])
             );
         }
     })
-
-    //
-    // http://forum.ionicframework.com/t/facing-problem-with-autofocus-attribute/10261/2
-    //
-    .directive('autoFocus', function ($timeout) {
-        return {
-            restrict: 'A',
-            link: function ($scope, $element) {
-                $scope.$on('$ionicView.afterEnter', function () {
-                    alert("pok");
-                });
-                $timeout(function () {
-                    $element[0].focus();
-                }, 1000);
-            }
-        }
-    })
-
 ;

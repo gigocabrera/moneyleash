@@ -48,18 +48,16 @@
                 <input type="text" placeholder="Transaction Date" ng-model="currentItem.date" readonly>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
-            <div ng-hide="isFree" class="ng-hide">
-                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picknotes">
-                    <i class="icon fa fa-file-text placeholder-icon"></i>
-                    <input type="text" placeholder="Notes" ng-model="currentItem.notes" readonly>
-                    <i class="icon ion-chevron-right customChevronForm"></i>
-                </ion-item>
-                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickphoto">
-                    <i class="icon fa fa-camera placeholder-icon"></i>
-                    <input type="text" placeholder="Photo" ng-model="currentItem.photo" readonly>
-                    <i class="icon ion-chevron-right customChevronForm"></i>
-                </ion-item>
-            </div>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picknotes">
+                <i class="icon fa fa-file-text placeholder-icon"></i>
+                <input type="text" placeholder="Notes" ng-model="currentItem.notes" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ng-click="upload()">
+                <i class="icon fa fa-camera placeholder-icon"></i>
+                <img ng-src="data:image/jpeg;base64,{{ currentItem.photo }}" width="15%" />
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
         </div>
     </ion-content>
 </ion-view>
