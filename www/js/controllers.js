@@ -2,7 +2,7 @@
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet, $ionicHistory, MembersFactory) {
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet, $ionicHistory, MembersFactory, fireBaseData) {
 
     $scope.showMenuIcon = true;
 
@@ -27,6 +27,7 @@ moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet,
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
+                fireBaseData.clearData();
                 $ionicHistory.clearCache();
                 fb.unauth();
                 $state.go('intro');
@@ -55,7 +56,7 @@ moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHist
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $ionicLoading, $ionicPopup, $state, CurrentUserService) {
+moneyleashapp.controller("LoginController", function ($scope, $ionicLoading, $ionicPopup, $state, fireBaseData, CurrentUserService) {
 
     //$scope.user = {email: 'gigo@test.com', password: '123'};
     $scope.user = {};
@@ -78,7 +79,7 @@ moneyleashapp.controller("LoginController", function ($scope, $ionicLoading, $io
             return;
         }
 
-        /* All good, let's authentify */
+        /* Authenticate User */
         var ref = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
         ref.authWithPassword({
             "email": user.email,
@@ -157,7 +158,6 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
                         $scope.validationMessage = "Oops. Something went wrong"
                 }
             } else {
-
                 fb.authWithPassword({
                     "email": email,
                     "password": password
@@ -173,8 +173,8 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
                             firstname: user.firstname,
                             lastname: user.lastname,
                             email: user.email,
-                            groupid: 0,
-                            paymentplan: 'FREE',
+                            houseid: 0,
+                            paymentplan: '',
                             datecreated: Date.now(),
                             dateupdated: Date.now()
                         }
@@ -185,39 +185,81 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
                         newUser.update($scope.temp, function (ref) {
                             //console.log("user created");
                         });
-
-                        /* SAVE DEFAULT ACCOUNT TYPES */
-                        var ref = fb.child("memberaccounttypes").child(authData.uid);
-                        ref.push({ name: 'Checking', icon: '0' });
-                        ref.push({ name: 'Savings', icon: '0' });
-                        ref.push({ name: 'Credit Card', icon: '0' });
-                        ref.push({ name: 'Debit Card', icon: '0' });
-                        ref.push({ name: 'Investment', icon: '0' });
-                        ref.push({ name: 'Brokerage', icon: '0' });
-                        ref.push({ name: 'Checking', icon: '0' });
-
-                        /* SAVE DEFAULT CATEGORIES */
-                        var ref = fb.child("membercategories").child(authData.uid).child('Income');
-                        ref.push({ categoryname: 'Income', categoryparent: '', categorysort: 'Income', categorytype: 'Income' });
-                        ref.push({ categoryname: 'Beginning Balance', categoryparent: 'Income', categorysort: 'Income:Beginning Balance', categorytype: 'Income' });
-
-                        var ref = fb.child("membercategories").child(authData.uid).child('Expense');
-                        ref.push({ categoryname: 'Auto', categoryparent: '', categorysort: 'Auto', categorytype: 'Expense' });
-                        ref.push({ categoryname: 'Gasoline', categoryparent: 'Auto', categorysort: 'Auto:Gas', categorytype: 'Expense' });
-                        ref.push({ categoryname: 'Car Payment', categoryparent: 'Auto', categorysort: 'Auto:Car Payment', categorytype: 'Expense' });
-
-                        /* SAVE DEFAULT PAYEES */
-                        var ref = fb.child("memberpayees").child(authData.uid);
-                        ref.push({ lastamount: '', lastcategory: '', lastcategoryid: '', payeename: 'Beginning Balance' });
-
                         $ionicLoading.hide();
-                        $state.go('app.dashboard');
+                        $state.go('housechoice');
                     }
                 });
             }
         });
     };
 
+})
+
+// HOUSE CONTROLLER
+.controller('HouseChoiceController', function ($scope, $ionicHistory) {
+
+    /* Clear the history stack to prevent going back to login view again */
+    $ionicHistory.clearHistory();
+
+})
+.controller('HouseCreateController', function ($scope, $state, HouseFactory) {
+
+    $scope.hideValidationMessage = true;
+    $scope.house = {
+        name: '',
+        number: ''
+    };
+
+    $scope.saveHouse = function (house) {
+
+        var house_name = house.name;
+        var house_number = house.number;
+
+        /* VALIDATE DATA */
+        if (!house_name) {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please enter a name for this house"
+            return;
+        }
+        if (!house_number) {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please enter a unique number for this house"
+            return;
+        }
+        $scope.hideValidationMessage = true;
+        //
+        // Create House
+        //
+        HouseFactory.createHouse(house);
+        $state.go('app.dashboard');
+    };
+})
+.controller('HouseJoinController', function ($scope, $state, HouseFactory) {
+
+    $scope.hideValidationMessage = true;
+    $scope.house = {
+        houseid: ''
+    };
+
+    $scope.joinHouse = function (house) {
+        //
+        // Join House
+        //
+        var house_code = house.houseid;
+
+        /* VALIDATE DATA */
+        if (!house_code) {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please enter the house code you want to join"
+            return;
+        }
+        HouseFactory.getHouseByCode(house_code).then(function (value) {
+            if (value) {
+                HouseFactory.joinHouse(value);
+                $state.go('app.dashboard');
+            }
+        });
+    };
 })
 
 // FORGOT PASSWORD CONTROLLER
@@ -240,75 +282,74 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 })
 
 // DASHBOARD CONTROLLER
-moneyleashapp.controller('DashboardController', function ($scope, $state, $stateParams, CurrentUserService) {
+moneyleashapp.controller('DashboardController', function ($scope, $state, $stateParams, fireBaseData) {
     
-    //// Load global user settings
-    //MembersFactory.getMember().then(function (user) {
-    //    CurrentUserService.updateUser(user);
-    //    $scope.displayname = CurrentUserService.firstname;
-    //});
+    fireBaseData.refreshData().then(function (output) {
+        fireBaseData.currentData = output;
+        //console.log(fireBaseData.currentData);
+    });
 
-    $scope.editTransaction = function (item) {
-        //alert('Edit Item: ' + item.id);
-        $state.go('app.itemdetailsview', { itemId: item.id });
-    };
-    $scope.deleteTransaction = function (item) {
-        alert('Delete Item: ' + item.id);
-    };
+    //$scope.editTransaction = function (item) {
+    //    //alert('Edit Item: ' + item.id);
+    //    $state.go('app.itemdetailsview', { itemId: item.id });
+    //};
+    //$scope.deleteTransaction = function (item) {
+    //    alert('Delete Item: ' + item.id);
+    //};
 
-    $scope.items = [
-      { id: 0 },
-      { id: 1 },
-      { id: 2 },
-      { id: 3 },
-      { id: 4 },
-      { id: 5 },
-      { id: 6 },
-      { id: 7 },
-      { id: 8 },
-      { id: 9 },
-      { id: 10 },
-      { id: 11 },
-      { id: 12 },
-      { id: 13 },
-      { id: 14 },
-      { id: 15 },
-      { id: 16 },
-      { id: 17 },
-      { id: 18 },
-      { id: 19 },
-      { id: 20 },
-      { id: 21 },
-      { id: 22 },
-      { id: 23 },
-      { id: 24 },
-      { id: 25 },
-      { id: 26 },
-      { id: 27 },
-      { id: 28 },
-      { id: 29 },
-      { id: 30 },
-      { id: 31 },
-      { id: 32 },
-      { id: 33 },
-      { id: 34 },
-      { id: 35 },
-      { id: 36 },
-      { id: 37 },
-      { id: 38 },
-      { id: 39 },
-      { id: 40 },
-      { id: 41 },
-      { id: 42 },
-      { id: 43 },
-      { id: 44 },
-      { id: 45 },
-      { id: 46 },
-      { id: 47 },
-      { id: 48 },
-      { id: 49 },
-      { id: 50 }
-    ];
+    //$scope.items = [
+    //  { id: 0 },
+    //  { id: 1 },
+    //  { id: 2 },
+    //  { id: 3 },
+    //  { id: 4 },
+    //  { id: 5 },
+    //  { id: 6 },
+    //  { id: 7 },
+    //  { id: 8 },
+    //  { id: 9 },
+    //  { id: 10 },
+    //  { id: 11 },
+    //  { id: 12 },
+    //  { id: 13 },
+    //  { id: 14 },
+    //  { id: 15 },
+    //  { id: 16 },
+    //  { id: 17 },
+    //  { id: 18 },
+    //  { id: 19 },
+    //  { id: 20 },
+    //  { id: 21 },
+    //  { id: 22 },
+    //  { id: 23 },
+    //  { id: 24 },
+    //  { id: 25 },
+    //  { id: 26 },
+    //  { id: 27 },
+    //  { id: 28 },
+    //  { id: 29 },
+    //  { id: 30 },
+    //  { id: 31 },
+    //  { id: 32 },
+    //  { id: 33 },
+    //  { id: 34 },
+    //  { id: 35 },
+    //  { id: 36 },
+    //  { id: 37 },
+    //  { id: 38 },
+    //  { id: 39 },
+    //  { id: 40 },
+    //  { id: 41 },
+    //  { id: 42 },
+    //  { id: 43 },
+    //  { id: 44 },
+    //  { id: 45 },
+    //  { id: 46 },
+    //  { id: 47 },
+    //  { id: 48 },
+    //  { id: 49 },
+    //  { id: 50 }
+    //];
 })
 
 // Sample code - to be removed when going live

@@ -59,7 +59,11 @@
 }
 .button-intro.button-dark {
     background: #212121;
-    color: #FFF; 
+    color: #fff; 
+}
+.button-intro.button-orange {
+    background: #F57D00;
+    color: #fff;
 }
 .button-intro.button-positive {
     background: #f8d50e;
@@ -714,7 +718,7 @@ button.customHeaderSize {
     background-color: transparent;
 }
 .customMarginTop input[type="text"] {
-    margin-top: -10px;
+    margin-top: -6px;
 }
 i.customChevronForm {
     background-color: #fff;

@@ -11,13 +11,13 @@
         </div>
     </div>
     <ion-content class="has-header has-subheader">
-        <div ng-repeat="group in groups | reverselist" class="ml_list">
+        <div ng-repeat="group in groups | orderBy:'-date'" class="ml_list">
             <div class="item item-divider SectionDivider" ion-affix data-affix-within-parent-with-class="ml_list" ng-class="{SectionDividerActive: group.isToday == true}">
                 {{ group.label }}
             </div>
             <ul>
                 <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-                    <li ng-repeat="transaction in group.transactions | reverselist" ng-click="handleSwipeAndTap($event, transaction)" href="#">
+                    <li ng-repeat="transaction in group.transactions | orderBy:'-date'" ng-click="handleSwipeAndTap($event, transaction)" href="#">
                         <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
                             <div class="row">
                                 <div class="col-50 customTransDesc">

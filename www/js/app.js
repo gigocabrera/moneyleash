@@ -139,6 +139,23 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           controller: 'RegisterController'
       })
 
+      // HOUSE
+      .state('housechoice', {
+          url: '/housechoice',
+          templateUrl: 'templates/house-choice.html',
+          controller: 'HouseChoiceController'
+      })
+      .state('housecreate', {
+          url: '/housecreate',
+          templateUrl: 'templates/house-create.html',
+          controller: 'HouseCreateController'
+      })
+      .state('housejoin', {
+          url: '/housejoin',
+          templateUrl: 'templates/house-join.html',
+          controller: 'HouseJoinController'
+      })
+
       // FORGOT PASSWORD
       .state('forgot-password', {
           url: "/forgot-password",

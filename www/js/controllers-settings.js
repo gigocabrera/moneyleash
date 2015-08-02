@@ -15,7 +15,7 @@ moneyleashapp.controller('AccountPreferencesController', function ($scope, $stat
 })
 
 // SETTINGS CONTROLLER
-moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $state, $ionicActionSheet, $translate, $ionicHistory) {
+moneyleashapp.controller('SettingsController', function ($scope, $state, $ionicActionSheet, $ionicHistory, fireBaseData) {
 
     // DUMMY SETTINGS
     $scope.airplaneMode = true;
@@ -47,7 +47,9 @@ moneyleashapp.controller('SettingsController', function ($scope, $rootScope, $st
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
+                fireBaseData.clearData();
                 $ionicHistory.clearCache();
+                fb.unauth();
                 $state.go("intro");
             }
         });
