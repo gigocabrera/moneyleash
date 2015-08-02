@@ -282,11 +282,18 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 })
 
 // DASHBOARD CONTROLLER
-moneyleashapp.controller('DashboardController', function ($scope, $state, $stateParams, fireBaseData) {
+moneyleashapp.controller('DashboardController', function ($scope, $rootScope, fireBaseData) {
     
-    fireBaseData.refreshData().then(function (output) {
-        fireBaseData.currentData = output;
-        //console.log(fireBaseData.currentData);
+    $scope.$on('$ionicView.enter', function () {
+        $rootScope.show('Syncing...');
+        fireBaseData.refreshData().then(function (output) {
+            fireBaseData.currentData = output;
+            $rootScope.currentUser = fireBaseData.currentData.currentUser;
+            $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
+            $rootScope.isadmin = fireBaseData.currentData.isadmin;
+            $rootScope.hide();
+            console.log(fireBaseData.currentData);
+        });
     });
 
     //$scope.editTransaction = function (item) {

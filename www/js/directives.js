@@ -146,9 +146,9 @@ angular.module('moneyleash.directives', [])
         return {
             restrict: 'A',
             link: function ($scope, $element) {
-                /*$scope.$on('$ionicView.afterEnter', function () {
+                $scope.$on('$ionicView.afterEnter', function () {
                     alert("pok");
-                });*/
+                });
                 $timeout(function () {
                     $element[0].focus();
                 }, 1000);

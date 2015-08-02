@@ -12,7 +12,7 @@
     </div>
     <ion-content class="has-header has-subheader">
         <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-            <div ng-repeat="transaction in transactions | orderBy:'-date' | groupByDayMonthYear" divider-collection-repeat>
+            <div ng-repeat="transaction in transactions | reverselist | groupByDayMonthYear" divider-collection-repeat>
                 <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
                     <div class="row">
                         <div class="col-50 customTransDesc">
@@ -21,6 +21,7 @@
                                 <small>
                                     <div id="transactionIcons">
                                         <ul>
+                                            <li><i class="fa fa-at"></i>{{ transaction.addedby }}</li>
                                             <li><i class="fa fa-thumb-tack"></i>{{ transaction.category }}</li>
                                             <li><i ng-class="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
                                             <li><i ng-class="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>

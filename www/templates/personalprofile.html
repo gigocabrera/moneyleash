@@ -6,22 +6,37 @@
     </ion-nav-buttons>
     <ion-content has-header="true">
         <div class="ion-list">
-            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
-                <i class="icon fa fa-user placeholder-icon"></i>
-                <input type="text" placeholder="First Name" ng-model="member.firstname">
+            <div class="item item-divider mlSmallerFont CustomSubHeader">Your Information</div>
+            <ion-item class="item-icon-left form-group customMarginTop">
+                <i class="icon fa fa-at placeholder-icon"></i>
+                <input type="text" placeholder="First Name" ng-model="member.firstname" autocorrect="on" autocapitalize="words">
             </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
+            <ion-item class="item-icon-left form-group customMarginTop">
                 <i class="icon fa fa-user placeholder-icon"></i>
-                <input type="text" placeholder="Last Name" ng-model="member.lastname">
+                <input type="text" placeholder="Last Name" ng-model="member.lastname" autocorrect="on" autocapitalize="words">
             </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
+            <ion-item class="item-icon-left form-group customMarginTop">
                 <i class="icon fa fa-envelope-o placeholder-icon"></i>
                 <input type="text" placeholder="Email" ng-model="member.email" readonly>
             </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
+            <ion-item class="item-icon-left form-group customMarginTop">
                 <i class="icon fa fa-calendar placeholder-icon"></i>
                 <input type="text" placeholder="Date Created" ng-model="member.datecreated" readonly>
             </ion-item>
+            <div class="item item-divider mlSmallerFont CustomSubHeader">Your House Information</div>
+            <ion-item class="item-icon-left form-group customMarginTop">
+                <i class="icon fa fa-home placeholder-icon"></i>
+                <input type="text" placeholder="House Name" ng-model="house.name">
+            </ion-item>
+            <ion-item class="item-icon-left form-group customMarginTop">
+                <i class="icon fa fa-shield placeholder-icon"></i>
+                <input type="text" placeholder="House Number" ng-model="house.number">
+            </ion-item>
+            <ion-item class="item-icon-left form-group customMarginTop">
+                <i class="icon fa fa-user-secret placeholder-icon"></i>
+                <input type="text" placeholder="House Admin" ng-model="house.admin">
+            </ion-item>
+            <div class="item item-divider mlSmallerFont CustomSubHeader">Your Plan Information</div>
             <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
                 <i class="icon fa fa-unlock-alt placeholder-icon"></i>
                 <input type="text" placeholder="Payment Plan" ng-model="member.paymentplan" readonly>

@@ -48,7 +48,7 @@ angular.module('moneyleash.factories', [])
         };
         $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({
-                template: '<i class="icon ion-looping"></i><br>' + text,
+                template: '<ion-spinner icon="ios"></ion-spinner><br />' + text,
                 animation: 'fade-in',
                 showBackdrop: true,
                 maxWidth: 200,
@@ -286,11 +286,12 @@ angular.module('moneyleash.factories', [])
             },
             getTransactionsByDate: function (accountid) {
                 ref = fb.child("houses").child(fireBaseData.currentData.currentHouse.id).child("membertransactions").child(accountid).orderByChild('date');
+                //ref = fb.child("houses").child(fireBaseData.currentData.currentHouse.id).child("membertransactions").child(accountid).orderByPriority();
                 transactionsByDate = $firebaseArray(ref);
                 return transactionsByDate;
             },
             getTransactionRef: function (accountid, transactionid) {
-                transactionRef = fb.child("membertransactions").child(authData.uid).child(accountid).child(transactionid);
+                transactionRef = fb.child("houses").child(fireBaseData.currentData.currentHouse.id).child("membertransactions").child(accountid).child(transactionid);
                 return transactionRef;
             },
             getTransactionByCategoryRef: function (categoryid, transactionid) {

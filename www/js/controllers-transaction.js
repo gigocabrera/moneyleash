@@ -151,7 +151,7 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, PayeesService, MembersFactory, dateFilter) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, PayeesService, MembersFactory, fireBaseData, dateFilter) {
    
     $scope.hideValidationMessage = true;
     $scope.isFree = true;
@@ -400,6 +400,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             if (isNaN($scope.currentItem.photo)) {
                 $scope.currentItem.photo = "";
             }
+            // Set current house member
+            $scope.currentItem.addedby = fireBaseData.currentData.currentUser.firstname;
+            //
             AccountsFactory.createTransaction($stateParams.accountId, $scope.currentItem);            
         }
         $scope.currentItem = {};
