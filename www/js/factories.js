@@ -404,7 +404,7 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory('PayeesService', function ($firebaseArray, $q) {
+    .factory('PayeesService', function ($firebaseArray, $q, fireBaseData) {
         var ref = {};
         var payees = {};
         var payeeRef = {};
@@ -434,7 +434,7 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory('PayeesFactory', function ($firebaseArray, $q, $timeout) {
+    .factory('PayeesFactory', function ($firebaseArray, $q, $timeout, fireBaseData) {
         var ref = {};
         var payees = {};
         var authData = fb.getAuth();
