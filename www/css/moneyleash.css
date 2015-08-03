@@ -692,6 +692,7 @@ button.customHeaderSize {
 .form-group img {
     margin-left: 40px;
     margin-top: -12px;
+    border: 0;
 }
 .form-group i {
     background:#eeeeee;

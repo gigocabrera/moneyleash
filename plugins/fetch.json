@@ -15,7 +15,9 @@
         "source": {
             "type": "registry",
             "id": "com.ionic.keyboard"
-        }
+        },
+        "is_top_level": true,
+        "variables": {}
     },
     "cordova-plugin-statusbar": {
         "source": {
