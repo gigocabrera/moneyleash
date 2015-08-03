@@ -2,6 +2,7 @@
 // PICK TRANSACTION PHOTO CONTROLLER
 moneyleashapp.controller('PickTransactionPhotoController', function ($scope, $ionicHistory, $cordovaCamera, PickTransactionServices) {
     
+    $scope.currentItem = { photo: PickTransactionServices.photoSelected };
     $scope.upload = function () {
         var options = {
             quality: 75,
@@ -271,6 +272,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             PickTransactionServices.accountFromId = $scope.currentItem.accountFromId;
             PickTransactionServices.accountToSelected = $scope.currentItem.accountTo;
             PickTransactionServices.accountToId = $scope.currentItem.accountToId;
+            PickTransactionServices.photoSelected = $scope.currentItem.photo;
             if ($scope.currentItem.istransfer) {
                 angular.copy($scope.currentItem, $scope.ItemOriginal);
             }
