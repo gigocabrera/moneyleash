@@ -34,7 +34,7 @@
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactioncategory">
-                <i class="icon fa fa-tag placeholder-icon"></i>
+                <i class="icon fa fa-thumb-tack placeholder-icon"></i>
                 <input type="text" placeholder="Category" ng-model="currentItem.category" readonly>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
@@ -53,7 +53,7 @@
                 <input type="text" placeholder="Notes" ng-model="currentItem.notes" readonly>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group" ng-click="upload()">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionphoto">
                 <i class="icon fa fa-camera placeholder-icon"></i>
                 <img ng-src="data:image/jpeg;base64,{{ currentItem.photo }}" width="15%" />
                 <i class="icon ion-chevron-right customChevronForm"></i>

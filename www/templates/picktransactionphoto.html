@@ -1,0 +1,11 @@
+<ion-view view-title="Photo">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-positive customHeaderSize" ng-click="upload()">Upload</button>
+        <button class="button button-clear button-positive customHeaderSize" ng-click="savePhoto()">Save</button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list>
+            <img ng-src="data:image/jpeg;base64,{{ currentItem.photo }}" width="100%" />
+        </ion-list>
+    </ion-content>
+</ion-view>

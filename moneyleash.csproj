@@ -238,6 +238,30 @@
     <None Include="plugins\cordova-plugin-camera\tests\ios\doc\zh\README.md" />
     <None Include="plugins\cordova-plugin-camera\tests\ios\package.json" />
     <None Include="plugins\cordova-plugin-camera\tests\ios\README.md" />
+    <None Include="plugins\cordova-plugin-statusbar\CONTRIBUTING.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\de\index.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\de\README.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\es\index.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\es\README.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\fr\index.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\fr\README.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\it\index.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\it\README.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\ja\index.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\ja\README.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\ko\index.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\ko\README.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\pl\index.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\pl\README.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\ru\index.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\zh\index.md" />
+    <None Include="plugins\cordova-plugin-statusbar\doc\zh\README.md" />
+    <None Include="plugins\cordova-plugin-statusbar\LICENSE" />
+    <None Include="plugins\cordova-plugin-statusbar\NOTICE" />
+    <None Include="plugins\cordova-plugin-statusbar\package.json" />
+    <None Include="plugins\cordova-plugin-statusbar\README.md" />
+    <None Include="plugins\cordova-plugin-statusbar\RELEASENOTES.md" />
+    <None Include="plugins\cordova-plugin-statusbar\src\ios\CDVStatusBar.m" />
     <None Include="plugins\fetch.json" />
     <None Include="plugins\ios.json" />
     <None Include="plugins\org.apache.cordova.console\CONTRIBUTING.md" />
@@ -284,6 +308,28 @@
     <None Include="www\fonts\ionicons.eot" />
     <None Include="www\fonts\ionicons.ttf" />
     <None Include="www\fonts\ionicons.woff" />
+    <None Include="www\lib\angular-animate\.bower.json" />
+    <None Include="www\lib\angular-animate\angular-animate.min.js.map" />
+    <None Include="www\lib\angular-animate\bower.json" />
+    <None Include="www\lib\angular-animate\package.json" />
+    <None Include="www\lib\angular-animate\README.md" />
+    <None Include="www\lib\angular-sanitize\.bower.json" />
+    <None Include="www\lib\angular-sanitize\angular-sanitize.min.js.map" />
+    <None Include="www\lib\angular-sanitize\bower.json" />
+    <None Include="www\lib\angular-sanitize\package.json" />
+    <None Include="www\lib\angular-sanitize\README.md" />
+    <None Include="www\lib\angular-ui-router\.bower.json" />
+    <None Include="www\lib\angular-ui-router\bower.json" />
+    <None Include="www\lib\angular-ui-router\CHANGELOG.md" />
+    <None Include="www\lib\angular-ui-router\CONTRIBUTING.md" />
+    <None Include="www\lib\angular-ui-router\LICENSE" />
+    <None Include="www\lib\angular-ui-router\README.md" />
+    <None Include="www\lib\angular\.bower.json" />
+    <None Include="www\lib\angular\angular.min.js.gzip" />
+    <None Include="www\lib\angular\angular.min.js.map" />
+    <None Include="www\lib\angular\bower.json" />
+    <None Include="www\lib\angular\package.json" />
+    <None Include="www\lib\angular\README.md" />
     <None Include="www\lib\ionic-filter-bar\.bower.json" />
     <None Include="www\lib\ionic-filter-bar\bower.json" />
     <None Include="www\lib\ionic-filter-bar\scss\ionic.filter.bar.scss" />
@@ -374,6 +420,12 @@
     <None Include="www\lib\ionic\scss\_type.scss" />
     <None Include="www\lib\ionic\scss\_util.scss" />
     <None Include="www\lib\ionic\scss\_variables.scss" />
+    <None Include="www\lib\ngCordova\.bower.json" />
+    <None Include="www\lib\ngCordova\bower.json" />
+    <None Include="www\lib\ngCordova\CHANGELOG.md" />
+    <None Include="www\lib\ngCordova\LICENSE" />
+    <None Include="www\lib\ngCordova\package.json" />
+    <None Include="www\lib\ngCordova\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
@@ -648,6 +700,13 @@
     <Content Include="plugins\cordova-plugin-camera\www\CameraPopoverHandle.js" />
     <Content Include="plugins\cordova-plugin-camera\www\CameraPopoverOptions.js" />
     <Content Include="plugins\cordova-plugin-camera\www\ios\CameraPopoverHandle.js" />
+    <Content Include="plugins\cordova-plugin-statusbar\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-statusbar\src\android\StatusBar.java" />
+    <Content Include="plugins\cordova-plugin-statusbar\src\ios\CDVStatusBar.h" />
+    <Content Include="plugins\cordova-plugin-statusbar\src\windows\StatusBarProxy.js" />
+    <Content Include="plugins\cordova-plugin-statusbar\tests\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-statusbar\tests\tests.js" />
+    <Content Include="plugins\cordova-plugin-statusbar\www\statusbar.js" />
     <Content Include="plugins\org.apache.cordova.console\plugin.xml" />
     <Content Include="plugins\org.apache.cordova.console\src\ios\CDVLogger.h" />
     <Content Include="plugins\org.apache.cordova.console\src\ubuntu\console.cpp" />
@@ -743,6 +802,26 @@
     <Content Include="www\js\filters.js" />
     <Content Include="www\js\ion-affix.js" />
     <Content Include="www\js\moment.js" />
+    <Content Include="www\lib\angular-animate\angular-animate.js" />
+    <Content Include="www\lib\angular-animate\angular-animate.min.js" />
+    <Content Include="www\lib\angular-sanitize\angular-sanitize.js" />
+    <Content Include="www\lib\angular-sanitize\angular-sanitize.min.js" />
+    <Content Include="www\lib\angular-ui-router\release\angular-ui-router.js" />
+    <Content Include="www\lib\angular-ui-router\release\angular-ui-router.min.js" />
+    <Content Include="www\lib\angular-ui-router\src\common.js" />
+    <Content Include="www\lib\angular-ui-router\src\resolve.js" />
+    <Content Include="www\lib\angular-ui-router\src\state.js" />
+    <Content Include="www\lib\angular-ui-router\src\stateDirectives.js" />
+    <Content Include="www\lib\angular-ui-router\src\stateFilters.js" />
+    <Content Include="www\lib\angular-ui-router\src\templateFactory.js" />
+    <Content Include="www\lib\angular-ui-router\src\urlMatcherFactory.js" />
+    <Content Include="www\lib\angular-ui-router\src\urlRouter.js" />
+    <Content Include="www\lib\angular-ui-router\src\view.js" />
+    <Content Include="www\lib\angular-ui-router\src\viewDirective.js" />
+    <Content Include="www\lib\angular-ui-router\src\viewScroll.js" />
+    <Content Include="www\lib\angular\angular-csp.css" />
+    <Content Include="www\lib\angular\angular.js" />
+    <Content Include="www\lib\angular\angular.min.js" />
     <Content Include="www\lib\datePicker\css\angular-pickadate.css" />
     <Content Include="www\lib\datePicker\js\angular-pickadate.js" />
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.css" />
@@ -769,6 +848,10 @@
     <Content Include="www\lib\ionic\js\ionic.bundle.min.js" />
     <Content Include="www\lib\ionic\js\ionic.js" />
     <Content Include="www\lib\ionic\js\ionic.min.js" />
+    <Content Include="www\lib\ngCordova\dist\ng-cordova-mocks.js" />
+    <Content Include="www\lib\ngCordova\dist\ng-cordova-mocks.min.js" />
+    <Content Include="www\lib\ngCordova\dist\ng-cordova.js" />
+    <Content Include="www\lib\ngCordova\dist\ng-cordova.min.js" />
     <Content Include="www\templates\about.html" />
     <Content Include="www\templates\account.html" />
     <Content Include="www\templates\accounttypeselect.html" />
@@ -802,6 +885,7 @@
     <Content Include="www\templates\picktransactioncategory.html" />
     <Content Include="www\templates\picktransactiondate.html" />
     <Content Include="www\templates\picktransactionpayee.html" />
+    <Content Include="www\templates\picktransactionphoto.html" />
     <Content Include="www\templates\picktransactiontype.html" />
     <Content Include="www\templates\popover.html" />
     <Content Include="www\templates\recurring.html" />
@@ -816,10 +900,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="plugins\cordova-plugin-camera\src\wp\Camera.cs" />
+    <Compile Include="plugins\cordova-plugin-statusbar\src\wp\StatusBar.cs" />
     <Compile Include="plugins\org.apache.cordova.console\src\wp\DebugConsole.cs" />
     <Compile Include="plugins\org.apache.cordova.device\src\wp\Device.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <TypeScriptCompile Include="www\lib\angular-ui-router\api\angular-ui-router.d.ts" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

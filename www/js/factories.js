@@ -517,6 +517,7 @@ angular.module('moneyleash.factories', [])
         var transAmount = this;
         var transAccountFrom = this;
         var transAccountTo = this;
+        var transPhoto = this;
         transactionType.updateType = function (value, type) {
             this.typeDisplaySelected = value;
             this.typeInternalSelected = type;
@@ -545,6 +546,9 @@ angular.module('moneyleash.factories', [])
         transAccountTo.updateAccountTo = function (value, id) {
             this.accountToSelected = value;
             this.accountToId = id;
+        }
+        transPhoto.updatePhoto = function (value) {
+            this.photoSelected = value;
         }
     })
 ;

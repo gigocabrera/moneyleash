@@ -94,6 +94,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         PickTransactionServices.accountFromId = '';
         PickTransactionServices.accountToSelected = '';
         PickTransactionServices.accountToId = '';
+        PickTransactionServices.photoSelected = '';
         $state.go('app.transaction', { accountId: $stateParams.accountId, transactionId: '' });
     }
 

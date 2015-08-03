@@ -1,9 +1,29 @@
 
 // PICK TRANSACTION PHOTO CONTROLLER
-moneyleashapp.controller('PickTransactionPhotoController', function ($scope, $ionicHistory, PickTransactionServices) {
-
-    $ionicHistory.goBack();
-
+moneyleashapp.controller('PickTransactionPhotoController', function ($scope, $ionicHistory, $cordovaCamera, PickTransactionServices) {
+    
+    $scope.upload = function () {
+        var options = {
+            quality: 75,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: true,
+            encodingType: Camera.EncodingType.JPEG,
+            popoverOptions: CameraPopoverOptions,
+            targetWidth: 500,
+            targetHeight: 500,
+            saveToPhotoAlbum: false
+        };
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+            $scope.currentItem.photo = imageData;
+        }, function (error) {
+            console.error(error);
+        });
+    }
+    $scope.savePhoto = function () {
+        PickTransactionServices.updatePhoto($scope.currentItem.photo);
+        $ionicHistory.goBack();
+    };
 })
 
 // PICK TRANSACTION-TYPE CONTROLLER
@@ -204,6 +224,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         $scope.currentItem.accountFromId = PickTransactionServices.accountFromId;
         $scope.currentItem.accountTo = PickTransactionServices.accountToSelected;
         $scope.currentItem.accountToId = PickTransactionServices.accountToId;
+        $scope.currentItem.photo = PickTransactionServices.photoSelected;
         if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
             // format date to be displayed
             var format = 'MMMM dd, yyyy';
@@ -405,27 +426,4 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         $scope.currentItem = {};
         $ionicHistory.goBack();
     }
-
-    $scope.upload = function () {
-        var options = {
-            quality: 75,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            allowEdit: true,
-            encodingType: Camera.EncodingType.JPEG,
-            popoverOptions: CameraPopoverOptions,
-            targetWidth: 500,
-            targetHeight: 500,
-            saveToPhotoAlbum: false
-        };
-        $cordovaCamera.getPicture(options).then(function (imageData) {
-            //syncArray.$add({ image: imageData }).then(function () {
-            //    alert("Image has been uploaded");
-            //});
-            $scope.currentItem.photo = imageData;
-        }, function (error) {
-            console.error(error);
-        });
-    }
-
 });

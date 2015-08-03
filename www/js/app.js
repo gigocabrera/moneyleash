@@ -5,7 +5,7 @@ var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 // Ionic MoneyLeash App, v1.0
 var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -16,10 +16,12 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
             }
         }, 300);
         setTimeout(function () {
-            if (window.StatusBar) {
-                StatusBar.styleBlackTranslucent();
-                StatusBar.backgroundColorByName('black');
-            }
+            $cordovaStatusbar.overlaysWebView(true);
+            $cordovaStatusbar.style(2);
+            //if (window.StatusBar) {
+            //StatusBar.styleBlackTranslucent();
+            //StatusBar.backgroundColorByName('black');
+            //}
         }, 300);
 
         $rootScope.settings = {
@@ -319,6 +321,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/picktransactionamount.html",
                 controller: "PickTransactionAmountController"
+            }
+        }
+    })
+    .state('app.picktransactionphoto', {
+        url: "/picktransactionphoto",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactionphoto.html",
+                controller: "PickTransactionPhotoController"
             }
         }
     })
