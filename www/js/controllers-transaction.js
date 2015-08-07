@@ -3,28 +3,34 @@
 moneyleashapp.controller('PickTransactionPhotoController', function ($scope, $ionicHistory, $cordovaCamera, PickTransactionServices) {
     
     $scope.currentItem = { photo: PickTransactionServices.photoSelected };
-    $scope.upload = function () {
-        var options = {
-            quality: 75,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            allowEdit: true,
-            encodingType: Camera.EncodingType.JPEG,
-            popoverOptions: CameraPopoverOptions,
-            targetWidth: 500,
-            targetHeight: 500,
-            saveToPhotoAlbum: false
-        };
-        $cordovaCamera.getPicture(options).then(function (imageData) {
-            $scope.currentItem.photo = imageData;
-        }, function (error) {
-            console.error(error);
-        });
-    }
+    $scope.uploadPhoto = function () {
+        if (PickTransactionServices.photoSelected === '') {
+            var options = {
+                quality: 75,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                allowEdit: false,
+                encodingType: Camera.EncodingType.JPEG,
+                popoverOptions: CameraPopoverOptions,
+                targetWidth: 800,
+                targetHeight: 800,
+                saveToPhotoAlbum: false
+            };
+            $cordovaCamera.getPicture(options).then(function (imageData) {
+                $scope.currentItem.photo = imageData;
+            }, function (error) {
+                console.error(error);
+            })
+        }
+    };
     $scope.savePhoto = function () {
         PickTransactionServices.updatePhoto($scope.currentItem.photo);
         $ionicHistory.goBack();
     };
+    $scope.removePhoto = function () {
+        $scope.currentItem.photo = '';
+        PickTransactionServices.updatePhoto($scope.currentItem.photo);
+    }
 })
 
 // PICK TRANSACTION-TYPE CONTROLLER

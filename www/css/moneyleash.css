@@ -82,6 +82,9 @@
 
 .background-intro.pane{
     background-color: #1D7AC1;
+    /*background-image: url('../img/moneyleash_bg.png');
+    background-size: cover;
+    background-position: center;*/    
 }
 .mlLinksBlue {
     text-decoration: none;
@@ -403,7 +406,7 @@ button.customHeaderSize {
 }
 .customFooterIcon:before {
     color: #fff;
-    text-shadow: 0 -1px 0 #bfbfbf;
+    text-shadow: 0 -1px 0 #bfbfbf; 
 }
 .footerRow i {
     margin-top: -18px;
@@ -412,6 +415,18 @@ button.customHeaderSize {
     font-weight: bold;
     font-size: 67px;
     color: #31C0E6;
+}
+.iconPhoto i:before {
+    font-weight: bold;
+    font-size: 35px;
+    color: #31C0E6;
+}
+.photoView {
+    background-color: #000;
+}
+.PhotoFooter {
+    background-color: transparent;
+    border-top-width: 0;
 }
 .iconBackArrow i:before {
     font-weight: bold;

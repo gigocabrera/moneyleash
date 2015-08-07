@@ -5,7 +5,7 @@ var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 // Ionic MoneyLeash App, v1.0
 var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -18,11 +18,12 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
         setTimeout(function () {
             $cordovaStatusbar.overlaysWebView(true);
             $cordovaStatusbar.style(2);
-            //if (window.StatusBar) {
-            //StatusBar.styleBlackTranslucent();
-            //StatusBar.backgroundColorByName('black');
-            //}
         }, 300);
+        app.run(function ($cordovaSplashscreen) {
+            setTimeout(function () {
+                $cordovaSplashscreen.hide()
+            }, 5000)
+        })
 
         $rootScope.settings = {
             'languages': [{
