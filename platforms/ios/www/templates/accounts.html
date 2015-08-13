@@ -6,28 +6,32 @@
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createAccount('Add')"></button>
     </ion-nav-buttons>
     <div class="bar bar-subheader CustomSubHeader">
-        <div class="subTitle">Net Worth: {{networth | currency}}</div>
+        <div class="row center">
+            <div class="col netWorthRow"><span>Net Worth: <strong>{{ netWorth | currency }}</strong></span></div>
+        </div>
     </div>
     <ion-content class="has-header has-subheader">
         <ion-list can-swipe="listCanSwipe">
-            <ion-item ng-repeat="account in accounts" ng-click="handleSwipeOptions($event, account)" href="#" class="item-icon-right">
+            <ion-item ng-repeat="account in accounts track by account.$id" ng-click="handleSwipeOptions($event, account)" href="#" class="item-icon-right">
                 <div class="row AccountScreenPadding">
                     <div class="col-50 customAccDesc">
                         <span>
-                            {{account.accountname}}
+                            {{ account.accountname }}
                             <small>
                                 <div id="transactionIcons">
                                     <ul>
-                                        <li><i class="fa fa-thumb-tack"></i>{{account.accounttype}}</li>
+                                        <li><i class="fa fa-thumb-tack"></i>{{ account.accounttype }}</li>
                                     </ul>
                                 </div>
                             </small>
                         </span>
                     </div>
-                    <div class="col-50 right customAccAmt" ng-class="{textRed: account.balancecurrent < 0, textGreen: account.balancecurrent > 0}">
+                    <div class="col-50 right customAccAmt  {{ account.BalanceClass }}">
                         <span>
                             {{ account.balancecleared | currency }}
-                            <small></small>
+                            <small>
+                                {{ account.balancetoday | currency }}
+                            </small>
                         </span>
                     </div>
                 </div>
@@ -38,7 +42,6 @@
                     Delete
                 </ion-option-button>
                 <i class="icon ion-chevron-right"></i>
-                <ion-reorder-button class="ion-navicon" on-reorder="moveItem(account, $fromIndex, $toIndex)"></ion-reorder-button>
             </ion-item>
         </ion-list>
     </ion-content>

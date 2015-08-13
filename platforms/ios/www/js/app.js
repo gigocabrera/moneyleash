@@ -1,24 +1,30 @@
 
 /* FIREBASE */
-var fb = '';
-fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
+var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngCordova', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
 
-moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ionicLoading, $state, Auth) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
-        if (window.cordova && window.cordova.plugins.Keyboard) {
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        }
-        if (window.StatusBar) {
-            // org.apache.cordova.statusbar required
-            //StatusBar.styleDefault();
+        setTimeout(function () {
+            if (window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                cordova.plugins.Keyboard.disableScroll(true);
+            }
+        }, 300);
+        setTimeout(function () {
             $cordovaStatusbar.overlaysWebView(true);
-            $cordovaStatusBar.style(3);
-        }
+            $cordovaStatusbar.style(2);
+        }, 300);
+        app.run(function ($cordovaSplashscreen) {
+            setTimeout(function () {
+                $cordovaSplashscreen.hide()
+            }, 5000)
+        })
+
         $rootScope.settings = {
             'languages': [{
                 'prefix': 'en',
@@ -31,12 +37,12 @@ moneyleashapp.run(function ($ionicPlatform, $cordovaStatusbar, $rootScope, $ioni
 
         Auth.$onAuth(function (authData) {
             if (authData) {
-                
+                //console.log("Logged in as:", authData);
             } else {
-                $ionicLoading.hide();
                 $state.go("intro");
             }
         });
+
         //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         //    $ionicLoading.show({
         //        template: '<ion-spinner icon="ios"></ion-spinner><br>'
@@ -124,14 +130,9 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
       // LOGIN
       .state('login', {
           url: "/login",
+          cache: false,
           templateUrl: "templates/login.html",
-          controller: 'LoginController',
-          resolve: {
-              "currentAuth": ["Auth",
-                  function (Auth) {
-                      return Auth.$waitForAuth();
-                  }]
-          }
+          controller: 'LoginController'
       })
     
       // REGISTER
@@ -139,6 +140,23 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           url: "/register",
           templateUrl: "templates/register.html",
           controller: 'RegisterController'
+      })
+
+      // HOUSE
+      .state('housechoice', {
+          url: '/housechoice',
+          templateUrl: 'templates/house-choice.html',
+          controller: 'HouseChoiceController'
+      })
+      .state('housecreate', {
+          url: '/housecreate',
+          templateUrl: 'templates/house-create.html',
+          controller: 'HouseCreateController'
+      })
+      .state('housejoin', {
+          url: '/housejoin',
+          templateUrl: 'templates/house-join.html',
+          controller: 'HouseJoinController'
       })
 
       // FORGOT PASSWORD
@@ -196,9 +214,36 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.pickaccountname', {
+        url: "/pickaccountname",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickaccountname.html",
+                controller: "PickAccountNameController"
+            }
+        }
+    })
+    .state('app.pickaccountdate', {
+        url: "/pickaccountdate",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickaccountdate.html",
+                controller: "PickAccountDateController"
+            }
+        }
+    })
+    .state('app.pickaccounttype', {
+        url: "/pickaccounttype",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickaccounttype.html",
+                controller: "PickAccountTypeController"
+            }
+        }
+    })
 
     // TRANSACTIONS
-    .state('app.transactionsByDay', {
+    .state('app.transactionsDayDivider', {
         url: "/accounts/:accountId/:accountName",
         cache: true,
         views: {
@@ -280,6 +325,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.picktransactionphoto', {
+        url: "/picktransactionphoto",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactionphoto.html",
+                controller: "PickTransactionPhotoController"
+            }
+        }
+    })
 
     // ACCOUNT TYPES
     .state('app.accounttypes', {
@@ -349,6 +403,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.categorytransactions', {
+        url: "/categorytransactions/:categoryid",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/categorytransactions.html",
+                controller: 'CategoryTransactionsController'
+            }
+        }
+    })
 
     // PAYEES
     .state('app.payees', {
@@ -357,6 +420,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/payees.html",
                 controller: "PayeesController"
+            }
+        }
+    })
+    .state('app.payeetransactions', {
+        url: "/payeetransactions/:payeeid",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/payeetransactions.html",
+                controller: 'PayeeTransactionsController'
             }
         }
     })

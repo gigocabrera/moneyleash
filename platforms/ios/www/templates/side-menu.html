@@ -43,20 +43,22 @@
                         <i class="icon ion-chevron-right customChevronMenu"></i>
                     </div>
                 </ion-item>
-                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.recurring">
-                    <div class="customPaddingMenuItem">
-                        <i class="icon ion-ios-loop icon-left-smaller"></i>
-                        Recurring
-                        <i class="icon ion-chevron-right customChevronMenu"></i>
-                    </div>
-                </ion-item>
-                <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.budgets">
-                    <div class="customPaddingMenuItem">
-                        <i class="icon ion-ios-color-wand-outline icon-left-smaller"></i>
-                        Budgets
-                        <i class="icon ion-chevron-right customChevronMenu"></i>
-                    </div>
-                </ion-item>
+                <div ng-hide="isFree" class="ng-hide">
+                    <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.recurring">
+                        <div class="customPaddingMenuItem">
+                            <i class="icon ion-ios-loop icon-left-smaller"></i>
+                            Recurring
+                            <i class="icon ion-chevron-right customChevronMenu"></i>
+                        </div>
+                    </ion-item>
+                    <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.budgets">
+                        <div class="customPaddingMenuItem">
+                            <i class="icon ion-ios-color-wand-outline icon-left-smaller"></i>
+                            Budgets
+                            <i class="icon ion-chevron-right customChevronMenu"></i>
+                        </div>
+                    </ion-item>
+                </div>
                 <ion-item class="item-icon-left item-icon-right" nav-clear menu-close ui-sref="app.settings">
                     <div class="customPaddingMenuItem">
                         <i class="icon ion-ios-gear-outline icon-left-smaller"></i>

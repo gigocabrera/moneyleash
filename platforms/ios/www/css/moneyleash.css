@@ -2,352 +2,98 @@
 @import url("https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
 @import url("font-awesome.min.css");
 
-/* List Item Font Size */
-.item {
-    font-size: 20px;
+/* Intro Page */
+.slider-slide {
+    background-color: #1D7AC1;
 }
-.SectionDivider {
-    font-weight: normal;
-    font: 13px 'PT Sans', sans-serif;
-    padding-top: 4px;
-    padding-bottom: 3px;
-    min-height: 25px;
-    /*background-color: #D3EAF0;*/
+.slidePadding {
+    margin-top: 60px;
 }
-.SectionDividerActive {
-    color: #FF5E2E;
-}
-/* ng-cloak */
-[ng-cloak]
-{
-  display: none !important;
-}
-/* Padding for all ion-item ng-repeat lists 
-.item-complex .item-content {
-    padding: 8px 45px 15px 16px;
-}
-*/
-/* Action Sheet */
-.action-sheet-title {
-    font-size: 18px;
-    color: #505050;
-}
-.action-sheet .button {
-    font: 18px 'PT Sans', sans-serif;
-}
-.button.button-dark.button-clear {
-    font-size: 16px;
-    min-height: 36px;
-    line-height: 36px;
-}
-.button-white {
-    color: #fff;
-}
-/* ionicPopup */
-.popup-body {
-    padding: 10px;
-    overflow: hidden;
-}
-.popup-buttons .button{
-    border-color: #e67300;
-    background-color: #ff8000;
-}
-/* Spin animation for ion-loop */
-.spinner svg {
-  width: 28px;
-  height: 28px;
-}
-
-/********************/
-/* LEFT MENU SCREEN */
-.customPaddingMenuItem {
-    padding: 0 40px 0 13px;
-    text-shadow: 1px 1px #eeeeee;
-}
-/* Menu Icons and Chevron Icons */
-.bar-menu {
-    background-color: #31C0E6;
-    width: 100%;
-    padding: 0;
-}
-.bar-menu .HeaderTitle {
-    text-align: left;
-    font-size: 17px;
-    padding-left: 15px;
-    padding-top: 12px;
-    color: #fff;
-    font-weight: bolder;
-}
-.bar.bar-menu .title {
-    color: #ff8000;
-    font-weight: bolder;
-}
-.item-icon-left.item-icon-right .icon:first-child {
-    right: 0;
-}
-.item-icon-right .icon {
-    right: 8px;
-}
-.item-icon-left .icon:before {
-    display: block;
-    width: 25px;
+.introHeading {
+    margin-top: 10%;
     text-align: center;
-    padding-left: 7px;
-    text-shadow: 2px 2px #eeeeee;
-}
-.icon-left-smaller:before {
-    font-size: 24px;
-    font-weight: normal;
-}
-.ion-chevron-right:before {
-    color: #31C0E6;
-    font-size: 14px;
-}
-.customChevronMenu:before {
-    color: #31C0E6;
-}
-/* Menu item text style */
-.item-complex.item-icon-right .item-content {
-    padding-right: 40px;
-    font-weight: normal;
-    color: #172F39;
-}
-.circleIconBlue {
-    font-size: 16px;
-    font-weight: bold;
-    background: #31C0E6;
+    font: 80px 'PT Sans', sans-serif;
     color: #fff;
-    padding: 0 0 0 2px;
-    border-radius: 50%;
-    margin-right: 5px;
-    margin-top: 13px;
-    width: 35px;
-    max-height: 35px;
 }
-.item-complex.item-icon-left .item-content {
-    padding-left: 40px;
-}
-.item-icon-left {
-    padding-left: 40px;
-}
-.CustomSubHeader {
-    background-color: #D3EAF0;
-}
-.customHeaderIcon:before {
-    color: #31C0E6;
-    font-size: 32px;
-}
-.customHeaderIconSmall:before {
-    font-size: 20px;
-}
-.extraMarginRight {
-    margin-right: 10px;
-}
-.bar .button.back-button {
-    color: #31C0E6;
-}
-button.customHeaderSize {
-    font-size: 20px;
-}
-.customFooterIcon:before {
+.introHeading h1 {
+    margin-bottom: 5%;
     color: #fff;
-    text-shadow: 0 -1px 0 #bfbfbf;
 }
-.subTitle {
-    font: 16px 'PT Sans', sans-serif;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.button.button-positive.button-clear {
-    color: #31C0E6;
-}
-
-/***********************************/
-/* ACCOUNTS & TRANSACTIONS SCREENS */
-
-.row {
-    padding: 0;
-}
-.col {
-    padding: 0;
-}
-.colBorder {
-    border-right: 1px solid #AED9E3;
-}
-.AccountScreenPadding {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-.right {
-    text-align: right;
-}
-.center {
-    text-align: center;
-}
-.balancesRow {
-    font-weight: bold;
-    font: 13px 'PT Sans Narrow', sans-serif;
-}
-.balancesRow span {
-    font-weight: bold;
-    font-size: 15px;
-}
-.customAccDesc {
-    text-align: left;
-    height: 37px;
-    font-weight: bold;
-}
-.customAccDesc span small {
-    position: absolute;
-    font: 13px 'PT Sans Narrow', sans-serif;
-    top: 37px;
-    left: 16px;
-    color: #A0A0A0;
-    font-weight: normal;
-}
-.customTransDesc {
-    font-weight: bold;
-}
-.customTransDesc span small {
-    position: absolute;
-    font: 13px 'PT Sans Narrow', sans-serif;
-    top: 35px;
-    left: 16px;
-    color: #A0A0A0;
-    font-weight: normal;
-}
-.customAccAmt {
-    height: 37px;
-    font-weight: bold;
-    padding-right: 20px;
-    font-size: 18px;
-}
-.customAccAmt span {
+.logo {
     position: relative;
-    top: 1px;
+    display: block;
+    margin: 75px auto auto auto;
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+    background: #F57D00;
 }
-.customAccAmt span small {
+.logo span {
+    font: 70px 'PT Sans', sans-serif;
+    font-weight: bolder;
+    color: #fff;
     position: absolute;
-    font: 16px 'PT Sans Narrow', sans-serif;
-    top: 20px;
-    right: 0;
-    color: #A0A0A0;
+    top: 3px;
+    left: 31px;
+}
+.tagline {
+    text-align: center;
+    color: #FFF;
+    font-size: 18px;
+}
+.background-dark {
+  background: #212121;
+}
+.button-intro {
+    margin-top: 0;
+    margin-right: -30px;
+    margin-bottom: -15px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 13px 0;
+    text-decoration: none;
     font-weight: bold;
 }
-.textRed {
-    color: #CE1B31;
+.button-intro.button-dark {
+    background: #212121;
+    color: #fff; 
 }
-.Expense {
-    color: #CE1B31;
+.button-intro.button-orange {
+    background: #F57D00;
+    color: #fff;
 }
-.textGreen {
-    color: #1AAC57;
+.button-intro.button-positive {
+    background: #f8d50e;
+    color: #000;
 }
-.Income {
-    color: #1AAC57;
+.loginScreen {
+    border: solid 10px transparent;
+    background-color: #1D7AC1;
 }
-.item-right-edit {
-    width: 60px;
-}
-#transactionIcons ul {
-    margin-top: 5px;
-}
-#transactionIcons ul li:first-child {
-    padding-right: 8px;
-}
-#transactionIcons ul li {
-    list-style-type: none;
-    display: inline;
-    color: #8C8C8C;
-    font: 14px 'PT Sans', sans-serif;
-}
-#transactionIcons ul li > i {
-  padding-left: 5px;
-  padding-right: 5px;
-  font-size: 11px;
-}
-.formLabelBold {
-    font-weight: bold;
-}
-.transactionIsCleared .item-content {
-    background-color: #eee;
-    -webkit-transition: all linear 0.5s;
-    -o-transition: all linear 0.5s;
-    transition: all linear 0.5s;
-}
-.item-icon-right .item-content {
-    -webkit-transition: all linear 0.5s;
-    -o-transition: all linear 0.5s;
-    transition: all linear 0.5s;
-}
-.item-toggle-option .toggle {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    z-index: 3;
-}
-.toggleTransactionCleared {
-	text-align: center;
-	width: 52px;
-	height: auto;
-	position: absolute;
-	margin: auto 0;
-    margin-left: auto;
-    margin-right: auto;
-	border: none;
-	-webkit-appearance: none;
-    -moz-appearance: none;
-	-ms-appearance: none;
-	-o-appearance: none;
-	appearance: none;
-    background-color: transparent;
-}
-.toggleTransactionCleared:after {
-	content: '\f00c';
-	line-height: 43px;
-	font-size: 17px;
-	color: #ebebeb;
-	text-shadow: 0 -1px 0 #bfbfbf;
-    font-family: FontAwesome;
-}
-.toggleTransactionCleared:checked:after {
-	color: #44B449;
-	text-shadow: 0 0 0 #669991;
-	bottom: 1px;
-	position: relative;
-}
-.customTransactionsPopover {
-    
-}
-.popover a.item {
-    border-top: 0;
-    font: 16px 'PT Sans', sans-serif;
-    height: 40px;
-}
-.search-wrapper-light {
-    border-bottom: 2px solid rgba(255,255,255,0.5);
-    background: none;
-    border-radius: 0;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.search-wrapper-light input, .search-wrapper-light input::-webkit-input-placeholder {
-    color: #ffffff;
+.bar.bar-dark.bar-footer {
+    padding: 0;
 }
 
 /*******************/
 /*  INTRO SCREEN   */
 
+.background-intro.pane{
+    background-color: #1D7AC1;
+    /*background-image: url('../img/moneyleash_bg.png');
+    background-size: cover;
+    background-position: center;*/    
+}
 .mlLinksBlue {
     text-decoration: none;
-    color: blue;
+    color: #fff;
     font-size: 16px;
 }
 .mlLinksGray {
     text-decoration: none;
-    color: blue;
+    color: #fff;
 }
 .intro-view, .login-view, .signup-view, .forgot-password-view {
     background-color: white !important;
@@ -472,12 +218,410 @@ button.customHeaderSize {
     background-color: #EAEAEA !important;
 }
 
+/* List Item Font Size */
+.item {
+    font-size: 20px;
+}
+.SectionDivider {
+    font-weight: normal;
+    font: 13px 'PT Sans', sans-serif;
+    padding-top: 8px;
+    padding-bottom: 3px;
+    min-height: 35px;
+    /*background-color: #D3EAF0;*/
+}
+.SectionDividerActive {
+    color: #FF5E2E;
+}
+/* Action Sheet */
+.action-sheet-title {
+    font-size: 18px;
+    color: #505050;
+}
+.action-sheet .button {
+    font: 18px 'PT Sans', sans-serif;
+}
+.button.button-dark.button-clear {
+    font-size: 16px;
+    min-height: 36px;
+    line-height: 36px;
+}
+.button-white {
+    color: #fff;
+}
+/* ionicPopup */
+.popup-body {
+    padding: 10px;
+    overflow: hidden;
+}
+.popup-buttons .button{
+    border-color: #e67300;
+    background-color: #ff8000;
+}
+/* Spin animation for ion-loop */
+.spinner svg {
+  width: 28px;
+  height: 28px;
+}
+
+/********************/
+/* LEFT MENU SCREEN */
+.customPaddingMenuItem {
+    padding: 0 40px 0 13px;
+    text-shadow: 2px 2px #eeeeee;
+    font: 20px 'PT Sans Narrow', sans-serif;
+}
+/* Menu Icons and Chevron Icons */
+.bar-menu {
+    background-color: #2E5B70;
+    width: 100%;
+    padding: 0;
+}
+.bar-menu .HeaderTitle {
+    text-align: left;
+    font-size: 17px;
+    padding-left: 15px;
+    padding-top: 12px;
+    color: #fff;
+    font-weight: bolder;
+}
+.bar.bar-menu .title {
+    color: #ff8000;
+    font-weight: bolder;
+}
+.item-icon-left.item-icon-right .icon:first-child {
+    right: 0;
+}
+.item-icon-right .icon {
+    right: 8px;
+}
+.item-icon-left .icon:before {
+    display: block;
+    width: 25px;
+    text-align: center;
+    padding-left: 9px;
+    text-shadow: 2px 2px #eeeeee;
+}
+.icon-left-smaller:before {
+    font-size: 24px;
+    font-weight: normal;
+}
+.ion-chevron-right:before {
+    color: #31C0E6;
+    font-size: 14px;
+}
+.customChevronMenu:before {
+    color: #31C0E6;
+}
+/* Menu item text style */
+.item-complex.item-icon-right .item-content {
+    padding-right: 40px;
+    font-weight: normal;
+    color: #172F39;
+}
+.circleIconBlue {
+    font-size: 16px;
+    font-weight: bold;
+    background: #31C0E6;
+    color: #fff;
+    padding: 0 0 0 2px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-top: 13px;
+    width: 35px;
+    max-height: 35px;
+}
+/* Menu item padding */
+.item-complex.item-icon-left .item-content {
+    padding: 14px 49px 14px 40px;
+}
+.item-icon-left {
+    padding-left: 40px;
+}
+.bar.bar-subheader.CustomSubHeader {
+  padding-top: 3px;
+}
+.CustomSubHeader {
+    background-color: #D3EAF0;
+}
+.customHeaderIcon:before {
+    color: #31C0E6;
+    font-size: 32px;
+}
+.customHeaderIconSmall:before {
+    font-size: 20px;
+}
+.extraMarginRight {
+    margin-right: 10px;
+}
+.bar .button.back-button {
+    color: #31C0E6;
+}
+button.customHeaderSize {
+    font-size: 20px;
+}
+.subTitle {
+    font: 16px 'PT Sans', sans-serif;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.button.button-positive.button-clear {
+    color: #31C0E6;
+}
+
+/***********************************/
+/* ACCOUNTS & TRANSACTIONS SCREENS */
+
+.row {
+    padding: 0;
+}
+.col {
+    padding: 0;
+}
+.colBorder {
+    border-right: 1px solid #AED9E3;
+}
+.AccountScreenPadding {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.right {
+    text-align: right;
+}
+.center {
+    text-align: center;
+}
+.balancesRow {
+    font-weight: bold;
+    font: 13px 'PT Sans Narrow', sans-serif;
+}
+.balancesRow span {
+    display: block;
+    font-weight: normal;
+    font-size: 15px;
+}
+.CustomFooter {
+    background-color: #fff;
+}
+.customFooterIcon:before {
+    color: #fff;
+    text-shadow: 0 -1px 0 #bfbfbf; 
+}
+.footerRow i {
+    margin-top: -18px;
+}
+.iconCircle i:before {
+    font-weight: bold;
+    font-size: 67px;
+    color: #31C0E6;
+}
+.iconPhoto i:before {
+    font-weight: bold;
+    font-size: 35px;
+    color: #31C0E6;
+}
+.photoView {
+    background-color: #000;
+}
+.PhotoFooter {
+    background-color: transparent;
+    border-top-width: 0;
+}
+.iconBackArrow i:before {
+    font-weight: bold;
+    font-size: 35px;
+}
+.footerRow span {
+    display: block;
+    font-weight: normal;
+    font-size: 15px;
+}
+.netWorthRow span {
+    margin-top: 8px;
+    display: block;
+    font-weight: normal;
+    font: 18px 'PT Sans Narrow', sans-serif;
+}
+.customAccDesc {
+    text-align: left;
+    height: 37px;
+    font-weight: bold;
+}
+.customAccDesc span small {
+    position: absolute;
+    font: 13px 'PT Sans Narrow', sans-serif;
+    top: 37px;
+    left: 16px;
+    color: #A0A0A0;
+    font-weight: normal;
+}
+.customTransDesc {
+    font-weight: bold;
+}
+.customTransDesc span small {
+    position: absolute;
+    font: 13px 'PT Sans Narrow', sans-serif;
+    top: 35px;
+    left: 16px;
+    color: #A0A0A0;
+    font-weight: normal;
+}
+.customAccAmt {
+    height: 37px;
+    font-weight: bold;
+    padding-right: 20px;
+    font-size: 18px;
+}
+.customAccAmt span {
+    position: relative;
+    top: 8px;
+}
+.customAccAmt span small {
+    position: absolute;
+    font: 16px 'PT Sans Narrow', sans-serif;
+    top: 20px;
+    right: 0;
+    color: #A0A0A0;
+    font-weight: bold;
+}
+.customTransAmt {
+    height: 37px;
+    font-weight: bold;
+    padding-right: 20px;
+    font-size: 18px;
+}
+.customTransAmt span {
+    position: relative;
+    top: 1px;
+}
+.customTransAmt span small {
+    position: absolute;
+    font: 16px 'PT Sans Narrow', sans-serif;
+    top: 20px;
+    right: 0;
+    color: #A0A0A0;
+    font-weight: bold;
+}
+.textRed {
+    color: #CE1B31;
+}
+.Expense {
+    color: #CE1B31;
+}
+.textBlack {
+    color: #000;
+}
+.textGreen {
+    color: #1AAC57;
+}
+.Income {
+    color: #1AAC57;
+}
+.item-right-edit {
+    width: 60px;
+}
+#transactionIcons ul {
+    margin-top: 5px;
+}
+#transactionIcons ul li:first-child {
+    padding-right: 8px;
+}
+#transactionIcons ul li {
+    list-style-type: none;
+    display: inline;
+    color: #8C8C8C;
+    font: 16px 'PT Sans', sans-serif;
+}
+#transactionIcons ul li > i {
+  padding-right: 3px;
+  font-size: 13px;
+}
+.formLabelBold {
+    font-weight: bold;
+}
+.transactionIsCleared .item-content {
+    background-color: #eee;
+    -webkit-transition: all linear 0.5s;
+    -o-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+}
+.item-icon-right .item-content {
+    -webkit-transition: all linear 0.5s;
+    -o-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+}
+.item-toggle-option .toggle {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    z-index: 3;
+}
+.toggleTransactionCleared {
+	text-align: center;
+	width: 52px;
+	height: auto;
+	position: absolute;
+	margin: auto 0;
+    margin-left: auto;
+    margin-right: auto;
+	border: none;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+    background-color: transparent;
+}
+.toggleTransactionCleared:after {
+	content: '\f00c';
+	line-height: 43px;
+	font-size: 17px;
+	color: #ebebeb;
+	text-shadow: 0 -1px 0 #bfbfbf;
+    font-family: FontAwesome;
+}
+.toggleTransactionCleared:checked:after {
+	color: #44B449;
+	text-shadow: 0 0 0 #669991;
+	bottom: 1px;
+	position: relative;
+}
+.customTransactionsPopover {
+    
+}
+.popover a.item {
+    border-top: 0;
+    font: 16px 'PT Sans', sans-serif;
+    height: 40px;
+}
+.search-wrapper-light {
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+    background: none;
+    border-radius: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.search-wrapper-light input, .search-wrapper-light input::-webkit-input-placeholder {
+    color: #ffffff;
+}
+.button.button-stable {
+    background-color: #b2b2b2;
+    color: #fff;
+}
+
 /*******************/
 /* SETTINGS SCREEN */
 .customPaddingSettings {
     padding: 0 40px 0 11px;
 }
-
+.customPaddingSettingsItem {
+    padding: 0 40px 0 8px;
+    font: 17px 'PT Sans Narrow', sans-serif;
+}
+.customPaddingSettingsItem i:before {
+    font-size: 18px;
+}
 /*******************/
 /*  ABOUT SCREEN   */
 .slider { height: 100%; text-align: center }
@@ -555,14 +699,15 @@ button.customHeaderSize {
     /* ensure visibility during the transition */
     display: block !important; /* yes, important */
 }
-/***********************/
-/* SLIDER SLIDE STYLES */
-.slider-slide {
-    background-color: #1D7AC1;
-}
 
+/* Form styles */
 .form-group {
     height: 50px;
+}
+.form-group img {
+    margin-left: 40px;
+    margin-top: -12px;
+    border: 0;
 }
 .form-group i {
     background:#eeeeee;
@@ -582,14 +727,18 @@ button.customHeaderSize {
 .form-group a.item-content input[type="text"] {
     height: 25px;
     line-height: 25px;
+    width: 100%;
 }
 .form-group input[type="text"] {
-    margin-top: -4px;
+    margin-top: 0;
     padding-left: 35px;
     padding-top: 0;
     padding-bottom: 0;
     font-size: 20px;
     background-color: transparent;
+}
+.customMarginTop input[type="text"] {
+    margin-top: -8px;
 }
 i.customChevronForm {
     background-color: #fff;
@@ -604,7 +753,7 @@ i.customChevronForm:before {
     padding: 8px 48px 10px 16px;
 }
 .mlcategories.mlindent a.item-content {
-    padding-left: 35px;
+    padding-left: 50px;
 }
 i.mlpaddingright {
     margin-right: 8px;
@@ -643,9 +792,20 @@ i.mlpaddingright {
     border-radius: 50%;
     margin-right: 5px;
 }
+
+/* Calendar */
+.pickadate-cell .pickadate-enabled {
+    font-size: 14px;
+}
+.pickadate a:visited, .pickadate a {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 .mlDatePadding {
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 15px;
 }
 .pickadate-cell .pickadate-enabled{
     color: #000;
@@ -662,6 +822,9 @@ i.mlpaddingright {
 .pickadate a:visited, .pickadate a {
     color: #31C0E6;
 }
+.pickadate-cell li {
+    padding: 1.5% 0 1.5% 0;
+}
 
 /* NumberPad */
 #resultInput {
@@ -670,9 +833,9 @@ i.mlpaddingright {
     height: 50px;
     margin-right: 0 auto;
     padding-right: 10px;
-    font-size: 1.35em;
-    background-color: #e6e6e6;
-    border: solid 2px #A0A0A0;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: #D3EAF0;
     text-align: right;
 }
 
@@ -695,9 +858,9 @@ i.mlpaddingright {
 
     #basic button {
         display: block;
-        font-size: 100%;
+        font-size: 20px;
         width: 100%;
-        min-height: 50px;
+        min-height: 60px;
         padding: 0;
         border: none;
         text-align: center;
@@ -707,6 +870,7 @@ i.mlpaddingright {
     }
         #basic button.functionKey {
             background-color: #F98E12;
+            color: #fff;
         }
         #basic button.functionKey:hover {
             background-color: #ea7d05;
