@@ -25,10 +25,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" value=\"CDVStatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -64,7 +60,7 @@
                     "CoreGraphics.framework": [
                         {
                             "xml": false,
-                            "count": 3
+                            "count": 2
                         }
                     ],
                     "AssetsLibrary.framework": [
@@ -107,9 +103,6 @@
             "PACKAGE_NAME": "com.ionicframework.moneyleash655501"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.moneyleash655501"
-        },
-        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.moneyleash655501"
         },
         "cordova-plugin-statusbar": {
