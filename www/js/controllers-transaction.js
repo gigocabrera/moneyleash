@@ -4,7 +4,7 @@ moneyleashapp.controller('PickTransactionPhotoController', function ($scope, $io
     
     $scope.currentItem = { photo: PickTransactionServices.photoSelected };
     $scope.uploadPhoto = function () {
-        if (PickTransactionServices.photoSelected === '') {
+        if (PickTransactionServices.photoSelected === 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==') {
             var options = {
                 quality: 75,
                 destinationType: Camera.DestinationType.DATA_URL,
