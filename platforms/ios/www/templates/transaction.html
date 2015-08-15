@@ -1,0 +1,63 @@
+<ion-view title={{TransactionTitle}}>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-positive customHeaderSize" ng-click="saveTransaction()">Save</button>
+    </ion-nav-buttons>
+    <ion-content has-header="true">
+        <div ng-hide="hideValidationMessage" class="cssSlideUp ng-hide">
+            <div class="validationDiv">
+                <p>
+                    {{ validationMessage }}
+                </p>
+            </div>
+        </div>
+        <div class="ion-list">
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactiontype">
+                <i class="icon fa fa-university placeholder-icon"></i>
+                <input type="text" placeholder="Transaction Type" ng-model="currentItem.typedisplay" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <div ng-hide="!isTransfer" class="ng-hide">
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionaccountfrom">
+                    <i class="icon fa fa-reply placeholder-icon"></i>
+                    <input type="text" placeholder="From Account" ng-model="currentItem.accountFrom" readonly>
+                    <i class="icon ion-chevron-right customChevronForm"></i>
+                </ion-item>
+                <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionaccountto">
+                    <i class="icon fa fa-share placeholder-icon"></i>
+                    <input type="text" placeholder="To Account" ng-model="currentItem.accountTo" readonly>
+                    <i class="icon ion-chevron-right customChevronForm"></i>
+                </ion-item>
+            </div>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionpayee">
+                <i class="icon fa fa-user placeholder-icon"></i>
+                <input type="text" placeholder="Payee" ng-model="currentItem.payee" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactioncategory">
+                <i class="icon fa fa-thumb-tack placeholder-icon"></i>
+                <input type="text" placeholder="Category" ng-model="currentItem.category" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionamount">
+                <i class="icon fa fa-money placeholder-icon"></i>
+                <input type="text" placeholder="Amount" ng-model="currentItem.amount" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactiondate">
+                <i class="icon fa fa-calendar placeholder-icon"></i>
+                <input type="text" placeholder="Transaction Date" ng-model="currentItem.date" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picknotes">
+                <i class="icon fa fa-file-text placeholder-icon"></i>
+                <input type="text" placeholder="Notes" ng-model="currentItem.notes" readonly>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.picktransactionphoto">
+                <i class="icon fa fa-camera placeholder-icon"></i>
+                <img ng-src="data:image/jpeg;base64,{{ currentItem.photo }}" width="15%" />
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,19 @@
+<ion-view view-title="Select Category">
+    <ion-nav-buttons side="right">
+        <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createCategory()"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <div class="item item-divider mlSmallerFont CustomSubHeader">{{ categoriesDividerTitle }}</div>
+        <ion-radio ng-repeat="item in TransactionCategoryList | orderBy:'categorysort'"
+                   ng-value="item.categoryname"
+                   ng-change="categorychanged(item)"
+                   ng-model="currentItem.categoryname"
+                   class="mlcategories mlSmallerFont">
+            <div id="pickCategoryIcons" ng-class="{pickCategoryIndent: item.categoryparent !== ''}">
+                <ul>
+                    <li><i class="fa fa-thumb-tack" ng-class="{circleIconRed: item.categorytype == 'Expense', circleIconGreen: item.categorytype == 'Income'}"></i>{{ item.categoryname }}</li>
+                </ul>
+            </div>
+        </ion-radio>
+    </ion-content>
+</ion-view>

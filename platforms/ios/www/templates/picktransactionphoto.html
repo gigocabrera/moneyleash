@@ -1,0 +1,20 @@
+<ion-view view-title="Photo" ng-init="uploadPhoto()" class="photoView">
+    <ion-content>
+        <ion-list>
+            <img ng-src="data:image/jpeg;base64,{{ currentItem.photo }}" width="100%" />
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="PhotoFooter">
+        <div class="row center">
+            <div class="col footerRow">
+                <button class="button button-clear button-positive customHeaderSize" ng-click="removePhoto()">Remove</button>
+            </div>
+            <div class="col footerRow iconPhoto">
+                <i class="fa fa-camera" ng-click="uploadPhoto()"></i>
+            </div>
+            <div class="col footerRow">
+                <button class="button button-clear button-positive customHeaderSize" ng-click="savePhoto()">Save</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

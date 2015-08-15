@@ -1,0 +1,31 @@
+<ion-view view-title="{{'REGISTER' | translate}}" class="loginScreen">
+    <ion-content scroll="false">
+        <div>
+            <div class="introHeading">
+                <h1>Register</h1>
+            </div>
+        </div>
+        <form name="RegisterForm" ng-submit="createMember(user)">
+            <div class="list list-inset">
+                <label class="item item-input ml-login-input">
+                    <input type="text" placeholder="{{'FORM_FIRSTNAME' | translate}}" ng-model="user.firstname">
+                </label>
+                <label class="item item-input ml-login-input">
+                    <input type="text" placeholder="{{'FORM_LASTNAME' | translate}}" ng-model="user.lastname">
+                </label>
+                <label class="item item-input ml-login-input">
+                    <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
+                </label>
+                <label class="item item-input ml-login-input">
+                    <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
+                </label>
+            </div>
+            <div class="padding">
+                <input type="submit" class="button button-block button-energized button-theme" placeholder="{{"REGISTER" | translate}}" />
+                <p class="text-center">
+                    <a href="#/login" class="mlLinksBlue">{{"REGISTER_ALREADYHAVEACCOUNT" | translate}}</a>
+                </p>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

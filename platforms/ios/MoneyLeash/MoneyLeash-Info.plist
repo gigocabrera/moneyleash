@@ -64,8 +64,6 @@
     <string>0.0.1</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string></string>
     <key>NSMainNibFile</key>
     <string></string>
     <key>NSMainNibFile~ipad</key>
@@ -173,5 +171,7 @@
         <string>{768, 1024}</string>
       </dict>
     </array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string></string>
   </dict>
 </plist>

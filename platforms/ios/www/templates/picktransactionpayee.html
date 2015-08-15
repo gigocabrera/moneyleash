@@ -1,0 +1,19 @@
+<ion-view view-title="Select Payee">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-positive customHeaderSize" ng-click="savePayee()">Save</button>
+    </ion-nav-buttons>
+    <ion-header-bar class="bar bar-subheader item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" id="search" placeholder="Search" ng-change="search()" ng-model="data.search" autocapitalize="words" focus-me />
+        </label>
+    </ion-header-bar>
+    <ion-content>
+        <ion-list>
+            <ion-item class="mlcategories mlSmallerFont" ng-repeat="payee in data.payees" ng-click="selectPayee(payee)" href="#">
+                <i class="fa fa-user iconPadding"></i>
+                {{ payee.payeename }}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

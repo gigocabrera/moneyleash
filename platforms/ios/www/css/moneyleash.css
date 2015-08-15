@@ -409,12 +409,12 @@ button.customHeaderSize {
     text-shadow: 0 -1px 0 #bfbfbf; 
 }
 .footerRow i {
-    margin-top: -18px;
+    margin-top: -43px;
 }
 .iconCircle i:before {
     font-weight: bold;
-    font-size: 67px;
-    color: #31C0E6;
+    font-size: 75px;
+    color: #00A2E8;
 }
 .iconPhoto i:before {
     font-weight: bold;
