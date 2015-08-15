@@ -19,11 +19,9 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
             $cordovaStatusbar.overlaysWebView(true);
             $cordovaStatusbar.style(2);
         }, 300);
-        app.run(function ($cordovaSplashscreen) {
-            setTimeout(function () {
-                $cordovaSplashscreen.hide()
-            }, 5000)
-        })
+        setTimeout(function () {
+            $cordovaSplashscreen.hide()
+        }, 5000)
 
         $rootScope.settings = {
             'languages': [{

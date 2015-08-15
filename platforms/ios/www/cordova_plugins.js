@@ -62,6 +62,13 @@ module.exports = [
         "clobbers": [
             "window.StatusBar"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+        "id": "cordova-plugin-splashscreen.SplashScreen",
+        "clobbers": [
+            "navigator.splashscreen"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -71,7 +78,8 @@ module.exports.metadata =
     "cordova-plugin-camera": "1.2.0",
     "cordova-plugin-console": "1.0.1",
     "cordova-plugin-device": "1.0.1",
-    "cordova-plugin-statusbar": "1.0.1"
+    "cordova-plugin-statusbar": "1.0.1",
+    "cordova-plugin-splashscreen": "2.1.0"
 }
 // BOTTOM OF METADATA
 });
