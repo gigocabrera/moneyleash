@@ -30,6 +30,7 @@ moneyleashapp.controller('PickTransactionPhotoController', function ($scope, $io
     $scope.removePhoto = function () {
         $scope.currentItem.photo = '';
         PickTransactionServices.updatePhoto($scope.currentItem.photo);
+        $ionicHistory.goBack();
     }
 })
 
@@ -231,6 +232,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         $scope.currentItem.accountFromId = PickTransactionServices.accountFromId;
         $scope.currentItem.accountTo = PickTransactionServices.accountToSelected;
         $scope.currentItem.accountToId = PickTransactionServices.accountToId;
+        if (typeof PickTransactionServices.photoSelected === 'undefined' || PickTransactionServices.photoSelected === '') {
+            PickTransactionServices.photoSelected = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        }
         $scope.currentItem.photo = PickTransactionServices.photoSelected;
         if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
             // format date to be displayed
@@ -339,6 +343,11 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             $scope.currentItem.accountToId = '';
             $scope.currentItem.type = $scope.currentItem.typedisplay;
             $scope.currentItem.istransfer = false;
+        }
+
+        // Handle blank photo
+        if ($scope.currentItem.photo === 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==') {
+            $scope.currentItem.photo = '';
         }
 
         if ($scope.inEditMode) {

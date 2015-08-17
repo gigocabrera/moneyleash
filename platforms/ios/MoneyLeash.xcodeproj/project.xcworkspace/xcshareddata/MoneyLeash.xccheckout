@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>C9CC1B58-BEC1-46A9-93AA-DCA6BBD6FA4D</string>
 	<key>IDESourceControlProjectName</key>
-	<string>MoneyLeash</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>DD4181684FF6BD6BB81649384BD60B42B502E3E0</key>
 		<string>https://github.com/gigocabrera/moneyleash.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>platforms/ios/MoneyLeash.xcodeproj</string>
+	<string>platforms/ios/MoneyLeash.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>DD4181684FF6BD6BB81649384BD60B42B502E3E0</key>

@@ -425,7 +425,7 @@ button.customHeaderSize {
     background-color: #000;
 }
 .PhotoFooter {
-    background-color: transparent;
+    background-color: #fff;
     border-top-width: 0;
 }
 .iconBackArrow i:before {

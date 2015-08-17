@@ -21,7 +21,7 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
         }, 300);
         setTimeout(function () {
             $cordovaSplashscreen.hide()
-        }, 5000)
+        }, 3000)
 
         $rootScope.settings = {
             'languages': [{
