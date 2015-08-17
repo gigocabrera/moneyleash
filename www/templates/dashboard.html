@@ -13,10 +13,10 @@
         <ion-list can-swipe="true">
             <ion-item ng-repeat="item in items">
                 {{ item.id }}
-                <ion-option-button class="button-energized" ng-click="editTransaction(item)">
+                <ion-option-button class="button-energized" ng-click="editItem(item)">
                     &nbsp;&nbsp;Edit&nbsp;&nbsp;
                 </ion-option-button>
-                <ion-option-button class="button-assertive" ng-click="deleteTransaction(item)">
+                <ion-option-button class="button-assertive" ng-click="deleteItem(item)">
                     Delete
                 </ion-option-button>
             </ion-item>

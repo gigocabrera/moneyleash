@@ -29,7 +29,8 @@ moneyleashapp.controller('PickTransactionPhotoController', function ($scope, $io
     };
     $scope.removePhoto = function () {
         $scope.currentItem.photo = '';
-        PickTransactionServices.updatePhoto($scope.currentItem.photo);
+        PickTransactionServices.updatePhoto('R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+        $ionicHistory.goBack();
     }
 })
 
@@ -279,6 +280,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             PickTransactionServices.accountToSelected = $scope.currentItem.accountTo;
             PickTransactionServices.accountToId = $scope.currentItem.accountToId;
             PickTransactionServices.photoSelected = $scope.currentItem.photo;
+            if ($scope.currentItem.photo === '') {
+                $scope.currentItem.photo = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+            }
             if ($scope.currentItem.istransfer) {
                 angular.copy($scope.currentItem, $scope.ItemOriginal);
             }
@@ -339,6 +343,11 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             $scope.currentItem.accountToId = '';
             $scope.currentItem.type = $scope.currentItem.typedisplay;
             $scope.currentItem.istransfer = false;
+        }
+
+        // Handle default blank photo
+        if ($scope.currentItem.photo === 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==') {
+            $scope.currentItem.photo = '';
         }
 
         if ($scope.inEditMode) {
