@@ -2,3 +2,8 @@
 # http://git-scm.com/docs/gitignore
 
 node_modules/
+
+## Other
+*.xccheckout
+*.moved-aside
+*.xcuserstate
