@@ -2,7 +2,7 @@
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet, $ionicHistory, MembersFactory, fireBaseData) {
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionicActionSheet, $ionicHistory, MembersFactory, fireBaseData) {
 
     $scope.showMenuIcon = true;
 
@@ -29,6 +29,7 @@ moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet,
                 //Return true to close the action sheet, or false to keep it opened.
                 fireBaseData.clearData();
                 $ionicHistory.clearCache();
+                $rootScope.authData = '';
                 fb.unauth();
                 $state.go('intro');
             }
@@ -44,8 +45,14 @@ moneyleashapp.controller('AboutController', function ($scope, $ionicSlideBoxDele
 })
 
 // INTRO CONTROLLER
-moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHistory) {
+moneyleashapp.controller('IntroController', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData) {
+
     $ionicHistory.clearHistory();
+    fireBaseData.clearData();
+    $ionicHistory.clearCache();
+    $rootScope.authData = '';
+    fb.unauth();
+
     $scope.hideBackButton = true;
     $scope.login = function () {
         $state.go('login');
@@ -53,10 +60,11 @@ moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHist
     $scope.register = function () {
         $state.go('register');
     };
+
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, MembersFactory) {
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, MembersFactory, CurrentUserService) {
 
     $scope.user = {};
     $scope.notify = function (title, text) {
@@ -89,17 +97,17 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
                 $ionicLoading.hide();
                 $rootScope.notify('Login Failed', error);
             } else {
-                
                 var currentMember = [];
                 MembersFactory.getMember().then(function (user) {
-                currentMember = user;
-                if (currentMember.houseid === '') {
-                    $ionicLoading.hide();
-                    $state.go('housechoice');
-                } else {
-                    $ionicLoading.hide();
-                    $state.go('app.accounts');
-                }
+                    currentMember = user;
+                    CurrentUserService.updateUser(user);
+                    if (currentMember.houseid === '') {
+                        $ionicLoading.hide();
+                        $state.go('housechoice');
+                    } else {
+                        $ionicLoading.hide();
+                        $state.go('app.accounts');
+                    }
                 });
             }
         });
@@ -194,18 +202,7 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
                         newUser.update($scope.temp, function (ref) {
                             console.log(newUser);
                         });
-                        
-                        /*
-                        fireBaseData.refreshData().then(function (output) {
-                            fireBaseData.currentData = output;
-                            $rootScope.currentUser = fireBaseData.currentData.currentUser;
-                            $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
-                            $rootScope.isadmin = fireBaseData.currentData.isadmin;
-                            $ionicLoading.hide();
-                            $state.go('app.accounts');
-                        });
-                        */
-                        
+
                         $ionicLoading.hide();
                         $state.go('housechoice');
                     }

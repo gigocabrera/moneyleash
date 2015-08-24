@@ -775,7 +775,6 @@
     <Content Include="resources\ios\splash\Default~iphone.png" />
     <Content Include="resources\splash.png" />
     <Content Include="SCSS_Command_Line_Watch.txt" />
-    <Content Include="www\app_icon.png" />
     <Content Include="www\css\font-awesome.min.css" />
     <Content Include="www\css\moneyleash.css" />
     <Content Include="www\fonts\fontawesome-webfont.svg" />
@@ -802,6 +801,7 @@
     <Content Include="www\js\filters.js" />
     <Content Include="www\js\ion-affix.js" />
     <Content Include="www\js\moment.js" />
+    <Content Include="www\js\ng-cordova.min.js" />
     <Content Include="www\lib\angular-animate\angular-animate.js" />
     <Content Include="www\lib\angular-animate\angular-animate.min.js" />
     <Content Include="www\lib\angular-sanitize\angular-sanitize.js" />
