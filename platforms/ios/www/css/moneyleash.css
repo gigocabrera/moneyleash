@@ -690,6 +690,16 @@ button.customHeaderSize {
 }
 .ml-login-input input {
     font-size: 20px;
+    height: 35px;
+    padding: 5px 0 5px 0;
+}
+.item-floating-label .input-label {
+    font: 11px 'Verdana', sans-serif;
+    color: #808080;
+    padding: 0 0 0 0;
+}
+.item-floating-label .input-label.has-input {
+    top: 4px;
 }
 .moneyleashTip {
     font-size: 14px;

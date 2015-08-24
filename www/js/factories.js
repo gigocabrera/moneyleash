@@ -19,14 +19,12 @@ angular.module('moneyleash.factories', [])
                 }
             },
             getMember: function () {
-                if (authData) {
-                    var deferred = $q.defer();
-                    var memberRef = ref.child(authData.uid);
-                    memberRef.once("value", function (snap) {
-                        deferred.resolve(snap.val());
-                    });
-                    return deferred.promise;
-                }
+                var deferred = $q.defer();
+                var memberRef = ref.child(authData.uid);
+                memberRef.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
             },
         };
     })
@@ -88,7 +86,7 @@ angular.module('moneyleash.factories', [])
         }
     })
 
-    .factory('HouseFactory', function ($state, $q) {
+    .factory('HouseFactory', function ($state, $q, fireBaseData) {
         //
         // https://github.com/oriongunning/myExpenses
         //
@@ -128,7 +126,6 @@ angular.module('moneyleash.factories', [])
             },
             getHouses: function (id) {
                 var deferred = $q.defer();
-                var output = {};
                 ref.once('value', function (snap) {
                     console.log(snap.val());
                     deferred.resolve(snap.val());
@@ -146,13 +143,14 @@ angular.module('moneyleash.factories', [])
             createHouse: function (house) {
 
                 /* PREPARE HOUSE DATA */
-                currentHouse = {
+                var currentHouse = {
                     name: house.name,
                     number: house.number,
                     admin: authData.password.email,
                     created: Date.now(),
                     updated: Date.now(),
-                    join_code: RandomHouseCode() + house.number
+                    join_code: RandomHouseCode() + house.number,
+                    houseid: ''
                 };
                 
                 /* SAVE HOUSE */
@@ -160,7 +158,7 @@ angular.module('moneyleash.factories', [])
                 var newChildRef = ref.push(currentHouse);
                 
                 /* UPDATE USER WITH HOUSE ID AND SET PRIORITY */
-                temp = {
+                var temp = {
                     houseid: newChildRef.key()
                 };
                 var memberRef = fb.child("members").child(authData.uid);

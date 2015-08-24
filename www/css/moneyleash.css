@@ -268,7 +268,7 @@
 /* LEFT MENU SCREEN */
 .customPaddingMenuItem {
     padding: 0 40px 0 13px;
-    text-shadow: 2px 2px #eeeeee;
+    text-shadow: 1px 1px #eeeeee;
     font: 20px 'PT Sans Narrow', sans-serif;
 }
 /* Menu Icons and Chevron Icons */
@@ -690,6 +690,16 @@ button.customHeaderSize {
 }
 .ml-login-input input {
     font-size: 20px;
+    height: 35px;
+    padding: 5px 0 5px 0;
+}
+.item-floating-label .input-label {
+    font: 10px 'Verdana', sans-serif;
+    color: #006699;
+    padding: 0 0 0 0;
+}
+.item-floating-label .input-label.has-input {
+    top: 4px;
 }
 .moneyleashTip {
     font-size: 14px;

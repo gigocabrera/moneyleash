@@ -56,9 +56,8 @@ moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHist
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $ionicLoading, $ionicPopup, $state, fireBaseData, CurrentUserService) {
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, MembersFactory) {
 
-    //$scope.user = {email: 'gigo@test.com', password: '123'};
     $scope.user = {};
     $scope.notify = function (title, text) {
         $ionicPopup.alert({
@@ -87,16 +86,28 @@ moneyleashapp.controller("LoginController", function ($scope, $ionicLoading, $io
         }, function (error, authData) {
             if (error) {
                 console.log("Login Failed!", error);
-            } else {
                 $ionicLoading.hide();
-                $state.go('app.dashboard');
+                $rootScope.notify('Login Failed', error);
+            } else {
+                
+                var currentMember = [];
+                MembersFactory.getMember().then(function (user) {
+                currentMember = user;
+                if (currentMember.houseid === '') {
+                    $ionicLoading.hide();
+                    $state.go('housechoice');
+                } else {
+                    $ionicLoading.hide();
+                    $state.go('app.accounts');
+                }
+                });
             }
         });
     }
 })
 
 //REGISTER CONTROLLER
-moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicLoading, $firebase, $firebaseArray, MembersFactory) {
+moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $ionicLoading, $firebase, $firebaseArray, MembersFactory, fireBaseData) {
 
     $scope.user = {};
 
@@ -105,8 +116,6 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
     };
 
     $scope.createMember = function (user) {
-        var firstname = user.firstname;
-        var lastname = user.lastname;
         var email = user.email;
         var password = user.password;
 
@@ -174,7 +183,7 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
                             lastname: user.lastname,
                             email: user.email,
                             houseid: 0,
-                            paymentplan: '',
+                            paymentplan: 'Free',
                             datecreated: Date.now(),
                             dateupdated: Date.now()
                         }
@@ -183,8 +192,20 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
                         var membersref = MembersFactory.ref();
                         var newUser = membersref.child(authData.uid);
                         newUser.update($scope.temp, function (ref) {
-                            //console.log("user created");
+                            console.log(newUser);
                         });
+                        
+                        /*
+                        fireBaseData.refreshData().then(function (output) {
+                            fireBaseData.currentData = output;
+                            $rootScope.currentUser = fireBaseData.currentData.currentUser;
+                            $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
+                            $rootScope.isadmin = fireBaseData.currentData.isadmin;
+                            $ionicLoading.hide();
+                            $state.go('app.accounts');
+                        });
+                        */
+                        
                         $ionicLoading.hide();
                         $state.go('housechoice');
                     }
@@ -231,7 +252,7 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
         // Create House
         //
         HouseFactory.createHouse(house);
-        $state.go('app.dashboard');
+        $state.go('app.accounts');
     };
 })
 .controller('HouseJoinController', function ($scope, $state, HouseFactory) {
@@ -256,7 +277,7 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
         HouseFactory.getHouseByCode(house_code).then(function (value) {
             if (value) {
                 HouseFactory.joinHouse(value);
-                $state.go('app.dashboard');
+                $state.go('app.accounts');
             }
         });
     };
@@ -278,85 +299,7 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 
     $scope.register = function () {
         $state.go('register');
-    };
-})
-
-// DASHBOARD CONTROLLER
-moneyleashapp.controller('DashboardController', function ($scope, $rootScope, fireBaseData) {
-    
-    $scope.$on('$ionicView.enter', function () {
-        $rootScope.show('Syncing...');
-        fireBaseData.refreshData().then(function (output) {
-            fireBaseData.currentData = output;
-            $rootScope.currentUser = fireBaseData.currentData.currentUser;
-            $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
-            $rootScope.isadmin = fireBaseData.currentData.isadmin;
-            $rootScope.hide();
-            console.log(fireBaseData.currentData);
-        });
-    });
-
-    //$scope.editTransaction = function (item) {
-    //    //alert('Edit Item: ' + item.id);
-    //    $state.go('app.itemdetailsview', { itemId: item.id });
-    //};
-    //$scope.deleteTransaction = function (item) {
-    //    alert('Delete Item: ' + item.id);
-    //};
-
-    //$scope.items = [
-    //  { id: 0 },
-    //  { id: 1 },
-    //  { id: 2 },
-    //  { id: 3 },
-    //  { id: 4 },
-    //  { id: 5 },
-    //  { id: 6 },
-    //  { id: 7 },
-    //  { id: 8 },
-    //  { id: 9 },
-    //  { id: 10 },
-    //  { id: 11 },
-    //  { id: 12 },
-    //  { id: 13 },
-    //  { id: 14 },
-    //  { id: 15 },
-    //  { id: 16 },
-    //  { id: 17 },
-    //  { id: 18 },
-    //  { id: 19 },
-    //  { id: 20 },
-    //  { id: 21 },
-    //  { id: 22 },
-    //  { id: 23 },
-    //  { id: 24 },
-    //  { id: 25 },
-    //  { id: 26 },
-    //  { id: 27 },
-    //  { id: 28 },
-    //  { id: 29 },
-    //  { id: 30 },
-    //  { id: 31 },
-    //  { id: 32 },
-    //  { id: 33 },
-    //  { id: 34 },
-    //  { id: 35 },
-    //  { id: 36 },
-    //  { id: 37 },
-    //  { id: 38 },
-    //  { id: 39 },
-    //  { id: 40 },
-    //  { id: 41 },
-    //  { id: 42 },
-    //  { id: 43 },
-    //  { id: 44 },
-    //  { id: 45 },
-    //  { id: 46 },
-    //  { id: 47 },
-    //  { id: 48 },
-    //  { id: 49 },
-    //  { id: 50 }
-    //];
+    }
 })
 
 // Sample code - to be removed when going live

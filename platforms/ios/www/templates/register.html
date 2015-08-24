@@ -1,4 +1,4 @@
-<ion-view view-title="{{'REGISTER' | translate}}" class="loginScreen">
+<ion-view view-title="Register" class="loginScreen">
     <ion-content scroll="false">
         <div>
             <div class="introHeading">
@@ -7,17 +7,21 @@
         </div>
         <form name="RegisterForm" ng-submit="createMember(user)">
             <div class="list list-inset">
-                <label class="item item-input ml-login-input">
-                    <input type="text" placeholder="{{'FORM_FIRSTNAME' | translate}}" ng-model="user.firstname">
+                <label class="item item-input ml-login-input item-floating-label">
+                    <span class="input-label">First Name</span>
+                    <input type="text" placeholder="First Name" ng-model="user.firstname">
                 </label>
-                <label class="item item-input ml-login-input">
-                    <input type="text" placeholder="{{'FORM_LASTNAME' | translate}}" ng-model="user.lastname">
+                <label class="item item-input ml-login-input item-floating-label">
+                    <span class="input-label">Last Name</span>
+                    <input type="text" placeholder="Last Name" ng-model="user.lastname">
                 </label>
-                <label class="item item-input ml-login-input">
-                    <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
+                <label class="item item-input ml-login-input item-floating-label">
+                    <span class="input-label">Email</span>
+                    <input type="email" placeholder="Email" ng-model="user.email">
                 </label>
-                <label class="item item-input ml-login-input">
-                    <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
+                <label class="item item-input ml-login-input item-floating-label">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="Password" ng-model="user.password">
                 </label>
             </div>
             <div class="padding">

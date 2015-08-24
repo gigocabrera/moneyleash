@@ -1,4 +1,4 @@
-<ion-view view-title="{{'SIGNIN' | translate}}" class="loginScreen">
+<ion-view view-title="Login" class="loginScreen">
     <ion-content scroll="false">
         <form name="LoginForm" ng-submit="doLogin(user)">
             <div>
@@ -8,22 +8,24 @@
                 </div>
             </div>
             <div class="list list-inset">
-                <label class="item item-input ml-login-input">
-                    <input type="email" placeholder="{{'FORM_EMAIL' | translate}}" ng-model="user.email">
+                <label class="item item-input ml-login-input item-floating-label">
+                    <span class="input-label">Email</span>
+                    <input type="email" placeholder="Email" ng-model="user.email">
                 </label>
-                <label class="item item-input ml-login-input">
-                    <input type="password" placeholder="{{'FORM_PASSWORD' | translate}}" ng-model="user.password">
+                <label class="item item-input ml-login-input item-floating-label">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="Password" ng-model="user.password">
                 </label>
             </div>
             <div class="padding">
-                <input type="submit" class="button button-block button-energized button-theme" ng-click="doLogIn(user)" placeholder="{{"SIGNIN" | translate}}" />
+                <input type="submit" class="button button-block button-energized button-theme" ng-click="doLogIn(user)" placeholder="Submit" />
                 <div class="row">
                     <div class="col">
-                        <a href="#/forgot-password" class="mlLinksBlue">{{"REGISTER_FORGOTPASSWORD" | translate}}</a>
+                        <a href="#/forgot-password" class="mlLinksBlue">Forgot Password?</a>
                     </div>
                     <div class="col">
                         <p class="text-right">
-                            <a href="#/register" class="mlLinksBlue">{{"REGISTER_DONTHAVEACCOUNT" | translate}}</a>
+                            <a href="#/register" class="mlLinksBlue">I don't have an account</a>
                         </p>
                     </div>
                 </div>

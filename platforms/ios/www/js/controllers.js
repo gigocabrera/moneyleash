@@ -56,9 +56,8 @@ moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHist
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $ionicLoading, $ionicPopup, $state, fireBaseData, CurrentUserService) {
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, fireBaseData, CurrentUserService) {
 
-    //$scope.user = {email: 'gigo@test.com', password: '123'};
     $scope.user = {};
     $scope.notify = function (title, text) {
         $ionicPopup.alert({
@@ -87,16 +86,26 @@ moneyleashapp.controller("LoginController", function ($scope, $ionicLoading, $io
         }, function (error, authData) {
             if (error) {
                 console.log("Login Failed!", error);
-            } else {
                 $ionicLoading.hide();
-                $state.go('app.dashboard');
+                $rootScope.notify('Login Failed', error);
+            } else {
+                
+                fireBaseData.refreshData().then(function (output) {
+                    fireBaseData.currentData = output;
+                    $rootScope.currentUser = fireBaseData.currentData.currentUser;
+                    $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
+                    $rootScope.isadmin = fireBaseData.currentData.isadmin;
+                    $ionicLoading.hide();
+                    $state.go('app.accounts');
+                });
+                
             }
         });
     }
 })
 
 //REGISTER CONTROLLER
-moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicLoading, $firebase, $firebaseArray, MembersFactory) {
+moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $ionicLoading, $firebase, $firebaseArray, MembersFactory, fireBaseData) {
 
     $scope.user = {};
 
@@ -105,8 +114,6 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
     };
 
     $scope.createMember = function (user) {
-        var firstname = user.firstname;
-        var lastname = user.lastname;
         var email = user.email;
         var password = user.password;
 
@@ -180,11 +187,21 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
                         }
 
                         /* SAVE MEMBER DATA */
-                        var membersref = MembersFactory.ref();
-                        var newUser = membersref.child(authData.uid);
-                        newUser.update($scope.temp, function (ref) {
+                        //var membersref = MembersFactory.ref();
+                        //var newUser = membersref.child(authData.uid);
+                        //newUser.update($scope.temp, function (ref) {
                             //console.log("user created");
+                        //});
+                        
+                        fireBaseData.refreshData().then(function (output) {
+                            fireBaseData.currentData = output;
+                            $rootScope.currentUser = fireBaseData.currentData.currentUser;
+                            $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
+                            $rootScope.isadmin = fireBaseData.currentData.isadmin;
+                            $ionicLoading.hide();
+                            $state.go('app.accounts');
                         });
+                        
                         $ionicLoading.hide();
                         $state.go('housechoice');
                     }
@@ -231,7 +248,7 @@ moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicL
         // Create House
         //
         HouseFactory.createHouse(house);
-        $state.go('app.dashboard');
+        $state.go('app.accounts');
     };
 })
 .controller('HouseJoinController', function ($scope, $state, HouseFactory) {
@@ -284,17 +301,17 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 // DASHBOARD CONTROLLER
 moneyleashapp.controller('DashboardController', function ($scope, $rootScope, fireBaseData) {
     
-    $scope.$on('$ionicView.enter', function () {
-        $rootScope.show('Syncing...');
-        fireBaseData.refreshData().then(function (output) {
-            fireBaseData.currentData = output;
-            $rootScope.currentUser = fireBaseData.currentData.currentUser;
-            $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
-            $rootScope.isadmin = fireBaseData.currentData.isadmin;
-            $rootScope.hide();
-            console.log(fireBaseData.currentData);
-        });
-    });
+    //$scope.$on('$ionicView.enter', function () {
+    //    $rootScope.show('Syncing...');
+    //    fireBaseData.refreshData().then(function (output) {
+    //        fireBaseData.currentData = output;
+    //        $rootScope.currentUser = fireBaseData.currentData.currentUser;
+    //        $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
+    //        $rootScope.isadmin = fireBaseData.currentData.isadmin;
+    //        $rootScope.hide();
+    //        console.log(fireBaseData.currentData);
+    //    });
+    //});
 
     //$scope.editTransaction = function (item) {
     //    //alert('Edit Item: ' + item.id);
