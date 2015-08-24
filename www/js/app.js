@@ -35,7 +35,7 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
 
         Auth.$onAuth(function (authData) {
             if (authData) {
-                console.log("Logged in as:", authData);
+                //console.log("Logged in as:", authData);
                 /* STORE AUTHDATA */
                 $rootScope.authData = authData
             } else {

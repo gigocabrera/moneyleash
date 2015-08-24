@@ -98,9 +98,10 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
                 $rootScope.notify('Login Failed', error);
             } else {
                 var currentMember = [];
-                MembersFactory.getMember().then(function (user) {
-                    currentMember = user;
-                    CurrentUserService.updateUser(user);
+                MembersFactory.getMember(authData).then(function (thisuser) {
+                    currentMember = thisuser;
+                    $rootScope.houseid = thisuser.houseid;
+                    CurrentUserService.updateUser(thisuser);
                     if (currentMember.houseid === '') {
                         $ionicLoading.hide();
                         $state.go('housechoice');

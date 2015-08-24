@@ -6,19 +6,19 @@ angular.module('moneyleash.factories', [])
     })
 
     .factory('MembersFactory', function ($firebaseArray, $q) {
+        var ref = {};
         var ref = fb.child("members");
-        var authData = fb.getAuth();
         return {
             ref: function () {
                 return ref;
             },
-            getMembers: function () {
+            getMembers: function (authData) {
                 if (authData) {
                     var members = $firebaseArray(ref);
                     return members;
                 }
             },
-            getMember: function () {
+            getMember: function (authData) {
                 var deferred = $q.defer();
                 var memberRef = ref.child(authData.uid);
                 memberRef.once("value", function (snap) {
@@ -86,12 +86,12 @@ angular.module('moneyleash.factories', [])
         }
     })
 
-    .factory('HouseFactory', function ($state, $q) {
+    .factory('HouseFactory', function ($rootScope, $state, $q) {
         //
         // https://github.com/oriongunning/myExpenses
         //
         var authData = fb.getAuth();
-        var ref = fb.child("houses");
+        var ref = {};
         return {
             ref: function () {
                 return ref;
@@ -152,14 +152,19 @@ angular.module('moneyleash.factories', [])
                     join_code: RandomHouseCode() + house.number,
                     houseid: ''
                 };
-                
+
                 /* SAVE HOUSE */
                 var ref = fb.child("houses");
                 var newChildRef = ref.push(currentHouse);
                 
                 /* UPDATE USER WITH HOUSE ID AND SET PRIORITY */
+                $rootScope.houseid = newChildRef.key();
                 var temp = {
-                    houseid: newChildRef.key()
+                    houseid: newChildRef.key(),
+                    housename: house.name,
+                    housenumber: house.number,
+                    houseadmin: authData.password.email,
+                    housejoincode: RandomHouseCode() + house.number
                 };
                 var memberRef = fb.child("members").child(authData.uid);
                 memberRef.update(temp);
@@ -192,7 +197,7 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory('CategoriesFactory', function ($firebaseArray, $q, CurrentUserService) {
+    .factory('CategoriesFactory', function ($firebaseArray, $q, $rootScope) {
         var ref = {};
         var categories = {};
         var parentcategories = {};
@@ -201,36 +206,36 @@ angular.module('moneyleash.factories', [])
         var authData = fb.getAuth();
         return {
             getCategories: function (type) {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("membercategories").child(type).orderByChild('categoryname');
+                ref = fb.child("houses").child($rootScope.houseid).child("membercategories").child(type).orderByChild('categoryname');
                 categories = $firebaseArray(ref);
                 return categories;
             },
             getParentCategories: function (type) {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("membercategories").child(type).orderByChild('categoryparent');
+                ref = fb.child("houses").child($rootScope.houseid).child("membercategories").child(type).orderByChild('categoryparent');
                 parentcategories = $firebaseArray(ref);
                 return parentcategories;
             },
             getCategoriesByTypeAndGroup: function (type) {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("membercategories").child(type).orderByChild('categoryparent');
+                ref = fb.child("houses").child($rootScope.houseid).child("membercategories").child(type).orderByChild('categoryparent');
                 categoriesByType = $firebaseArray(ref);
                 return categoriesByType;
             },
             getCategory: function (categoryid, type) {
                 var deferred = $q.defer();
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("membercategories").child(type).child(categoryid);
+                ref = fb.child("houses").child($rootScope.houseid).child("membercategories").child(type).child(categoryid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
             getCategoryRef: function (categoryid, type) {
-                categoryRef = fb.child("houses").child(CurrentUserService.houseid).child("membercategories").child(type).child(categoryid);
+                categoryRef = fb.child("houses").child($rootScope.houseid).child("membercategories").child(type).child(categoryid);
                 return categoryRef;
             },
         };
     })
 
-    .factory('AccountsFactory', function ($firebaseArray, $q, CurrentUserService) {
+    .factory('AccountsFactory', function ($rootScope, $firebaseArray, $q) {
         var ref = {};
         var accounts = {};
         var accounttypes = {};
@@ -244,60 +249,60 @@ angular.module('moneyleash.factories', [])
         var authData = fb.getAuth();
         return {
             ref: function (userid) {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("memberaccounts");
+                ref = fb.child("houses").child($rootScope.houseid).child("memberaccounts");
                 return ref;
             },
             getAccounts: function () {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("memberaccounts");
+                ref = fb.child("houses").child($rootScope.houseid).child("memberaccounts");
                 accounts = $firebaseArray(ref);
                 return accounts;
             },
             getAccount: function (accountid) {
                 var deferred = $q.defer();
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("memberaccounts").child(accountid);
+                ref = fb.child("houses").child($rootScope.houseid).child("memberaccounts").child(accountid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
             getAccountRef: function (accountid) {
-                accountRef = fb.child("houses").child(CurrentUserService.houseid).child("memberaccounts").child(accountid);
+                accountRef = fb.child("houses").child($rootScope.houseid).child("memberaccounts").child(accountid);
                 return accountRef;
             },
             getAccountTypes: function () {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("memberaccounttypes");
+                ref = fb.child("houses").child($rootScope.houseid).child("memberaccounttypes");
                 accounttypes = $firebaseArray(ref);
                 return accounttypes;
             },
             getTransaction: function (accountid, transactionid) {
                 var deferred = $q.defer();
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("membertransactions").child(accountid).child(transactionid);
+                ref = fb.child("houses").child($rootScope.houseid).child("membertransactions").child(accountid).child(transactionid);
                 ref.once("value", function (snap) {
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
             },
             getTransactions: function (accountid) {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("membertransactions").child(accountid);
+                ref = fb.child("houses").child($rootScope.houseid).child("membertransactions").child(accountid);
                 transactions = $firebaseArray(ref);
                 return transactions;
             },
             getTransactionsByDate: function (accountid) {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("membertransactions").child(accountid).orderByChild('date');
-                //ref = fb.child("houses").child(CurrentUserService.houseid).child("membertransactions").child(accountid).orderByPriority();
+                ref = fb.child("houses").child($rootScope.houseid).child("membertransactions").child(accountid).orderByChild('date');
+                //ref = fb.child("houses").child($rootScope.houseid).child("membertransactions").child(accountid).orderByPriority();
                 transactionsByDate = $firebaseArray(ref);
                 return transactionsByDate;
             },
             getTransactionRef: function (accountid, transactionid) {
-                transactionRef = fb.child("houses").child(CurrentUserService.houseid).child("membertransactions").child(accountid).child(transactionid);
+                transactionRef = fb.child("houses").child($rootScope.houseid).child("membertransactions").child(accountid).child(transactionid);
                 return transactionRef;
             },
             getTransactionByCategoryRef: function (categoryid, transactionid) {
-                transactionsbycategoryRef = fb.child("houses").child(CurrentUserService.houseid).child("membertransactionsbycategory").child(categoryid).child(transactionid);
+                transactionsbycategoryRef = fb.child("houses").child($rootScope.houseid).child("membertransactionsbycategory").child(categoryid).child(transactionid);
                 return transactionsbycategoryRef;
             },
             getTransactionByPayeeRef: function (payeeid, transactionid) {
-                transactionsbypayeeRef = fb.child("houses").child(CurrentUserService.houseid).child("membertransactionsbypayee").child(payeeid).child(transactionid);
+                transactionsbypayeeRef = fb.child("houses").child($rootScope.houseid).child("membertransactionsbypayee").child(payeeid).child(transactionid);
                 return transactionsbypayeeRef;
             },
             createNewAccount: function (currentItem) {
@@ -313,7 +318,7 @@ angular.module('moneyleash.factories', [])
                     currentItem.dateopen = dtOpen;
                 }
                 // Update account
-                accountRef = fb.child("houses").child(CurrentUserService.houseid).child("memberaccounts").child(accountid);
+                accountRef = fb.child("houses").child($rootScope.houseid).child("memberaccounts").child(accountid);
                 accountRef.update(currentItem);
             },
             createTransaction: function (currentAccountId, currentItem) {
@@ -343,13 +348,13 @@ angular.module('moneyleash.factories', [])
                 //
                 // Save transaction
                 //
-                var ref = fb.child("houses").child(CurrentUserService.houseid).child("membertransactions").child(accountId);
+                var ref = fb.child("houses").child($rootScope.houseid).child("membertransactions").child(accountId);
                 var newChildRef = ref.push(currentItem);
                 newChildRef.setWithPriority(currentItem, currentItem.date);
                 //
                 // Save transaction under category
                 //
-                var categoryTransactionRef = fb.child("houses").child(CurrentUserService.houseid).child("membertransactionsbycategory").child(currentItem.categoryid).child(newChildRef.key());
+                var categoryTransactionRef = fb.child("houses").child($rootScope.houseid).child("membertransactionsbycategory").child(currentItem.categoryid).child(newChildRef.key());
                 var categoryTransaction = {
                     payee: currentItem.payee,
                     amount: currentItem.amount,
@@ -361,7 +366,7 @@ angular.module('moneyleash.factories', [])
                 //
                 // Save transaction under payee
                 //
-                var payeeTransactionRef = fb.child("houses").child(CurrentUserService.houseid).child("membertransactionsbypayee").child(currentItem.payeeid).child(newChildRef.key());
+                var payeeTransactionRef = fb.child("houses").child($rootScope.houseid).child("membertransactionsbypayee").child(currentItem.payeeid).child(newChildRef.key());
                 var payeeTransaction = {
                     payee: currentItem.payee,
                     amount: currentItem.amount,
@@ -373,7 +378,7 @@ angular.module('moneyleash.factories', [])
                 //
                 // Save payee-category relationship
                 //
-                var payeeRef = fb.child("houses").child(CurrentUserService.houseid).child("memberpayees").child(currentItem.payeeid);
+                var payeeRef = fb.child("houses").child($rootScope.houseid).child("memberpayees").child(currentItem.payeeid);
                 var payee = {
                     lastamount: currentItem.amount,
                     lastcategory: currentItem.category,
@@ -386,7 +391,7 @@ angular.module('moneyleash.factories', [])
                     // Save the other transaction, get the transaction id and link it to this transaction
                     //
                     OtherTransaction.linkedtransactionid = newChildRef.key();
-                    var othertransRef = fb.child("houses").child(CurrentUserService.houseid).child("membertransactions").child(otherAccountId);
+                    var othertransRef = fb.child("houses").child($rootScope.houseid).child("membertransactions").child(otherAccountId);
                     var sync = $firebaseArray(othertransRef);
                     sync.$add(OtherTransaction).then(function (otherChildRef) {
                         //
@@ -397,13 +402,13 @@ angular.module('moneyleash.factories', [])
                 }
             },
             deleteTransaction: function (accountid, transactionid) {
-                transactionRef = fb.child("houses").child(CurrentUserService.houseid).child("membertransactions").child(accountid).child(transactionid);
+                transactionRef = fb.child("houses").child($rootScope.houseid).child("membertransactions").child(accountid).child(transactionid);
                 transactionRef.remove();
             }
         };
     })
 
-    .factory('PayeesService', function ($firebaseArray, $q, CurrentUserService) {
+    .factory('PayeesService', function ($firebaseArray, $q, $rootScope) {
         var ref = {};
         var payees = {};
         var payeeRef = {};
@@ -412,32 +417,32 @@ angular.module('moneyleash.factories', [])
         var authData = fb.getAuth();
         return {
             getPayees: function () {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("memberpayees").orderByChild('payeename');
+                ref = fb.child("houses").child($rootScope.houseid).child("memberpayees").orderByChild('payeename');
                 payees = $firebaseArray(ref);
                 return payees;
             },
             getTransactionsByPayee: function (payeeid) {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("membertransactionsbypayee").child(payeeid);
+                ref = fb.child("houses").child($rootScope.houseid).child("membertransactionsbypayee").child(payeeid);
                 transactionsByPayeeRef = $firebaseArray(ref);
                 return transactionsByPayeeRef;
             },
             getTransactionsByCategory: function (categoryid) {
-                ref = fb.child("houses").child(CurrentUserService.houseid).child("membertransactionsbycategory").child(categoryid);
+                ref = fb.child("houses").child($rootScope.houseid).child("membertransactionsbycategory").child(categoryid);
                 transactionsByCategoryRef = $firebaseArray(ref);
                 return transactionsByCategoryRef;
             },
             getPayeeRef: function (payeeid) {
-                payeeRef = fb.child("houses").child(CurrentUserService.houseid).child("memberpayees").child(payeeid);
+                payeeRef = fb.child("houses").child($rootScope.houseid).child("memberpayees").child(payeeid);
                 return payeeRef;
             },
         };
     })
 
-    .factory('PayeesFactory', function ($firebaseArray, $q, $timeout, CurrentUserService) {
+    .factory('PayeesFactory', function ($firebaseArray, $q, $timeout, $rootScope) {
         var ref = {};
         var payees = {};
         var authData = fb.getAuth();
-        ref = fb.child("houses").child(CurrentUserService.houseid).child("memberpayees").orderByChild('payeename');
+        ref = fb.child("houses").child($rootScope.houseid).child("memberpayees").orderByChild('payeename');
         payees = $firebaseArray(ref);
         var searchPayees = function (searchFilter) {
             //console.log(searchFilter);

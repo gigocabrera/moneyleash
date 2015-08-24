@@ -511,7 +511,6 @@
     <Content Include="platforms\ios\MoneyLeash\Resources\splash\Default-Portrait~ipad.png" />
     <Content Include="platforms\ios\MoneyLeash\Resources\splash\Default~iphone.png" />
     <Content Include="platforms\ios\platform_www\cordova.js" />
-    <Content Include="platforms\ios\www\app_icon.png" />
     <Content Include="platforms\ios\www\cordova.js" />
     <Content Include="platforms\ios\www\cordova_plugins.js" />
     <Content Include="platforms\ios\www\css\ionic.app.css" />
@@ -539,8 +538,8 @@
     <Content Include="platforms\ios\www\js\factories.js" />
     <Content Include="platforms\ios\www\js\filters.js" />
     <Content Include="platforms\ios\www\js\ion-affix.js" />
-    <Content Include="platforms\ios\www\js\ion-sticky.js" />
     <Content Include="platforms\ios\www\js\moment.js" />
+    <Content Include="platforms\ios\www\js\ng-cordova.min.js" />
     <Content Include="platforms\ios\www\lib\datePicker\css\angular-pickadate.css" />
     <Content Include="platforms\ios\www\lib\datePicker\js\angular-pickadate.js" />
     <Content Include="platforms\ios\www\lib\ion-autocomplete\.gitignore" />
@@ -862,7 +861,6 @@
     <Content Include="www\templates\categories.html" />
     <Content Include="www\templates\category.html" />
     <Content Include="www\templates\categorytransactions.html" />
-    <Content Include="www\templates\dashboard.html" />
     <Content Include="www\templates\forgot-password.html" />
     <Content Include="www\templates\house-choice.html" />
     <Content Include="www\templates\house-create.html" />
