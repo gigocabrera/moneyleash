@@ -186,7 +186,7 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, $cordovaCamera, AccountsFactory, PickTransactionServices, PayeesService, MembersFactory, fireBaseData, dateFilter) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, $cordovaCamera, AccountsFactory, PickTransactionServices, PayeesService, MembersFactory, fireBaseData, dateFilter, myCache) {
 
     $scope.hideValidationMessage = true;
     $scope.loadedClass = 'hidden';
@@ -356,7 +356,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             //
             var onComplete = function (error) {
                 if (error) {
-                    console.log('Synchronization failed');
+                    //console.log('Synchronization failed');
                 }
             };
             var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
@@ -436,7 +436,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 $scope.currentItem.photo = "";
             }
             // Set current house member
-            $scope.currentItem.addedby = fireBaseData.currentData.currentUser.firstname;
+            $scope.currentItem.addedby = myCache.get('thisUserName');
             //
             AccountsFactory.createTransaction($stateParams.accountId, $scope.currentItem);
         }

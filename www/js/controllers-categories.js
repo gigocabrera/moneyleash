@@ -80,7 +80,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
             // Update
             var onComplete = function (error) {
                 if (error) {
-                    console.log('Synchronization failed');
+                    //console.log('Synchronization failed');
                 }
             };
             var categoryRef = CategoriesFactory.getCategoryRef($stateParams.categoryid, $stateParams.type);

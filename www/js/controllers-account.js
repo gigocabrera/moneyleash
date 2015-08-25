@@ -85,7 +85,7 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.hideValidationMessage = true;
-        $scope.currentItem.accountname = PickAccountServices.nameSelected;
+        //$scope.currentItem.accountname = PickAccountServices.nameSelected;
         $scope.currentItem.accounttype = PickAccountServices.typeSelected;
         if (typeof PickAccountServices.dateSelected !== 'undefined' && PickAccountServices.dateSelected !== '') {
             // format date to be displayed

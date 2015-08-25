@@ -64,7 +64,7 @@ moneyleashapp.controller('IntroController', function ($scope, $rootScope, $state
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, MembersFactory, CurrentUserService) {
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, MembersFactory, myCache) {
 
     $scope.user = {};
     $scope.notify = function (title, text) {
@@ -93,16 +93,18 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
             "password": user.password
         }, function (error, authData) {
             if (error) {
-                console.log("Login Failed!", error);
+                //console.log("Login Failed!", error);
                 $ionicLoading.hide();
                 $rootScope.notify('Login Failed', error);
             } else {
-                var currentMember = [];
+                
                 MembersFactory.getMember(authData).then(function (thisuser) {
-                    currentMember = thisuser;
-                    $rootScope.houseid = thisuser.houseid;
-                    CurrentUserService.updateUser(thisuser);
-                    if (currentMember.houseid === '') {
+                    
+                    /* Save user data for later use */
+                    myCache.put('thisHouseId', thisuser.houseid);
+                    myCache.put('thisUserName', thisuser.firstname);
+
+                    if (thisuser.houseid === '') {
                         $ionicLoading.hide();
                         $state.go('housechoice');
                     } else {
@@ -201,7 +203,7 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
                         var membersref = MembersFactory.ref();
                         var newUser = membersref.child(authData.uid);
                         newUser.update($scope.temp, function (ref) {
-                            console.log(newUser);
+                            //console.log(newUser);
                         });
 
                         $ionicLoading.hide();
