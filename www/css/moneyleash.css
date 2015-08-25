@@ -531,7 +531,7 @@ button.customHeaderSize {
     list-style-type: none;
     display: inline;
     color: #8C8C8C;
-    font: 16px 'PT Sans', sans-serif;
+    font: 15px 'PT Sans', sans-serif;
 }
 #transactionIcons ul li > i {
   padding-right: 3px;

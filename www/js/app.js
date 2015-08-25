@@ -312,6 +312,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.picktransactionnote', {
+        url: "/picktransactionnote",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactionnote.html",
+                controller: "PickTransactionNoteController"
+            }
+        }
+    })
 
     // ACCOUNT TYPES
     .state('app.accounttypes', {

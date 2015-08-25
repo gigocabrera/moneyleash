@@ -263,7 +263,6 @@ angular.module('moneyleash.factories', [])
                 return ref;
             },
             getAccounts: function () {
-                console.log(thisHouseId);
                 ref = fb.child("houses").child(thisHouseId).child("memberaccounts");
                 accounts = $firebaseArray(ref);
                 return accounts;
@@ -534,6 +533,7 @@ angular.module('moneyleash.factories', [])
         var transAccountFrom = this;
         var transAccountTo = this;
         var transPhoto = this;
+        var transNote = this;
         transactionType.updateType = function (value, type) {
             this.typeDisplaySelected = value;
             this.typeInternalSelected = type;
@@ -565,6 +565,9 @@ angular.module('moneyleash.factories', [])
         }
         transPhoto.updatePhoto = function (value) {
             this.photoSelected = value;
+        }
+        transPhoto.updateNote = function (value) {
+            this.noteSelected = value;
         }
     })
 ;

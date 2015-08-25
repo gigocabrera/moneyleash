@@ -882,6 +882,7 @@
     <Content Include="www\templates\picktransactionamount.html" />
     <Content Include="www\templates\picktransactioncategory.html" />
     <Content Include="www\templates\picktransactiondate.html" />
+    <Content Include="www\templates\picktransactionnote.html" />
     <Content Include="www\templates\picktransactionpayee.html" />
     <Content Include="www\templates\picktransactionphoto.html" />
     <Content Include="www\templates\picktransactiontype.html" />
