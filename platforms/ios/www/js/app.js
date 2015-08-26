@@ -5,7 +5,7 @@ var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 // Ionic MoneyLeash App, v1.0
 var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen, MembersFactory) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -29,7 +29,7 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
                 'name': 'English'
             }, {
                 'prefix': 'es',
-                'name': 'Español'
+                'name': 'Espaï¿½ol'
             }]
         };
 
@@ -92,22 +92,22 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         SIGNIN: "Ingresar",
         REGISTER: "Registrar",
         LOGOUT: "Desconectar",
-        FORGOT_PASSWORD: "Perdió contraseña",
-        RECOVER_PASSWORD: "Recobrar contraseña",
+        FORGOT_PASSWORD: "Perdiï¿½ contraseï¿½a",
+        RECOVER_PASSWORD: "Recobrar contraseï¿½a",
         REGISTER_DONTHAVEACCOUNT: "No tengo cuenta",
         REGISTER_ALREADYHAVEACCOUNT: "Tengo cuenta",
         FORM_EMAIL: "Correo",
-        FORM_PASSWORD: "Contraseña",
+        FORM_PASSWORD: "Contraseï¿½a",
         FORM_FIRSTNAME: "Nombre",
         FORM_LASTNAME: "Apellido",
         TABS_NAME_DASHBOARD: "Dashboard",
         TABS_NAME_EXPENSES: "Egresos",
         TABS_NAME_MEMBERS: "Miembros",
-        TABS_NAME_SETTINGS: "Configuración",
+        TABS_NAME_SETTINGS: "Configuraciï¿½n",
         SETTINGS_LANGUAGE: "Cambiar lenguaje",
         SETTINGS_EDIT_PROFILE: "Modificar perfil",
         SETTINGS_QUIT_HOUSE: "Abandonar Casa",
-        REGISTER_FORGOTPASSWORD: "Perdió contraseña",
+        REGISTER_FORGOTPASSWORD: "Perdiï¿½ contraseï¿½a",
         PERSONALPROFILE: "Perfil del Usuario",
         FORM_CREATED: "Creado",
         FORM_UPDATED: "Modificado"
@@ -171,26 +171,6 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           templateUrl: "templates/side-menu.html",
           controller: 'AppCtrl'
       })
-
-    // DASHBOARD
-    .state('app.dashboard', {
-        url: "/dashboard",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/dashboard.html",
-                controller: 'DashboardController'
-            }
-        }
-    })
-    .state('app.itemdetailsview', {
-        url: "/shirtsize",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/itemdetails.html",
-                controller: "ItemDetailsCtrl"
-            }
-        }
-    })
 
     // ACCOUNTS
     .state('app.accounts', {
@@ -329,6 +309,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/picktransactionphoto.html",
                 controller: "PickTransactionPhotoController"
+            }
+        }
+    })
+    .state('app.picktransactionnote', {
+        url: "/picktransactionnote",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picktransactionnote.html",
+                controller: "PickTransactionNoteController"
             }
         }
     })

@@ -41,6 +41,7 @@ moneyleashapp.controller('PickCategoryTypeController', function ($scope, $state,
 // CATEGORY CONTROLLER
 moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicHistory, $stateParams, CategoriesFactory, PickParentCategoryService, PickCategoryTypeService) {
 
+    $scope.hideValidationMessage = true;
     $scope.inEditMode = false;
     $scope.allowParent = false;
     $scope.currentItem = {
@@ -50,6 +51,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
         'categorysort': ''
     };
     $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.hideValidationMessage = true;
         $scope.currentItem.categoryparent = PickParentCategoryService.parentcategorySelected;
         $scope.currentItem.categorytype = PickCategoryTypeService.typeSelected;
     });
@@ -71,6 +73,19 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
 
     // SAVE
     $scope.saveCategory = function () {
+
+        // Validate form data
+        if (typeof $scope.currentItem.categoryname === 'undefined' || $scope.currentItem.categoryname === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please type a category name"
+            return;
+        }
+        if (typeof $scope.currentItem.categorytype === 'undefined' || $scope.currentItem.categorytype === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select a category type"
+            return;
+        }
+
         if ($scope.currentItem.categoryparent === '') {
             $scope.currentItem.categorysort = $scope.currentItem.categoryname;
         } else {
@@ -80,7 +95,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
             // Update
             var onComplete = function (error) {
                 if (error) {
-                    console.log('Synchronization failed');
+                    //console.log('Synchronization failed');
                 }
             };
             var categoryRef = CategoriesFactory.getCategoryRef($stateParams.categoryid, $stateParams.type);

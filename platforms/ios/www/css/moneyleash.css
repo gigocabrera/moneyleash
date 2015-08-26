@@ -228,6 +228,7 @@
     padding-top: 8px;
     padding-bottom: 3px;
     min-height: 35px;
+    color: #00A2E8;
     /*background-color: #D3EAF0;*/
 }
 .SectionDividerActive {
@@ -268,7 +269,7 @@
 /* LEFT MENU SCREEN */
 .customPaddingMenuItem {
     padding: 0 40px 0 13px;
-    text-shadow: 2px 2px #eeeeee;
+    text-shadow: 1px 1px #eeeeee;
     font: 20px 'PT Sans Narrow', sans-serif;
 }
 /* Menu Icons and Chevron Icons */
@@ -524,14 +525,12 @@ button.customHeaderSize {
 #transactionIcons ul {
     margin-top: 5px;
 }
-#transactionIcons ul li:first-child {
-    padding-right: 8px;
-}
 #transactionIcons ul li {
     list-style-type: none;
     display: inline;
     color: #8C8C8C;
-    font: 16px 'PT Sans', sans-serif;
+    font: 15px 'PT Sans', sans-serif;
+    padding-right: 5px;
 }
 #transactionIcons ul li > i {
   padding-right: 3px;
@@ -609,6 +608,17 @@ button.customHeaderSize {
     background-color: #b2b2b2;
     color: #fff;
 }
+.item-input textarea {
+    width: 100%;
+    font: 16px 'PT Sans', sans-serif;
+}
+.item-input-inset .item-input-wrapper input {
+    padding-left: 4px;
+    height: 29px;
+    background: transparent;
+    line-height: 18px;
+    font: 17px 'PT Sans', sans-serif;
+}
 
 /*******************/
 /* SETTINGS SCREEN */
@@ -653,6 +663,11 @@ button.customHeaderSize {
     font-size: 20px;
     margin-top: 5px;
 }
+.cleanlabel {
+    margin-left: 0;
+    margin-top: 0;
+    font-size: 17px;
+}
 .moneyleashLabel button {
     margin-left: 5px;
 }
@@ -694,8 +709,8 @@ button.customHeaderSize {
     padding: 5px 0 5px 0;
 }
 .item-floating-label .input-label {
-    font: 11px 'Verdana', sans-serif;
-    color: #808080;
+    font: 10px 'Verdana', sans-serif;
+    color: #006699;
     padding: 0 0 0 0;
 }
 .item-floating-label .input-label.has-input {

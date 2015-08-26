@@ -2,7 +2,7 @@
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet, $ionicHistory, MembersFactory, fireBaseData) {
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionicActionSheet, $ionicHistory, MembersFactory, fireBaseData) {
 
     $scope.showMenuIcon = true;
 
@@ -29,6 +29,7 @@ moneyleashapp.controller('AppCtrl', function ($scope, $state, $ionicActionSheet,
                 //Return true to close the action sheet, or false to keep it opened.
                 fireBaseData.clearData();
                 $ionicHistory.clearCache();
+                $rootScope.authData = '';
                 fb.unauth();
                 $state.go('intro');
             }
@@ -44,8 +45,14 @@ moneyleashapp.controller('AboutController', function ($scope, $ionicSlideBoxDele
 })
 
 // INTRO CONTROLLER
-moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHistory) {
+moneyleashapp.controller('IntroController', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData) {
+
     $ionicHistory.clearHistory();
+    fireBaseData.clearData();
+    $ionicHistory.clearCache();
+    $rootScope.authData = '';
+    fb.unauth();
+
     $scope.hideBackButton = true;
     $scope.login = function () {
         $state.go('login');
@@ -53,10 +60,11 @@ moneyleashapp.controller('IntroController', function ($scope, $state, $ionicHist
     $scope.register = function () {
         $state.go('register');
     };
+
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, fireBaseData, CurrentUserService) {
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, MembersFactory, myCache) {
 
     $scope.user = {};
     $scope.notify = function (title, text) {
@@ -85,20 +93,25 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
             "password": user.password
         }, function (error, authData) {
             if (error) {
-                console.log("Login Failed!", error);
+                //console.log("Login Failed!", error);
                 $ionicLoading.hide();
                 $rootScope.notify('Login Failed', error);
             } else {
                 
-                fireBaseData.refreshData().then(function (output) {
-                    fireBaseData.currentData = output;
-                    $rootScope.currentUser = fireBaseData.currentData.currentUser;
-                    $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
-                    $rootScope.isadmin = fireBaseData.currentData.isadmin;
-                    $ionicLoading.hide();
-                    $state.go('app.accounts');
+                MembersFactory.getMember(authData).then(function (thisuser) {
+                    
+                    /* Save user data for later use */
+                    myCache.put('thisHouseId', thisuser.houseid);
+                    myCache.put('thisUserName', thisuser.firstname);
+
+                    if (thisuser.houseid === '') {
+                        $ionicLoading.hide();
+                        $state.go('housechoice');
+                    } else {
+                        $ionicLoading.hide();
+                        $state.go('app.accounts');
+                    }
                 });
-                
             }
         });
     }
@@ -181,27 +194,18 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
                             lastname: user.lastname,
                             email: user.email,
                             houseid: 0,
-                            paymentplan: '',
+                            paymentplan: 'Free',
                             datecreated: Date.now(),
                             dateupdated: Date.now()
                         }
 
                         /* SAVE MEMBER DATA */
-                        //var membersref = MembersFactory.ref();
-                        //var newUser = membersref.child(authData.uid);
-                        //newUser.update($scope.temp, function (ref) {
-                            //console.log("user created");
-                        //});
-                        
-                        fireBaseData.refreshData().then(function (output) {
-                            fireBaseData.currentData = output;
-                            $rootScope.currentUser = fireBaseData.currentData.currentUser;
-                            $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
-                            $rootScope.isadmin = fireBaseData.currentData.isadmin;
-                            $ionicLoading.hide();
-                            $state.go('app.accounts');
+                        var membersref = MembersFactory.ref();
+                        var newUser = membersref.child(authData.uid);
+                        newUser.update($scope.temp, function (ref) {
+                            //console.log(newUser);
                         });
-                        
+
                         $ionicLoading.hide();
                         $state.go('housechoice');
                     }
@@ -273,7 +277,7 @@ moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $st
         HouseFactory.getHouseByCode(house_code).then(function (value) {
             if (value) {
                 HouseFactory.joinHouse(value);
-                $state.go('app.dashboard');
+                $state.go('app.accounts');
             }
         });
     };
@@ -295,85 +299,7 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 
     $scope.register = function () {
         $state.go('register');
-    };
-})
-
-// DASHBOARD CONTROLLER
-moneyleashapp.controller('DashboardController', function ($scope, $rootScope, fireBaseData) {
-    
-    //$scope.$on('$ionicView.enter', function () {
-    //    $rootScope.show('Syncing...');
-    //    fireBaseData.refreshData().then(function (output) {
-    //        fireBaseData.currentData = output;
-    //        $rootScope.currentUser = fireBaseData.currentData.currentUser;
-    //        $rootScope.currentHouse = fireBaseData.currentData.currentHouse;
-    //        $rootScope.isadmin = fireBaseData.currentData.isadmin;
-    //        $rootScope.hide();
-    //        console.log(fireBaseData.currentData);
-    //    });
-    //});
-
-    //$scope.editTransaction = function (item) {
-    //    //alert('Edit Item: ' + item.id);
-    //    $state.go('app.itemdetailsview', { itemId: item.id });
-    //};
-    //$scope.deleteTransaction = function (item) {
-    //    alert('Delete Item: ' + item.id);
-    //};
-
-    //$scope.items = [
-    //  { id: 0 },
-    //  { id: 1 },
-    //  { id: 2 },
-    //  { id: 3 },
-    //  { id: 4 },
-    //  { id: 5 },
-    //  { id: 6 },
-    //  { id: 7 },
-    //  { id: 8 },
-    //  { id: 9 },
-    //  { id: 10 },
-    //  { id: 11 },
-    //  { id: 12 },
-    //  { id: 13 },
-    //  { id: 14 },
-    //  { id: 15 },
-    //  { id: 16 },
-    //  { id: 17 },
-    //  { id: 18 },
-    //  { id: 19 },
-    //  { id: 20 },
-    //  { id: 21 },
-    //  { id: 22 },
-    //  { id: 23 },
-    //  { id: 24 },
-    //  { id: 25 },
-    //  { id: 26 },
-    //  { id: 27 },
-    //  { id: 28 },
-    //  { id: 29 },
-    //  { id: 30 },
-    //  { id: 31 },
-    //  { id: 32 },
-    //  { id: 33 },
-    //  { id: 34 },
-    //  { id: 35 },
-    //  { id: 36 },
-    //  { id: 37 },
-    //  { id: 38 },
-    //  { id: 39 },
-    //  { id: 40 },
-    //  { id: 41 },
-    //  { id: 42 },
-    //  { id: 43 },
-    //  { id: 44 },
-    //  { id: 45 },
-    //  { id: 46 },
-    //  { id: 47 },
-    //  { id: 48 },
-    //  { id: 49 },
-    //  { id: 50 }
-    //];
+    }
 })
 
 // Sample code - to be removed when going live

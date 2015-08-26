@@ -11,10 +11,9 @@
             </div>
         </div>
         <div class="ion-list">
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccountname">
+            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
                 <i class="icon fa fa-clipboard placeholder-icon"></i>
-                <input type="text" ng-model="currentItem.accountname" placeholder="Account Name" readonly>
-                <i class="icon ion-chevron-right customChevronForm"></i>
+                <input type="text" ng-model="currentItem.accountname" placeholder="Account Name" autocapitalize="words">
             </ion-item>
             <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccountdate">
                 <i class="icon fa fa-calendar placeholder-icon"></i>

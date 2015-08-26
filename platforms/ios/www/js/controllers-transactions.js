@@ -20,7 +20,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         //$scope.transactions.splice(fromIndex, 1);
         //$scope.transactions.splice(toIndex, 0, transaction);
 
-        console.log(transaction);
+        //console.log(transaction);
         //console.log(fromIndex);
         //console.log(toIndex);
     };
@@ -95,6 +95,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         PickTransactionServices.accountToSelected = '';
         PickTransactionServices.accountToId = '';
         PickTransactionServices.photoSelected = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        PickTransactionServices.noteSelected = '';
         $state.go('app.transaction', { accountId: $stateParams.accountId, transactionId: '' });
     }
 
@@ -207,7 +208,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         //
         var onComplete = function (error) {
             if (error) {
-                console.log('Synchronization failed');
+                //console.log('Synchronization failed');
             }
         };
         var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);

@@ -4,7 +4,7 @@ moneyleashapp.controller('PickTransactionPhotoController', function ($scope, $io
     
     $scope.currentItem = { photo: PickTransactionServices.photoSelected };
     $scope.uploadPhoto = function () {
-        if (PickTransactionServices.photoSelected === 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==') {
+        if (PickTransactionServices.photoSelected === 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' || PickTransactionServices.photoSelected === '') {
             var options = {
                 quality: 75,
                 destinationType: Camera.DestinationType.DATA_URL,
@@ -185,8 +185,21 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
     };
 })
 
+// PICK TRANSACTION NOTES CONTROLLER
+moneyleashapp.controller('PickTransactionNoteController', function ($scope, $ionicHistory, PickTransactionServices) {
+
+    if (typeof PickTransactionServices.noteSelected !== 'undefined' && PickTransactionServices.noteSelected !== '') {
+        $scope.note = PickTransactionServices.noteSelected;
+    }
+    $scope.saveNote = function () {
+        PickTransactionServices.updateNote($scope.note);
+        $ionicHistory.goBack();
+    };
+
+})
+
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, $cordovaCamera, AccountsFactory, PickTransactionServices, PayeesService, MembersFactory, fireBaseData, dateFilter) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, $cordovaCamera, AccountsFactory, PickTransactionServices, PayeesService, MembersFactory, fireBaseData, dateFilter, myCache) {
 
     $scope.hideValidationMessage = true;
     $scope.loadedClass = 'hidden';
@@ -233,6 +246,10 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         $scope.currentItem.accountTo = PickTransactionServices.accountToSelected;
         $scope.currentItem.accountToId = PickTransactionServices.accountToId;
         $scope.currentItem.photo = PickTransactionServices.photoSelected;
+        if ($scope.currentItem.photo === '') {
+            $scope.currentItem.photo = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        }
+        $scope.currentItem.note = PickTransactionServices.noteSelected;
         if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
             // format date to be displayed
             var format = 'MMMM dd, yyyy';
@@ -279,6 +296,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             PickTransactionServices.accountFromId = $scope.currentItem.accountFromId;
             PickTransactionServices.accountToSelected = $scope.currentItem.accountTo;
             PickTransactionServices.accountToId = $scope.currentItem.accountToId;
+            PickTransactionServices.noteSelected = $scope.currentItem.note;
             PickTransactionServices.photoSelected = $scope.currentItem.photo;
             if ($scope.currentItem.photo === '') {
                 $scope.currentItem.photo = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
@@ -356,7 +374,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             //
             var onComplete = function (error) {
                 if (error) {
-                    console.log('Synchronization failed');
+                    //console.log('Synchronization failed');
                 }
             };
             var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
@@ -436,7 +454,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 $scope.currentItem.photo = "";
             }
             // Set current house member
-            $scope.currentItem.addedby = fireBaseData.currentData.currentUser.firstname;
+            $scope.currentItem.addedby = myCache.get('thisUserName');
             //
             AccountsFactory.createTransaction($stateParams.accountId, $scope.currentItem);
         }

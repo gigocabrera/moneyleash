@@ -23,7 +23,7 @@
                                         <ul>
                                             <li><i class="fa fa-at"></i>{{ transaction.addedby }}</li>
                                             <li><i class="fa fa-thumb-tack"></i>{{ transaction.category }}</li>
-                                            <li><i ng-class="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
+                                            <li><i ng-class="{'fa fa-file-text-o': transaction.note.length > 0}"></i></li>
                                             <li><i ng-class="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>
                                             <li><i ng-class="{'fa fa-camera': transaction.photo.length > 0}"></i></li>
                                             <li><i ng-class="{'fa fa-exchange': transaction.istransfer == true }"></i></li>
