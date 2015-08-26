@@ -246,6 +246,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         $scope.currentItem.accountTo = PickTransactionServices.accountToSelected;
         $scope.currentItem.accountToId = PickTransactionServices.accountToId;
         $scope.currentItem.photo = PickTransactionServices.photoSelected;
+        if ($scope.currentItem.photo === '') {
+            $scope.currentItem.photo = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        }
         $scope.currentItem.note = PickTransactionServices.noteSelected;
         if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
             // format date to be displayed
