@@ -513,14 +513,9 @@
     <Content Include="platforms\ios\platform_www\cordova.js" />
     <Content Include="platforms\ios\www\cordova.js" />
     <Content Include="platforms\ios\www\cordova_plugins.js" />
-    <Content Include="platforms\ios\www\css\ionic.app.css" />
-    <Content Include="platforms\ios\www\css\ionic.app.min.css" />
-    <Content Include="platforms\ios\www\css\ionic.css" />
-    <Content Include="platforms\ios\www\css\ionic.min.css" />
+    <Content Include="platforms\ios\www\css\font-awesome.min.css" />
     <Content Include="platforms\ios\www\css\moneyleash.css" />
     <Content Include="platforms\ios\www\fonts\ionicons.svg" />
-    <Content Include="platforms\ios\www\img\bg-1.png" />
-    <Content Include="platforms\ios\www\img\ionic.png" />
     <Content Include="platforms\ios\www\index.html" />
     <Content Include="platforms\ios\www\js\angular-translate.min.js" />
     <Content Include="platforms\ios\www\js\app.js" />
@@ -596,13 +591,21 @@
     <Content Include="platforms\ios\www\templates\budgets.html" />
     <Content Include="platforms\ios\www\templates\categories.html" />
     <Content Include="platforms\ios\www\templates\category.html" />
-    <Content Include="platforms\ios\www\templates\dashboard.html" />
+    <Content Include="platforms\ios\www\templates\categorytransactions.html" />
     <Content Include="platforms\ios\www\templates\forgot-password.html" />
+    <Content Include="platforms\ios\www\templates\house-choice.html" />
+    <Content Include="platforms\ios\www\templates\house-create.html" />
+    <Content Include="platforms\ios\www\templates\house-join.html" />
     <Content Include="platforms\ios\www\templates\intro.html" />
     <Content Include="platforms\ios\www\templates\itemdetails.html" />
     <Content Include="platforms\ios\www\templates\login.html" />
     <Content Include="platforms\ios\www\templates\payees.html" />
+    <Content Include="platforms\ios\www\templates\payeetransactions.html" />
     <Content Include="platforms\ios\www\templates\personalprofile.html" />
+    <Content Include="platforms\ios\www\templates\pickaccountamount.html" />
+    <Content Include="platforms\ios\www\templates\pickaccountdate.html" />
+    <Content Include="platforms\ios\www\templates\pickaccountname.html" />
+    <Content Include="platforms\ios\www\templates\pickaccounttype.html" />
     <Content Include="platforms\ios\www\templates\pickcategorytype.html" />
     <Content Include="platforms\ios\www\templates\pickparentcategory.html" />
     <Content Include="platforms\ios\www\templates\picktransactionaccountfrom.html" />
@@ -610,7 +613,9 @@
     <Content Include="platforms\ios\www\templates\picktransactionamount.html" />
     <Content Include="platforms\ios\www\templates\picktransactioncategory.html" />
     <Content Include="platforms\ios\www\templates\picktransactiondate.html" />
+    <Content Include="platforms\ios\www\templates\picktransactionnote.html" />
     <Content Include="platforms\ios\www\templates\picktransactionpayee.html" />
+    <Content Include="platforms\ios\www\templates\picktransactionphoto.html" />
     <Content Include="platforms\ios\www\templates\picktransactiontype.html" />
     <Content Include="platforms\ios\www\templates\popover.html" />
     <Content Include="platforms\ios\www\templates\recurring.html" />
@@ -905,6 +910,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="www\lib\angular-ui-router\api\angular-ui-router.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="platforms\ios\www\img\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
