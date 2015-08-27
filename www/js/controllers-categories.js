@@ -87,9 +87,9 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
         }
 
         if ($scope.currentItem.categoryparent === '') {
-            $scope.currentItem.categorysort = $scope.currentItem.categoryname;
+            $scope.currentItem.categorysort = $scope.currentItem.categoryname.toUpperCase();
         } else {
-            $scope.currentItem.categorysort = $scope.currentItem.categoryparent + ":" + $scope.currentItem.categoryname;
+            $scope.currentItem.categorysort = $scope.currentItem.categoryparent.toUpperCase() + ":" + $scope.currentItem.categoryname.toUpperCase();
         }
         if ($scope.inEditMode) {
             // Update

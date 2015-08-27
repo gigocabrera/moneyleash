@@ -82,6 +82,7 @@ moneyleashapp.controller('PickTransactionAccountToController', function ($scope,
 // PICK TRANSACTION-PAYEE CONTROLLER
 moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $ionicHistory, PayeesFactory, PayeesService, PickTransactionServices) {
 
+    $scope.hideValidationMessage = true;
     $scope.data = { "payees": [], "search": '' };
     $scope.search = function () {
         PayeesFactory.searchPayees($scope.data.search).then(
@@ -93,8 +94,17 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
 
     // SAVE PAYEE
     $scope.savePayee = function () {
+
+        // Validate form data
+        if (typeof $scope.data.search === 'undefined' || $scope.data.search === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please enter payee name"
+            return;
+        }
+
         $scope.currentItem = {
             'payeename': $scope.data.search,
+            'payeesort': $scope.data.search.toUpperCase(),
             'lastcategory': '',
             'lastcategoryid': '',
             'lastamount': ''

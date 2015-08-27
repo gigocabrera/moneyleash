@@ -873,6 +873,7 @@
     <Content Include="www\templates\intro.html" />
     <Content Include="www\templates\itemdetails.html" />
     <Content Include="www\templates\login.html" />
+    <Content Include="www\templates\payee.html" />
     <Content Include="www\templates\payees.html" />
     <Content Include="www\templates\payeetransactions.html" />
     <Content Include="www\templates\personalprofile.html" />

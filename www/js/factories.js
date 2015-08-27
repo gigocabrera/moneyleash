@@ -428,9 +428,17 @@ angular.module('moneyleash.factories', [])
         var thisHouseId = myCache.get('thisHouseId');
         return {
             getPayees: function () {
-                ref = fb.child("houses").child(thisHouseId).child("memberpayees").orderByChild('payeename');
+                ref = fb.child("houses").child(thisHouseId).child("memberpayees").orderByChild('payeesort');
                 payees = $firebaseArray(ref);
                 return payees;
+            },
+            getPayee: function (payeeid) {
+                var deferred = $q.defer();
+                ref = fb.child("houses").child(thisHouseId).child("memberpayees").child(payeeid);
+                ref.once("value", function (snap) {
+                    deferred.resolve(snap.val());
+                });
+                return deferred.promise;
             },
             getTransactionsByPayee: function (payeeid) {
                 ref = fb.child("houses").child(thisHouseId).child("membertransactionsbypayee").child(payeeid);

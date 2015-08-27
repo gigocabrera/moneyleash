@@ -223,7 +223,7 @@
     font-size: 20px;
 }
 .SectionDivider {
-    font-weight: normal;
+    font-weight: bold;
     font: 13px 'PT Sans', sans-serif;
     padding-top: 8px;
     padding-bottom: 3px;
@@ -301,7 +301,7 @@
     width: 25px;
     text-align: center;
     padding-left: 9px;
-    text-shadow: 2px 2px #eeeeee;
+    text-shadow: 1px 1px #eeeeee;
 }
 .icon-left-smaller:before {
     font-size: 24px;
@@ -337,7 +337,7 @@
     padding: 14px 49px 14px 40px;
 }
 .item-icon-left {
-    padding-left: 40px;
+    /*padding-left: 40px;*/
 }
 .bar.bar-subheader.CustomSubHeader {
   padding-top: 3px;
@@ -706,12 +706,12 @@ button.customHeaderSize {
 .ml-login-input input {
     font-size: 20px;
     height: 35px;
-    padding: 5px 0 5px 0;
+    padding: 0;
 }
 .item-floating-label .input-label {
     font: 10px 'Verdana', sans-serif;
     color: #006699;
-    padding: 0 0 0 0;
+    padding: 0;
 }
 .item-floating-label .input-label.has-input {
     top: 4px;
@@ -727,7 +727,7 @@ button.customHeaderSize {
 
 /* Form styles */
 .form-group {
-    height: 50px;
+    /*height: 50px;*/
 }
 .form-group img {
     margin-left: 40px;
@@ -761,6 +761,13 @@ button.customHeaderSize {
     padding-bottom: 0;
     font-size: 20px;
     background-color: transparent;
+}
+.form-group .item-floating-label {
+    border: 0;
+    margin-left: 65px;
+}
+.list-inset .item {
+    padding: 3px;
 }
 .customMarginTop input[type="text"] {
     margin-top: -8px;

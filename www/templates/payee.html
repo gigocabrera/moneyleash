@@ -1,0 +1,20 @@
+<ion-view title="Payee">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-positive customHeaderIcon customHeaderIconSmall" ng-click="savePayee(currentItem)">Save</button>
+    </ion-nav-buttons>
+    <ion-content has-header="true">
+        <div ng-hide="hideValidationMessage" class="cssSlideUp ng-hide">
+            <div class="validationDiv">
+                <p>
+                    {{ validationMessage }}
+                </p>
+            </div>
+        </div>
+        <div class="ion-list">
+            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
+                <i class="icon fa fa-clipboard placeholder-icon"></i>
+                <input type="text" ng-model="currentItem.payeename" placeholder="Payee Name" autocapitalize="words">
+            </ion-item>
+        </div>
+    </ion-content>
+</ion-view>
