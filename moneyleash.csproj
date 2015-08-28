@@ -367,6 +367,12 @@
     <None Include="www\lib\ionic-filter-bar\.bower.json" />
     <None Include="www\lib\ionic-filter-bar\bower.json" />
     <None Include="www\lib\ionic-filter-bar\scss\ionic.filter.bar.scss" />
+    <None Include="www\lib\ionic-service-core\.bower.json" />
+    <None Include="www\lib\ionic-service-core\bower.json" />
+    <None Include="www\lib\ionic-service-core\changelog.md" />
+    <None Include="www\lib\ionic-service-core\LICENSE" />
+    <None Include="www\lib\ionic-service-core\package.json" />
+    <None Include="www\lib\ionic-service-core\README.md" />
     <None Include="www\lib\ionic\.bower.json" />
     <None Include="www\lib\ionic\.sass-cache\b0df7a6b930cd404e7a2a7a4960895022539b022\ionicons.scssc" />
     <None Include="www\lib\ionic\.sass-cache\b0df7a6b930cd404e7a2a7a4960895022539b022\_ionicons-font.scssc" />
@@ -900,6 +906,8 @@
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.js" />
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.min.css" />
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.min.js" />
+    <Content Include="www\lib\ionic-service-core\ionic-core.js" />
+    <Content Include="www\lib\ionic-service-core\test.html" />
     <Content Include="www\lib\ionic\css\ionic.css" />
     <Content Include="www\lib\ionic\css\ionic.min.css" />
     <Content Include="www\lib\ionic\css\ionicons\ionicons.css" />
