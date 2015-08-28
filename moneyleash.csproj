@@ -420,6 +420,7 @@
     <None Include="www\lib\ionic\scss\_type.scss" />
     <None Include="www\lib\ionic\scss\_util.scss" />
     <None Include="www\lib\ionic\scss\_variables.scss" />
+    <None Include="www\lib\ionic\version.json" />
     <None Include="www\lib\ngCordova\.bower.json" />
     <None Include="www\lib\ngCordova\bower.json" />
     <None Include="www\lib\ngCordova\CHANGELOG.md" />
