@@ -105,12 +105,43 @@
     <None Include="platforms\ios\www\fonts\ionicons.eot" />
     <None Include="platforms\ios\www\fonts\ionicons.ttf" />
     <None Include="platforms\ios\www\fonts\ionicons.woff" />
+    <None Include="platforms\ios\www\lib\angular-animate\.bower.json" />
+    <None Include="platforms\ios\www\lib\angular-animate\angular-animate.min.js.map" />
+    <None Include="platforms\ios\www\lib\angular-animate\bower.json" />
+    <None Include="platforms\ios\www\lib\angular-animate\package.json" />
+    <None Include="platforms\ios\www\lib\angular-animate\README.md" />
+    <None Include="platforms\ios\www\lib\angular-sanitize\.bower.json" />
+    <None Include="platforms\ios\www\lib\angular-sanitize\angular-sanitize.min.js.map" />
+    <None Include="platforms\ios\www\lib\angular-sanitize\bower.json" />
+    <None Include="platforms\ios\www\lib\angular-sanitize\package.json" />
+    <None Include="platforms\ios\www\lib\angular-sanitize\README.md" />
+    <None Include="platforms\ios\www\lib\angular-ui-router\.bower.json" />
+    <None Include="platforms\ios\www\lib\angular-ui-router\bower.json" />
+    <None Include="platforms\ios\www\lib\angular-ui-router\CHANGELOG.md" />
+    <None Include="platforms\ios\www\lib\angular-ui-router\CONTRIBUTING.md" />
+    <None Include="platforms\ios\www\lib\angular-ui-router\LICENSE" />
+    <None Include="platforms\ios\www\lib\angular-ui-router\README.md" />
+    <None Include="platforms\ios\www\lib\angular\.bower.json" />
+    <None Include="platforms\ios\www\lib\angular\angular.min.js.gzip" />
+    <None Include="platforms\ios\www\lib\angular\angular.min.js.map" />
+    <None Include="platforms\ios\www\lib\angular\bower.json" />
+    <None Include="platforms\ios\www\lib\angular\package.json" />
+    <None Include="platforms\ios\www\lib\angular\README.md" />
     <None Include="platforms\ios\www\lib\ion-autocomplete\.travis.yml" />
     <None Include="platforms\ios\www\lib\ion-autocomplete\bower.json" />
     <None Include="platforms\ios\www\lib\ion-autocomplete\LICENSE" />
     <None Include="platforms\ios\www\lib\ion-autocomplete\package.json" />
     <None Include="platforms\ios\www\lib\ion-autocomplete\README.md" />
     <None Include="platforms\ios\www\lib\ion-autocomplete\RELEASENOTES.md" />
+    <None Include="platforms\ios\www\lib\ionic-filter-bar\.bower.json" />
+    <None Include="platforms\ios\www\lib\ionic-filter-bar\bower.json" />
+    <None Include="platforms\ios\www\lib\ionic-filter-bar\scss\ionic.filter.bar.scss" />
+    <None Include="platforms\ios\www\lib\ionic-service-core\.bower.json" />
+    <None Include="platforms\ios\www\lib\ionic-service-core\bower.json" />
+    <None Include="platforms\ios\www\lib\ionic-service-core\changelog.md" />
+    <None Include="platforms\ios\www\lib\ionic-service-core\LICENSE" />
+    <None Include="platforms\ios\www\lib\ionic-service-core\package.json" />
+    <None Include="platforms\ios\www\lib\ionic-service-core\README.md" />
     <None Include="platforms\ios\www\lib\ionic\.bower.json" />
     <None Include="platforms\ios\www\lib\ionic\fonts\ionicons.eot" />
     <None Include="platforms\ios\www\lib\ionic\fonts\ionicons.ttf" />
@@ -517,6 +548,7 @@
     <Content Include="platforms\ios\www\css\font-awesome.min.css" />
     <Content Include="platforms\ios\www\css\moneyleash.css" />
     <Content Include="platforms\ios\www\fonts\ionicons.svg" />
+    <Content Include="platforms\ios\www\img\intro1.png" />
     <Content Include="platforms\ios\www\index.html" />
     <Content Include="platforms\ios\www\js\angular-translate.min.js" />
     <Content Include="platforms\ios\www\js\app.js" />
@@ -536,6 +568,29 @@
     <Content Include="platforms\ios\www\js\ion-affix.js" />
     <Content Include="platforms\ios\www\js\moment.js" />
     <Content Include="platforms\ios\www\js\ng-cordova.min.js" />
+    <Content Include="platforms\ios\www\lib\angular-animate\angular-animate.js" />
+    <Content Include="platforms\ios\www\lib\angular-animate\angular-animate.min.js" />
+    <Content Include="platforms\ios\www\lib\angular-animate\index.js" />
+    <Content Include="platforms\ios\www\lib\angular-sanitize\angular-sanitize.js" />
+    <Content Include="platforms\ios\www\lib\angular-sanitize\angular-sanitize.min.js" />
+    <Content Include="platforms\ios\www\lib\angular-sanitize\index.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\release\angular-ui-router.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\release\angular-ui-router.min.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\common.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\resolve.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\state.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\stateDirectives.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\stateFilters.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\templateFactory.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\urlMatcherFactory.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\urlRouter.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\view.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\viewDirective.js" />
+    <Content Include="platforms\ios\www\lib\angular-ui-router\src\viewScroll.js" />
+    <Content Include="platforms\ios\www\lib\angular\angular-csp.css" />
+    <Content Include="platforms\ios\www\lib\angular\angular.js" />
+    <Content Include="platforms\ios\www\lib\angular\angular.min.js" />
+    <Content Include="platforms\ios\www\lib\angular\index.js" />
     <Content Include="platforms\ios\www\lib\datePicker\css\angular-pickadate.css" />
     <Content Include="platforms\ios\www\lib\datePicker\js\angular-pickadate.js" />
     <Content Include="platforms\ios\www\lib\ion-autocomplete\.gitignore" />
@@ -556,6 +611,12 @@
     <Content Include="platforms\ios\www\lib\ion-autocomplete\test\ion-autocomplete.multiple-select.spec.js" />
     <Content Include="platforms\ios\www\lib\ion-autocomplete\test\ion-autocomplete.single-select.spec.js" />
     <Content Include="platforms\ios\www\lib\ion-autocomplete\test\templates\test-template.html" />
+    <Content Include="platforms\ios\www\lib\ionic-filter-bar\dist\ionic.filter.bar.css" />
+    <Content Include="platforms\ios\www\lib\ionic-filter-bar\dist\ionic.filter.bar.js" />
+    <Content Include="platforms\ios\www\lib\ionic-filter-bar\dist\ionic.filter.bar.min.css" />
+    <Content Include="platforms\ios\www\lib\ionic-filter-bar\dist\ionic.filter.bar.min.js" />
+    <Content Include="platforms\ios\www\lib\ionic-service-core\ionic-core.js" />
+    <Content Include="platforms\ios\www\lib\ionic-service-core\test.html" />
     <Content Include="platforms\ios\www\lib\ionic\css\ionic.css" />
     <Content Include="platforms\ios\www\lib\ionic\css\ionic.min.css" />
     <Content Include="platforms\ios\www\lib\ionic\fonts\ionicons.svg" />
@@ -908,11 +969,10 @@
     <Compile Include="plugins\org.apache.cordova.device\src\wp\Device.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="platforms\ios\www\lib\angular-ui-router\api\angular-ui-router.d.ts" />
     <TypeScriptCompile Include="www\lib\angular-ui-router\api\angular-ui-router.d.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="platforms\ios\www\img\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
