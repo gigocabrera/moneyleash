@@ -9,6 +9,13 @@
                 <input type="text" id="search" placeholder="Search" ng-change="search()" ng-model="data.search" autocapitalize="words" focus-me />
             </label>
         </div>
+        <div ng-hide="hideValidationMessage" class="cssSlideUp ng-hide">
+            <div class="validationDiv">
+                <p>
+                    {{ validationMessage }}
+                </p>
+            </div>
+        </div>
         <ion-list>
             <ion-item class="mlcategories mlSmallerFont" ng-repeat="payee in data.payees" ng-click="selectPayee(payee)" href="#">
                 <i class="fa fa-user iconPadding"></i>

@@ -7,15 +7,21 @@
                     <i class="fa fa-unlock"></i>
                 </div>
             </div>
-            <div class="list list-inset">
-                <label class="item item-input ml-login-input item-floating-label">
-                    <span class="input-label">Email</span>
-                    <input type="email" placeholder="Email" ng-model="user.email">
-                </label>
-                <label class="item item-input ml-login-input item-floating-label">
-                    <span class="input-label">Password</span>
-                    <input type="password" placeholder="Password" ng-model="user.password">
-                </label>
+            <div class="ion-list list-inset">
+                <ion-item class="item-icon-left form-group customMarginTop">
+                    <i class="icon fa fa-envelope placeholder-icon"></i>
+                    <label class="item item-input ml-login-input item-floating-label">
+                        <span class="input-label">Email</span>
+                        <input type="email" placeholder="Email" ng-model="user.email">
+                    </label>
+                </ion-item>
+                <ion-item class="item-icon-left form-group customMarginTop">
+                    <i class="icon fa fa-lock placeholder-icon"></i>
+                    <label class="item item-input ml-login-input item-floating-label">
+                        <span class="input-label">Password</span>
+                        <input type="password" placeholder="Password" ng-model="user.password">
+                    </label>
+                </ion-item>
             </div>
             <div class="padding">
                 <input type="submit" class="button button-block button-energized button-theme" ng-click="doLogIn(user)" placeholder="Submit" />
