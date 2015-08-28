@@ -783,10 +783,7 @@
     <Content Include="www\css\moneyleash.css" />
     <Content Include="www\fonts\fontawesome-webfont.svg" />
     <Content Include="www\fonts\ionicons.svg" />
-    <Content Include="www\img\bg-1.png" />
-    <Content Include="www\img\bg-intro.jpg" />
-    <Content Include="www\img\ionic.png" />
-    <Content Include="www\img\logo.png" />
+    <Content Include="www\img\intro1.png" />
     <Content Include="www\index.html" />
     <Content Include="www\js\angular-translate.min.js" />
     <Content Include="www\js\app.js" />
