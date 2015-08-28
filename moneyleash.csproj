@@ -143,10 +143,12 @@
     <None Include="platforms\ios\www\lib\ionic-service-core\package.json" />
     <None Include="platforms\ios\www\lib\ionic-service-core\README.md" />
     <None Include="platforms\ios\www\lib\ionic\.bower.json" />
+    <None Include="platforms\ios\www\lib\ionic\bower.json" />
     <None Include="platforms\ios\www\lib\ionic\fonts\ionicons.eot" />
     <None Include="platforms\ios\www\lib\ionic\fonts\ionicons.ttf" />
     <None Include="platforms\ios\www\lib\ionic\fonts\ionicons.woff" />
     <None Include="platforms\ios\www\lib\ionic\js\angular\angular-resource.min.js.map" />
+    <None Include="platforms\ios\www\lib\ionic\README.md" />
     <None Include="platforms\ios\www\lib\ionic\scss\ionic.scss" />
     <None Include="platforms\ios\www\lib\ionic\scss\ionicons\ionicons.scss" />
     <None Include="platforms\ios\www\lib\ionic\scss\ionicons\_ionicons-animation.scss" />
@@ -191,6 +193,7 @@
     <None Include="platforms\ios\www\lib\ionic\scss\_variables.scss" />
     <None Include="platforms\ios\www\lib\ngCordova\bower.json" />
     <None Include="platforms\ios\www\lib\ngCordova\CHANGELOG.md" />
+    <None Include="platforms\ios\www\lib\ngCordova\CODE_OF_CONDUCT.md" />
     <None Include="platforms\ios\www\lib\ngCordova\LICENSE" />
     <None Include="platforms\ios\www\lib\ngCordova\package.json" />
     <None Include="platforms\ios\www\lib\ngCordova\README.md" />
@@ -404,11 +407,13 @@
     <None Include="www\lib\ionic\.sass-cache\d1d63af8d4f63119f878b3f8fa9774cbd6c47fc6\_type.scssc" />
     <None Include="www\lib\ionic\.sass-cache\d1d63af8d4f63119f878b3f8fa9774cbd6c47fc6\_util.scssc" />
     <None Include="www\lib\ionic\.sass-cache\d1d63af8d4f63119f878b3f8fa9774cbd6c47fc6\_variables.scssc" />
+    <None Include="www\lib\ionic\bower.json" />
     <None Include="www\lib\ionic\css\ionicons\ionicons.css.map" />
     <None Include="www\lib\ionic\fonts\ionicons.eot" />
     <None Include="www\lib\ionic\fonts\ionicons.ttf" />
     <None Include="www\lib\ionic\fonts\ionicons.woff" />
     <None Include="www\lib\ionic\js\angular\angular-resource.min.js.map" />
+    <None Include="www\lib\ionic\README.md" />
     <None Include="www\lib\ionic\scss\ionic.scss" />
     <None Include="www\lib\ionic\scss\ionicons\ionicons.scss" />
     <None Include="www\lib\ionic\scss\ionicons\_ionicons-animation.scss" />
@@ -661,6 +666,7 @@
     <Content Include="platforms\ios\www\templates\intro.html" />
     <Content Include="platforms\ios\www\templates\itemdetails.html" />
     <Content Include="platforms\ios\www\templates\login.html" />
+    <Content Include="platforms\ios\www\templates\payee.html" />
     <Content Include="platforms\ios\www\templates\payees.html" />
     <Content Include="platforms\ios\www\templates\payeetransactions.html" />
     <Content Include="platforms\ios\www\templates\personalprofile.html" />
@@ -867,8 +873,10 @@
     <Content Include="www\js\ng-cordova.min.js" />
     <Content Include="www\lib\angular-animate\angular-animate.js" />
     <Content Include="www\lib\angular-animate\angular-animate.min.js" />
+    <Content Include="www\lib\angular-animate\index.js" />
     <Content Include="www\lib\angular-sanitize\angular-sanitize.js" />
     <Content Include="www\lib\angular-sanitize\angular-sanitize.min.js" />
+    <Content Include="www\lib\angular-sanitize\index.js" />
     <Content Include="www\lib\angular-ui-router\release\angular-ui-router.js" />
     <Content Include="www\lib\angular-ui-router\release\angular-ui-router.min.js" />
     <Content Include="www\lib\angular-ui-router\src\common.js" />
@@ -885,6 +893,7 @@
     <Content Include="www\lib\angular\angular-csp.css" />
     <Content Include="www\lib\angular\angular.js" />
     <Content Include="www\lib\angular\angular.min.js" />
+    <Content Include="www\lib\angular\index.js" />
     <Content Include="www\lib\datePicker\css\angular-pickadate.css" />
     <Content Include="www\lib\datePicker\js\angular-pickadate.js" />
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.css" />
