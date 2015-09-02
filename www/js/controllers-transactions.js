@@ -224,7 +224,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         var clearedBal = 0;
         var todayBal = 0;
         //
-        //console.log("here");
+        console.log("here");
         //
         angular.forEach($scope.transactions, function (transaction) {
             //

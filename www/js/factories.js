@@ -249,7 +249,7 @@ angular.module('moneyleash.factories', [])
         var accounts = {};
         var accounttypes = {};
         var transactions = {};
-        var transactionsByDate = {};
+        var alltransactions = {};
         var transactionsbycategoryRef = {};
         var transactionsbypayeeRef = {};
         var accountRef = {};
@@ -285,7 +285,7 @@ angular.module('moneyleash.factories', [])
                 return accounttypes;
             },
             getTransaction: function (transactionid) {
-                var thisTransaction = transactionsByDate.$getRecord(transactionid);
+                var thisTransaction = alltransactions.$getRecord(transactionid);
                 return thisTransaction;
             },
             getTransactions: function (accountid) {
@@ -295,9 +295,8 @@ angular.module('moneyleash.factories', [])
             },
             getTransactionsByDate: function (accountid) {
                 ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid).orderByChild('date');
-                //ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid).orderByPriority();
-                transactionsByDate = $firebaseArray(ref);
-                return transactionsByDate;
+                alltransactions = $firebaseArray(ref);
+                return alltransactions;
             },
             getTransactionRef: function (accountid, transactionid) {
                 transactionRef = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid).child(transactionid);
@@ -408,12 +407,12 @@ angular.module('moneyleash.factories', [])
                 }
             },
             deleteTransaction: function (transaction) {
-                transactionsByDate.$remove(transaction).then(function (ref) {
+                alltransactions.$remove(transaction).then(function (ref) {
                     ref.key() === transaction.$id;
                 });
             },
             saveTransaction: function (transaction) {
-                transactionsByDate.$save(transaction).then(function (ref) {
+                alltransactions.$save(transaction).then(function (ref) {
                     ref.key() === transaction.$id;
                 });
             }

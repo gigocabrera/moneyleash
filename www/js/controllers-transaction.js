@@ -332,15 +332,16 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             $scope.validationMessage = "Please enter an amount for this transaction"
             return;
         }
+
+        // Format date
+        var dtTran = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY').valueOf();
+        $scope.currentItem.date = dtTran;
+
         if (typeof $scope.currentItem.date === 'undefined' || $scope.currentItem.date === '') {
             $scope.hideValidationMessage = false;
             $scope.validationMessage = "Please select a date for this transaction"
             return;
         }
-
-        // Format date
-        var dtTran = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY').valueOf();
-        $scope.currentItem.date = dtTran;
 
         // Handle transaction type
         if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId === $scope.currentItem.accountToId) {

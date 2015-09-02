@@ -2,7 +2,7 @@
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionicActionSheet, $ionicHistory, MembersFactory, fireBaseData) {
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionicActionSheet, $ionicHistory, fireBaseData, myCache) {
 
     $scope.showMenuIcon = true;
 
@@ -27,6 +27,8 @@ moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionic
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
+                myCache.put('thisHouseId', '');
+                myCache.put('thisUserName', '');
                 fireBaseData.clearData();
                 $ionicHistory.clearCache();
                 $rootScope.authData = '';
@@ -45,9 +47,11 @@ moneyleashapp.controller('AboutController', function ($scope, $ionicSlideBoxDele
 })
 
 // INTRO CONTROLLER
-moneyleashapp.controller('IntroController', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData) {
+moneyleashapp.controller('IntroController', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, myCache) {
 
     $ionicHistory.clearHistory();
+    myCache.put('thisHouseId', '');
+    myCache.put('thisUserName', '');
     fireBaseData.clearData();
     $ionicHistory.clearCache();
     $rootScope.authData = '';
