@@ -284,13 +284,9 @@ angular.module('moneyleash.factories', [])
                 accounttypes = $firebaseArray(ref);
                 return accounttypes;
             },
-            getTransaction: function (accountid, transactionid) {
-                var deferred = $q.defer();
-                ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid).child(transactionid);
-                ref.once("value", function (snap) {
-                    deferred.resolve(snap.val());
-                });
-                return deferred.promise;
+            getTransaction: function (transactionid) {
+                var thisTransaction = transactionsByDate.$getRecord(transactionid);
+                return thisTransaction;
             },
             getTransactions: function (accountid) {
                 ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid);
@@ -411,9 +407,15 @@ angular.module('moneyleash.factories', [])
                     });
                 }
             },
-            deleteTransaction: function (accountid, transactionid) {
-                transactionRef = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid).child(transactionid);
-                transactionRef.remove();
+            deleteTransaction: function (transaction) {
+                transactionsByDate.$remove(transaction).then(function (ref) {
+                    ref.key() === transaction.$id;
+                });
+            },
+            saveTransaction: function (transaction) {
+                transactionsByDate.$save(transaction).then(function (ref) {
+                    ref.key() === transaction.$id;
+                });
             }
         };
     })

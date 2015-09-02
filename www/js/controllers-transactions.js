@@ -1,6 +1,6 @@
 
 // TRANSACTIONS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicPopover, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickTransactionServices, dateFilter, $ionicFilterBar) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $rootScope, $stateParams, $ionicPopover, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickTransactionServices, $ionicFilterBar) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
@@ -104,92 +104,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
     $scope.list = function () {
         //
         $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
-        //$scope.transactions.$loaded().then(function () {
-        //    //
-        //    var transaction = {};
-        //    var currentDate = '';
-        //    var todaysDate = new Date();
-        //    var previousDay = '';
-        //    var previousYear = '';
-        //    var groupValue = '';
-        //    var todayFlag = false;
-        //    var group = {};
-        //    var format = 'MMMM dd, yyyy';
-        //    var total = 0;
-        //    var cleared = 0;
-        //    var runningBal = 0;
-        //    var clearedBal = 0;
-        //    //
-        //    angular.forEach($scope.transactions, function (transaction) {
-        //        //
-        //        // Add grouping functionality for sticky affix elements
-        //        // https://github.com/aliok/ion-affix
-        //        //
-        //        currentDate = new Date(transaction.date);
-        //        if (!previousDay || currentDate.getDate() !== previousDay || currentDate.getFullYear() !== previousYear) {
-        //            var dividerId = dateFilter(currentDate, format);
-        //            if (dividerId !== groupValue) {
-        //                groupValue = dividerId;
-        //                var tday = dateFilter(todaysDate, format);
-        //                //console.log("tday: " + tday + ", " + dividerId);
-        //                if (tday === dividerId) {
-        //                    todayFlag = true;
-        //                } else {
-        //                    todayFlag = false;
-        //                }
-        //                group = {
-        //                    label: groupValue,
-        //                    transactions: [],
-        //                    isToday: todayFlag
-        //                };
-        //                $scope.groups.push(group);
-        //                //console.log(group);
-        //            }
-        //        }
-        //        group.transactions.push(transaction);
-        //        previousDay = currentDate.getDate();
-        //        previousYear = currentDate.getFullYear();
-        //        //
-        //        // Handle Running Balance
-        //        //
-        //        total++;
-        //        transaction.ClearedClass = '';
-        //        if (transaction.iscleared === true) {
-        //            transaction.ClearedClass = 'transactionIsCleared';
-        //            cleared++;
-        //            if (transaction.type === "Income") {
-        //                if (!isNaN(transaction.amount)) {
-        //                    clearedBal = clearedBal + parseFloat(transaction.amount);
-        //                }
-        //            } else if (transaction.type === "Expense") {
-        //                clearedBal = clearedBal - parseFloat(transaction.amount);
-        //            }
-        //            transaction.clearedBal = clearedBal.toFixed(2);
-        //        }
-        //        if (transaction.type === "Income") {
-        //            if (!isNaN(transaction.amount)) {
-        //                runningBal = runningBal + parseFloat(transaction.amount);
-        //            }
-        //        } else if (transaction.type === "Expense") {
-        //            runningBal = runningBal - parseFloat(transaction.amount);
-        //        }
-        //        transaction.runningbal = runningBal.toFixed(2);
-        //    })
-        //    $scope.totalCount = total;
-        //    $scope.clearedCount = cleared;
-        //    $scope.pendingCount = total - cleared;
-        //    $scope.currentBalance = runningBal.toFixed(2);
-        //    $scope.clearedBalance = clearedBal.toFixed(2);
-
-        //    // We want to update account totals
-        //    AccountsFactory.getAccount($stateParams.accountId).then(function (account) {
-        //        $scope.temp = account;
-        //        $scope.temp.balancetoday = runningBal.toFixed(2);
-        //        $scope.temp.balancecurrent = runningBal.toFixed(2);
-        //        $scope.temp.balancecleared = clearedBal.toFixed(2);
-        //        AccountsFactory.updateAccount($stateParams.accountId, $scope.temp);
-        //    });
-        //})
     };
 
     // SET TRANSACTION CLEAR
@@ -295,9 +209,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
                 //
                 // Delete transaction
                 //
-                $scope.transactions.$remove(transaction).then(function (newChildRef) {
-                    newChildRef.key() === transaction.$id;
-                })
+                AccountsFactory.deleteTransaction(transaction);
                 return true;
             }
         });
@@ -311,6 +223,8 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $ro
         var runningBal = 0;
         var clearedBal = 0;
         var todayBal = 0;
+        //
+        //console.log("here");
         //
         angular.forEach($scope.transactions, function (transaction) {
             //
