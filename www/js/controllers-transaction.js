@@ -231,6 +231,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         'iscleared': false,
         'isrecurring': false,
         'istransfer': false,
+        'isphoto': false,
         'notes': '',
         'payee': '',
         'photo': '',
@@ -362,6 +363,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         // Handle default blank photo
         if ($scope.currentItem.photo === 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==') {
             $scope.currentItem.photo = '';
+            $scope.currentItem.isphoto = false;
+        } else {
+            $scope.currentItem.isphoto = true;
         }
 
         if ($scope.inEditMode) {

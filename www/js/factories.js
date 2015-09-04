@@ -406,10 +406,13 @@ angular.module('moneyleash.factories', [])
                     });
                 }
             },
-            deleteTransaction: function (transaction) {
+            deleteTransaction_ORIG: function (transaction) {
                 alltransactions.$remove(transaction).then(function (ref) {
                     ref.key() === transaction.$id;
                 });
+            },
+            deleteTransaction: function () {
+                return alltransactions;
             },
             saveTransaction: function (transaction) {
                 alltransactions.$save(transaction).then(function (ref) {
