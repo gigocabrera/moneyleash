@@ -182,14 +182,13 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
 })
 
 // PICK TRANSACTION DATE CONTROLLER
-moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionServices, dateFilter) {
+moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionServices) {
     
     if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
-        // format date to be used by pickadate directive
-        var format = 'yyyy-MM-dd';
-        $scope.myDate = dateFilter(PickTransactionServices.dateSelected, format);
+        $scope.myDate = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY').format('YYYY-MM-DD');
     }
     $scope.dateChanged = function (transDate) {
+        transDate = moment(transDate, 'YYYY-MM-DD').format('MMMM D, YYYY');
         PickTransactionServices.updateDate(transDate);
         $ionicHistory.goBack();
     };
@@ -209,7 +208,7 @@ moneyleashapp.controller('PickTransactionNoteController', function ($scope, $ion
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, $cordovaCamera, AccountsFactory, PickTransactionServices, PayeesService, MembersFactory, fireBaseData, dateFilter, myCache) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, PayeesService, myCache) {
 
     $scope.hideValidationMessage = true;
     $scope.loadedClass = 'hidden';
@@ -217,8 +216,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     $scope.AccountTitle = '';
     $scope.inEditMode = false;
     $scope.isTransfer = false;
-    $scope.uid = '';
-    $scope.editIndex = '';
     $scope.ItemFrom = {};
     $scope.ItemTo = {};
     $scope.ItemOriginal = {};
@@ -234,6 +231,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         'iscleared': false,
         'isrecurring': false,
         'istransfer': false,
+        'isphoto': false,
         'notes': '',
         'payee': '',
         'photo': '',
@@ -260,12 +258,11 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             $scope.currentItem.photo = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
         }
         $scope.currentItem.note = PickTransactionServices.noteSelected;
-        if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
-            // format date to be displayed
-            var format = 'MMMM dd, yyyy';
-            $scope.currentItem.date = dateFilter(PickTransactionServices.dateSelected, format);
-        }
         $scope.isTransfer = ($scope.currentItem.typedisplay === "Transfer") ? true : false;
+        // Handle transaction date
+        if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
+            $scope.DisplayDate = PickTransactionServices.dateSelected;
+        }
         // Handle transaction type
         if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId === $scope.currentItem.accountToId) {
             PickTransactionServices.typeInternalSelected = 'Income';
@@ -274,47 +271,37 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         }
     });
 
-    // EDIT / CREATE ACCOUNT
+    // EDIT / CREATE TRANSACTION
+    $scope.DisplayDate = '';
     if ($stateParams.transactionId === '') {
         $scope.TransactionTitle = "Create Transaction";
     } else {
         // Edit transaction
-        $scope.editIndex = $stateParams.transactionId;
+        var transaction = AccountsFactory.getTransaction($stateParams.transactionId);
         $scope.inEditMode = true;
-        AccountsFactory.getTransaction($stateParams.accountId, $stateParams.transactionId).then(function (transaction) {
-            var dtTransDate = new Date(transaction.date);
-            if (isNaN(dtTransDate)) {
-                transaction.date = "";
-            } else {
-                // save date in ISO format in service
-                dtTransDate = dtTransDate.toISOString();
-                PickTransactionServices.dateSelected = dtTransDate;
-                // format date to be displayed
-                var format = 'MMMM dd, yyyy';
-                transaction.date = dateFilter(dtTransDate, format);
-            }
-            $scope.currentItem = transaction;
-            $scope.isTransfer = $scope.currentItem.istransfer;
-            PickTransactionServices.typeDisplaySelected = $scope.currentItem.typedisplay;
-            PickTransactionServices.typeInternalSelected = $scope.currentItem.type;
-            PickTransactionServices.categorySelected = $scope.currentItem.category;
-            PickTransactionServices.categoryid = $scope.currentItem.categoryid;
-            PickTransactionServices.amountSelected = $scope.currentItem.amount;
-            PickTransactionServices.payeeSelected = $scope.currentItem.payee;
-            PickTransactionServices.payeeid = $scope.currentItem.payeeid;
-            PickTransactionServices.accountFromSelected = $scope.currentItem.accountFrom;
-            PickTransactionServices.accountFromId = $scope.currentItem.accountFromId;
-            PickTransactionServices.accountToSelected = $scope.currentItem.accountTo;
-            PickTransactionServices.accountToId = $scope.currentItem.accountToId;
-            PickTransactionServices.noteSelected = $scope.currentItem.note;
-            PickTransactionServices.photoSelected = $scope.currentItem.photo;
-            if ($scope.currentItem.photo === '') {
-                $scope.currentItem.photo = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-            }
-            if ($scope.currentItem.istransfer) {
-                angular.copy($scope.currentItem, $scope.ItemOriginal);
-            }
-        });
+        $scope.currentItem = transaction;
+        $scope.DisplayDate = moment(transaction.date).format('MMMM D, YYYY');
+        PickTransactionServices.dateSelected = $scope.DisplayDate;
+        $scope.isTransfer = $scope.currentItem.istransfer;
+        PickTransactionServices.typeDisplaySelected = $scope.currentItem.typedisplay;
+        PickTransactionServices.typeInternalSelected = $scope.currentItem.type;
+        PickTransactionServices.categorySelected = $scope.currentItem.category;
+        PickTransactionServices.categoryid = $scope.currentItem.categoryid;
+        PickTransactionServices.amountSelected = $scope.currentItem.amount;
+        PickTransactionServices.payeeSelected = $scope.currentItem.payee;
+        PickTransactionServices.payeeid = $scope.currentItem.payeeid;
+        PickTransactionServices.accountFromSelected = $scope.currentItem.accountFrom;
+        PickTransactionServices.accountFromId = $scope.currentItem.accountFromId;
+        PickTransactionServices.accountToSelected = $scope.currentItem.accountTo;
+        PickTransactionServices.accountToId = $scope.currentItem.accountToId;
+        PickTransactionServices.noteSelected = $scope.currentItem.note;
+        PickTransactionServices.photoSelected = $scope.currentItem.photo;
+        if ($scope.currentItem.photo === '') {
+            $scope.currentItem.photo = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        }
+        if ($scope.currentItem.istransfer) {
+            angular.copy($scope.currentItem, $scope.ItemOriginal);
+        }
         $scope.TransactionTitle = "Edit Transaction";
     }
 
@@ -346,16 +333,16 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             $scope.validationMessage = "Please enter an amount for this transaction"
             return;
         }
+
+        // Format date
+        var dtTran = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY').valueOf();
+        $scope.currentItem.date = dtTran;
+
         if (typeof $scope.currentItem.date === 'undefined' || $scope.currentItem.date === '') {
             $scope.hideValidationMessage = false;
             $scope.validationMessage = "Please select a date for this transaction"
             return;
         }
-
-        // Format date
-        var dtTran = new Date($scope.currentItem.date);
-        dtTran = +dtTran;
-        $scope.currentItem.date = dtTran;
 
         // Handle transaction type
         if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId === $scope.currentItem.accountToId) {
@@ -376,6 +363,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         // Handle default blank photo
         if ($scope.currentItem.photo === 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==') {
             $scope.currentItem.photo = '';
+            $scope.currentItem.isphoto = false;
+        } else {
+            $scope.currentItem.isphoto = true;
         }
 
         if ($scope.inEditMode) {
@@ -387,9 +377,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                     //console.log('Synchronization failed');
                 }
             };
-            var transactionRef = AccountsFactory.getTransactionRef($stateParams.accountId, $stateParams.transactionId);
-            transactionRef.update($scope.currentItem, onComplete);
-            transactionRef.setPriority($scope.currentItem.date);
+            AccountsFactory.saveTransaction($scope.currentItem);
             //
             // Update transaction under category
             //

@@ -581,8 +581,7 @@ button.customHeaderSize {
     font-family: FontAwesome;
 }
 .toggleTransactionCleared:checked:after {
-	color: #44B449;
-	text-shadow: 0 0 0 #669991;
+	color: #00A2E8;
 	bottom: 1px;
 	position: relative;
 }

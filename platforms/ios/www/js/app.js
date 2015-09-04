@@ -3,7 +3,7 @@
 var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pascalprecht.translate', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
 
 moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen, MembersFactory) {
     $ionicPlatform.ready(function () {
@@ -22,16 +22,6 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
         setTimeout(function () {
             $cordovaSplashscreen.hide()
         }, 3000)
-
-        $rootScope.settings = {
-            'languages': [{
-                'prefix': 'en',
-                'name': 'English'
-            }, {
-                'prefix': 'es',
-                'name': 'Espa�ol'
-            }]
-        };
 
         Auth.$onAuth(function (authData) {
             if (authData) {
@@ -57,65 +47,9 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
     });
 })
 
-moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $translateProvider) {
+moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
 
     //$ionicConfigProvider.views.maxCache(0);
-
-    /************************************/
-    /* TRANSLATE                        */
-    /************************************/
-    $translateProvider.translations('en', {
-        SIGNIN: "Login",
-        REGISTER: "Register",
-        LOGOUT: "Logout",
-        FORGOT_PASSWORD: "Forgot password",
-        RECOVER_PASSWORD: "Recover password",
-        REGISTER_DONTHAVEACCOUNT: "I dont have an account",
-        REGISTER_ALREADYHAVEACCOUNT: "I already have an account",
-        FORM_EMAIL: "Email",
-        FORM_PASSWORD: "Password",
-        FORM_FIRSTNAME: "First Name",
-        FORM_LASTNAME: "Last Name",
-        TABS_NAME_DASHBOARD: "Dashboard",
-        TABS_NAME_EXPENSES: "Expenses",
-        TABS_NAME_MEMBERS: "Members",
-        TABS_NAME_SETTINGS: "Settings",
-        SETTINGS_LANGUAGE: "Change language",
-        SETTINGS_EDIT_PROFILE: "Edit Profile",
-        SETTINGS_QUIT_HOUSE: "Quit House",
-        REGISTER_FORGOTPASSWORD: "Forgot password",
-        PERSONALPROFILE: "Personal Profile",
-        FORM_CREATED: "Created",
-        FORM_UPDATED: "Updated",
-    });
-    $translateProvider.translations('es', {
-        SIGNIN: "Ingresar",
-        REGISTER: "Registrar",
-        LOGOUT: "Desconectar",
-        FORGOT_PASSWORD: "Perdi� contrase�a",
-        RECOVER_PASSWORD: "Recobrar contrase�a",
-        REGISTER_DONTHAVEACCOUNT: "No tengo cuenta",
-        REGISTER_ALREADYHAVEACCOUNT: "Tengo cuenta",
-        FORM_EMAIL: "Correo",
-        FORM_PASSWORD: "Contrase�a",
-        FORM_FIRSTNAME: "Nombre",
-        FORM_LASTNAME: "Apellido",
-        TABS_NAME_DASHBOARD: "Dashboard",
-        TABS_NAME_EXPENSES: "Egresos",
-        TABS_NAME_MEMBERS: "Miembros",
-        TABS_NAME_SETTINGS: "Configuraci�n",
-        SETTINGS_LANGUAGE: "Cambiar lenguaje",
-        SETTINGS_EDIT_PROFILE: "Modificar perfil",
-        SETTINGS_QUIT_HOUSE: "Abandonar Casa",
-        REGISTER_FORGOTPASSWORD: "Perdi� contrase�a",
-        PERSONALPROFILE: "Perfil del Usuario",
-        FORM_CREATED: "Creado",
-        FORM_UPDATED: "Modificado"
-
-    });
-    $translateProvider.preferredLanguage("en");
-    $translateProvider.fallbackLanguage("en");
-
     $stateProvider
 
       // INTRO

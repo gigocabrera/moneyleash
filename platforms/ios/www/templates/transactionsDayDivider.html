@@ -1,4 +1,4 @@
-<ion-view title={{AccountTitle}} ng-init="list()">
+<ion-view title={{AccountTitle}}>
     <ion-nav-buttons side="right">
         <button class="button-icon fa fa-search customHeaderIcon customHeaderIconSmall extraMarginRight" ng-click="showFilterBar()"></button>
         <button class="button button-icon ion-ios-more customHeaderIcon" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive customHeaderSize" ng-click="showSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
@@ -25,7 +25,7 @@
                                             <li><i class="fa fa-thumb-tack"></i>{{ transaction.category }}</li>
                                             <li><i ng-class="{'fa fa-file-text-o': transaction.note.length > 0}"></i></li>
                                             <li><i ng-class="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>
-                                            <li><i ng-class="{'fa fa-camera': transaction.photo.length > 0}"></i></li>
+                                            <li><i ng-class="{'fa fa-camera': transaction.isphoto == true}"></i></li>
                                             <li><i ng-class="{'fa fa-exchange': transaction.istransfer == true }"></i></li>
                                         </ul>
                                     </div>

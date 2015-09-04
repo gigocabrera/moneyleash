@@ -558,8 +558,10 @@
     <Content Include="platforms\ios\www\cordova_plugins.js" />
     <Content Include="platforms\ios\www\css\font-awesome.min.css" />
     <Content Include="platforms\ios\www\css\moneyleash.css" />
+    <Content Include="platforms\ios\www\demo.html" />
     <Content Include="platforms\ios\www\fonts\ionicons.svg" />
     <Content Include="platforms\ios\www\img\intro1.png" />
+    <Content Include="platforms\ios\www\img\iphone6.png" />
     <Content Include="platforms\ios\www\index.html" />
     <Content Include="platforms\ios\www\js\angular-translate.min.js" />
     <Content Include="platforms\ios\www\js\app.js" />
@@ -855,9 +857,11 @@
     <Content Include="SCSS_Command_Line_Watch.txt" />
     <Content Include="www\css\font-awesome.min.css" />
     <Content Include="www\css\moneyleash.css" />
+    <Content Include="www\demo.html" />
     <Content Include="www\fonts\fontawesome-webfont.svg" />
     <Content Include="www\fonts\ionicons.svg" />
     <Content Include="www\img\intro1.png" />
+    <Content Include="www\img\iphone6.png" />
     <Content Include="www\index.html" />
     <Content Include="www\js\app.js" />
     <Content Include="www\js\controllers-account.js" />
