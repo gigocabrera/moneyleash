@@ -222,14 +222,16 @@
 .item {
     font-size: 20px;
 }
-.SectionDivider {
+.DateDivider {
     font-weight: bold;
     font: 13px 'PT Sans', sans-serif;
     padding-top: 8px;
-    padding-bottom: 3px;
-    min-height: 35px;
+    padding-bottom: 8px;
+    min-height: 32px;
     color: #00A2E8;
-    /*background-color: #D3EAF0;*/
+}
+.DateDivider.assertive {
+    color: #ef473a;
 }
 .SectionDividerActive {
     color: #FF5E2E;

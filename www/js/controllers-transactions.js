@@ -1,6 +1,6 @@
 
 // TRANSACTIONS CONTROLLER
-moneyleashapp.controller('TransactionsController', function ($scope, $state, $stateParams, $ionicListDelegate, $ionicActionSheet, AccountsFactory, PickTransactionServices, $ionicFilterBar) {
+moneyleashapp.controller('TransactionsController', function ($scope, $state, $stateParams, $ionicListDelegate, $ionicActionSheet, $ionicPopover, AccountsFactory, PickTransactionServices, $ionicFilterBar) {
 
     $scope.transactions = [];
     $scope.AccountTitle = $stateParams.accountName;
@@ -8,11 +8,9 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     $scope.editIndex = 0;
     $scope.SortingIsEnabled = false;
 
-    //console.log("refreshList: " + $stateParams.refreshList);
-
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         if (fromState.name === "app.transaction") {
-            refresh($scope.transactions, $scope);
+            refresh($scope.transactions, $scope, AccountsFactory, $stateParams.accountId);
         }
     });
 
@@ -24,14 +22,12 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     }).then(function (popover) {
         $scope.popover = popover;
     });
-    //$scope.replaceIcon = false;
-    //$scope.openPopover = function ($event, replaceIt) {
-    //    $scope.popover.show($event);
-    //    // Hide after 5 seconds
-    //    //$timeout(function () {
-    //    //    $scope.popover.hide();
-    //    //}, 5000);
-    //};
+    $scope.openPopover = function ($event) {
+        $scope.popover.show($event);
+    };
+    $scope.closePopover = function () {
+        $scope.popover.hide();
+    };
 
     // SHOW FILTERS - ACTION SHEET
     $scope.moreOptions = function () {
@@ -92,7 +88,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     $scope.groups = [];
     $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
     $scope.transactions.$loaded().then(function (x) {
-        refresh($scope.transactions, $scope);
+        refresh($scope.transactions, $scope, AccountsFactory, $stateParams.accountId);
     }).catch(function (error) {
         console.error("Error:", error);
     });
@@ -138,7 +134,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
         };
         payeeTransactionRef.update(payeeTransaction, onComplete);
         //
-        refresh($scope.transactions, $scope);
+        refresh($scope.transactions, $scope, AccountsFactory, $stateParams.accountId);
         //
     };
 
@@ -205,7 +201,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
                 //
                 var alltransactions = AccountsFactory.deleteTransaction();
                 alltransactions.$remove(transaction).then(function (ref) {
-                    refresh($scope.transactions, $scope);
+                    refresh($scope.transactions, $scope, AccountsFactory, $stateParams.accountId);
                 });
                 return true;
             }
@@ -213,7 +209,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     };
 })
 
-function refresh(transactions, $scope) {
+function refresh(transactions, $scope, AccountsFactory, accountId) {
     //
     var currentDate = '';
     var todaysDate = new Date();
@@ -236,7 +232,7 @@ function refresh(transactions, $scope) {
         var transaction = transactions[index];
         //
         // Add grouping functionality for sticky affix elements
-        // https://github.com/aliok/ion-affix
+        // https://github.com/Poordeveloper/ion-sticky
         //
         currentDate = new Date(transaction.date);
         if (!previousDay || currentDate.getDate() !== previousDay || currentDate.getFullYear() !== previousYear) {
@@ -295,12 +291,12 @@ function refresh(transactions, $scope) {
     $scope.currentBalance = runningBal.toFixed(2);
     $scope.clearedBalance = clearedBal.toFixed(2);
 
-    //// We want to update account totals
-    //AccountsFactory.getAccount($stateParams.accountId).then(function (account) {
-    //    $scope.temp = account;
-    //    $scope.temp.balancetoday = runningBal.toFixed(2);
-    //    $scope.temp.balancecurrent = runningBal.toFixed(2);
-    //    $scope.temp.balancecleared = clearedBal.toFixed(2);
-    //    AccountsFactory.updateAccount($stateParams.accountId, $scope.temp);
-    //});
+    // We want to update account totals
+    AccountsFactory.getAccount(accountId).then(function (account) {
+        $scope.temp = account;
+        $scope.temp.balancetoday = runningBal.toFixed(2);
+        $scope.temp.balancecurrent = runningBal.toFixed(2);
+        $scope.temp.balancecleared = clearedBal.toFixed(2);
+        AccountsFactory.updateAccount(accountId, $scope.temp);
+    });
 }

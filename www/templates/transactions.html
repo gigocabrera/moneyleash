@@ -1,7 +1,7 @@
 <ion-view title={{AccountTitle}}>
     <ion-nav-buttons side="right">
         <button class="button-icon fa fa-search customHeaderIcon customHeaderIconSmall extraMarginRight" ng-click="showFilterBar()"></button>
-        <button class="button button-icon ion-ios-more customHeaderIcon" on-icon="button button-icon ion-ios-more" off-icon="button button-clear button-positive customHeaderSize" ng-click="showSorting(SortingIsEnabled)" icon-switcher>{{ reorderBtnText }}</button>
+        <button class="button button-icon ion-ios-more customHeaderIcon" ng-click="openPopover($event)"></button>
     </ion-nav-buttons>
     <div class="bar bar-subheader CustomSubHeader">
         <div class="row center">
@@ -10,9 +10,9 @@
             <div class="col balancesRow"><span>Cleared Balance</span><span><strong>{{ clearedBalance | currency }}</strong></span></div>
         </div>
     </div>
-    <ion-content class="has-header has-subheader">
+    <ion-content class="has-header has-subheader" ion-sticky>
         <div ng-repeat="group in groups | reverselist" class="ml_list">
-            <div class="item item-divider SectionDivider" ion-affix data-affix-within-parent-with-class="ml_list" ng-class="{SectionDividerActive: group.isToday == true}">
+            <div class="item item-divider SectionDivider" ng-class="{SectionDividerActive: group.isToday == true}">
                 {{ group.label }}
             </div>
             <ul>
