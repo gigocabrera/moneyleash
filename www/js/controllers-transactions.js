@@ -16,31 +16,14 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
         }
     });
 
-    // SORT
-    $scope.reorderBtnText = '';
-    $scope.showSorting = function (isEnabled) {
-        $scope.SortingIsEnabled = !isEnabled;
-        $scope.reorderBtnText = ($scope.SortingIsEnabled ? 'Done' : '');
-        //$scope.popover.hide();
-    };
-    
-    $scope.moveItem = function (transaction, fromIndex, toIndex) {
-        //$scope.transactions.splice(fromIndex, 1);
-        //$scope.transactions.splice(toIndex, 0, transaction);
-
-        //console.log(transaction);
-        //console.log(fromIndex);
-        //console.log(toIndex);
-    };
-
-    //// POPOVER
-    //$scope.animation = 'slide-in-up';
-    //$ionicPopover.fromTemplateUrl('templates/popover.html', {
-    //    scope: $scope,
-    //    animation: $scope.animation
-    //}).then(function (popover) {
-    //    $scope.popover = popover;
-    //});
+    // POPOVER
+    $scope.animation = 'slide-in-up';
+    $ionicPopover.fromTemplateUrl('templates/popover.html', {
+        scope: $scope,
+        animation: $scope.animation
+    }).then(function (popover) {
+        $scope.popover = popover;
+    });
     //$scope.replaceIcon = false;
     //$scope.openPopover = function ($event, replaceIt) {
     //    $scope.popover.show($event);
@@ -106,6 +89,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     }
 
     // GET TRANSACTIONS
+    $scope.groups = [];
     $scope.transactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);
     $scope.transactions.$loaded().then(function (x) {
         refresh($scope.transactions, $scope);
@@ -227,11 +211,19 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
             }
         });
     };
-
 })
 
 function refresh(transactions, $scope) {
     //
+    var currentDate = '';
+    var todaysDate = new Date();
+    var previousDay = '';
+    var previousYear = '';
+    var groupValue = '';
+    var todayFlag = false;
+    var group = {};
+    var format = 'MMMM DD, YYYY';
+
     var total = 0;
     var cleared = 0;
     var runningBal = 0;
@@ -241,10 +233,39 @@ function refresh(transactions, $scope) {
     //
     for (index = 0; index < transactions.length; ++index) {
         //
+        var transaction = transactions[index];
+        //
+        // Add grouping functionality for sticky affix elements
+        // https://github.com/aliok/ion-affix
+        //
+        currentDate = new Date(transaction.date);
+        if (!previousDay || currentDate.getDate() !== previousDay || currentDate.getFullYear() !== previousYear) {
+            var dividerId = moment(transaction.date).format(format);
+            if (dividerId !== groupValue) {
+                groupValue = dividerId;
+                var tday = moment(todaysDate).format(format);
+                //console.log("tday: " + tday + ", " + dividerId);
+                if (tday === dividerId) {
+                    todayFlag = true;
+                } else {
+                    todayFlag = false;
+                }
+                group = {
+                    label: groupValue,
+                    transactions: [],
+                    isToday: todayFlag
+                };
+                $scope.groups.push(group);
+                //console.log(group);
+            }
+        }
+        group.transactions.push(transaction);
+        previousDay = currentDate.getDate();
+        previousYear = currentDate.getFullYear();
+        //
         // Handle Running Balance
         //
         total++;
-        var transaction = transactions[index];
         transaction.ClearedClass = '';
         if (transaction.iscleared === true) {
             transaction.ClearedClass = 'transactionIsCleared';

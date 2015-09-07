@@ -979,7 +979,6 @@
     <Content Include="www\templates\side-menu.html" />
     <Content Include="www\templates\transaction.html" />
     <Content Include="www\templates\transactions.html" />
-    <Content Include="www\templates\transactionsByDay.html" />
     <Content Include="www\templates\transactionsDayDivider.html" />
   </ItemGroup>
   <ItemGroup>

@@ -155,12 +155,12 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     })
 
     // TRANSACTIONS
-    .state('app.transactionsDayDivider', {
+    .state('app.transactions', {
         url: "/accounts/:accountId/:accountName",
         cache: true,
         views: {
             'menuContent': {
-                templateUrl: "templates/transactionsDayDivider.html",
+                templateUrl: "templates/transactions.html",
                 controller: 'TransactionsController'
             }
         }
