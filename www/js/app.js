@@ -27,7 +27,7 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
             if (authData) {
                 //console.log("Logged in as:", authData);
             } else {
-                $state.go("intro");
+                $state.go("login");
             }
         });
 
@@ -53,15 +53,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     $stateProvider
 
       // INTRO
-      .state('intro', {
-          url: "/",
-          templateUrl: "templates/intro.html",
-          controller: 'IntroController'
-      })
+      //.state('intro', {
+      //    url: "/",
+      //    templateUrl: "templates/intro.html",
+      //    controller: 'IntroController'
+      //})
 
       // LOGIN
       .state('login', {
-          url: "/login",
+          url: "/",
           cache: false,
           templateUrl: "templates/login.html",
           controller: 'LoginController'

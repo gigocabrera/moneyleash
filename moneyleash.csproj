@@ -366,8 +366,6 @@
     <None Include="www\lib\angular\README.md" />
     <None Include="www\lib\ion-sticky\.bower.json" />
     <None Include="www\lib\ion-sticky\bower.json" />
-    <None Include="www\lib\ion-sticky\LICENSE" />
-    <None Include="www\lib\ion-sticky\README.md" />
     <None Include="www\lib\ionic-filter-bar\.bower.json" />
     <None Include="www\lib\ionic-filter-bar\bower.json" />
     <None Include="www\lib\ionic-filter-bar\scss\ionic.filter.bar.scss" />
@@ -866,6 +864,7 @@
     <Content Include="www\fonts\ionicons.svg" />
     <Content Include="www\img\intro1.png" />
     <Content Include="www\img\iphone6.png" />
+    <Content Include="www\img\mountains.jpg" />
     <Content Include="www\index.html" />
     <Content Include="www\js\app.js" />
     <Content Include="www\js\controllers-account.js" />
@@ -908,10 +907,7 @@
     <Content Include="www\lib\angular\index.js" />
     <Content Include="www\lib\datePicker\css\angular-pickadate.css" />
     <Content Include="www\lib\datePicker\js\angular-pickadate.js" />
-    <Content Include="www\lib\ion-sticky\demo-collection-repeat.html" />
-    <Content Include="www\lib\ion-sticky\demo.html" />
     <Content Include="www\lib\ion-sticky\ion-sticky.js" />
-    <Content Include="www\lib\ion-sticky\select.html" />
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.css" />
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.js" />
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.min.css" />

@@ -72,9 +72,28 @@
 .loginScreen {
     border: solid 10px transparent;
     background-color: #1D7AC1;
+    background-image: url('../img/mountains.jpg');
 }
 .bar.bar-dark.bar-footer {
     padding: 0;
+}
+
+.ionic .hero .hero-icon {
+    color: #fff;
+    font-size: 96px;
+}
+.ionic .hero .hero-icon {
+    box-shadow: 0px 0 2px 0 rgba(0, 0, 0, 0.26);
+    border-radius: 50%;
+    display: inline-block;
+    font-size: 65px;
+    height: 150px;
+    padding: 10px 30px;
+    line-height: 136px;
+    width: 150px;
+}
+.ionic .royal-bg {
+    background-color: #8a6de9;
 }
 
 /*******************/
