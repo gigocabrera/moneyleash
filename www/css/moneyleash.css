@@ -16,13 +16,13 @@
     color: #fff;
 }
 .introHeading h1 {
-    margin-bottom: 5%;
+    /*margin-bottom: 5%;*/
     color: #fff;
 }
 .logo {
     position: relative;
     display: block;
-    margin: 75px auto auto auto;
+    margin: 5% auto auto auto;
     border-radius: 50px;
     width: 100px;
     height: 100px;
@@ -39,7 +39,7 @@
 .tagline {
     text-align: center;
     color: #FFF;
-    font-size: 18px;
+    font-size: 16px;
 }
 .background-dark {
   background: #212121;
@@ -70,30 +70,14 @@
     color: #000;
 }
 .loginScreen {
-    border: solid 10px transparent;
+    /*border: solid 10px transparent;*/
+    padding: 10px 10px 10px 10px;
     background-color: #1D7AC1;
     background-image: url('../img/mountains.jpg');
+    background-repeat: no-repeat;
 }
 .bar.bar-dark.bar-footer {
     padding: 0;
-}
-
-.ionic .hero .hero-icon {
-    color: #fff;
-    font-size: 96px;
-}
-.ionic .hero .hero-icon {
-    box-shadow: 0px 0 2px 0 rgba(0, 0, 0, 0.26);
-    border-radius: 50%;
-    display: inline-block;
-    font-size: 65px;
-    height: 150px;
-    padding: 10px 30px;
-    line-height: 136px;
-    width: 150px;
-}
-.ionic .royal-bg {
-    background-color: #8a6de9;
 }
 
 /*******************/

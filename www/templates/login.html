@@ -1,41 +1,39 @@
 <ion-view view-title="Login" class="loginScreen">
-    <ion-content scroll="false">
-        <form name="LoginForm" ng-submit="doLogin(user)">
-            <div class="ionic login">
-                <div>
-                    <div class="introHeading">
-                        <a href="#" class="logo"><span>$</span></a>
-                        <h1 style="color: #fff;text-align: center;"><strong>MoneyLeash</strong></h1>
-                        <p class="tagline">Don't let your money run wild.<br />Keep it on a leash <i class="fa fa-heart-o"></i></p>
+    <ion-content>
+        <form name="LoginForm" ng-submit="doLogin(user)">            
+            <div>
+                <div class="introHeading">
+                    <a href="#" class="logo"><span>$</span></a>
+                    <h1 style="color: #fff;text-align: center;"><strong>MoneyLeash</strong></h1>
+                    <p class="tagline">Don't let your money run wild.<br />Keep it on a leash <i class="fa fa-heart-o"></i></p>
+                </div>
+            </div>
+            <div class="list-inset">
+                <ion-item class="item-icon-left form-group customMarginTop">
+                    <i class="icon fa fa-envelope placeholder-icon"></i>
+                    <label class="item item-input ml-login-input item-floating-label">
+                        <span class="input-label">Email</span>
+                        <input type="email" placeholder="Email" ng-model="user.email">
+                    </label>
+                </ion-item>
+                <ion-item class="item-icon-left form-group customMarginTop">
+                    <i class="icon fa fa-lock placeholder-icon"></i>
+                    <label class="item item-input ml-login-input item-floating-label">
+                        <span class="input-label">Password</span>
+                        <input type="password" placeholder="Password" ng-model="user.password">
+                    </label>
+                </ion-item>
+            </div>
+            <div class="padding">
+                <input type="submit" class="button button-block button-energized button-theme" ng-click="doLogIn(user)" placeholder="Submit" />
+                <div class="row">
+                    <div class="col">
+                        <a href="#/forgot-password" class="mlLinksBlue">Forgot Password?</a>
                     </div>
-                </div>
-                <div class="ion-list list-inset">
-                    <ion-item class="item-icon-left form-group customMarginTop">
-                        <i class="icon fa fa-envelope placeholder-icon"></i>
-                        <label class="item item-input ml-login-input item-floating-label">
-                            <span class="input-label">Email</span>
-                            <input type="email" placeholder="Email" ng-model="user.email">
-                        </label>
-                    </ion-item>
-                    <ion-item class="item-icon-left form-group customMarginTop">
-                        <i class="icon fa fa-lock placeholder-icon"></i>
-                        <label class="item item-input ml-login-input item-floating-label">
-                            <span class="input-label">Password</span>
-                            <input type="password" placeholder="Password" ng-model="user.password">
-                        </label>
-                    </ion-item>
-                </div>
-                <div class="padding">
-                    <input type="submit" class="button button-block button-energized button-theme" ng-click="doLogIn(user)" placeholder="Submit" />
-                    <div class="row">
-                        <div class="col">
-                            <a href="#/forgot-password" class="mlLinksBlue">Forgot Password?</a>
-                        </div>
-                        <div class="col">
-                            <p class="text-right">
-                                <a href="#/register" class="mlLinksBlue">I don't have an account</a>
-                            </p>
-                        </div>
+                    <div class="col">
+                        <p class="text-right">
+                            <a href="#/register" class="mlLinksBlue">I don't have an account</a>
+                        </p>
                     </div>
                 </div>
             </div>
