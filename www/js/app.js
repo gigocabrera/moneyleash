@@ -31,14 +31,6 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
             }
         });
 
-        //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        //    $ionicLoading.show({
-        //        template: '<ion-spinner icon="ios"></ion-spinner><br>'
-        //    });
-        //});
-        //$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        //    $ionicLoading.hide();
-        //});
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             if (error === "AUTH_REQUIRED") {
                 $state.go("signin");
@@ -51,13 +43,6 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
 
     //$ionicConfigProvider.views.maxCache(0);
     $stateProvider
-
-      // INTRO
-      //.state('intro', {
-      //    url: "/",
-      //    templateUrl: "templates/intro.html",
-      //    controller: 'IntroController'
-      //})
 
       // LOGIN
       .state('login', {
@@ -154,13 +139,13 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         }
     })
 
-    // TRANSACTIONSnp
+    // TRANSACTIONS
     .state('app.transactions', {
         url: "/accounts/:accountId/:accountName",
         cache: true,
         views: {
             'menuContent': {
-                templateUrl: "templates/transactionsDayDivider.html",
+                templateUrl: "templates/transactions.html",
                 controller: 'TransactionsController'
             }
         }

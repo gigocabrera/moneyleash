@@ -26,7 +26,7 @@
     border-radius: 50px;
     width: 100px;
     height: 100px;
-    background: #F57D00;
+    background: #387ef5;
 }
 .logo span {
     font: 70px 'PT Sans', sans-serif;
@@ -416,6 +416,7 @@ button.customHeaderSize {
 }
 .footerRow i {
     margin-top: -43px;
+    text-shadow: 0px 2px 4px gray;
 }
 .iconCircle i:before {
     font-weight: bold;
@@ -592,11 +593,6 @@ button.customHeaderSize {
 }
 .customTransactionsPopover {
     
-}
-.popover a.item {
-    border-top: 0;
-    font: 16px 'PT Sans', sans-serif;
-    height: 40px;
 }
 .search-wrapper-light {
     border-bottom: 2px solid rgba(255,255,255,0.5);
@@ -950,4 +946,40 @@ i.mlpaddingright {
 }
 .cssSlideUp.ng-hide {
     height:0;
+}
+/* Popover
+==================================*/
+.popover {
+  opacity: 0;
+  position: absolute;
+  right: 8px;
+  transform: translate(50%, -50%) scale(0, 0);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  top: 8px; 
+}
+.popover.ng-enter {
+  opacity: 1;
+  transform: translate(0, -14px) scale(1, 1);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.popover.ng-leave {
+  opacity: 0;
+  transform: translate(50%, -50%) scale(0, 0);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.popover {
+    left: initial !important;
+    right: 7px !important;
+    top: 50px !important;
+}
+.platform-ios .popover {
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.28);
+    border-radius: 5px;
+    height: 225px;
+}
+.popover a.item {
+    border-top: 0;
+    font: 16px 'PT Sans', sans-serif;
+    height: 20px;
+    border-color: #fff;
 }
