@@ -3,7 +3,7 @@
 var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'ion-affix', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'ion-sticky', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
 
 moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen, MembersFactory) {
     $ionicPlatform.ready(function () {
@@ -27,18 +27,10 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
             if (authData) {
                 //console.log("Logged in as:", authData);
             } else {
-                $state.go("intro");
+                $state.go("login");
             }
         });
 
-        //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        //    $ionicLoading.show({
-        //        template: '<ion-spinner icon="ios"></ion-spinner><br>'
-        //    });
-        //});
-        //$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        //    $ionicLoading.hide();
-        //});
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             if (error === "AUTH_REQUIRED") {
                 $state.go("signin");
@@ -52,16 +44,9 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     //$ionicConfigProvider.views.maxCache(0);
     $stateProvider
 
-      // INTRO
-      .state('intro', {
-          url: "/",
-          templateUrl: "templates/intro.html",
-          controller: 'IntroController'
-      })
-
       // LOGIN
       .state('login', {
-          url: "/login",
+          url: "/",
           cache: false,
           templateUrl: "templates/login.html",
           controller: 'LoginController'
@@ -155,23 +140,13 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     })
 
     // TRANSACTIONS
-    .state('app.transactionsDayDivider', {
+    .state('app.transactions', {
         url: "/accounts/:accountId/:accountName",
         cache: true,
         views: {
             'menuContent': {
-                templateUrl: "templates/transactionsDayDivider.html",
+                templateUrl: "templates/transactions.html",
                 controller: 'TransactionsController'
-            }
-        }
-    })
-    .state('app.transactionsByDay', {
-        url: "/accounts/:accountId/:accountName",
-        cache: true,
-        views: {
-            'menuContent': {
-                templateUrl: "templates/transactionsByDay.html",
-                controller: 'TransactionsByDayController'
             }
         }
     })

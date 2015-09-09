@@ -1,12 +1,4 @@
 {
-    "com.ionic.keyboard": {
-        "source": {
-            "type": "registry",
-            "id": "ionic-plugin-keyboard"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-camera": {
         "source": {
             "type": "registry",

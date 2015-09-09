@@ -130,11 +130,11 @@ angular.module('moneyleash.directives', [])
 
         function compile(element, attr) {
             var height = attr.itemHeight || '69';
-            attr.$set('itemHeight', 'transaction.isDivider ? 24 : ' + height);
+            attr.$set('itemHeight', 'transaction.isDivider ? 32 : ' + height);
 
             element.children().attr('ng-hide', 'transaction.isDivider');
             element.prepend(
-                '<div class="item item-divider SectionDivider ng-hide" ng-show="transaction.isDivider" ng-bind="transaction.divider"></div>'
+                '<div class="item item-divider DateDivider" ng-show="transaction.isDivider" ng-bind="transaction.divider"></div>'
             );
         }
     })

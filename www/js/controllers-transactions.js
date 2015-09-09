@@ -37,8 +37,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
                     '</ion-popover-view>';
 
 
+    $scope.animation = 'am-slide-top';
+
     $scope.popover = $ionicPopover.fromTemplate(template, {
-        scope: $scope
+        scope: $scope,
+        animation: $scope.animation
     });
     $scope.closePopover = function () {
         $scope.popover.hide();

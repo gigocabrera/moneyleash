@@ -17,7 +17,7 @@
             </div>
             <ul>
                 <ion-list can-swipe="listCanSwipe" show-reorder="SortingIsEnabled">
-                    <li ng-repeat="transaction in group.transactions | reverselist" ng-click="handleSwipeAndTap($event, transaction)" href="#">
+                    <div ng-repeat="transaction in group.transactions | reverselist" ng-click="handleSwipeAndTap($event, transaction)" href="#">
                         <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
                             <div class="row">
                                 <div class="col-50 customTransDesc">
@@ -54,7 +54,7 @@
                             </ion-option-button>
                             <ion-reorder-button class="ion-navicon" on-reorder="moveItem(transaction, $fromIndex, $toIndex)"></ion-reorder-button>
                         </ion-item>
-                    </li>
+                    </div>
                 </ion-list>
             </ul>
         </div>

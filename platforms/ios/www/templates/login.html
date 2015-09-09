@@ -1,13 +1,14 @@
 <ion-view view-title="Login" class="loginScreen">
-    <ion-content scroll="false">
-        <form name="LoginForm" ng-submit="doLogin(user)">
+    <ion-content>
+        <form name="LoginForm" ng-submit="doLogin(user)">            
             <div>
                 <div class="introHeading">
-                    <h1>Login</h1>
-                    <i class="fa fa-unlock"></i>
+                    <a href="#" class="logo"><span>$</span></a>
+                    <h1 style="color: #fff;text-align: center;"><strong>MoneyLeash</strong></h1>
+                    <p class="tagline">Don't let your money run wild.<br />Keep it on a leash <i class="fa fa-heart-o"></i></p>
                 </div>
             </div>
-            <div class="ion-list list-inset">
+            <div class="list-inset">
                 <ion-item class="item-icon-left form-group customMarginTop">
                     <i class="icon fa fa-envelope placeholder-icon"></i>
                     <label class="item item-input ml-login-input item-floating-label">
@@ -24,7 +25,7 @@
                 </ion-item>
             </div>
             <div class="padding">
-                <input type="submit" class="button button-block button-energized button-theme" ng-click="doLogIn(user)" placeholder="Submit" />
+                <input type="submit" class="button button-block button-positive button-theme" ng-click="doLogIn(user)" placeholder="Submit" />
                 <div class="row">
                     <div class="col">
                         <a href="#/forgot-password" class="mlLinksBlue">Forgot Password?</a>
