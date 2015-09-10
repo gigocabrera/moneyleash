@@ -277,9 +277,15 @@
     text-shadow: 1px 1px #eeeeee;
     font: 20px 'PT Sans Narrow', sans-serif;
 }
+.ion-ios-undo-outline{
+    color: #CE1B31;
+}
+.menuLogout {
+    color: #CE1B31;
+}
 /* Menu Icons and Chevron Icons */
 .bar-menu {
-    background-color: #2E5B70;
+    background-color: #28a54c;
     width: 100%;
     padding: 0;
 }

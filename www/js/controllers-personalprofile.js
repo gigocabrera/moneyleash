@@ -1,6 +1,6 @@
 
 // REGISTER CONTROLLER
-moneyleashapp.controller('PersonalProfileController', function ($scope, $state, MembersFactory, dateFilter) {
+moneyleashapp.controller('PersonalProfileController', function ($scope, $state, MembersFactory) {
 
     $scope.getProfile = function () {
         MembersFactory.getMember().then(function (user) {
@@ -8,16 +8,11 @@ moneyleashapp.controller('PersonalProfileController', function ($scope, $state, 
             var sLastName = user.lastname;
             var sEmail = user.email;
             var sPaymentPlan = user.paymentplan;
-            var dtCreated = new Date(user.datecreated);
-            var dtUpdated = new Date(user.dateupdated);
-            var format = 'MMMM dd, yyyy';
             var temp = {
                 firstname: sFirstName,
                 lastname: sLastName,
                 email: sEmail,
-                paymentplan: sPaymentPlan,
-                datecreated: dateFilter(dtCreated, format),
-                dateupdated: dateFilter(dtUpdated, format)
+                paymentplan: sPaymentPlan
             }
             $scope.member = temp;
         });
