@@ -13,7 +13,6 @@ angular.module('moneyleash.factories', [])
 
     .factory('MembersFactory', function ($firebaseArray, $q) {
         var ref = {};
-        var thisHouseId = myCache.get('thisHouseId');
         var ref = fb.child("members");
         return {
             ref: function () {

@@ -565,7 +565,6 @@
     <Content Include="platforms\ios\www\img\intro1.png" />
     <Content Include="platforms\ios\www\img\iphone6.png" />
     <Content Include="platforms\ios\www\index.html" />
-    <Content Include="platforms\ios\www\js\angular-translate.min.js" />
     <Content Include="platforms\ios\www\js\app.js" />
     <Content Include="platforms\ios\www\js\controllers-account.js" />
     <Content Include="platforms\ios\www\js\controllers-accounts.js" />
@@ -580,7 +579,6 @@
     <Content Include="platforms\ios\www\js\directives.js" />
     <Content Include="platforms\ios\www\js\factories.js" />
     <Content Include="platforms\ios\www\js\filters.js" />
-    <Content Include="platforms\ios\www\js\ion-affix.js" />
     <Content Include="platforms\ios\www\js\moment.js" />
     <Content Include="platforms\ios\www\js\ng-cordova.min.js" />
     <Content Include="platforms\ios\www\lib\angular-animate\angular-animate.js" />

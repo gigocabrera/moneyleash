@@ -26,6 +26,7 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
         Auth.$onAuth(function (authData) {
             if (authData) {
                 //console.log("Logged in as:", authData);
+                $rootScope.authData = authData;
             } else {
                 $state.go("login");
             }
