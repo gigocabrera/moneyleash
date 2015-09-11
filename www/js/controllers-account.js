@@ -1,52 +1,11 @@
 
-// PICK TRANSACTION TYPE CONTROLLER
-moneyleashapp.controller('PickAccountNameController', function ($scope, $state, $ionicHistory, PickAccountServices) {
-    $scope.currentItem = { accountname: PickAccountServices.nameSelected };
-    $scope.saveAccountName = function () {
-        PickAccountServices.updateAccountName($scope.data.search);
-        $ionicHistory.goBack();
-    };
-})
-
-// PICK ACCOUNT AMOUNT CONTROLLER
-moneyleashapp.controller('PickAccountAmountController', function ($scope, $ionicHistory, PickAccountServices) {
-
-    $scope.clearValue = true;
-    $scope.displayValue = 0;
-    if (typeof PickAccountServices.amountSelected !== 'undenifed') {
-        $scope.displayValue = PickAccountServices.amountSelected;
-    }
-    $scope.digitClicked = function (digit) {
-        if (digit === 'C') {
-            $scope.displayValue = '';
-            $scope.clearValue = true;
-        } else if (digit === '.') {
-            $scope.displayValue = $scope.displayValue + digit;
-        } else if (digit === 'B') {
-            $scope.displayValue = $scope.displayValue.substring(0, $scope.displayValue.length - 1);
-            $scope.clearValue = false;
-        } else if (digit === 'D') {
-            PickAccountServices.updateAmount($scope.displayValue);
-            $ionicHistory.goBack();
-        } else {
-            if ($scope.clearValue) {
-                $scope.displayValue = digit;
-                $scope.clearValue = false;
-            } else {
-                $scope.displayValue = $scope.displayValue + digit;
-            }
-        }
-    };
-})
-
-// PICK ACCOUNT DATE CONTROLLER
-moneyleashapp.controller('PickAccountDateController', function ($scope, $ionicHistory, PickAccountServices, dateFilter) {
+// PICK ACCOUNT BEGINNING DATE CONTROLLER
+moneyleashapp.controller('PickAccountDateController', function ($scope, $ionicHistory, PickAccountServices) {
     if (typeof PickAccountServices.dateSelected !== 'undefined' && PickAccountServices.dateSelected !== '') {
-        // format date to be used by pickadate directive
-        var format = 'yyyy-MM-dd';
-        $scope.myDate = dateFilter(PickAccountServices.dateSelected, format);
+        $scope.myDate = moment(PickAccountServices.dateSelected, 'MMMM D, YYYY').format('YYYY-MM-DD');
     }
     $scope.dateChanged = function (transDate) {
+        transDate = moment(transDate, 'YYYY-MM-DD').format('MMMM D, YYYY');
         PickAccountServices.updateDate(transDate);
         $ionicHistory.goBack();
     };
@@ -54,9 +13,6 @@ moneyleashapp.controller('PickAccountDateController', function ($scope, $ionicHi
 
 // PICK ACCOUNT TYPE CONTROLLER
 moneyleashapp.controller('PickAccountTypeController', function ($scope, $state, $ionicHistory, PickAccountServices, AccountsFactory) {
-    //
-    // Get Account Types
-    //
     $scope.List = AccountsFactory.getAccountTypes();
     $scope.List.$loaded().then(function () { });
     $scope.currentItem = { accounttype: PickAccountServices.typeSelected };
@@ -66,11 +22,10 @@ moneyleashapp.controller('PickAccountTypeController', function ($scope, $state, 
     };
 })
 
-// ACCOUNTS CONTROLLER
-moneyleashapp.controller('AccountController', function ($scope, $state, $stateParams, $ionicModal, $ionicActionSheet, AccountsFactory, PickAccountServices, dateFilter) {
+// ACCOUNT CONTROLLER
+moneyleashapp.controller('AccountController', function ($scope, $state, $stateParams, $ionicModal, $ionicActionSheet, AccountsFactory, PickAccountServices) {
 
     $scope.hideValidationMessage = true;
-    $scope.InitialTransactionId = '';
     $scope.AccountTitle = '';
     $scope.inEditMode = false;
     $scope.currentItem = {
@@ -85,32 +40,12 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.hideValidationMessage = true;
-        //$scope.currentItem.accountname = PickAccountServices.nameSelected;
         $scope.currentItem.accounttype = PickAccountServices.typeSelected;
+        // Handle transaction date
         if (typeof PickAccountServices.dateSelected !== 'undefined' && PickAccountServices.dateSelected !== '') {
-            // format date to be displayed
-            var format = 'MMMM dd, yyyy';
-            $scope.currentItem.dateopen = dateFilter(PickAccountServices.dateSelected, format);
+            $scope.currentItem.dateopen = PickAccountServices.dateSelected;
         }
     });
-
-    //// SHOW ACCOUNT TYPE MODAL
-    //$ionicModal.fromTemplateUrl('templates/accounttypeselect.html', function (modal) {
-    //    $scope.modalCtrl = modal;
-    //}, {
-    //    scope: $scope,
-    //    animation: 'slide-in-up',
-    //    focusFirstInput: true
-    //});
-
-    //// OPEN ACCOUNT TYPES
-    //$scope.openModal = function () {
-    //    $scope.modalCtrl.show();
-    //}
-
-    // GET ACCOUNT TYPES
-    //$scope.accountTypeList = AccountsFactory.getAccountTypes();
-    //$scope.accounttypes = AccountsFactory.getAccountTypes();
 
     // EDIT / CREATE ACCOUNT
     if ($stateParams.isNew === 'True') {
@@ -118,19 +53,11 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
     } else {
         // Edit account
         $scope.inEditMode = true;
-        AccountsFactory.getAccount($stateParams.accountId).then(function (account) {
-            var dtOpen = new Date(account.dateopen);
-            if (isNaN(dtOpen)) {
-                account.dateopen = "";
-            } else {
-                account.dateopen = dtOpen;
-            }
-            $scope.currentItem = account;
-            // format date to be displayed
-            var format = 'MMMM dd, yyyy';
-            $scope.currentItem.dateopen = dateFilter($scope.currentItem.dateopen, format);
-            $scope.InitialTransactionId = account.transactionid;
-        });
+        var account = AccountsFactory.getAccount($stateParams.accountId);
+        $scope.currentItem = account;
+        $scope.currentItem.dateopen = moment(account.dateopen).format('MMMM D, YYYY');
+        PickAccountServices.typeSelected = $scope.currentItem.accounttype;
+        PickAccountServices.dateSelected = $scope.currentItem.dateopen;
         $scope.AccountTitle = "Edit Account";
     }
 
@@ -143,31 +70,37 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
             $scope.validationMessage = "Please enter a name for this account"
             return;
         }
-        if (typeof $scope.currentItem.dateopen === 'undefined' || $scope.currentItem.dateopen === '') {
-            $scope.hideValidationMessage = false;
-            $scope.validationMessage = "Enter date when this account was opened"
-            return;
-        }
         if (typeof $scope.currentItem.accounttype === 'undefined' || $scope.currentItem.accounttype === '') {
             $scope.hideValidationMessage = false;
-            $scope.validationMessage = "Select an account type"
+            $scope.validationMessage = "Please select an account type"
+            return;
+        }
+
+        // Format date
+        var dtTran = moment(PickAccountServices.dateSelected, 'MMMM D, YYYY').valueOf();
+        $scope.currentItem.dateopen = dtTran;
+
+        if (typeof $scope.currentItem.dateopen === 'undefined' || $scope.currentItem.dateopen === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select a date for this account"
             return;
         }
 
         if ($scope.inEditMode) {
-            $scope.currentItem.transactionid = $scope.InitialTransactionId;
-            AccountsFactory.updateAccount($stateParams.accountId, $scope.currentItem);
+            //
+            // Update Existing Account
+            //
+            var onComplete = function (error) {
+                if (error) {
+                    //console.log('Synchronization failed');
+                }
+            };
+            AccountsFactory.saveAccount($scope.currentItem);
             $scope.inEditMode = false;
         } else {
-
-            // Format date
-            var dtTran = new Date($scope.currentItem.dateopen);
-            dtTran = +dtTran;
-            $scope.currentItem.dateopen = dtTran;
-
-            /* SAVE NEW ACCOUNT */
-            $scope.currentItem.balancecleared = '0';
-            $scope.currentItem.balancetoday = '0';
+            //
+            // Create New Transaction
+            //
             AccountsFactory.createNewAccount($scope.currentItem);
         }
         $scope.currentItem = {};

@@ -112,15 +112,6 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
-    .state('app.pickaccountname', {
-        url: "/pickaccountname",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/pickaccountname.html",
-                controller: "PickAccountNameController"
-            }
-        }
-    })
     .state('app.pickaccountdate', {
         url: "/pickaccountdate",
         views: {
@@ -249,6 +240,17 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/accounttypes.html",
                 controller: 'AccountTypesController'
+            }
+        }
+    })
+
+    // ACCOUNT SETTINGS
+    .state('app.accountsettings', {
+        url: "/accountsettings",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/accountsettings.html",
+                controller: 'AccountSettingsController'
             }
         }
     })

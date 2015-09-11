@@ -56,11 +56,15 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicL
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
+                //
+                // Delete transaction
+                //
                 var transactionid = account.transactionid;
                 var accountid = account.$id;
                 $scope.accounts.$remove(account).then(function (newChildRef) {
                     AccountsFactory.deleteTransaction(accountid, transactionid);
                 })
+                return true;
                 return true;
             }
         });

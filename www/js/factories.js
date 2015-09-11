@@ -44,12 +44,6 @@ angular.module('moneyleash.factories', [])
             currentHouse: false,
             idadmin: false
         };
-        $rootScope.notify = function (title, text) {
-            var alertPopup = $ionicPopup.alert({
-                title: title ? title : 'Error',
-                template: text
-            });
-        };
         $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({
                 template: '<ion-spinner icon="ios"></ion-spinner><br />' + text,
@@ -186,7 +180,6 @@ angular.module('moneyleash.factories', [])
                 ref.push({ name: 'Debit Card', icon: '0' });
                 ref.push({ name: 'Investment', icon: '0' });
                 ref.push({ name: 'Brokerage', icon: '0' });
-                ref.push({ name: 'Checking', icon: '0' });
 
                 /* SAVE DEFAULT CATEGORIES */
                 var ref = fb.child("houses").child(newChildRef.key()).child("membercategories").child('Income');
@@ -246,9 +239,8 @@ angular.module('moneyleash.factories', [])
 
     .factory('AccountsFactory', function ($firebaseArray, $q, myCache) {
         var ref = {};
-        var accounts = {};
-        var accounttypes = {};
-        var transactions = {};
+        var allaccounts = {};
+        var allaccounttypes = {};
         var alltransactions = {};
         var transactionsbycategoryRef = {};
         var transactionsbypayeeRef = {};
@@ -264,34 +256,21 @@ angular.module('moneyleash.factories', [])
             },
             getAccounts: function () {
                 ref = fb.child("houses").child(thisHouseId).child("memberaccounts");
-                accounts = $firebaseArray(ref);
-                return accounts;
+                allaccounts = $firebaseArray(ref);
+                return allaccounts;
             },
             getAccount: function (accountid) {
-                var deferred = $q.defer();
-                ref = fb.child("houses").child(thisHouseId).child("memberaccounts").child(accountid);
-                ref.once("value", function (snap) {
-                    deferred.resolve(snap.val());
-                });
-                return deferred.promise;
-            },
-            getAccountRef: function (accountid) {
-                accountRef = fb.child("houses").child(thisHouseId).child("memberaccounts").child(accountid);
-                return accountRef;
+                var thisAccount = allaccounts.$getRecord(accountid);
+                return thisAccount;
             },
             getAccountTypes: function () {
                 ref = fb.child("houses").child(thisHouseId).child("memberaccounttypes");
-                accounttypes = $firebaseArray(ref);
-                return accounttypes;
+                allaccounttypes = $firebaseArray(ref);
+                return allaccounttypes;
             },
             getTransaction: function (transactionid) {
                 var thisTransaction = alltransactions.$getRecord(transactionid);
                 return thisTransaction;
-            },
-            getTransactions: function (accountid) {
-                ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid);
-                transactions = $firebaseArray(ref);
-                return transactions;
             },
             getTransactionsByDate: function (accountid) {
                 ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid).orderByChild('date');
@@ -312,19 +291,12 @@ angular.module('moneyleash.factories', [])
             },
             createNewAccount: function (currentItem) {
                 // Create the account
-                accounts.$add(currentItem).then(function (newChildRef) { });
+                allaccounts.$add(currentItem).then(function (newChildRef) { });
             },
-            updateAccount: function (accountid, currentItem) {
-                var dtOpen = new Date(currentItem.dateopen);
-                if (isNaN(dtOpen)) {
-                    currentItem.dateopen = "";
-                } else {
-                    dtOpen = +dtOpen;
-                    currentItem.dateopen = dtOpen;
-                }
-                // Update account
-                accountRef = fb.child("houses").child(thisHouseId).child("memberaccounts").child(accountid);
-                accountRef.update(currentItem);
+            saveAccount: function (account) {
+                allaccounts.$save(account).then(function (ref) {
+                    ref.key() === account.$id;
+                });
             },
             createTransaction: function (currentAccountId, currentItem) {
                 //
@@ -355,7 +327,6 @@ angular.module('moneyleash.factories', [])
                 //
                 var ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountId);
                 var newChildRef = ref.push(currentItem);
-                newChildRef.setWithPriority(currentItem, currentItem.date);
                 //
                 // Save transaction under category
                 //
@@ -405,11 +376,6 @@ angular.module('moneyleash.factories', [])
                         //
                     });
                 }
-            },
-            deleteTransaction_ORIG: function (transaction) {
-                alltransactions.$remove(transaction).then(function (ref) {
-                    ref.key() === transaction.$id;
-                });
             },
             deleteTransaction: function () {
                 return alltransactions;
@@ -517,16 +483,8 @@ angular.module('moneyleash.factories', [])
 
     // Account Pick Lists
     .service("PickAccountServices", function () {
-        var accountName = this;
-        var accountAmount = this;
         var accountDate = this;
         var accountType = this;
-        accountName.updateAccountName = function (value) {
-            this.nameSelected = value;
-        }
-        accountAmount.updateAmount = function (value) {
-            this.amountSelected = value;
-        }
         accountDate.updateDate = function (value) {
             this.dateSelected = value;
         }

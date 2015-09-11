@@ -314,11 +314,15 @@ function refresh(transactions, $scope, AccountsFactory, accountId) {
     $scope.clearedBalance = clearedBal.toFixed(2);
 
     // We want to update account totals
-    AccountsFactory.getAccount(accountId).then(function (account) {
-        $scope.temp = account;
-        $scope.temp.balancetoday = runningBal.toFixed(2);
-        $scope.temp.balancecurrent = runningBal.toFixed(2);
-        $scope.temp.balancecleared = clearedBal.toFixed(2);
-        AccountsFactory.updateAccount(accountId, $scope.temp);
-    });
+    var account = AccountsFactory.getAccount(accountId);
+    $scope.temp = account;
+    $scope.temp.balancetoday = runningBal.toFixed(2);
+    $scope.temp.balancecurrent = runningBal.toFixed(2);
+    $scope.temp.balancecleared = clearedBal.toFixed(2);
+    var onComplete = function (error) {
+        if (error) {
+            //console.log('Synchronization failed');
+        }
+    };
+    AccountsFactory.saveAccount($scope.temp);
 }

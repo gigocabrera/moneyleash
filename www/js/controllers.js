@@ -95,7 +95,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
             if (error) {
                 //console.log("Login Failed!", error);
                 $ionicLoading.hide();
-                $rootScope.notify('Login Failed', error);
+                $scope.notify('Login Failed', 'Check your credentials and try again');
             } else {
                 
                 MembersFactory.getMember(authData).then(function (thisuser) {

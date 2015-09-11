@@ -6,13 +6,14 @@
     </ion-nav-buttons>
     <ion-content has-header="true">
         <div class="ion-list">
-            <div class="item item-divider mlSmallerFont CustomSubHeader">Your Information</div>
-            <ion-item class="item-icon-left form-group floating-padding">
+            <div class="item item-divider mlSmallerFont CustomSubHeader">Accounts and Transactions</div>
+            <ion-item class="item-icon-left item-icon-right form-group floating-padding">
                 <i class="icon fa fa-at placeholder-icon"></i>
                 <label class="item item-input item-floating-label">
-                    <span class="input-label">First Name</span>
-                    <input type="text" placeholder="First Name" ng-model="member.firstname" autocorrect="on" autocapitalize="words">
+                    <span class="input-label">Default Date</span>
+                    <input type="text" placeholder="Default Date" ng-model="settings.defaultdate">
                 </label>
+                <i class="icon ion-ios-information-outline customChevronForm"></i>
             </ion-item>
             <ion-item class="item-icon-left form-group floating-padding">
                 <i class="icon fa fa-user placeholder-icon"></i>

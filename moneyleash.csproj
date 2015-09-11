@@ -938,6 +938,7 @@
     <Content Include="www\lib\ngCordova\dist\ng-cordova.min.js" />
     <Content Include="www\templates\about.html" />
     <Content Include="www\templates\account.html" />
+    <Content Include="www\templates\accountsettings.html" />
     <Content Include="www\templates\accounttypeselect.html" />
     <Content Include="www\templates\accounts.html" />
     <Content Include="www\templates\accounttypesave.html" />
@@ -957,9 +958,7 @@
     <Content Include="www\templates\payees.html" />
     <Content Include="www\templates\payeetransactions.html" />
     <Content Include="www\templates\personalprofile.html" />
-    <Content Include="www\templates\pickaccountamount.html" />
     <Content Include="www\templates\pickaccountdate.html" />
-    <Content Include="www\templates\pickaccountname.html" />
     <Content Include="www\templates\pickaccounttype.html" />
     <Content Include="www\templates\pickparentcategory.html" />
     <Content Include="www\templates\pickcategorytype.html" />

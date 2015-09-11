@@ -10,7 +10,7 @@ moneyleashapp.controller('PersonalProfileController', function ($scope, $state, 
             $scope.member.firstname = thisuser.firstname;
             $scope.member.lastname = thisuser.lastname;
             $scope.member.email = thisuser.email;
-            $scope.member.datecreated = thisuser.datecreated;
+            $scope.member.datecreated = moment(thisuser.datecreated).format('MMMM D, YYYY');
             $scope.member.paymentplan = thisuser.paymentplan;
             $scope.house.name = thisuser.housename;
             $scope.house.number = thisuser.housenumber;
