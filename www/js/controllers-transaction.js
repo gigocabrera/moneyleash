@@ -219,6 +219,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     $scope.ItemFrom = {};
     $scope.ItemTo = {};
     $scope.ItemOriginal = {};
+    $scope.DisplayDate = '';
     $scope.currentItem = {
         'accountFrom': '',
         'accountFromId': '',
@@ -272,7 +273,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     });
 
     // EDIT / CREATE TRANSACTION
-    $scope.DisplayDate = '';
     if ($stateParams.transactionId === '') {
         $scope.TransactionTitle = "Create Transaction";
     } else {

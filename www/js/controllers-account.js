@@ -1,6 +1,7 @@
 
 // PICK ACCOUNT BEGINNING DATE CONTROLLER
 moneyleashapp.controller('PickAccountDateController', function ($scope, $ionicHistory, PickAccountServices) {
+
     if (typeof PickAccountServices.dateSelected !== 'undefined' && PickAccountServices.dateSelected !== '') {
         $scope.myDate = moment(PickAccountServices.dateSelected, 'MMMM D, YYYY').format('YYYY-MM-DD');
     }
@@ -9,6 +10,7 @@ moneyleashapp.controller('PickAccountDateController', function ($scope, $ionicHi
         PickAccountServices.updateDate(transDate);
         $ionicHistory.goBack();
     };
+
 })
 
 // PICK ACCOUNT TYPE CONTROLLER
@@ -28,6 +30,7 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
     $scope.hideValidationMessage = true;
     $scope.AccountTitle = '';
     $scope.inEditMode = false;
+    $scope.DisplayDate = '';
     $scope.currentItem = {
         'accountname': '',
         'accounttype': '',
@@ -43,7 +46,7 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
         $scope.currentItem.accounttype = PickAccountServices.typeSelected;
         // Handle transaction date
         if (typeof PickAccountServices.dateSelected !== 'undefined' && PickAccountServices.dateSelected !== '') {
-            $scope.currentItem.dateopen = PickAccountServices.dateSelected;
+            $scope.DisplayDate = PickAccountServices.dateSelected;
         }
     });
 
@@ -55,9 +58,9 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
         $scope.inEditMode = true;
         var account = AccountsFactory.getAccount($stateParams.accountId);
         $scope.currentItem = account;
-        $scope.currentItem.dateopen = moment(account.dateopen).format('MMMM D, YYYY');
+        $scope.DisplayDate = moment(account.dateopen).format('MMMM D, YYYY');
+        PickAccountServices.dateSelected = $scope.DisplayDate;
         PickAccountServices.typeSelected = $scope.currentItem.accounttype;
-        PickAccountServices.dateSelected = $scope.currentItem.dateopen;
         $scope.AccountTitle = "Edit Account";
     }
 
