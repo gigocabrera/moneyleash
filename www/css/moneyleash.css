@@ -963,60 +963,112 @@ a.logo {
     margin-bottom: 40px;
 }
 #ml-login {
-  position:relative;
-  margin: 50px auto;
-  width: 330px;
-  height: auto;
+    position:relative;
+    margin: 50px auto;
+    width: 330px;
+    height: auto;
 }
 #ml-login h2 {
-  font-family: 'Roboto', sans-serif;
-  font-size: 18px;
-  color:rgba(255,255,255,.8);
-  margin-left:12px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color:rgba(255,255,255,.8);
+    margin-left:12px;
 }
 #ml-login input {
-  padding: 16px;
-  border-radius:7px;
-  border:0px;
-  background: rgba(255,255,255,.2);
-  display: block;
-  margin: 10px;
-  width: 250px;
-  color:white;
-  font-size:17px;
-  height: 50px;
+    padding: 16px;
+    border-radius:7px;
+    border:0px;
+    background: rgba(255,255,255,.2);
+    display: block;
+    margin: 10px;
+    width: 250px;
+    color:white;
+    font-size:17px;
+    height: 50px;
 }
 #ml-login input:focus {
-  outline-color: rgba(0,0,0,0);
-  background: rgba(255,255,255,.95);
-  color: #e74c3c;
+    outline-color: rgba(0,0,0,0);
+    background: rgba(255,255,255,.95);
+    color: #e74c3c;
 }
 #ml-login button {
-  float:right;
-  height: 110px;
-  width: 60px;
-  border: 0px;
-  background: #e74c3c;
-  border-radius:7px;
-  padding: 10px;
-  color:white;
-  font-size:22px;
+    float:right;
+    height: 110px;
+    width: 60px;
+    border: 0px;
+    background: #e74c3c;
+    border-radius:7px;
+    padding: 10px;
+    color:white;
+    font-size:22px;
+}
+#ml-login button.submit_forgot {
+    float:right;
+    height: 50px;
+    width: 60px;
+    border: 0px;
+    background: #e74c3c;
+    border-radius:7px;
+    padding: 10px;
+    color:white;
+    font-size:22px;
+}
+#ml-login button.submit_register {
+    float:right;
+    height: 230px;
+    width: 60px;
+    border: 0px;
+    background: #e74c3c;
+    border-radius:7px;
+    padding: 10px;
+    color:white;
+    font-size:22px;
 }
 #ml-login .inputUserIcon {
-  position: absolute;
-  top: 254px;
-  right: 80px;
-  color: white;
+    position: absolute;
+    top: 254px;
+    right: 80px;
+    color: white;
+}
+#ml-login .inputUserIcon_forgot {
+    position: absolute;
+    top: 16px;
+    right: 80px;
+    color: white;
+}
+#ml-login .inputUserIcon_register1 {
+    position: absolute;
+    top: 17px;
+    right: 80px;
+    color: white;
+}
+#ml-login .inputUserIcon_register2 {
+    position: absolute;
+    top: 76px;
+    right: 80px;
+    color: white;
+}
+#ml-login .inputUserIcon_register3 {
+    position: absolute;
+    top: 136px;
+    right: 80px;
+    color: white;
+}
+#ml-login .inputUserIcon_register4 {
+    position: absolute;
+    top: 196px;
+    right: 80px;
+    color: white;
 }
 #ml-login .inputPassIcon {
-  position:absolute;
-  top: 315px;
-  right: 80px;
-  color:white;
+    position:absolute;
+    top: 315px;
+    right: 80px;
+    color:white;
 }
 #ml-login input::-webkit-input-placeholder {
-  color: white;
+    color: white;
 }
 #ml-login input:focus::-webkit-input-placeholder {
-  color: #e74c3c;
+    color: #e74c3c;
 }

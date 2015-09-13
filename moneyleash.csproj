@@ -952,7 +952,6 @@
     <Content Include="www\templates\house-create.html" />
     <Content Include="www\templates\house-join.html" />
     <Content Include="www\templates\intro.html" />
-    <Content Include="www\templates\itemdetails.html" />
     <Content Include="www\templates\login.html" />
     <Content Include="www\templates\payee.html" />
     <Content Include="www\templates\payees.html" />

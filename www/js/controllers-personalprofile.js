@@ -2,22 +2,19 @@
 // REGISTER CONTROLLER
 moneyleashapp.controller('PersonalProfileController', function ($scope, $state, $rootScope, MembersFactory) {
 
-    $scope.getProfile = function () {
-
-        $scope.member = {};
-        $scope.house = {};
-        MembersFactory.getMember($rootScope.authData).then(function (thisuser) {
-            $scope.member.firstname = thisuser.firstname;
-            $scope.member.lastname = thisuser.lastname;
-            $scope.member.email = thisuser.email;
-            $scope.member.datecreated = moment(thisuser.datecreated).format('MMMM D, YYYY');
-            $scope.member.paymentplan = thisuser.paymentplan;
-            $scope.house.name = thisuser.housename;
-            $scope.house.number = thisuser.housenumber;
-            $scope.house.admin = thisuser.houseadmin;
-            $scope.house.admin = thisuser.houseadmin;
-        });
-    };
+    $scope.member = {};
+    $scope.house = {};
+    MembersFactory.getMember($rootScope.authData).then(function (thisuser) {
+        $scope.member.firstname = thisuser.firstname;
+        $scope.member.lastname = thisuser.lastname;
+        $scope.member.email = thisuser.email;
+        $scope.member.datecreated = moment(thisuser.datecreated).format('MMMM D, YYYY');
+        $scope.member.paymentplan = thisuser.paymentplan;
+        $scope.house.name = thisuser.housename;
+        $scope.house.number = thisuser.housenumber;
+        $scope.house.admin = thisuser.houseadmin;
+        $scope.house.admin = thisuser.houseadmin;
+    });
     
     $scope.saveProfile = function (user) {
         var fbAuth = fb.getAuth();
