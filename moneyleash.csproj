@@ -475,9 +475,11 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="config.xml" />
+    <Content Include="Firebase_data_structure.png" />
     <Content Include="gulpfile.js" />
     <Content Include="hooks\after_prepare\010_add_platform_class.js" />
     <Content Include="moneyleash_intro_iphone6.png" />
+    <Content Include="moneyleash_iphone.png" />
     <Content Include="moneyleash_screens.png" />
     <Content Include="moneyleash_transactions_iphone6.png" />
     <Content Include="platforms\ios\.gitignore" />

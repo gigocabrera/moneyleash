@@ -27,6 +27,21 @@ To install and preview this app on your phone
 - Replace the content in the WWW folder with the content of this GIT
 - And then preview your app as usual (browser and/or Ionic View)
 
+## Firebase Data Structure
+
+The database structure gets built automatically from the app when you register a user for the first time. No need to manually buld the schema. 
+But here it is to give you an idea of how the data is organized.
+
+![Money Leash Transactions](https://github.com/gigocabrera/moneyleash/blob/master/Firebase_data_structure.png)
+
+## Firebase Security and Rules
+
+The Firebase Security Rules for MoneyLeash can be found in the Gist below. 
+A user is granted access (read/write) by house_id and the security rules have been tested to guarantee no unauthorized access is allowed. 
+However, the rules need to be enhanced to: (1) prevent users from modifying a house_id, 
+(2) for a newly created account, the user needs to logout and log back in for the rules to work
+
+- [Security Rules Gist](https://gist.github.com/gigocabrera/fcfbe03b5636aad91302)
 
 ## Live Demo
 
