@@ -84,6 +84,7 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
 
     $scope.inEditMode = false;
     $scope.hideValidationMessage = true;
+    $scope.PayeeTitle = '';
     $scope.currentItem = {};
     $scope.data = { "payees": [], "search": '' };
     $scope.search = function () {
@@ -95,14 +96,16 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
     }
     
     // EDIT / CREATE PAYEE
-    if (typeof PickTransactionServices.payeeSelected != 'undefined' || PickTransactionServices.payeeSelected != '') {
+    if (typeof PickTransactionServices.payeeSelected !== 'undefined' && PickTransactionServices.payeeSelected !== '') {
         // Edit Payee
         $scope.inEditMode = true;
+        $scope.PayeeTitle = "Edit Payee";
         PayeesService.getPayee(PickTransactionServices.payeeid).then(function (payee) {
             $scope.currentItem = payee;
         });
         $scope.data.search = PickTransactionServices.payeeSelected;
     } else {
+        $scope.PayeeTitle = "Select Payee";
         $scope.inEditMode = false;
     }
 

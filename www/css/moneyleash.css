@@ -392,7 +392,7 @@ button.customHeaderSize {
     background-color: #000;
 }
 .PhotoFooter {
-    background-color: #fff;
+    background-color: #172F39;
     border-top-width: 0;
 }
 .iconBackArrow i:before {
@@ -688,8 +688,8 @@ button.customHeaderSize {
     padding: 3px 0 3px 16px;
 }
 .form-group img {
-    margin-left: 40px;
-    margin-top: -12px;
+    margin-left: 5px;
+    margin-top: -10px;
     border: 0;
 }
 .form-group i {
@@ -925,7 +925,8 @@ i.mlpaddingright {
 }@keyframes slideFromTop{from{-webkit-transform:translateY(-100%);transform:translateY(-100%)}}@-webkit-keyframes slideToTop{to{-webkit-transform:translateY(-100%);transform:translateY(-100%)}}@keyframes slideToTop{to{-webkit-transform:translateY(-100%);transform:translateY(-100%)}}@-webkit-keyframes slideFromRight{from{-webkit-transform:translateX(100%);transform:translateX(100%)}}@keyframes slideFromRight{from{-webkit-transform:translateX(100%);transform:translateX(100%)}}@-webkit-keyframes slideToRight{to{-webkit-transform:translateX(100%);transform:translateX(100%)}}@keyframes slideToRight{to{-webkit-transform:translateX(100%);transform:translateX(100%)}}@-webkit-keyframes slideFromBottom{from{-webkit-transform:translateY(100%);transform:translateY(100%)}}@keyframes slideFromBottom{from{-webkit-transform:translateY(100%);transform:translateY(100%)}}@-webkit-keyframes slideToBottom{to{-webkit-transform:translateY(100%);transform:translateY(100%)}}@keyframes slideToBottom{to{-webkit-transform:translateY(100%);transform:translateY(100%)}}@-webkit-keyframes slideFromLeft{from{-webkit-transform:translateX(-100%);transform:translateX(-100%)}}@keyframes slideFromLeft{from{-webkit-transform:translateX(-100%);transform:translateX(-100%)}}@-webkit-keyframes slideToLeft{to{-webkit-transform:translateX(-100%);transform:translateX(-100%)}}@keyframes slideToLeft{to{-webkit-transform:translateX(-100%);transform:translateX(-100%)}}
 
 
-/* New Login Form
+/* New Login Form based on 
+   http://codepen.io/lsgrrd/pen/xvwHn
 ==================================*/
 .introHeading {
 

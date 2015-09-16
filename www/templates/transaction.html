@@ -80,7 +80,10 @@
             </ion-item>
             <ion-item class="item-icon-left item-icon-right form-group floating-padding" ui-sref="app.picktransactionphoto">
                 <i class="icon fa fa-camera placeholder-icon"></i>
-                <img ng-src="data:image/jpeg;base64,{{ currentItem.photo }}" width="15%" />
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Photo</span>
+                    <img ng-src="data:image/jpeg;base64,{{ currentItem.photo }}" width="12%" />
+                </label>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
         </div>
