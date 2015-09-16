@@ -82,7 +82,9 @@ moneyleashapp.controller('PickTransactionAccountToController', function ($scope,
 // PICK TRANSACTION-PAYEE CONTROLLER
 moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $ionicHistory, PayeesFactory, PayeesService, PickTransactionServices) {
 
+    $scope.inEditMode = false;
     $scope.hideValidationMessage = true;
+    $scope.currentItem = {};
     $scope.data = { "payees": [], "search": '' };
     $scope.search = function () {
         PayeesFactory.searchPayees($scope.data.search).then(
@@ -90,6 +92,18 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
     		    $scope.data.payees = matches;
     		}
     	)
+    }
+    
+    // EDIT / CREATE PAYEE
+    if (typeof PickTransactionServices.payeeSelected != 'undefined' || PickTransactionServices.payeeSelected != '') {
+        // Edit Payee
+        $scope.inEditMode = true;
+        PayeesService.getPayee(PickTransactionServices.payeeid).then(function (payee) {
+            $scope.currentItem = payee;
+        });
+        $scope.data.search = PickTransactionServices.payeeSelected;
+    } else {
+        $scope.inEditMode = false;
     }
 
     // SAVE PAYEE
@@ -101,23 +115,52 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
             $scope.validationMessage = "Please enter payee name"
             return;
         }
-
-        $scope.currentItem = {
-            'payeename': $scope.data.search,
-            'payeesort': $scope.data.search.toUpperCase(),
-            'lastcategory': '',
-            'lastcategoryid': '',
-            'lastamount': ''
-        };
-        var sync = PayeesService.getPayees();
-        var payeeid = '';
-        sync.$add($scope.currentItem).then(function (newChildRef) {
-            payeeid = newChildRef.key();
-            PickTransactionServices.updatePayee($scope.currentItem, payeeid);
+        $scope.currentItem.payeename = $scope.data.search;
+        $scope.currentItem.payeesort = $scope.data.search.toUpperCase();
+        if ($scope.inEditMode) {
+            // Update
+            var onComplete = function (error) {
+                if (error) {
+                    //console.log('Synchronization failed');
+                }
+            };
+            //
+            // Update this payee
+            //
+            var payeeRef = PayeesService.getPayeeRef(PickTransactionServices.payeeid);
+            payeeRef.update($scope.currentItem, onComplete);
+            //
+            // Update all transactions under this payee
+            //
+            $scope.transactionsbypayee = PayeesService.getTransactionsByPayee(PickTransactionServices.payeeid);
+            $scope.transactionsbypayee.$loaded().then(function () {
+                angular.forEach($scope.transactionsbypayee, function (transaction) {
+                    transaction.payee = $scope.currentItem.payeename;
+                    $scope.transactionsbypayee.$save(transaction).then(function (ref) {
+                        ref.key() === transaction.$id;
+                    });
+                })
+            })
+            //
+            // Rehydrate payee and go back
+            //
+            $scope.inEditMode = false;
+            PickTransactionServices.updatePayee($scope.currentItem, PickTransactionServices.payeeid);
             $ionicHistory.goBack();
-        });
+            //
+        } else {
+            //
+            // Create New Payee
+            //
+            var sync = PayeesService.getPayees();
+            var payeeid = '';
+            sync.$add($scope.currentItem).then(function (newChildRef) {
+                payeeid = newChildRef.key();
+                PickTransactionServices.updatePayee($scope.currentItem, payeeid);
+                $ionicHistory.goBack();
+            });
+        }
     }
-
     $scope.selectPayee = function (payee) {
         PickTransactionServices.updatePayee(payee, payee.$id);
         $ionicHistory.goBack();

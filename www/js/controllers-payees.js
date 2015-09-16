@@ -5,7 +5,7 @@ moneyleashapp.controller('PayeeTransactionsController', function ($scope, $state
 })
 
 // PAYEE CONTROLLER
-moneyleashapp.controller('PayeeController', function ($scope, $ionicHistory, $stateParams, PayeesService) {
+moneyleashapp.controller('PayeeController', function ($scope, $ionicHistory, $stateParams, PayeesService, AccountsFactory) {
 
     $scope.hideValidationMessage = true;
     $scope.inEditMode = false;
@@ -51,6 +51,28 @@ moneyleashapp.controller('PayeeController', function ($scope, $ionicHistory, $st
             };
             var payeeRef = PayeesService.getPayeeRef($stateParams.payeeid);
             payeeRef.update($scope.currentItem, onComplete);
+            //
+            // Update all transactions under this payee
+            //
+            var newname = $scope.currentItem.payeename;
+            $scope.transactionsbypayee = PayeesService.getTransactionsByPayee($stateParams.payeeid);
+            $scope.transactionsbypayee.$loaded().then(function () {
+                angular.forEach($scope.transactionsbypayee, function (transaction) {
+                    transaction.payee = newname;
+                    $scope.transactionsbypayee.$save(transaction).then(function (ref) {
+                        ref.key() === transaction.$id;
+                    });
+                    //
+                    // Update original transaction
+                    //
+                    // We're missing the account id in the membertransactionsbypayee node. Without this value we cannot update the 
+                    // payee name on the original transaction. We can update the payee name on the transaction itself and it will
+                    // update the payee name everywhere (workaround).
+                    // 
+                    //var transactionRef = AccountsFactory.getTransactionRef($stateParams.payeeid);
+                    //transactionRef.update($scope.currentItem, onComplete);
+                })
+            })
             $scope.inEditMode = false;
         } else {
             // Create

@@ -390,7 +390,7 @@ angular.module('moneyleash.factories', [])
 
     .factory('PayeesService', function ($firebaseArray, $q, myCache) {
         var ref = {};
-        var payees = {};
+        var allpayees = {};
         var payeeRef = {};
         var transactionsByPayeeRef = {};
         var transactionsByCategoryRef = {};
@@ -399,8 +399,8 @@ angular.module('moneyleash.factories', [])
         return {
             getPayees: function () {
                 ref = fb.child("houses").child(thisHouseId).child("memberpayees").orderByChild('payeesort');
-                payees = $firebaseArray(ref);
-                return payees;
+                allpayees = $firebaseArray(ref);
+                return allpayees;
             },
             getPayee: function (payeeid) {
                 var deferred = $q.defer();
@@ -424,6 +424,11 @@ angular.module('moneyleash.factories', [])
                 payeeRef = fb.child("houses").child(thisHouseId).child("memberpayees").child(payeeid);
                 return payeeRef;
             },
+            savePayee: function (payee) {
+                allpayees.$save(payee).then(function (ref) {
+                    ref.key() === payee.$id;
+                });
+            }
         };
     })
 

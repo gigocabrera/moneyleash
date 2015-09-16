@@ -24,9 +24,11 @@ moneyleashapp.controller('PayeeController', function ($scope, $ionicHistory, $st
     } else {
         // edit
         $scope.inEditMode = true;
-        PayeesService.getPayee($stateParams.payeeid).then(function (payee) {
-            $scope.currentItem = payee;
-        });
+        //PayeesService.getPayee($stateParams.payeeid).then(function (payee) {
+        //    $scope.currentItem = payee;
+        //});
+        var payee = PayeesService.getPayee($stateParams.payeeid);
+        $scope.currentItem = payee;
         $scope.PayeeTitle = "Edit Payee";
     }
 
