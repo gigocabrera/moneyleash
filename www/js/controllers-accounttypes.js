@@ -62,7 +62,7 @@ moneyleashapp.controller('AccountTypesController', function ($scope, $state, $io
     };
 
     // SAVE
-    $scope.SaveItem = function (currentItem) {
+    $scope.SaveItem = function () {
         if ($scope.inEditMode) {
             // edit item
             $scope.accounttypes.accounttypes[$scope.editIndex] = $scope.currentItem;

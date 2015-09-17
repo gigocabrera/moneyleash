@@ -21,7 +21,6 @@ moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionic
                 //Called when one of the non-destructive buttons is clicked,
                 //with the index of the button that was clicked and the button object.
                 //Return true to close the action sheet, or false to keep it opened.
-                var myButton = index;
                 return true;
             },
             destructiveButtonClicked: function () {
@@ -118,7 +117,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
 })
 
 //REGISTER CONTROLLER
-moneyleashapp.controller('RegisterController', function ($scope, $rootScope, $state, $ionicLoading, $firebase, $firebaseArray, MembersFactory, fireBaseData) {
+moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicLoading, MembersFactory) {
 
     $scope.user = {};
 
@@ -290,7 +289,7 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 
     $scope.recoverPassword = function (user) {
         //$state.go('accounts');
-        //console.log(user.email);
+        console.log(user.email);
     };
 
     $scope.login = function () {
@@ -300,15 +299,6 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
     $scope.register = function () {
         $state.go('register');
     }
-})
-
-// Sample code - to be removed when going live
-moneyleashapp.controller('ItemDetailsCtrl', function ($scope, $state, $stateParams) {
-    $scope.item = { id: $stateParams.itemId };
-    $scope.sizechanged = function (item) {
-        var test = item;
-        //$state.go('eventmenu.checkin');
-    };
 })
 
 // RECURRING CONTROLLER

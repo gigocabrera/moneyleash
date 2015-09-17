@@ -88,7 +88,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     };
 
     // CREATE
-    $scope.createTransaction = function (title) {
+    $scope.createTransaction = function () {
         PickTransactionServices.typeDisplaySelected = '';
         PickTransactionServices.typeInternalSelected = '';
         PickTransactionServices.categorySelected = '';
@@ -241,12 +241,10 @@ function refresh(transactions, $scope, AccountsFactory, accountId) {
     var todayFlag = false;
     var group = {};
     var format = 'MMMM DD, YYYY';
-
     var total = 0;
     var cleared = 0;
     var runningBal = 0;
     var clearedBal = 0;
-    var todayBal = 0;
     var index;
     //
     for (index = 0; index < transactions.length; ++index) {
@@ -319,10 +317,5 @@ function refresh(transactions, $scope, AccountsFactory, accountId) {
     $scope.temp.balancetoday = runningBal.toFixed(2);
     $scope.temp.balancecurrent = runningBal.toFixed(2);
     $scope.temp.balancecleared = clearedBal.toFixed(2);
-    var onComplete = function (error) {
-        if (error) {
-            //console.log('Synchronization failed');
-        }
-    };
     AccountsFactory.saveAccount($scope.temp);
 }

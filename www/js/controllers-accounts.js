@@ -21,7 +21,7 @@ moneyleashapp.controller('AccountsController', function ($scope, $state, $ionicL
     };
 
     // CREATE ACCOUNT
-    $scope.createAccount = function (title) {
+    $scope.createAccount = function () {
         PickAccountServices.nameSelected = '';
         PickAccountServices.amountSelected = '';
         PickAccountServices.typeSelected = '';

@@ -5,7 +5,7 @@ moneyleashapp.controller('PayeeTransactionsController', function ($scope, $state
 })
 
 // PAYEE CONTROLLER
-moneyleashapp.controller('PayeeController', function ($scope, $ionicHistory, $stateParams, PayeesService, AccountsFactory) {
+moneyleashapp.controller('PayeeController', function ($scope, $ionicHistory, $stateParams, PayeesService) {
 
     $scope.hideValidationMessage = true;
     $scope.inEditMode = false;
@@ -60,7 +60,7 @@ moneyleashapp.controller('PayeeController', function ($scope, $ionicHistory, $st
                 angular.forEach($scope.transactionsbypayee, function (transaction) {
                     transaction.payee = newname;
                     $scope.transactionsbypayee.$save(transaction).then(function (ref) {
-                        ref.key() === transaction.$id;
+                        ref.key() = transaction.$id;
                     });
                     //
                     // Update original transaction

@@ -25,7 +25,7 @@ moneyleashapp.controller('PickAccountTypeController', function ($scope, $state, 
 })
 
 // ACCOUNT CONTROLLER
-moneyleashapp.controller('AccountController', function ($scope, $state, $stateParams, $ionicModal, $ionicActionSheet, AccountsFactory, PickAccountServices) {
+moneyleashapp.controller('AccountController', function ($scope, $state, $stateParams, AccountsFactory, PickAccountServices) {
 
     $scope.hideValidationMessage = true;
     $scope.AccountTitle = '';
@@ -65,7 +65,7 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
     }
 
     // SAVE
-    $scope.saveAccount = function (currentItem) {
+    $scope.saveAccount = function () {
 
         // Validate form data
         if (typeof $scope.currentItem.accountname === 'undefined' || $scope.currentItem.accountname === '') {
@@ -93,11 +93,6 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
             //
             // Update Existing Account
             //
-            var onComplete = function (error) {
-                if (error) {
-                    //console.log('Synchronization failed');
-                }
-            };
             AccountsFactory.saveAccount($scope.currentItem);
             $scope.inEditMode = false;
         } else {

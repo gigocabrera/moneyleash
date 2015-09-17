@@ -145,6 +145,9 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
                 })
             })
             //
+            // TODO: Update all transactions with new payee name
+            // Find a way to update all necessary transactions with new payee name 
+            //
             // Rehydrate payee and go back
             //
             $scope.inEditMode = false;
