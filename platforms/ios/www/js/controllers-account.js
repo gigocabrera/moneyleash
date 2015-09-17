@@ -93,25 +93,7 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
             $scope.currentItem.dateopen = dateFilter(PickAccountServices.dateSelected, format);
         }
     });
-
-    //// SHOW ACCOUNT TYPE MODAL
-    //$ionicModal.fromTemplateUrl('templates/accounttypeselect.html', function (modal) {
-    //    $scope.modalCtrl = modal;
-    //}, {
-    //    scope: $scope,
-    //    animation: 'slide-in-up',
-    //    focusFirstInput: true
-    //});
-
-    //// OPEN ACCOUNT TYPES
-    //$scope.openModal = function () {
-    //    $scope.modalCtrl.show();
-    //}
-
-    // GET ACCOUNT TYPES
-    //$scope.accountTypeList = AccountsFactory.getAccountTypes();
-    //$scope.accounttypes = AccountsFactory.getAccountTypes();
-
+    
     // EDIT / CREATE ACCOUNT
     if ($stateParams.isNew === 'True') {
         $scope.AccountTitle = "Create Account";

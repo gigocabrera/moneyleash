@@ -937,7 +937,6 @@
     <Content Include="www\templates\about.html" />
     <Content Include="www\templates\account.html" />
     <Content Include="www\templates\accountsettings.html" />
-    <Content Include="www\templates\accounttypeselect.html" />
     <Content Include="www\templates\accounts.html" />
     <Content Include="www\templates\accounttypesave.html" />
     <Content Include="www\templates\accounttypes.html" />
@@ -967,7 +966,6 @@
     <Content Include="www\templates\picktransactionpayee.html" />
     <Content Include="www\templates\picktransactionphoto.html" />
     <Content Include="www\templates\picktransactiontype.html" />
-    <Content Include="www\templates\popover.html" />
     <Content Include="www\templates\recurring.html" />
     <Content Include="www\templates\register.html" />
     <Content Include="www\templates\reports.html" />

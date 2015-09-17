@@ -5,40 +5,27 @@
     <ion-content>
         <ion-list>
             <div class="item item-divider SectionDivider CustomSubHeader">General Settings</div>
-            <ion-item class="item-icon-left item-icon-right" ui-sref="app.personalprofile">
-                <div class="customPaddingSettingsItem">
-                    <i class="icon fa fa-user icon-left-smaller"></i>
-                    Personal Profile
-                    <i class="icon ion-chevron-right customChevronMenu"></i>
-                </div>
-            </ion-item>
+            <a class="item item-icon-left item-icon-right customItemSize" ui-sref="app.personalprofile">
+                <i class="icon fa fa-user"></i>
+                Personal Profile
+                <i class="icon ion-chevron-right"></i>
+            </a>
             <div class="item item-divider SectionDivider CustomSubHeader">Account Settings</div>
-            <ion-item class="item-icon-left item-icon-right" ui-sref="app.accounttypes">
-                <div class="customPaddingSettingsItem">
-                    <i class="icon fa fa-file-text icon-left-smaller"></i>
-                    Account Types
-                    <i class="icon ion-chevron-right customChevronMenu"></i>
-                </div>
-            </ion-item>
-            <ion-item class="item-icon-left item-icon-right" ui-sref="app.accountpreferences">
-                <div class="customPaddingSettingsItem">
-                    <i class="icon fa fa-thumb-tack icon-left-smaller"></i>
-                    Account Preferences
-                    <i class="icon ion-chevron-right customChevronMenu"></i>
-                </div>
-            </ion-item>
+            <a class="item item-icon-left item-icon-right customItemSize" ui-sref="app.accounttypes">
+                <i class="icon fa fa-file-text"></i>
+                Account Types
+                <i class="icon ion-chevron-right"></i>
+            </a>
+            <a class="item item-icon-left item-icon-right customItemSize" ui-sref="app.accountpreferences">
+                <i class="icon fa fa-thumb-tack"></i>
+                Account Preferences
+                <i class="icon ion-chevron-right"></i>
+            </a>
             <div class="item item-divider SectionDivider CustomSubHeader">Other Settings</div>
-            <ion-item class="item-icon-left item-icon-right" ui-sref="app.about">
-                <div class="customPaddingSettingsItem">
-                    <i class="icon fa fa-thumb-tack icon-left-smaller"></i>
-                    About
-                    <i class="icon ion-chevron-right customChevronMenu"></i>
-                </div>
-            </ion-item>
-            <div class="item item-divider"></div>
-            <div class="item item-divider"></div>
-            <a class="button button-full button-assertive" ng-click="deleteAllData()">
-                Delete All Data
+            <a class="item item-icon-left item-icon-right customItemSize" ui-sref="app.about">
+                <i class="icon fa fa-thumb-tack"></i>
+                About
+                <i class="icon ion-chevron-right"></i>
             </a>
         </ion-list>
     </ion-content>

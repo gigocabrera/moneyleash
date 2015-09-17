@@ -16,10 +16,11 @@
                 </p>
             </div>
         </div>
-        <ion-list>
-            <ion-item class="mlcategories mlSmallerFont" ng-repeat="payee in data.payees" ng-click="selectPayee(payee)" href="#">
-                <i class="fa fa-user iconPadding"></i>
+        <ion-list can-swipe="listCanSwipe">
+            <ion-item ng-repeat="payee in data.payees" ng-click="selectPayee(payee)" class="customItemSize mlSmallerFont item-icon-left item-icon-right">
+                <i class="icon fa fa-user"></i>
                 {{ payee.payeename }}
+                <i class="icon ion-chevron-right"></i>
             </ion-item>
         </ion-list>
     </ion-content>

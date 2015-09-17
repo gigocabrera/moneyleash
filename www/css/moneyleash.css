@@ -2,11 +2,8 @@
 @import url("https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
 @import url("font-awesome.min.css");
 
-/* List Item classes
+/* Divider classes
 ===============================================*/
-.item {
-    font-size: 20px;
-}
 .DateDivider {
     font-weight: bold;
     font: 13px 'Helvetica Neue', sans-serif;
@@ -52,11 +49,6 @@
 }
 /* Left Menu Screen
 ===============================================*/
-.customPaddingMenuItem {
-    padding: 0 40px 0 13px;
-    text-shadow: 1px 1px #eeeeee;
-    font: 20px 'PT Sans Narrow', sans-serif;
-}
 .ion-ios-undo-outline{
     color: #CE1B31;
 }
@@ -81,52 +73,36 @@
     color: #ff8000;
     font-weight: bolder;
 }
+/*
 .item-icon-left.item-icon-right .icon:first-child {
     right: 0;
 }
 .item-icon-right .icon {
     right: 8px;
 }
+.item {
+    font-size: 20px;
+}
 .item-icon-left .icon:before {
     display: block;
     width: 25px;
     text-align: center;
-    padding-left: 9px;
+    margin-left: 20px;
     text-shadow: 1px 1px #eeeeee;
 }
-.icon-left-smaller:before {
-    font-size: 24px;
-    font-weight: normal;
-}
-.ion-chevron-right:before {
-    color: #31C0E6;
-    font-size: 14px;
-}
-.customChevronMenu:before {
-    color: #31C0E6;
-}
-/* Menu item text style */
 .item-complex.item-icon-right .item-content {
     padding-right: 40px;
     font-weight: normal;
     color: #172F39;
     height: 100%;
 }
-.circleIconBlue {
-    font-size: 16px;
-    font-weight: bold;
-    background: #31C0E6;
-    color: #fff;
-    padding: 0 0 0 2px;
-    border-radius: 50%;
-    margin-right: 5px;
-    margin-top: 13px;
-    width: 35px;
-    max-height: 35px;
-}
-/* Menu item padding */
 .item-complex.item-icon-left .item-content {
     padding: 14px 49px 14px 40px;
+}
+*/
+.ion-chevron-right:before {
+    color: #31C0E6;
+    font-size: 14px;
 }
 .bar.bar-subheader.CustomSubHeader {
   padding-top: 3px;
@@ -235,7 +211,11 @@ button.customHeaderSize {
     font-weight: normal;
     font: 18px 'PT Sans Narrow', sans-serif;
 }
+.customItemSize {
+    font-size: 20px;
+}
 .customAccDesc {
+    font-size: 20px;
     text-align: left;
     height: 37px;
     font-weight: bold;
@@ -252,6 +232,7 @@ button.customHeaderSize {
     font-weight: normal;
 }
 .customTransDesc {
+    font-size: 20px;
     font-weight: bold;
 }
 .customTransDesc span small {
@@ -397,21 +378,6 @@ button.customHeaderSize {
     font: 17px 'PT Sans', sans-serif;
 }
 
-/* Settings Screen
-===============================================*/
-.settings-view {
-    background-color: #EAEAEA !important;
-}
-.customPaddingSettings {
-    padding: 0 40px 0 11px;
-}
-.customPaddingSettingsItem {
-    padding: 0 40px 0 8px;
-    font: 17px 'PT Sans Narrow', sans-serif;
-}
-.customPaddingSettingsItem i:before {
-    font-size: 18px;
-}
 /* About Screen
 ===============================================*/
 .slider { height: 100%; text-align: center }
@@ -566,7 +532,7 @@ i.customChevronForm:before {
 .item-select select {
     padding: 8px 48px 10px 16px;
 }
-.mlcategories.mlindent a.item-content {
+.customItemList.mlindent a.item-content {
     padding-left: 50px;
 }
 i.mlpaddingright {
@@ -576,16 +542,19 @@ i.mlpaddingright {
 {
     font-size: 18px;
 }
-.mlcategories a.item-content {
+.iconPadding {
+    margin-right: 10px;
+}
+.customItemList a.item-content {
     padding: 10px 16px 10px 16px;
 }
-.mlcategories .item-content {
+.customItemList .item-content {
     padding: 10px 49px 10px 16px;
 }
-.mlcategories .radio-icon {
+.customItemList .radio-icon {
     padding: 7px 20px 7px 0;
 }
-.mlcategoriesbutton {
+.customItemListbutton {
     min-height: 37px;
 }
 .circleIconGreen {
@@ -712,9 +681,6 @@ i.mlpaddingright {
 
 /* Pick a Payee Search Screen
 ===============================================*/
-.iconPadding {
-    margin-right: 10px;
-}
 /* Slide Animation */
 .cssSlideUp {
     transition: .5s linear all;

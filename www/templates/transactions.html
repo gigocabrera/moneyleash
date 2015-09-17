@@ -15,7 +15,7 @@
             <div collection-repeat="transaction in transactions | reverselist | groupByDayMonthYear" divider-collection-repeat>
                 <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
                     <div class="row">
-                        <div class="col-50 customTransDesc">
+                        <div class="col-50 customTransDesc customItemSize">
                             <span>
                                 {{ transaction.payee }}
                                 <small>
