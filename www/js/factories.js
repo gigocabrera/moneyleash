@@ -34,57 +34,6 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {
-        //
-        // https://github.com/oriongunning/myExpenses
-        //
-        var currentData = {
-            currentUser: false,
-            currentHouse: false,
-            idadmin: false
-        };
-        $rootScope.show = function (text) {
-            $rootScope.loading = $ionicLoading.show({
-                template: '<ion-spinner icon="ios"></ion-spinner><br />' + text,
-                animation: 'fade-in',
-                showBackdrop: true,
-                maxWidth: 200,
-                showDelay: 0
-            });
-        };
-        $rootScope.hide = function (text) {
-            $ionicLoading.hide();
-        };
-
-        return {
-                clearData: function () {
-                currentData = false;
-            },
-            refreshData: function () {
-                var output = {};
-                var deferred = $q.defer();
-                var authData = fb.getAuth();
-                if (authData) {
-                    var usersRef = fb.child("members").child(authData.uid);
-                    usersRef.once("value", function (snap) {
-                        output.currentUser = snap.val();
-                        var housesRef = fb.child("houses").child(output.currentUser.houseid);
-                        housesRef.once("value", function (snap) {
-                            output.currentHouse = snap.val();
-                            output.currentHouse.id = housesRef.key();
-                            output.isadmin = (output.currentHouse.admin === output.currentUser.email ? true : false);
-                            deferred.resolve(output);
-                        });
-                    });
-                } else {
-                    output = currentData;
-                    deferred.resolve(output);
-                }
-                return deferred.promise;
-            }
-        }
-    })
-
     .factory('HouseFactory', function ($state, $q, myCache) {
         //
         // https://github.com/oriongunning/myExpenses
@@ -119,11 +68,11 @@ angular.module('moneyleash.factories', [])
                             }
                         }
                     }, function (errorObject) {
-                        //console.log("The read failed: " + errorObject.code);
+                        console.log("The read failed: " + errorObject.code);
                     });
                 return deferred.promise;
             },
-            getHouses: function (id) {
+            getHouses: function () {
                 var deferred = $q.defer();
                 ref.once('value', function (snap) {
                     //console.log(snap.val());
@@ -172,27 +121,27 @@ angular.module('moneyleash.factories', [])
                 memberRef.setPriority(newChildRef.key());
 
                 /* SAVE DEFAULT ACCOUNT TYPES */
-                var ref = fb.child("houses").child(newChildRef.key()).child("memberaccounttypes");
-                ref.push({ name: 'Checking', icon: '0' });
-                ref.push({ name: 'Savings', icon: '0' });
-                ref.push({ name: 'Credit Card', icon: '0' });
-                ref.push({ name: 'Debit Card', icon: '0' });
-                ref.push({ name: 'Investment', icon: '0' });
-                ref.push({ name: 'Brokerage', icon: '0' });
+                var refTypes = fb.child("houses").child(newChildRef.key()).child("memberaccounttypes");
+                refTypes.push({ name: 'Checking', icon: '0' });
+                refTypes.push({ name: 'Savings', icon: '0' });
+                refTypes.push({ name: 'Credit Card', icon: '0' });
+                refTypes.push({ name: 'Debit Card', icon: '0' });
+                refTypes.push({ name: 'Investment', icon: '0' });
+                refTypes.push({ name: 'Brokerage', icon: '0' });
 
                 /* SAVE DEFAULT CATEGORIES */
-                var ref = fb.child("houses").child(newChildRef.key()).child("membercategories").child('Income');
-                ref.push({ categoryname: 'Income', categoryparent: '', categorysort: 'Income', categorytype: 'Income' });
-                ref.push({ categoryname: 'Beginning Balance', categoryparent: 'Income', categorysort: 'Income:Beginning Balance', categorytype: 'Income' });
+                var refCatIncome = fb.child("houses").child(newChildRef.key()).child("membercategories").child('Income');
+                refCatIncome.push({ categoryname: 'Income', categoryparent: '', categorysort: 'Income', categorytype: 'Income' });
+                refCatIncome.push({ categoryname: 'Beginning Balance', categoryparent: 'Income', categorysort: 'Income:Beginning Balance', categorytype: 'Income' });
 
-                var ref = fb.child("houses").child(newChildRef.key()).child("membercategories").child('Expense');
-                ref.push({ categoryname: 'Auto', categoryparent: '', categorysort: 'Auto', categorytype: 'Expense' });
-                ref.push({ categoryname: 'Gasoline', categoryparent: 'Auto', categorysort: 'Auto:Gas', categorytype: 'Expense' });
-                ref.push({ categoryname: 'Car Payment', categoryparent: 'Auto', categorysort: 'Auto:Car Payment', categorytype: 'Expense' });
+                var refCatExpense = fb.child("houses").child(newChildRef.key()).child("membercategories").child('Expense');
+                refCatExpense.push({ categoryname: 'Auto', categoryparent: '', categorysort: 'Auto', categorytype: 'Expense' });
+                refCatExpense.push({ categoryname: 'Gasoline', categoryparent: 'Auto', categorysort: 'Auto:Gas', categorytype: 'Expense' });
+                refCatExpense.push({ categoryname: 'Car Payment', categoryparent: 'Auto', categorysort: 'Auto:Car Payment', categorytype: 'Expense' });
 
                 /* SAVE DEFAULT PAYEES */
-                var ref = fb.child("houses").child(newChildRef.key()).child("memberpayees");
-                ref.push({ lastamount: '', lastcategory: '', lastcategoryid: '', payeename: 'Beginning Balance' });
+                var refPayee = fb.child("houses").child(newChildRef.key()).child("memberpayees");
+                refPayee.push({ lastamount: '', lastcategory: '', lastcategoryid: '', payeename: 'Beginning Balance' });
             }
         };
     })
@@ -203,7 +152,6 @@ angular.module('moneyleash.factories', [])
         var parentcategories = {};
         var categoriesByType = {};
         var categoryRef = {};
-        var authData = fb.getAuth();
         var thisHouseId = myCache.get('thisHouseId');
         return {
             getCategories: function (type) {
@@ -243,13 +191,11 @@ angular.module('moneyleash.factories', [])
         var alltransactions = {};
         var transactionsbycategoryRef = {};
         var transactionsbypayeeRef = {};
-        var accountRef = {};
-        var transactionRef = {};
         var transactionsRef = {};
         var authData = fb.getAuth();
         var thisHouseId = myCache.get('thisHouseId');
         return {
-            ref: function (userid) {
+            ref: function () {
                 ref = fb.child("houses").child(thisHouseId).child("memberaccounts");
                 return ref;
             },
@@ -294,7 +240,7 @@ angular.module('moneyleash.factories', [])
             },
             saveAccount: function (account) {
                 allaccounts.$save(account).then(function (ref) {
-                    ref.key() === account.$id;
+                    ref.key() = account.$id;
                 });
             },
             createTransaction: function (currentAccountId, currentItem) {
@@ -381,7 +327,7 @@ angular.module('moneyleash.factories', [])
             },
             saveTransaction: function (transaction) {
                 alltransactions.$save(transaction).then(function (ref) {
-                    ref.key() === transaction.$id;
+                    ref.key() = transaction.$id;
                 });
             }
         };
@@ -425,7 +371,7 @@ angular.module('moneyleash.factories', [])
             },
             savePayee: function (payee) {
                 allpayees.$save(payee).then(function (ref) {
-                    ref.key() === payee.$id;
+                    ref.key() = payee.$id;
                 });
             }
         };
@@ -443,7 +389,7 @@ angular.module('moneyleash.factories', [])
             var deferred = $q.defer();
             var matches = payees.filter(function (payee) {
                 if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;
-            })
+            });
             $timeout(function () {
                 deferred.resolve(matches);
             }, 100);
@@ -540,7 +486,7 @@ angular.module('moneyleash.factories', [])
         transPhoto.updatePhoto = function (value) {
             this.photoSelected = value;
         }
-        transPhoto.updateNote = function (value) {
+        transNote.updateNote = function (value) {
             this.noteSelected = value;
         }
     })
