@@ -14,43 +14,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
         }
     });
 
-    // POPOVER
-    // .fromTemplate() method
-    var template = '<ion-popover-view>' +
-                    '   <ion-content class="padding">' +
-                    '       <a class="item" href="#" ng-click="showSorting(SortingIsEnabled)">' +
-                    '           <i class="fa fa-bars"></i>&nbsp;&nbsp;&nbsp;Sort Transactions' +
-                    '       </a>' +
-                    '       <a class="item" href="#" ng-click="showFilters()">' +
-                    '           <i class="fa fa-filter"></i>&nbsp;&nbsp;&nbsp;Show Filters' +
-                    '       </a>' +
-                    '       <a class="item" href="http://showcase.ionicframework.com/" target="_blank">' +
-                    '           Showcase' +
-                    '       </a>' +
-                    '       <a class="item" href="http://ionicframework.com/submit-issue/" target="_blank">' +
-                    '           Submit an Issue' +
-                    '       </a>' +
-                    '       <a class="item" href="https://github.com/driftyco/ionic" target="_blank">' +
-                    '           Github Repo' +
-                    '       </a>' +
-                    '   </ion-content>' +
-                    '</ion-popover-view>';
-
-
-    $scope.animation = 'am-slide-top';
-
-    $scope.popover = $ionicPopover.fromTemplate(template, {
-        scope: $scope,
-        animation: $scope.animation
-    });
-    $scope.closePopover = function () {
-        $scope.popover.hide();
-    };
-    //Cleanup the popover when we're done with it!
-    $scope.$on('$destroy', function () {
-        $scope.popover.remove();
-    });
-
     // SHOW FILTERS - ACTION SHEET
     $scope.moreOptions = function () {
         $ionicActionSheet.show({
