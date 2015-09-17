@@ -1,19 +1,4 @@
 
-// ACCOUNT PREFERENCES CONTROLLER
-moneyleashapp.controller('AccountPreferencesController', function ($scope, $state, $ionicHistory, PickTransactionTypeService) {
-
-    $scope.TransactionTypeList = [
-        { text: 'Income', value: 'Income' },
-        { text: 'Expense', value: 'Expense' },
-        { text: 'Transfer', value: 'Transfer' }];
-    $scope.currentItem = { typedisplay: PickTransactionTypeService.typeSelected };
-    $scope.itemchanged = function (item) {
-        PickTransactionTypeService.updateType(item.value);
-        $ionicHistory.goBack();
-    };
-
-})
-
 // SETTINGS CONTROLLER
 moneyleashapp.controller('SettingsController', function ($scope, $state, $ionicActionSheet, $ionicHistory) {
 

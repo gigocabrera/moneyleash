@@ -484,11 +484,11 @@ button.customHeaderSize {
 .form-group i {
     background:#eeeeee;
     color: #919191;
-    width: 65px;
+    width: 63px;
 }
 .form-group i:before {
     font-size: 24px;
-    margin-left: 13px;
+    margin: 0 auto;
 }
 .form-group i.icon {
     left: 0;

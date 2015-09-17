@@ -233,28 +233,6 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
         }
     })
 
-    // ACCOUNT TYPES
-    .state('app.accounttypes', {
-        url: "/accounttypes",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/accounttypes.html",
-                controller: 'AccountTypesController'
-            }
-        }
-    })
-
-    // ACCOUNT SETTINGS
-    .state('app.accountsettings', {
-        url: "/accountsettings",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/accountsettings.html",
-                controller: 'AccountSettingsController'
-            }
-        }
-    })
-
     // RECURRING
     .state('app.recurring', {
         url: "/recurring",
@@ -372,14 +350,21 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
-
-    // PERSONAL PROFILE
     .state('app.personalprofile', {
         url: "/personalprofile",
         views: {
             'menuContent': {
                 templateUrl: "templates/personalprofile.html",
                 controller: 'PersonalProfileController'
+            }
+        }
+    })
+    .state('app.accounttypes', {
+        url: "/accounttypes",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/accounttypes.html",
+                controller: 'AccountTypesController'
             }
         }
     })
