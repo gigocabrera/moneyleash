@@ -240,7 +240,7 @@ angular.module('moneyleash.factories', [])
             },
             saveAccount: function (account) {
                 allaccounts.$save(account).then(function (ref) {
-                    ref.key() = account.$id;
+                    //ref.key() = account.$id;
                 });
             },
             createTransaction: function (currentAccountId, currentItem) {
@@ -327,7 +327,7 @@ angular.module('moneyleash.factories', [])
             },
             saveTransaction: function (transaction) {
                 alltransactions.$save(transaction).then(function (ref) {
-                    ref.key() = transaction.$id;
+                    //ref.key() = transaction.$id;
                 });
             }
         };
@@ -371,7 +371,7 @@ angular.module('moneyleash.factories', [])
             },
             savePayee: function (payee) {
                 allpayees.$save(payee).then(function (ref) {
-                    ref.key() = payee.$id;
+                    //ref.key() = payee.$id;
                 });
             }
         };

@@ -2,184 +2,8 @@
 @import url("https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
 @import url("font-awesome.min.css");
 
-/* Intro Page */
-.slidePadding {
-    margin-top: 60px;
-}
-.background-dark {
-  background: #212121;
-}
-.button-intro {
-    margin-top: 0;
-    margin-right: -30px;
-    margin-bottom: -15px;
-    display: block;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    text-transform: uppercase;
-    padding: 13px 0;
-    text-decoration: none;
-    font-weight: bold;
-}
-.button-intro.button-dark {
-    background: #212121;
-    color: #fff; 
-}
-.button-intro.button-orange {
-    background: #F57D00;
-    color: #fff;
-}
-.button-intro.button-positive {
-    background: #f8d50e;
-    color: #000;
-}
-.bar.bar-dark.bar-footer {
-    padding: 0;
-}
-
-/*******************/
-/*  INTRO SCREEN   */
-
-.background-intro.pane{
-    background-color: #1D7AC1;
-    /*background-image: url('../img/moneyleash_bg.png');
-    background-size: cover;
-    background-position: center;*/    
-}
-.mlLinksBlue {
-    text-decoration: none;
-    color: #fff;
-    font-size: 16px;
-}
-.mlLinksGray {
-    text-decoration: none;
-    color: #fff;
-}
-.intro-view, .login-view, .signup-view, .forgot-password-view {
-    background-color: white !important;
-}
-    .intro-view ion-content:before, .login-view ion-content:before, .signup-view ion-content:before, .forgot-password-view ion-content:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: -1;
-        opacity: 1.0;
-        display: block;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        background-size: cover;
-        -webkit-filter: blur(1px);
-        -moz-filter: blur(1px);
-        -o-filter: blur(1px);
-        -ms-filter: blur(1px);
-        filter: blur(1px);
-    }
-    .intro-view .top-content {
-        height: 75%;
-        text-align: center;
-    }
-        .intro-view .top-content h1 {
-            color: #ff8000;
-            font-family: "Segoe UI";
-        }
-    .intro-view .bottom-content {
-        height: 25%;
-        padding-top: 5px;
-        margin-top: 0;
-    }
-        .intro-view .bottom-content .button {
-            border: none;
-            color: #fff;
-            font-weight: bolder;
-            font-size: 20px;
-            line-height: 20px;
-        }
-        .intro-view .bottom-content .login.button {
-            background-color: rgba(12, 91, 224, 1.00);
-        }
-        .intro-view .bottom-content .sign-up.button {
-            background-color: rgba(164, 164, 164, 1.0);
-        }
-
-.signup-view {
-    background-color: #787878 !important;
-}
-
-    .signup-view .row {
-        height: 100%;
-    }
-
-    .signup-view .sign-up-container {
-        margin-bottom: 0;
-    }
-
-    .signup-view .bottom-content {
-        padding-top: 0;
-        border: none;
-    }
-
-        .signup-view .bottom-content .button {
-            margin: 0;
-            font-weight: bold;
-        }
-
-    .signup-view .alternative-actions {
-        margin: 0 10px;
-    }
-
-        .signup-view .alternative-actions .button {
-            padding: 0;
-            font-size: 14px;
-        }
-
-.forgot-password-view {
-    background-color: #787878 !important;
-}
-
-    .forgot-password-view .row {
-        height: 100%;
-    }
-
-    .forgot-password-view .forgot-password-container {
-        margin-bottom: 0;
-    }
-
-    .forgot-password-view .bottom-content {
-        padding-top: 0;
-        border: none;
-    }
-
-        .forgot-password-view .bottom-content .button {
-            margin: 0;
-            font-weight: bold;
-        }
-
-    .forgot-password-view .alternative-actions {
-        margin: 0 10px;
-    }
-
-        .forgot-password-view .alternative-actions .button {
-            padding: 0;
-            font-size: 14px;
-        }
-
-        .forgot-password-view .alternative-actions .sign-up {
-            float: right;
-        }
-
-.logout-option {
-    text-align: center;
-}
-
-.settings-view {
-    background-color: #EAEAEA !important;
-}
-
-/* List Item Font Size */
+/* List Item classes
+===============================================*/
 .item {
     font-size: 20px;
 }
@@ -197,7 +21,8 @@
 .SectionDividerActive {
     color: #FF5E2E;
 }
-/* Action Sheet */
+/* Action Sheet
+===============================================*/
 .action-sheet-title {
     font-size: 18px;
     color: #505050;
@@ -213,19 +38,20 @@
 .button-white {
     color: #fff;
 }
-/* ionicPopup */
+/* Ionic Popup
+===============================================*/
 .popup-body {
     padding: 10px;
     overflow: hidden;
 }
-/* Spin animation for ion-loop */
+/* Spinner
+===============================================*/
 .spinner svg {
   width: 28px;
   height: 28px;
 }
-
-/********************/
-/* LEFT MENU SCREEN */
+/* Left Menu Screen
+===============================================*/
 .customPaddingMenuItem {
     padding: 0 40px 0 13px;
     text-shadow: 1px 1px #eeeeee;
@@ -334,9 +160,8 @@ button.customHeaderSize {
     color: #31C0E6;
 }
 
-/***********************************/
-/* ACCOUNTS & TRANSACTIONS SCREENS */
-
+/* Accounts & Transactions Screens
+===============================================*/
 .row {
     padding: 0;
     width: 100%;
@@ -572,8 +397,11 @@ button.customHeaderSize {
     font: 17px 'PT Sans', sans-serif;
 }
 
-/*******************/
-/* SETTINGS SCREEN */
+/* Settings Screen
+===============================================*/
+.settings-view {
+    background-color: #EAEAEA !important;
+}
 .customPaddingSettings {
     padding: 0 40px 0 11px;
 }
@@ -584,13 +412,13 @@ button.customHeaderSize {
 .customPaddingSettingsItem i:before {
     font-size: 18px;
 }
-/*******************/
-/*  ABOUT SCREEN   */
+/* About Screen
+===============================================*/
 .slider { height: 100%; text-align: center }
 .scroll { height: 100%; }
 
-/*******************/
-/*   FORM STYLES   */
+/* Form Styles
+===============================================*/
 .moneyleashLabel {
     padding: 0;
 }
@@ -675,11 +503,6 @@ button.customHeaderSize {
 .ng-hide-remove {
     /* ensure visibility during the transition */
     display: block !important; /* yes, important */
-}
-
-/* Form styles */
-.form-group {
-    /*height: 50px;*/
 }
 .item-complex.item-icon-left.form-group .item-content {
     padding: 0 49px 0 55px;
@@ -784,7 +607,8 @@ i.mlpaddingright {
     margin-right: 5px;
 }
 
-/* Calendar */
+/* Calendar
+===============================================*/
 .pickadate-cell .pickadate-enabled {
     font-size: 14px;
 }
@@ -817,7 +641,8 @@ i.mlpaddingright {
     padding: 1.5% 0 1.5% 0;
 }
 
-/* NumberPad */
+/* Numeric Pad
+===============================================*/
 #resultInput {
     display: block;
     width: 100%;
@@ -829,7 +654,6 @@ i.mlpaddingright {
     background-color: #D3EAF0;
     text-align: right;
 }
-
 #basic {
     margin: 0 auto;
     padding: 0;
@@ -838,7 +662,6 @@ i.mlpaddingright {
     width: 100%;
     max-width: 400px;
 }
-
     #basic td {
         background-color: #000;
         padding: 0;
@@ -846,7 +669,6 @@ i.mlpaddingright {
         height: 18%;
         border: 1px solid #000;
     }
-
     #basic button {
         display: block;
         font-size: 20px;
@@ -855,7 +677,6 @@ i.mlpaddingright {
         padding: 0;
         border: none;
         text-align: center;
-        /* vertical-align: middle; */
         color: #000;
         background-color: #d0d1d4;
     }
@@ -874,7 +695,6 @@ i.mlpaddingright {
             cursor: pointer;
             background-color: #babbbe;
         }
-
 .pickCategoryIndent {
     padding-left: 30px;
 }
@@ -889,7 +709,9 @@ i.mlpaddingright {
   padding-left: 7px;
   padding-right: 7px;
 }
-/* Pick a Payee Search */
+
+/* Pick a Payee Search Screen
+===============================================*/
 .iconPadding {
     margin-right: 10px;
 }
@@ -906,8 +728,9 @@ i.mlpaddingright {
 .cssSlideUp.ng-hide {
     height:0;
 }
+
 /* Popover
-==================================*/
+===============================================*/
 .platform-ios .popover {
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.38);
     border-radius: 5px;
@@ -927,7 +750,12 @@ i.mlpaddingright {
 
 /* New Login Form based on 
    http://codepen.io/lsgrrd/pen/xvwHn
-==================================*/
+===============================================*/
+.mlLinksBlue {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+}
 .introHeading {
 
 }
