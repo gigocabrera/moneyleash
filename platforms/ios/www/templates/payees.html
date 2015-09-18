@@ -2,20 +2,21 @@
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon icon ion-navicon customHeaderIcon"></button>
     </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createPayee()"></button>
+    </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe">
-            <ion-item class="item-icon-left item-icon-right" ng-repeat="payee in payees" ng-click="handleSwipeOptions($event, payee)">
-                <div class="customPaddingSettingsItem">
-                    <i class="icon fa fa-user icon-left-smaller"></i>
-                    {{ payee.payeename }}
-                    <ion-option-button class="button-stable mlcategoriesbutton" ng-click="moreOptions(payee)">
-                        More
-                    </ion-option-button>
-                    <ion-option-button class="button-assertive mlcategoriesbutton" ng-click="deletePayee(payee)">
-                        Delete
-                    </ion-option-button>
-                    <i class="icon ion-chevron-right customChevronMenu"></i>
-                </div>
+            <ion-item ng-repeat="payee in payees" ng-click="handleSwipeOptions($event, payee)" class="customItemSize mlSmallerFont item-icon-left item-icon-right">
+                <i class="icon ion-ios-person-outline"></i>
+                {{ payee.payeename }}
+                <ion-option-button class="button-stable customItemListbutton" ng-click="moreOptions(payee)">
+                    More
+                </ion-option-button>
+                <ion-option-button class="button-assertive customItemListbutton" ng-click="deletePayee(payee)">
+                    Delete
+                </ion-option-button>
+                <i class="icon ion-chevron-right"></i>
             </ion-item>
         </ion-list>
     </ion-content>

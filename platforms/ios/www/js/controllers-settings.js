@@ -1,21 +1,6 @@
 
-// ACCOUNT PREFERENCES CONTROLLER
-moneyleashapp.controller('AccountPreferencesController', function ($scope, $state, $ionicHistory, PickTransactionTypeService) {
-
-    $scope.TransactionTypeList = [
-        { text: 'Income', value: 'Income' },
-        { text: 'Expense', value: 'Expense' },
-        { text: 'Transfer', value: 'Transfer' }];
-    $scope.currentItem = { typedisplay: PickTransactionTypeService.typeSelected };
-    $scope.itemchanged = function (item) {
-        PickTransactionTypeService.updateType(item.value);
-        $ionicHistory.goBack();
-    };
-
-})
-
 // SETTINGS CONTROLLER
-moneyleashapp.controller('SettingsController', function ($scope, $state, $ionicActionSheet, $ionicHistory, fireBaseData) {
+moneyleashapp.controller('SettingsController', function ($scope, $state, $ionicActionSheet, $ionicHistory) {
 
     // Triggered on a the logOut button click
     $scope.showLogOutMenu = function () {
@@ -37,7 +22,6 @@ moneyleashapp.controller('SettingsController', function ($scope, $state, $ionicA
             destructiveButtonClicked: function () {
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
-                fireBaseData.clearData();
                 $ionicHistory.clearCache();
                 fb.unauth();
                 $state.go("intro");

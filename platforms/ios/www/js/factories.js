@@ -12,8 +12,6 @@ angular.module('moneyleash.factories', [])
     })
 
     .factory('MembersFactory', function ($firebaseArray, $q) {
-        var ref = {};
-        var thisHouseId = myCache.get('thisHouseId');
         var ref = fb.child("members");
         return {
             ref: function () {
@@ -34,63 +32,6 @@ angular.module('moneyleash.factories', [])
                 return deferred.promise;
             },
         };
-    })
-
-    .factory('fireBaseData', function ($firebase, $rootScope, $ionicPopup, $ionicLoading, $q) {
-        //
-        // https://github.com/oriongunning/myExpenses
-        //
-        var currentData = {
-            currentUser: false,
-            currentHouse: false,
-            idadmin: false
-        };
-        $rootScope.notify = function (title, text) {
-            var alertPopup = $ionicPopup.alert({
-                title: title ? title : 'Error',
-                template: text
-            });
-        };
-        $rootScope.show = function (text) {
-            $rootScope.loading = $ionicLoading.show({
-                template: '<ion-spinner icon="ios"></ion-spinner><br />' + text,
-                animation: 'fade-in',
-                showBackdrop: true,
-                maxWidth: 200,
-                showDelay: 0
-            });
-        };
-        $rootScope.hide = function (text) {
-            $ionicLoading.hide();
-        };
-
-        return {
-                clearData: function () {
-                currentData = false;
-            },
-            refreshData: function () {
-                var output = {};
-                var deferred = $q.defer();
-                var authData = fb.getAuth();
-                if (authData) {
-                    var usersRef = fb.child("members").child(authData.uid);
-                    usersRef.once("value", function (snap) {
-                        output.currentUser = snap.val();
-                        var housesRef = fb.child("houses").child(output.currentUser.houseid);
-                        housesRef.once("value", function (snap) {
-                            output.currentHouse = snap.val();
-                            output.currentHouse.id = housesRef.key();
-                            output.isadmin = (output.currentHouse.admin === output.currentUser.email ? true : false);
-                            deferred.resolve(output);
-                        });
-                    });
-                } else {
-                    output = currentData;
-                    deferred.resolve(output);
-                }
-                return deferred.promise;
-            }
-        }
     })
 
     .factory('HouseFactory', function ($state, $q, myCache) {
@@ -127,11 +68,11 @@ angular.module('moneyleash.factories', [])
                             }
                         }
                     }, function (errorObject) {
-                        //console.log("The read failed: " + errorObject.code);
+                        console.log("The read failed: " + errorObject.code);
                     });
                 return deferred.promise;
             },
-            getHouses: function (id) {
+            getHouses: function () {
                 var deferred = $q.defer();
                 ref.once('value', function (snap) {
                     //console.log(snap.val());
@@ -180,28 +121,27 @@ angular.module('moneyleash.factories', [])
                 memberRef.setPriority(newChildRef.key());
 
                 /* SAVE DEFAULT ACCOUNT TYPES */
-                var ref = fb.child("houses").child(newChildRef.key()).child("memberaccounttypes");
-                ref.push({ name: 'Checking', icon: '0' });
-                ref.push({ name: 'Savings', icon: '0' });
-                ref.push({ name: 'Credit Card', icon: '0' });
-                ref.push({ name: 'Debit Card', icon: '0' });
-                ref.push({ name: 'Investment', icon: '0' });
-                ref.push({ name: 'Brokerage', icon: '0' });
-                ref.push({ name: 'Checking', icon: '0' });
+                var refTypes = fb.child("houses").child(newChildRef.key()).child("memberaccounttypes");
+                refTypes.push({ name: 'Checking', icon: '0' });
+                refTypes.push({ name: 'Savings', icon: '0' });
+                refTypes.push({ name: 'Credit Card', icon: '0' });
+                refTypes.push({ name: 'Debit Card', icon: '0' });
+                refTypes.push({ name: 'Investment', icon: '0' });
+                refTypes.push({ name: 'Brokerage', icon: '0' });
 
                 /* SAVE DEFAULT CATEGORIES */
-                var ref = fb.child("houses").child(newChildRef.key()).child("membercategories").child('Income');
-                ref.push({ categoryname: 'Income', categoryparent: '', categorysort: 'Income', categorytype: 'Income' });
-                ref.push({ categoryname: 'Beginning Balance', categoryparent: 'Income', categorysort: 'Income:Beginning Balance', categorytype: 'Income' });
+                var refCatIncome = fb.child("houses").child(newChildRef.key()).child("membercategories").child('Income');
+                refCatIncome.push({ categoryname: 'Income', categoryparent: '', categorysort: 'Income', categorytype: 'Income' });
+                refCatIncome.push({ categoryname: 'Beginning Balance', categoryparent: 'Income', categorysort: 'Income:Beginning Balance', categorytype: 'Income' });
 
-                var ref = fb.child("houses").child(newChildRef.key()).child("membercategories").child('Expense');
-                ref.push({ categoryname: 'Auto', categoryparent: '', categorysort: 'Auto', categorytype: 'Expense' });
-                ref.push({ categoryname: 'Gasoline', categoryparent: 'Auto', categorysort: 'Auto:Gas', categorytype: 'Expense' });
-                ref.push({ categoryname: 'Car Payment', categoryparent: 'Auto', categorysort: 'Auto:Car Payment', categorytype: 'Expense' });
+                var refCatExpense = fb.child("houses").child(newChildRef.key()).child("membercategories").child('Expense');
+                refCatExpense.push({ categoryname: 'Auto', categoryparent: '', categorysort: 'Auto', categorytype: 'Expense' });
+                refCatExpense.push({ categoryname: 'Gasoline', categoryparent: 'Auto', categorysort: 'Auto:Gas', categorytype: 'Expense' });
+                refCatExpense.push({ categoryname: 'Car Payment', categoryparent: 'Auto', categorysort: 'Auto:Car Payment', categorytype: 'Expense' });
 
                 /* SAVE DEFAULT PAYEES */
-                var ref = fb.child("houses").child(newChildRef.key()).child("memberpayees");
-                ref.push({ lastamount: '', lastcategory: '', lastcategoryid: '', payeename: 'Beginning Balance' });
+                var refPayee = fb.child("houses").child(newChildRef.key()).child("memberpayees");
+                refPayee.push({ lastamount: '', lastcategory: '', lastcategoryid: '', payeename: 'Beginning Balance' });
             }
         };
     })
@@ -212,7 +152,6 @@ angular.module('moneyleash.factories', [])
         var parentcategories = {};
         var categoriesByType = {};
         var categoryRef = {};
-        var authData = fb.getAuth();
         var thisHouseId = myCache.get('thisHouseId');
         return {
             getCategories: function (type) {
@@ -247,52 +186,36 @@ angular.module('moneyleash.factories', [])
 
     .factory('AccountsFactory', function ($firebaseArray, $q, myCache) {
         var ref = {};
-        var accounts = {};
-        var accounttypes = {};
-        var transactions = {};
+        var allaccounts = {};
+        var allaccounttypes = {};
         var alltransactions = {};
         var transactionsbycategoryRef = {};
         var transactionsbypayeeRef = {};
-        var accountRef = {};
-        var transactionRef = {};
         var transactionsRef = {};
         var authData = fb.getAuth();
         var thisHouseId = myCache.get('thisHouseId');
         return {
-            ref: function (userid) {
+            ref: function () {
                 ref = fb.child("houses").child(thisHouseId).child("memberaccounts");
                 return ref;
             },
             getAccounts: function () {
                 ref = fb.child("houses").child(thisHouseId).child("memberaccounts");
-                accounts = $firebaseArray(ref);
-                return accounts;
+                allaccounts = $firebaseArray(ref);
+                return allaccounts;
             },
             getAccount: function (accountid) {
-                var deferred = $q.defer();
-                ref = fb.child("houses").child(thisHouseId).child("memberaccounts").child(accountid);
-                ref.once("value", function (snap) {
-                    deferred.resolve(snap.val());
-                });
-                return deferred.promise;
-            },
-            getAccountRef: function (accountid) {
-                accountRef = fb.child("houses").child(thisHouseId).child("memberaccounts").child(accountid);
-                return accountRef;
+                var thisAccount = allaccounts.$getRecord(accountid);
+                return thisAccount;
             },
             getAccountTypes: function () {
                 ref = fb.child("houses").child(thisHouseId).child("memberaccounttypes");
-                accounttypes = $firebaseArray(ref);
-                return accounttypes;
+                allaccounttypes = $firebaseArray(ref);
+                return allaccounttypes;
             },
             getTransaction: function (transactionid) {
                 var thisTransaction = alltransactions.$getRecord(transactionid);
                 return thisTransaction;
-            },
-            getTransactions: function (accountid) {
-                ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid);
-                transactions = $firebaseArray(ref);
-                return transactions;
             },
             getTransactionsByDate: function (accountid) {
                 ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid).orderByChild('date');
@@ -313,19 +236,12 @@ angular.module('moneyleash.factories', [])
             },
             createNewAccount: function (currentItem) {
                 // Create the account
-                accounts.$add(currentItem).then(function (newChildRef) { });
+                allaccounts.$add(currentItem).then(function (newChildRef) { });
             },
-            updateAccount: function (accountid, currentItem) {
-                var dtOpen = new Date(currentItem.dateopen);
-                if (isNaN(dtOpen)) {
-                    currentItem.dateopen = "";
-                } else {
-                    dtOpen = +dtOpen;
-                    currentItem.dateopen = dtOpen;
-                }
-                // Update account
-                accountRef = fb.child("houses").child(thisHouseId).child("memberaccounts").child(accountid);
-                accountRef.update(currentItem);
+            saveAccount: function (account) {
+                allaccounts.$save(account).then(function (ref) {
+                    //ref.key() = account.$id;
+                });
             },
             createTransaction: function (currentAccountId, currentItem) {
                 //
@@ -356,7 +272,6 @@ angular.module('moneyleash.factories', [])
                 //
                 var ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountId);
                 var newChildRef = ref.push(currentItem);
-                newChildRef.setWithPriority(currentItem, currentItem.date);
                 //
                 // Save transaction under category
                 //
@@ -407,17 +322,12 @@ angular.module('moneyleash.factories', [])
                     });
                 }
             },
-            deleteTransaction_ORIG: function (transaction) {
-                alltransactions.$remove(transaction).then(function (ref) {
-                    ref.key() === transaction.$id;
-                });
-            },
             deleteTransaction: function () {
                 return alltransactions;
             },
             saveTransaction: function (transaction) {
                 alltransactions.$save(transaction).then(function (ref) {
-                    ref.key() === transaction.$id;
+                    //ref.key() = transaction.$id;
                 });
             }
         };
@@ -425,7 +335,7 @@ angular.module('moneyleash.factories', [])
 
     .factory('PayeesService', function ($firebaseArray, $q, myCache) {
         var ref = {};
-        var payees = {};
+        var allpayees = {};
         var payeeRef = {};
         var transactionsByPayeeRef = {};
         var transactionsByCategoryRef = {};
@@ -434,8 +344,8 @@ angular.module('moneyleash.factories', [])
         return {
             getPayees: function () {
                 ref = fb.child("houses").child(thisHouseId).child("memberpayees").orderByChild('payeesort');
-                payees = $firebaseArray(ref);
-                return payees;
+                allpayees = $firebaseArray(ref);
+                return allpayees;
             },
             getPayee: function (payeeid) {
                 var deferred = $q.defer();
@@ -459,6 +369,11 @@ angular.module('moneyleash.factories', [])
                 payeeRef = fb.child("houses").child(thisHouseId).child("memberpayees").child(payeeid);
                 return payeeRef;
             },
+            savePayee: function (payee) {
+                allpayees.$save(payee).then(function (ref) {
+                    //ref.key() = payee.$id;
+                });
+            }
         };
     })
 
@@ -474,7 +389,7 @@ angular.module('moneyleash.factories', [])
             var deferred = $q.defer();
             var matches = payees.filter(function (payee) {
                 if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;
-            })
+            });
             $timeout(function () {
                 deferred.resolve(matches);
             }, 100);
@@ -518,21 +433,21 @@ angular.module('moneyleash.factories', [])
 
     // Account Pick Lists
     .service("PickAccountServices", function () {
-        var accountName = this;
-        var accountAmount = this;
         var accountDate = this;
         var accountType = this;
-        accountName.updateAccountName = function (value) {
-            this.nameSelected = value;
-        }
-        accountAmount.updateAmount = function (value) {
-            this.amountSelected = value;
-        }
+        var accountDefaultDate = this;
+        var accountDefaultBalance = this;
         accountDate.updateDate = function (value) {
             this.dateSelected = value;
         }
         accountType.updateType = function (value) {
             this.typeSelected = value;
+        }
+        accountDefaultDate.updateDefaultDate = function (value) {
+            this.defaultDateSelected = value;
+        }
+        accountDefaultBalance.updateDefaultBalance = function (value) {
+            this.defaultBalanceSelected = value;
         }
     })
 
@@ -579,7 +494,7 @@ angular.module('moneyleash.factories', [])
         transPhoto.updatePhoto = function (value) {
             this.photoSelected = value;
         }
-        transPhoto.updateNote = function (value) {
+        transNote.updateNote = function (value) {
             this.noteSelected = value;
         }
     })

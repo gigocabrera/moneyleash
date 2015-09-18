@@ -1,22 +1,20 @@
 
 // REGISTER CONTROLLER
-moneyleashapp.controller('PersonalProfileController', function ($scope, $state, MembersFactory) {
+moneyleashapp.controller('PersonalProfileController', function ($scope, $state, $rootScope, MembersFactory) {
 
-    $scope.getProfile = function () {
-        MembersFactory.getMember().then(function (user) {
-            var sFirstName = user.firstname;
-            var sLastName = user.lastname;
-            var sEmail = user.email;
-            var sPaymentPlan = user.paymentplan;
-            var temp = {
-                firstname: sFirstName,
-                lastname: sLastName,
-                email: sEmail,
-                paymentplan: sPaymentPlan
-            }
-            $scope.member = temp;
-        });
-    };
+    $scope.member = {};
+    $scope.house = {};
+    MembersFactory.getMember($rootScope.authData).then(function (thisuser) {
+        $scope.member.firstname = thisuser.firstname;
+        $scope.member.lastname = thisuser.lastname;
+        $scope.member.email = thisuser.email;
+        $scope.member.datecreated = moment(thisuser.datecreated).format('MMMM D, YYYY');
+        $scope.member.paymentplan = thisuser.paymentplan;
+        $scope.house.name = thisuser.housename;
+        $scope.house.number = thisuser.housenumber;
+        $scope.house.admin = thisuser.houseadmin;
+        $scope.house.admin = thisuser.houseadmin;
+    });
     
     $scope.saveProfile = function (user) {
         var fbAuth = fb.getAuth();

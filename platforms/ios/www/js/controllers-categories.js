@@ -116,7 +116,7 @@ moneyleashapp.controller('CategoryController', function ($scope, $state, $ionicH
 })
 
 // CATEGORIES CONTROLLER
-moneyleashapp.controller('CategoriesController', function ($scope, $filter, $state, $ionicHistory, $ionicListDelegate, $ionicActionSheet, CategoriesFactory, PickParentCategoryService, PickCategoryTypeService) {
+moneyleashapp.controller('CategoriesController', function ($scope, $state, $ionicListDelegate, $ionicActionSheet, CategoriesFactory, PickParentCategoryService, PickCategoryTypeService) {
   
     // SHOW FILTERS - ACTION SHEET
     $scope.moreOptions = function (category) {
@@ -189,11 +189,11 @@ moneyleashapp.controller('CategoriesController', function ($scope, $filter, $sta
                 $ionicListDelegate.closeOptionButtons();
                 if (category.categorytype === 'Income') {
                     $scope.incomecategories.$remove(category).then(function (newChildRef) {
-                        newChildRef.key() === category.$id;
+                        newChildRef.key() = category.$id;
                     })
                 } else {
                     $scope.expensecategories.$remove(category).then(function (newChildRef) {
-                        newChildRef.key() === category.$id;
+                        newChildRef.key() = category.$id;
                     })
                 }
                 return true;

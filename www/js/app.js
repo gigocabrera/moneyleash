@@ -130,6 +130,24 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
+    .state('app.pickaccountdefaultdate', {
+        url: "/pickaccountdefaultdate",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickaccountdefaultdate.html",
+                controller: "PickAccountDefaultDateController"
+            }
+        }
+    })
+    .state('app.pickaccountdefaultbalance', {
+        url: "/pickaccountdefaultbalance",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/pickaccountdefaultbalance.html",
+                controller: "PickAccountDefaultBalanceController"
+            }
+        }
+    })
 
     // TRANSACTIONS
     .state('app.transactions', {

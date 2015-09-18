@@ -11,18 +11,28 @@
             </div>
         </div>
         <div class="ion-list">
-            <ion-item class="item-icon-left form-group customMarginTop">
+            <div class="item item-divider mlSmallerFont CustomSubHeader">Category Details</div>
+            <ion-item class="item-icon-left form-group floating-padding">
                 <i class="icon fa fa-thumb-tack placeholder-icon"></i>
-                <input type="text" placeholder="Category Name" ng-model="currentItem.categoryname" autocorrect="on" autocapitalize="words" ng-maxlength="25">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Category Name</span>
+                    <input type="text" placeholder="Category Name" ng-model="currentItem.categoryname" autocorrect="on" autocapitalize="words">
+                </label>
             </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickcategorytype">
+            <ion-item class="item-icon-left item-icon-right form-group floating-padding" ui-sref="app.pickcategorytype">
                 <i class="icon fa fa-university placeholder-icon"></i>
-                <input type="text" placeholder="Category Type" ng-model="currentItem.categorytype">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Category Type</span>
+                    <input type="text" placeholder="Category Type" ng-model="currentItem.categorytype">
+                </label>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickparentcategory">
+            <ion-item class="item-icon-left item-icon-right form-group floating-padding" ui-sref="app.pickparentcategory">
                 <i class="icon fa fa-tags placeholder-icon"></i>
-                <input type="text" placeholder="Parent Category" ng-model="currentItem.categoryparent">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Parent Category</span>
+                    <input type="text" placeholder="Parent Category" ng-model="currentItem.categoryparent">
+                </label>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
         </div>

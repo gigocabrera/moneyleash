@@ -1,35 +1,18 @@
 <ion-view view-title="Register" class="loginScreen">
-    <ion-content scroll="false">
-        <div>
-            <div class="introHeading">
-                <h1>Register</h1>
-            </div>
-        </div>
-        <form name="RegisterForm" ng-submit="createMember(user)">
-            <div class="list list-inset">
-                <label class="item item-input ml-login-input item-floating-label">
-                    <span class="input-label">First Name</span>
-                    <input type="text" placeholder="First Name" ng-model="user.firstname">
-                </label>
-                <label class="item item-input ml-login-input item-floating-label">
-                    <span class="input-label">Last Name</span>
-                    <input type="text" placeholder="Last Name" ng-model="user.lastname">
-                </label>
-                <label class="item item-input ml-login-input item-floating-label">
-                    <span class="input-label">Email</span>
-                    <input type="email" placeholder="Email" ng-model="user.email">
-                </label>
-                <label class="item item-input ml-login-input item-floating-label">
-                    <span class="input-label">Password</span>
-                    <input type="password" placeholder="Password" ng-model="user.password">
-                </label>
-            </div>
-            <div class="padding">
-                <input type="submit" class="button button-block button-energized button-theme" placeholder="Register" />
-                <p class="text-center">
-                    <a href="#/login" class="mlLinksBlue">I already have an account</a>
-                </p>
-            </div>
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content class="has-header">
+        <form id="ml-login" ng-submit="createMember(user)">
+            <button class="submit_register" ng-click="createMember(user)"><i class="fa fa-lock"></i></button>
+            <i class="fa fa-user inputUserIcon_register1"></i>
+            <input type="text" class="user" placeholder="first name" ng-model="user.firstname" />
+            <i class="fa fa-user inputUserIcon_register2"></i>
+            <input type="text" class="user" placeholder="last name" ng-model="user.lastname" />
+            <i class="fa fa-envelope-o inputUserIcon_register3"></i>
+            <input type="email" class="user" placeholder="email" ng-model="user.email" />
+            <i class="fa fa-key inputUserIcon_register4"></i>
+            <input type="password" class="pass" placeholder="password" ng-model="user.password" />
         </form>
     </ion-content>
 </ion-view>

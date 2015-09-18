@@ -8,7 +8,7 @@
                    ng-value="item.categoryname"
                    ng-change="categorychanged(item)"
                    ng-model="currentItem.categoryname"
-                   class="mlcategories mlSmallerFont">
+                   class="customItemList mlSmallerFont">
             <div id="pickCategoryIcons" ng-class="{pickCategoryIndent: item.categoryparent !== ''}">
                 <ul>
                     <li><i class="fa fa-thumb-tack" ng-class="{circleIconRed: item.categorytype == 'Expense', circleIconGreen: item.categorytype == 'Income'}"></i>{{ item.categoryname }}</li>

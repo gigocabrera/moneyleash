@@ -14,12 +14,38 @@ moneyleashapp.controller('PickAccountDateController', function ($scope, $ionicHi
 })
 
 // PICK ACCOUNT TYPE CONTROLLER
-moneyleashapp.controller('PickAccountTypeController', function ($scope, $state, $ionicHistory, PickAccountServices, AccountsFactory) {
+moneyleashapp.controller('PickAccountTypeController', function ($scope, $ionicHistory, PickAccountServices, AccountsFactory) {
     $scope.List = AccountsFactory.getAccountTypes();
     $scope.List.$loaded().then(function () { });
     $scope.currentItem = { accounttype: PickAccountServices.typeSelected };
     $scope.itemchanged = function (accounttype) {
         PickAccountServices.updateType(accounttype.name);
+        $ionicHistory.goBack();
+    };
+})
+
+// PICK ACCOUNT DEFAULT DATE
+moneyleashapp.controller('PickAccountDefaultDateController', function ($scope, $state, $ionicHistory, PickAccountServices) {
+    $scope.DefaultDateList = [
+    { text: 'None', value: 'None' },
+    { text: 'Today', value: 'Today' },
+    { text: 'Last', value: 'Last' }];
+    $scope.currentItem = { typedisplay: PickAccountServices.defaultDateSelected };
+    $scope.itemchanged = function (item) {
+        PickAccountServices.updateDefaultDate(item.value);
+        $ionicHistory.goBack();
+    };
+})
+
+// PICK ACCOUNT DEFAULT BALANCE
+moneyleashapp.controller('PickAccountDefaultBalanceController', function ($scope, $state, $ionicHistory, PickAccountServices) {
+    $scope.DefaultBalanceList = [
+    { text: 'Current', value: 'Current' },
+    { text: 'Cleared', value: 'Cleared' },
+    { text: 'Both', value: 'Both' }];
+    $scope.currentItem = { typedisplay: PickAccountServices.defaultBalanceSelected };
+    $scope.itemchanged = function (item) {
+        PickAccountServices.updateDefaultBalance(item.value, item.value);
         $ionicHistory.goBack();
     };
 })
@@ -44,6 +70,8 @@ moneyleashapp.controller('AccountController', function ($scope, $state, $statePa
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.hideValidationMessage = true;
         $scope.currentItem.accounttype = PickAccountServices.typeSelected;
+        $scope.currentItem.defaultdate = PickAccountServices.defaultDateSelected;
+        $scope.currentItem.defaultbalance = PickAccountServices.defaultBalanceSelected;
         // Handle transaction date
         if (typeof PickAccountServices.dateSelected !== 'undefined' && PickAccountServices.dateSelected !== '') {
             $scope.DisplayDate = PickAccountServices.dateSelected;

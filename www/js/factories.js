@@ -435,11 +435,19 @@ angular.module('moneyleash.factories', [])
     .service("PickAccountServices", function () {
         var accountDate = this;
         var accountType = this;
+        var accountDefaultDate = this;
+        var accountDefaultBalance = this;
         accountDate.updateDate = function (value) {
             this.dateSelected = value;
         }
         accountType.updateType = function (value) {
             this.typeSelected = value;
+        }
+        accountDefaultDate.updateDefaultDate = function (value) {
+            this.defaultDateSelected = value;
+        }
+        accountDefaultBalance.updateDefaultBalance = function (value) {
+            this.defaultBalanceSelected = value;
         }
     })
 

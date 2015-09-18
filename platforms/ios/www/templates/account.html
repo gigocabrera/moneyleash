@@ -1,6 +1,6 @@
 <ion-view title={{AccountTitle}}>
     <ion-nav-buttons side="right">
-        <button class="button button-clear button-positive customHeaderIcon customHeaderIconSmall" ng-click="saveAccount(currentItem)">Save</button>
+        <button class="button button-clear button-positive customHeaderIcon customHeaderIconSmall" ng-click="saveAccount()">Save</button>
     </ion-nav-buttons>
     <ion-content has-header="true">
         <div ng-hide="hideValidationMessage" class="cssSlideUp ng-hide">
@@ -11,18 +11,45 @@
             </div>
         </div>
         <div class="ion-list">
-            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
+            <div class="item item-divider mlSmallerFont CustomSubHeader">Account Details</div>
+            <ion-item class="item-icon-left form-group floating-padding">
                 <i class="icon fa fa-clipboard placeholder-icon"></i>
-                <input type="text" ng-model="currentItem.accountname" placeholder="Account Name" autocapitalize="words">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Account Name</span>
+                    <input type="text" placeholder="Account Name" ng-model="currentItem.accountname" autocapitalize="words">
+                </label>
             </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccountdate">
+            <ion-item class="item-icon-left item-icon-right form-group floating-padding" ui-sref="app.pickaccountdate">
                 <i class="icon fa fa-calendar placeholder-icon"></i>
-                <input type="text" placeholder="Account Open Date" ng-model="currentItem.dateopen" readonly>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Account Begin Date</span>
+                    <input type="text" placeholder="Account Begin Date" ng-model="DisplayDate">
+                </label>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group" ui-sref="app.pickaccounttype">
+            <ion-item class="item-icon-left item-icon-right form-group floating-padding" ui-sref="app.pickaccounttype" readonly>
                 <i class="icon fa fa-university placeholder-icon"></i>
-                <input type="text" placeholder="Account Type" ng-model="currentItem.accounttype" readonly>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Account Type</span>
+                    <input type="text" placeholder="Account Type" ng-model="currentItem.accounttype" readonly>
+                </label>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <div class="item item-divider mlSmallerFont CustomSubHeader">Account Preferences</div>
+            <ion-item class="item-icon-left item-icon-right form-group floating-padding" ui-sref="app.pickaccountdefaultdate" readonly>
+                <i class="icon fa fa-calendar-o placeholder-icon"></i>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Default Date</span>
+                    <input type="text" placeholder="Default Date" ng-model="currentItem.defaultdate" readonly>
+                </label>
+                <i class="icon ion-chevron-right customChevronForm"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-icon-right form-group floating-padding" ui-sref="app.pickaccountdefaultbalance" readonly>
+                <i class="icon fa fa-money placeholder-icon"></i>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Default Balance</span>
+                    <input type="text" placeholder="Default Balance" ng-model="currentItem.defaultbalance" readonly>
+                </label>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
         </div>

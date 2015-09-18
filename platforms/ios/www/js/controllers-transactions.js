@@ -14,43 +14,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
         }
     });
 
-    // POPOVER
-    // .fromTemplate() method
-    var template = '<ion-popover-view>' +
-                    '   <ion-content class="padding">' +
-                    '       <a class="item" href="#" ng-click="showSorting(SortingIsEnabled)">' +
-                    '           <i class="fa fa-bars"></i>&nbsp;&nbsp;&nbsp;Sort Transactions' +
-                    '       </a>' +
-                    '       <a class="item" href="#" ng-click="showFilters()">' +
-                    '           <i class="fa fa-filter"></i>&nbsp;&nbsp;&nbsp;Show Filters' +
-                    '       </a>' +
-                    '       <a class="item" href="http://showcase.ionicframework.com/" target="_blank">' +
-                    '           Showcase' +
-                    '       </a>' +
-                    '       <a class="item" href="http://ionicframework.com/submit-issue/" target="_blank">' +
-                    '           Submit an Issue' +
-                    '       </a>' +
-                    '       <a class="item" href="https://github.com/driftyco/ionic" target="_blank">' +
-                    '           Github Repo' +
-                    '       </a>' +
-                    '   </ion-content>' +
-                    '</ion-popover-view>';
-
-
-    $scope.animation = 'am-slide-top';
-
-    $scope.popover = $ionicPopover.fromTemplate(template, {
-        scope: $scope,
-        animation: $scope.animation
-    });
-    $scope.closePopover = function () {
-        $scope.popover.hide();
-    };
-    //Cleanup the popover when we're done with it!
-    $scope.$on('$destroy', function () {
-        $scope.popover.remove();
-    });
-
     // SHOW FILTERS - ACTION SHEET
     $scope.moreOptions = function () {
         $ionicActionSheet.show({
@@ -88,7 +51,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     };
 
     // CREATE
-    $scope.createTransaction = function (title) {
+    $scope.createTransaction = function () {
         PickTransactionServices.typeDisplaySelected = '';
         PickTransactionServices.typeInternalSelected = '';
         PickTransactionServices.categorySelected = '';
@@ -241,12 +204,10 @@ function refresh(transactions, $scope, AccountsFactory, accountId) {
     var todayFlag = false;
     var group = {};
     var format = 'MMMM DD, YYYY';
-
     var total = 0;
     var cleared = 0;
     var runningBal = 0;
     var clearedBal = 0;
-    var todayBal = 0;
     var index;
     //
     for (index = 0; index < transactions.length; ++index) {
@@ -314,11 +275,10 @@ function refresh(transactions, $scope, AccountsFactory, accountId) {
     $scope.clearedBalance = clearedBal.toFixed(2);
 
     // We want to update account totals
-    AccountsFactory.getAccount(accountId).then(function (account) {
-        $scope.temp = account;
-        $scope.temp.balancetoday = runningBal.toFixed(2);
-        $scope.temp.balancecurrent = runningBal.toFixed(2);
-        $scope.temp.balancecleared = clearedBal.toFixed(2);
-        AccountsFactory.updateAccount(accountId, $scope.temp);
-    });
+    var account = AccountsFactory.getAccount(accountId);
+    $scope.temp = account;
+    $scope.temp.balancetoday = runningBal.toFixed(2);
+    $scope.temp.balancecurrent = runningBal.toFixed(2);
+    $scope.temp.balancecleared = clearedBal.toFixed(2);
+    AccountsFactory.saveAccount($scope.temp);
 }

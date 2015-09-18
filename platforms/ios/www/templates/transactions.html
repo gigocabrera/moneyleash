@@ -1,7 +1,6 @@
 <ion-view title={{AccountTitle}}>
     <ion-nav-buttons side="right">
         <button class="button-icon fa fa-search customHeaderIcon customHeaderIconSmall extraMarginRight" ng-click="showFilterBar()"></button>
-        <button class="button button-icon button-clear ion-android-more-vertical customHeaderIcon customHeaderIconSmall extraMarginRight" id="menu-popover" ng-click="popover.show($event)"></button>
     </ion-nav-buttons>
     <div class="bar bar-subheader CustomSubHeader">
         <div class="row center">
@@ -15,7 +14,7 @@
             <div collection-repeat="transaction in transactions | reverselist | groupByDayMonthYear" divider-collection-repeat>
                 <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" href="#" ng-click="handleSwipeAndTap($event, transaction)">
                     <div class="row">
-                        <div class="col-50 customTransDesc">
+                        <div class="col-50 customTransDesc customItemSize">
                             <span>
                                 {{ transaction.payee }}
                                 <small>
@@ -53,7 +52,7 @@
         <div class="row center">
             <div class="col footerRow"><span></span></div>
             <div class="col footerRow iconCircle">
-                <i class="fa fa-plus-circle" ng-click="createTransaction('Add')"></i>
+                <i class="fa fa-plus-circle" ng-click="createTransaction()"></i>
             </div>
             <div class="col footerRow"><span></span></div>
         </div>
