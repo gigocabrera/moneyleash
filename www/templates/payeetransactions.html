@@ -1,7 +1,7 @@
 <ion-view title="Transactions By Payee">
     <ion-content class="has-header">
         <ion-list>
-            <ion-item ng-repeat="transaction in transactionsbypayee track by transaction.$id" href="#" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}">
+            <ion-item ng-repeat="transaction in transactionsbypayee track by transaction.$id" class="item-icon-right" ng-class="{transactionIsCleared: transaction.iscleared == true}">
                 <div class="row">
                     <div class="col-50 customTransDesc">
                         <span>

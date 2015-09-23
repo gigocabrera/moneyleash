@@ -4,7 +4,7 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list can-swipe="listCanSwipe">
-            <ion-item ng-repeat="(id, accounttype) in accounttypes" itemid="type" ng-click="closeSwipeOptions($event)" href="#" class="customItemSize">
+            <ion-item ng-repeat="(id, accounttype) in accounttypes" itemid="type" ng-click="closeSwipeOptions($event)" class="customItemSize">
                 {{accounttype.name}}
                 <ion-option-button class="button-energized" ng-click="editItem(id)">
                     Edit

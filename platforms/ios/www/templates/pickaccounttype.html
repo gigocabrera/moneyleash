@@ -1,11 +1,11 @@
 <ion-view view-title="Select Account Type">
     <ion-content>
-        <ion-radio class="customItemSize"
-                   ng-repeat="accounttype in List"
-                   ng-value="accounttype.name"
-                   ng-change="itemchanged(accounttype)"
-                   ng-model="currentItem.accounttype">
+        <ion-radio-fix class="customItemSize"
+                       ng-repeat="accounttype in List"
+                       ng-value="accounttype.name"
+                       ng-change="itemchanged(accounttype)"
+                       ng-model="currentItem.accounttype">
             {{ accounttype.name }}
-        </ion-radio>
+        </ion-radio-fix>
     </ion-content>
 </ion-view>

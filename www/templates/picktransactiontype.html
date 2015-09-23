@@ -1,11 +1,11 @@
 <ion-view view-title="Select Transaction Type">
     <ion-content>
-        <ion-radio class="customItemSize"
-                   ng-repeat="item in TransactionTypeList"
-                   ng-value="item.value"
-                   ng-change="itemchanged(item)"
-                   ng-model="currentItem.typedisplay">
+        <ion-radio-fix class="customItemSize"
+                       ng-repeat="item in TransactionTypeList"
+                       ng-value="item.value"
+                       ng-change="itemchanged(item)"
+                       ng-model="currentItem.typedisplay">
             {{ item.text }}
-        </ion-radio>
+        </ion-radio-fix>
     </ion-content>
 </ion-view>

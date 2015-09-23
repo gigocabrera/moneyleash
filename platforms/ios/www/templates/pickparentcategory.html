@@ -1,11 +1,11 @@
 <ion-view view-title="Select Parent Category">
     <ion-content>
-        <ion-radio ng-repeat="item in items | orderBy:'categoryname' track by item.$id"
-                   ng-value="item.categoryname"
-                   ng-change="categorychanged(item)"
-                   ng-model="currentItem.categoryname"
-                   class="customItemList mlSmallerFont">
+        <ion-radio-fix ng-repeat="item in items | orderBy:'categoryname' track by item.$id"
+                       ng-value="item.categoryname"
+                       ng-change="categorychanged(item)"
+                       ng-model="currentItem.categoryname"
+                       class="customItemList mlSmallerFont">
             {{ item.categoryname }}
-        </ion-radio>
+        </ion-radio-fix>
     </ion-content>
 </ion-view>

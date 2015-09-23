@@ -862,6 +862,7 @@
     <Content Include="www\fonts\fontawesome-webfont.svg" />
     <Content Include="www\fonts\ionicons.svg" />
     <Content Include="www\index.html" />
+    <Content Include="www\js\angular-ios9-uiwebview.patch.js" />
     <Content Include="www\js\app.js" />
     <Content Include="www\js\controllers-account.js" />
     <Content Include="www\js\controllers-accounts.js" />
