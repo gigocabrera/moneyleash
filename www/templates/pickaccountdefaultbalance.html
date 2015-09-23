@@ -1,0 +1,12 @@
+<ion-view view-title="Default Balance">
+    <ion-content>
+        <div class="item item-divider mlSmallerFont CustomSubHeader">What balance do you want to display?</div>
+        <ion-radio-fix class="customItemSize"
+                       ng-repeat="item in DefaultBalanceList"
+                       ng-value="item.value"
+                       ng-change="itemchanged(item)"
+                       ng-model="currentItem.typedisplay">
+            {{ item.text }}
+        </ion-radio-fix>
+    </ion-content>
+</ion-view>
