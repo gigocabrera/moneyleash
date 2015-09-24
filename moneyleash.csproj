@@ -133,6 +133,8 @@
     <None Include="platforms\ios\www\lib\ion-autocomplete\package.json" />
     <None Include="platforms\ios\www\lib\ion-autocomplete\README.md" />
     <None Include="platforms\ios\www\lib\ion-autocomplete\RELEASENOTES.md" />
+    <None Include="platforms\ios\www\lib\ion-sticky\.bower.json" />
+    <None Include="platforms\ios\www\lib\ion-sticky\bower.json" />
     <None Include="platforms\ios\www\lib\ionic-filter-bar\.bower.json" />
     <None Include="platforms\ios\www\lib\ionic-filter-bar\bower.json" />
     <None Include="platforms\ios\www\lib\ionic-filter-bar\scss\ionic.filter.bar.scss" />
@@ -562,7 +564,6 @@
     <Content Include="platforms\ios\www\cordova_plugins.js" />
     <Content Include="platforms\ios\www\css\font-awesome.min.css" />
     <Content Include="platforms\ios\www\css\moneyleash.css" />
-    <Content Include="platforms\ios\www\demo.html" />
     <Content Include="platforms\ios\www\fonts\ionicons.svg" />
     <Content Include="platforms\ios\www\img\intro1.png" />
     <Content Include="platforms\ios\www\img\iphone6.png" />
@@ -626,6 +627,7 @@
     <Content Include="platforms\ios\www\lib\ion-autocomplete\test\ion-autocomplete.multiple-select.spec.js" />
     <Content Include="platforms\ios\www\lib\ion-autocomplete\test\ion-autocomplete.single-select.spec.js" />
     <Content Include="platforms\ios\www\lib\ion-autocomplete\test\templates\test-template.html" />
+    <Content Include="platforms\ios\www\lib\ion-sticky\ion-sticky.js" />
     <Content Include="platforms\ios\www\lib\ionic-filter-bar\dist\ionic.filter.bar.css" />
     <Content Include="platforms\ios\www\lib\ionic-filter-bar\dist\ionic.filter.bar.js" />
     <Content Include="platforms\ios\www\lib\ionic-filter-bar\dist\ionic.filter.bar.min.css" />
