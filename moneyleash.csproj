@@ -568,6 +568,7 @@
     <Content Include="platforms\ios\www\img\intro1.png" />
     <Content Include="platforms\ios\www\img\iphone6.png" />
     <Content Include="platforms\ios\www\index.html" />
+    <Content Include="platforms\ios\www\js\angular-ios9-uiwebview.patch.js" />
     <Content Include="platforms\ios\www\js\app.js" />
     <Content Include="platforms\ios\www\js\controllers-account.js" />
     <Content Include="platforms\ios\www\js\controllers-accounts.js" />
