@@ -532,8 +532,8 @@ i.customChevronForm:before {
 .item-select select {
     padding: 8px 48px 10px 16px;
 }
-.customItemList.mlindent a.item-content {
-    padding-left: 50px;
+.item-icon-left.mlindent {
+    padding-left: 40px;
 }
 i.mlpaddingright {
     margin-right: 8px;
@@ -558,22 +558,36 @@ i.mlpaddingright {
     min-height: 37px;
 }
 .circleIconGreen {
+    background: #28a54c;
+    color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    width: 25px;
+}
+.circleIconGreen:before {
     font-size: 16px;
     font-weight: bold;
-    background: #91BF64;
-    color: #fff;
-    padding: 4px 7px 3px 7px;
-    border-radius: 50%;
-    margin-right: 5px;
+    height: 15px;
+}
+.item-icon-left .circleIconGreen {
+    height: 25px;
+    margin-top: 5px;
 }
 .circleIconRed {
+    background: #CE1B31;
+    color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    width: 25px;
+}
+.circleIconRed:before {
     font-size: 16px;
     font-weight: bold;
-    background: #d9534f;
-    color: #fff;
-    padding: 4px 7px 3px 7px;
-    border-radius: 50%;
-    margin-right: 5px;
+    height: 15px;
+}
+.item-icon-left .circleIconRed {
+    height: 25px;
+    margin-top: 5px;
 }
 
 /* Calendar
@@ -665,10 +679,7 @@ i.mlpaddingright {
             background-color: #babbbe;
         }
 .pickCategoryIndent {
-    padding-left: 30px;
-}
-#pickCategoryIcons ul li:first-child {
-    padding-right: 8px;
+    padding-left: 40px;
 }
 #pickCategoryIcons ul li {
     list-style-type: none;
@@ -677,6 +688,7 @@ i.mlpaddingright {
 #pickCategoryIcons ul li > i {
   padding-left: 7px;
   padding-right: 7px;
+  margin-right: 5px;
 }
 
 /* Pick a Payee Search Screen
@@ -734,7 +746,7 @@ i.mlpaddingright {
 .logo {
     position: relative;
     display: block;
-    margin: 25px auto;
+    margin: 20px auto;
     border-radius: 50px;
     width: 75px;
     height: 75px;
@@ -755,7 +767,7 @@ a.logo {
     text-align: center;
     color: #FFF;
     font-size: 16px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 #ml-login {
     position:relative;
@@ -821,7 +833,7 @@ a.logo {
 }
 #ml-login .inputUserIcon {
     position: absolute;
-    top: 254px;
+    top: 230px;
     right: 80px;
     color: white;
 }
@@ -857,7 +869,7 @@ a.logo {
 }
 #ml-login .inputPassIcon {
     position:absolute;
-    top: 315px;
+    top: 288px;
     right: 80px;
     color:white;
 }
