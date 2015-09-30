@@ -958,8 +958,8 @@
     <Content Include="www\templates\payeetransactions.html" />
     <Content Include="www\templates\personalprofile.html" />
     <Content Include="www\templates\pickaccountdate.html" />
-    <Content Include="www\templates\pickaccountdefaultbalance.html" />
-    <Content Include="www\templates\pickaccountdefaultdate.html" />
+    <Content Include="www\templates\picksettingsdefaultbalance.html" />
+    <Content Include="www\templates\picksettingsdefaultdate.html" />
     <Content Include="www\templates\pickaccounttype.html" />
     <Content Include="www\templates\pickparentcategory.html" />
     <Content Include="www\templates\pickcategorytype.html" />

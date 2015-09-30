@@ -1,70 +1,32 @@
-<ion-view title="Personal Profile" ng-init="getProfile()">
+<ion-view title="Preferences" ng-init="getProfile()">
     <ion-nav-buttons side="right">
-        <button class="button button-clear button-positive customHeaderSize" ng-click="saveProfile(member)">
+        <button class="button button-clear button-positive customHeaderSize" ng-click="savePreferences()">
             Save
         </button>
     </ion-nav-buttons>
     <ion-content has-header="true">
+        <div ng-hide="hideValidationMessage" class="cssSlideUp ng-hide">
+            <div class="validationDiv">
+                <p>
+                    {{ validationMessage }}
+                </p>
+            </div>
+        </div>
         <div class="ion-list">
-            <div class="item item-divider mlSmallerFont CustomSubHeader">Accounts and Transactions</div>
-            <ion-item class="item-icon-left item-icon-right form-group floating-padding">
-                <i class="icon fa fa-at placeholder-icon"></i>
+            <div class="item item-divider mlSmallerFont CustomSubHeader">Select your preferences below</div>
+            <ion-item class="item-icon-left item-icon-right form-group floating-padding" ui-sref="app.picksettingsdefaultdate">
+                <i class="icon fa fa-calendar-o placeholder-icon"></i>
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Default Date</span>
-                    <input type="text" placeholder="Default Date" ng-model="settings.defaultdate">
+                    <input type="text" placeholder="Default Date" ng-model="preferences.defaultdate" readonly>
                 </label>
-                <i class="icon ion-ios-information-outline customChevronForm"></i>
+                <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>
-            <ion-item class="item-icon-left form-group floating-padding">
-                <i class="icon fa fa-user placeholder-icon"></i>
+            <ion-item class="item-icon-left item-icon-right form-group floating-padding" ui-sref="app.picksettingsdefaultbalance">
+                <i class="icon fa fa-money placeholder-icon"></i>
                 <label class="item item-input item-floating-label">
-                    <span class="input-label">Last Name</span>
-                    <input type="text" placeholder="Last Name" ng-model="member.lastname" autocorrect="on" autocapitalize="words">
-                </label>
-            </ion-item>
-            <ion-item class="item-icon-left form-group floating-padding">
-                <i class="icon fa fa-envelope-o placeholder-icon"></i>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Email</span>
-                    <input type="text" placeholder="Email" ng-model="member.email" readonly>
-                </label>
-            </ion-item>
-            <ion-item class="item-icon-left form-group floating-padding">
-                <i class="icon fa fa-calendar placeholder-icon"></i>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Date Profile Created</span>
-                    <input type="text" placeholder="Date Profile Created" ng-model="member.datecreated" readonly>
-                </label>
-            </ion-item>
-            <div class="item item-divider mlSmallerFont CustomSubHeader">Your House Information</div>
-            <ion-item class="item-icon-left form-group floating-padding">
-                <i class="icon fa fa-home placeholder-icon"></i>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">House Name</span>
-                    <input type="text" placeholder="House Name" ng-model="house.name">
-                </label>
-            </ion-item>
-            <ion-item class="item-icon-left item-icon-right form-group floating-padding">
-                <i class="icon fa fa-shield placeholder-icon"></i>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">House Number</span>
-                    <input type="text" placeholder="House Number" ng-model="house.number" readonly>
-                </label>
-                <i class="icon ion-ios-information-outline customChevronForm"></i>
-            </ion-item>
-            <ion-item class="item-icon-left form-group floating-padding">
-                <i class="icon fa fa-user-secret placeholder-icon"></i>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">House Administrator</span>
-                    <input type="text" placeholder="House Admin" ng-model="house.admin" readonly>
-                </label>
-            </ion-item>
-            <div class="item item-divider mlSmallerFont CustomSubHeader">Your Plan Information</div>
-            <ion-item class="item-icon-left item-icon-right form-group floating-padding">
-                <i class="icon fa fa-unlock-alt placeholder-icon"></i>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Payment Plan</span>
-                    <input type="text" placeholder="Payment Plan" ng-model="member.paymentplan" readonly>
+                    <span class="input-label">Default Balance</span>
+                    <input type="text" placeholder="Default Balance" ng-model="preferences.defaultbalance" readonly>
                 </label>
                 <i class="icon ion-chevron-right customChevronForm"></i>
             </ion-item>

@@ -130,24 +130,6 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             }
         }
     })
-    .state('app.pickaccountdefaultdate', {
-        url: "/pickaccountdefaultdate",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/pickaccountdefaultdate.html",
-                controller: "PickAccountDefaultDateController"
-            }
-        }
-    })
-    .state('app.pickaccountdefaultbalance', {
-        url: "/pickaccountdefaultbalance",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/pickaccountdefaultbalance.html",
-                controller: "PickAccountDefaultBalanceController"
-            }
-        }
-    })
 
     // TRANSACTIONS
     .state('app.transactions', {
@@ -383,6 +365,33 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/accounttypes.html",
                 controller: 'AccountTypesController'
+            }
+        }
+    })
+    .state('app.accountsettings', {
+        url: "/accountsettings",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/accountsettings.html",
+                controller: 'AccountSettingsController'
+            }
+        }
+    })
+    .state('app.picksettingsdefaultdate', {
+        url: "/picksettingsdefaultdate",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picksettingsdefaultdate.html",
+                controller: "PickSettingsDefaultDateController"
+            }
+        }
+    })
+    .state('app.picksettingsdefaultbalance', {
+        url: "/picksettingsdefaultbalance",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picksettingsdefaultbalance.html",
+                controller: "PickSettingsDefaultBalanceController"
             }
         }
     })

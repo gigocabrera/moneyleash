@@ -184,7 +184,7 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory('AccountsFactory', function ($firebaseArray, $q, myCache) {
+    .factory('AccountsFactory', function ($firebaseArray, $q, myCache, MembersFactory) {
         var ref = {};
         var allaccounts = {};
         var allaccounttypes = {};
@@ -272,6 +272,18 @@ angular.module('moneyleash.factories', [])
                 //
                 var ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountId);
                 var newChildRef = ref.push(currentItem);
+                //
+                // Update preferences - Last Date Used
+                //
+                var fbAuth = fb.getAuth();
+                var usersRef = MembersFactory.ref();
+                var myUser = usersRef.child(fbAuth.uid);
+                var temp = {
+                    lastdate: currentItem.date
+                }
+                myUser.update(temp, function () {
+                    
+                });
                 //
                 // Save transaction under category
                 //
@@ -428,6 +440,9 @@ angular.module('moneyleash.factories', [])
             this.email = user.email;
             this.paymentplan = user.paymentplan;
             this.houseid = user.houseid;
+            this.defaultdate = user.defaultdate;
+            this.defaultbalance = user.defaultbalance;
+            this.lastdate = user.lastdate;
         }
     })
 
@@ -435,19 +450,11 @@ angular.module('moneyleash.factories', [])
     .service("PickAccountServices", function () {
         var accountDate = this;
         var accountType = this;
-        var accountDefaultDate = this;
-        var accountDefaultBalance = this;
         accountDate.updateDate = function (value) {
             this.dateSelected = value;
         }
         accountType.updateType = function (value) {
             this.typeSelected = value;
-        }
-        accountDefaultDate.updateDefaultDate = function (value) {
-            this.defaultDateSelected = value;
-        }
-        accountDefaultBalance.updateDefaultBalance = function (value) {
-            this.defaultBalanceSelected = value;
         }
     })
 

@@ -257,7 +257,7 @@ moneyleashapp.controller('PickTransactionNoteController', function ($scope, $ion
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, PayeesService, myCache) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, PayeesService, myCache, CurrentUserService) {
 
     $scope.hideValidationMessage = true;
     $scope.loadedClass = 'hidden';
@@ -324,6 +324,18 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
     // EDIT / CREATE TRANSACTION
     if ($stateParams.transactionId === '') {
         $scope.TransactionTitle = "Create Transaction";
+        // Handle defaults
+        if (CurrentUserService.defaultdate === "None") {
+            // Leave field blank
+        } else if (CurrentUserService.defaultdate === "Today") {
+            // Enter today's date
+            $scope.DisplayDate = moment(new Date()).format('MMMM D, YYYY');
+            PickTransactionServices.dateSelected = $scope.DisplayDate;
+        } else if (CurrentUserService.defaultdate === "Last") {
+            // Enter last date used
+            $scope.DisplayDate = moment(CurrentUserService.lastdate).format('MMMM D, YYYY');
+            PickTransactionServices.dateSelected = $scope.DisplayDate;
+        }
     } else {
         // Edit transaction
         var transaction = AccountsFactory.getTransaction($stateParams.transactionId);
