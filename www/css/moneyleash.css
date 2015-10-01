@@ -545,17 +545,8 @@ i.mlpaddingright {
 .iconPadding {
     margin-right: 10px;
 }
-.customItemList a.item-content {
-    padding: 10px 16px 10px 16px;
-}
-.customItemList .item-content {
-    padding: 10px 49px 10px 16px;
-}
-.customItemList .radio-icon {
-    padding: 7px 20px 7px 0;
-}
-.customItemListbutton {
-    min-height: 37px;
+.customItemList.item-complex .item-content, .item-radio .item-content {
+    padding: 10px 10px 10px 40px;
 }
 .circleIconGreen {
     background: #28a54c;
@@ -571,7 +562,7 @@ i.mlpaddingright {
 }
 .item-icon-left .circleIconGreen {
     height: 25px;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 .circleIconRed {
     background: #CE1B31;
@@ -589,6 +580,21 @@ i.mlpaddingright {
     height: 25px;
     margin-top: 5px;
 }
+.pickCategoryIndent {
+    padding-left: 40px;
+}
+#pickCategoryIcons ul li {
+    list-style-type: none;
+    display: inline;
+}
+#pickCategoryIcons ul li > i {
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-right: 5px;
+}
+
 
 /* Calendar
 ===============================================*/
@@ -678,18 +684,6 @@ i.mlpaddingright {
             cursor: pointer;
             background-color: #babbbe;
         }
-.pickCategoryIndent {
-    padding-left: 40px;
-}
-#pickCategoryIcons ul li {
-    list-style-type: none;
-    display: inline;
-}
-#pickCategoryIcons ul li > i {
-  padding-left: 7px;
-  padding-right: 7px;
-  margin-right: 5px;
-}
 
 /* Pick a Payee Search Screen
 ===============================================*/

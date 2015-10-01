@@ -184,7 +184,7 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory('AccountsFactory', function ($firebaseArray, $q, myCache, MembersFactory) {
+    .factory('AccountsFactory', function ($firebaseArray, $q, myCache, MembersFactory, CurrentUserService) {
         var ref = {};
         var allaccounts = {};
         var allaccounttypes = {};
@@ -282,7 +282,7 @@ angular.module('moneyleash.factories', [])
                     lastdate: currentItem.date
                 }
                 myUser.update(temp, function () {
-                    
+                    CurrentUserService.lastdate = temp.lastdate;
                 });
                 //
                 // Save transaction under category

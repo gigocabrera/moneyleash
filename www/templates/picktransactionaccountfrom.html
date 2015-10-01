@@ -3,7 +3,8 @@
         <ion-radio-fix ng-repeat="account in TransactionAccountList"
                        ng-value="account.accountname"
                        ng-change="itemchanged(account)"
-                       ng-model="currentItem.accountFrom">
+                       ng-model="currentItem.accountFrom"
+                       class="customItemSize">
             {{ account.accountname }}
         </ion-radio-fix>
     </ion-content>

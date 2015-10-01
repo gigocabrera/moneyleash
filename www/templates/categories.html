@@ -11,10 +11,10 @@
             <ion-item class="customItemList mlSmallerFont item-icon-left item-icon-right" ng-repeat="category in incomecategories | orderBy:'categorysort' track by category.$id " ng-click="handleSwipeAndTap($event, category)" ng-class="{mlindent: category.categoryparent !== ''}">
                 <i class="icon ion-ios-pricetags-outline circleIconGreen"></i>
                 {{ category.categoryname }}
-                <ion-option-button class="button-stable customItemListbutton" ng-click="moreOptions(category)">
+                <ion-option-button class="button-stable" ng-click="moreOptions(category)">
                     More
                 </ion-option-button>
-                <ion-option-button class="button-assertive customItemListbutton" ng-click="deleteCategory(category)">
+                <ion-option-button class="button-assertive" ng-click="deleteCategory(category)">
                     Delete
                 </ion-option-button>
                 <i class="icon ion-chevron-right"></i>
@@ -23,10 +23,10 @@
             <ion-item class="customItemList mlSmallerFont item-icon-left item-icon-right" ng-repeat="category in expensecategories | orderBy:'categorysort' track by category.$id " ng-click="handleSwipeAndTap($event, category)" ng-class="{mlindent: category.categoryparent !== ''}">
                 <i class="icon ion-ios-pricetags-outline circleIconRed"></i>
                 {{ category.categoryname }}
-                <ion-option-button class="button-stable customItemListbutton" ng-click="moreOptions(category)">
+                <ion-option-button class="button-stable" ng-click="moreOptions(category)">
                     More
                 </ion-option-button>
-                <ion-option-button class="button-assertive customItemListbutton" ng-click="deleteCategory(category)">
+                <ion-option-button class="button-assertive" ng-click="deleteCategory(category)">
                     Delete
                 </ion-option-button>
                 <i class="icon ion-chevron-right"></i>
