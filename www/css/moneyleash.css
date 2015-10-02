@@ -73,33 +73,6 @@
     color: #ff8000;
     font-weight: bolder;
 }
-/*
-.item-icon-left.item-icon-right .icon:first-child {
-    right: 0;
-}
-.item-icon-right .icon {
-    right: 8px;
-}
-.item {
-    font-size: 20px;
-}
-.item-icon-left .icon:before {
-    display: block;
-    width: 25px;
-    text-align: center;
-    margin-left: 20px;
-    text-shadow: 1px 1px #eeeeee;
-}
-.item-complex.item-icon-right .item-content {
-    padding-right: 40px;
-    font-weight: normal;
-    color: #172F39;
-    height: 100%;
-}
-.item-complex.item-icon-left .item-content {
-    padding: 14px 49px 14px 40px;
-}
-*/
 .ion-chevron-right:before {
     color: #31C0E6;
     font-size: 14px;
@@ -545,9 +518,6 @@ i.mlpaddingright {
 .iconPadding {
     margin-right: 10px;
 }
-.customItemList.item-complex .item-content, .item-radio .item-content {
-    padding: 10px 10px 10px 40px;
-}
 .circleIconGreen {
     background: #28a54c;
     color: #fff;
@@ -562,7 +532,7 @@ i.mlpaddingright {
 }
 .item-icon-left .circleIconGreen {
     height: 25px;
-    margin-top: 8px;
+    margin-top: 15px;
 }
 .circleIconRed {
     background: #CE1B31;
@@ -578,7 +548,7 @@ i.mlpaddingright {
 }
 .item-icon-left .circleIconRed {
     height: 25px;
-    margin-top: 5px;
+    margin-top: 15px;
 }
 .pickCategoryIndent {
     padding-left: 40px;
@@ -594,7 +564,6 @@ i.mlpaddingright {
   padding-bottom: 3px;
   margin-right: 5px;
 }
-
 
 /* Calendar
 ===============================================*/
