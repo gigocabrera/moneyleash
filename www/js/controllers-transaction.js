@@ -375,23 +375,24 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             $scope.validationMessage = "Please select Transaction Type"
             return;
         }
-        if ($scope.currentItem.typedisplay === 'Transfer') {
-            // Do not validate payee and category if this is a transfer
-        } else {
-            if (typeof $scope.currentItem.payee === 'undefined' || $scope.currentItem.payee === '') {
-                $scope.hideValidationMessage = false;
-                $scope.validationMessage = "Please select a Payee"
-                return;
-            }
-            if (typeof $scope.currentItem.category === 'undefined' || $scope.currentItem.category === '') {
-                $scope.hideValidationMessage = false;
-                $scope.validationMessage = "Please select a Category"
-                return;
-            }
+        if (typeof $scope.currentItem.category === 'undefined' || $scope.currentItem.category === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select a Category"
+            return;
+        }
+        if (typeof $scope.currentItem.payee === 'undefined' || $scope.currentItem.payee === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select a Payee"
+            return;
         }
         if (typeof $scope.currentItem.amount === 'undefined' || $scope.currentItem.amount === '') {
             $scope.hideValidationMessage = false;
             $scope.validationMessage = "Please enter an amount for this transaction"
+            return;
+        }
+        if ($scope.ItemOriginal.istransfer) {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Transfers cannot be edited. You can delete it and enter it again!"
             return;
         }
 
@@ -474,32 +475,30 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             };
             payeeRef.update(payee);
 
-            if ($scope.ItemOriginal.istransfer) {
-                //
-                // Update transfer relationship
-                //
-                if ($scope.currentItem.typedisplay !== "Transfer") {
-                    //
-                    // User changed transaction type from 'Transfer' to something else. Delete transfer if applicable.
-                    //
-                    var otherAccountId = '';
-                    if ($stateParams.accountId === $scope.ItemOriginal.accountToId) {
-                        otherAccountId = $scope.ItemOriginal.accountFromId;
-                    } else {
-                        otherAccountId = $scope.ItemOriginal.accountToId;
-                    }
-                    var transferRef = AccountsFactory.getTransactionRef(otherAccountId, $scope.ItemOriginal.linkedtransactionid);
-                    transferRef.remove();
-                    //
-                } else {
-                    //
-                    // This transaction is still a transfer, just update both transactions in the transfer
-                    //
-                    //
-                    //TODO: finish transfer logic here
-                    //
-                }
-            }
+            //if ($scope.ItemOriginal.istransfer) {
+            //    //
+            //    // Update transfer relationship
+            //    //
+            //    if ($scope.currentItem.typedisplay !== "Transfer") {
+            //        //
+            //        // User changed transaction type from 'Transfer' to something else. Delete transfer-transaction if applicable.
+            //        //
+            //        var otherAccountId = '';
+            //        if ($stateParams.accountId === $scope.ItemOriginal.accountToId) {
+            //            otherAccountId = $scope.ItemOriginal.accountFromId;
+            //        } else {
+            //            otherAccountId = $scope.ItemOriginal.accountToId;
+            //        }
+            //        var transferRef = AccountsFactory.getTransactionRef(otherAccountId, $scope.ItemOriginal.linkedtransactionid);
+            //        transferRef.remove();
+            //        //
+            //    } else {
+            //        //
+            //        // User DID NOT change transaction type but changed From/To accounts. Update both transactions in the transfer
+            //        //
+                    
+            //    }
+            //}
             $scope.inEditMode = false;
             //
         } else {

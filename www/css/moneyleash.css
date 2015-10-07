@@ -6,7 +6,7 @@
 ===============================================*/
 .DateDivider {
     font-weight: bold;
-    font: 13px 'Helvetica Neue', sans-serif;
+    font: 14px 'Helvetica Neue', sans-serif;
     padding-top: 8px;
     padding-bottom: 8px;
     min-height: 32px;
@@ -147,15 +147,6 @@ button.customHeaderSize {
 .customFooterIcon:before {
     color: #fff;
     text-shadow: 0 -1px 0 #bfbfbf; 
-}
-.footerRow i {
-    margin-top: -43px;
-    text-shadow: 0px 1px 0px gray;
-}
-.iconCircle i:before {
-    font-weight: bold;
-    font-size: 75px;
-    color: #00A2E8;
 }
 .iconPhoto i:before {
     font-weight: bold;
@@ -349,6 +340,16 @@ button.customHeaderSize {
     background: transparent;
     line-height: 18px;
     font: 17px 'PT Sans', sans-serif;
+}
+.btn-add-expense {
+    display: inline-block;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -25px;
+    z-index: 100;
+    font-size: 60px;
+    color: #00A2E8; 
 }
 
 /* About Screen
@@ -709,7 +710,7 @@ i.mlpaddingright {
 .logo {
     position: relative;
     display: block;
-    margin: 20px auto;
+    margin: 0 auto;
     border-radius: 50px;
     width: 75px;
     height: 75px;
@@ -734,7 +735,7 @@ a.logo {
 }
 #ml-login {
     position:relative;
-    margin: 50px auto;
+    margin: 25px auto;
     width: 330px;
     height: auto;
 }
@@ -796,7 +797,7 @@ a.logo {
 }
 #ml-login .inputUserIcon {
     position: absolute;
-    top: 230px;
+    top: 206px;
     right: 80px;
     color: white;
 }
@@ -832,7 +833,7 @@ a.logo {
 }
 #ml-login .inputPassIcon {
     position:absolute;
-    top: 288px;
+    top: 266px;
     right: 80px;
     color:white;
 }

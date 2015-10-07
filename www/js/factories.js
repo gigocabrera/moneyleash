@@ -469,6 +469,7 @@ angular.module('moneyleash.factories', [])
         var transAccountTo = this;
         var transPhoto = this;
         var transNote = this;
+        var transSearch = this;
         transactionType.updateType = function (value, type) {
             this.typeDisplaySelected = value;
             this.typeInternalSelected = type;
@@ -503,6 +504,9 @@ angular.module('moneyleash.factories', [])
         }
         transNote.updateNote = function (value) {
             this.noteSelected = value;
+        }
+        transSearch.updateSearch = function (value) {
+            this.searchSelected = value;
         }
     })
 ;

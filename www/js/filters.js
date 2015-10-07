@@ -92,7 +92,7 @@
                         dividers[dividerId] = {
                             isDivider: true,
                             _id: dividerId,
-                            divider: currentDate.format('MMMM DD, YYYY')
+                            divider: currentDate.format('dddd, MMMM DD, YYYY')
                         };
                     }
                     output.push(dividers[dividerId]);

@@ -18,11 +18,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     $scope.moreOptions = function () {
         $ionicActionSheet.show({
             buttons: [
-              { text: 'Show All Transactions' },
-              { text: 'Active Transactions' },
-              { text: 'Cleared Transactions' }
+              { text: 'Copy' },
+              { text: 'Email' },
+              { text: 'Print' }
             ],
-            titleText: '<strong>FILTER</strong>',
+            titleText: '<strong>OPTIONS</strong>',
             cancelText: 'Cancel',
             cancel: function () {
                 $ionicListDelegate.closeOptionButtons();
@@ -131,7 +131,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     $scope.showFilterBar = function () {
         filterBarInstance = $ionicFilterBar.show({
             items: $scope.transactions,
-            update: function (filteredItems) {
+            update: function (filteredItems, filterText) {
                 $scope.transactions = filteredItems;
             },
             filterProperties: 'payee'
