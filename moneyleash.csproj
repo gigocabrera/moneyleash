@@ -665,9 +665,9 @@
     <Content Include="platforms\ios\www\templates\about.html" />
     <Content Include="platforms\ios\www\templates\account.html" />
     <Content Include="platforms\ios\www\templates\accounts.html" />
+    <Content Include="platforms\ios\www\templates\accountsettings.html" />
     <Content Include="platforms\ios\www\templates\accounttypes.html" />
     <Content Include="platforms\ios\www\templates\accounttypesave.html" />
-    <Content Include="platforms\ios\www\templates\accounttypeselect.html" />
     <Content Include="platforms\ios\www\templates\budgets.html" />
     <Content Include="platforms\ios\www\templates\categories.html" />
     <Content Include="platforms\ios\www\templates\category.html" />
@@ -676,16 +676,12 @@
     <Content Include="platforms\ios\www\templates\house-choice.html" />
     <Content Include="platforms\ios\www\templates\house-create.html" />
     <Content Include="platforms\ios\www\templates\house-join.html" />
-    <Content Include="platforms\ios\www\templates\intro.html" />
-    <Content Include="platforms\ios\www\templates\itemdetails.html" />
     <Content Include="platforms\ios\www\templates\login.html" />
     <Content Include="platforms\ios\www\templates\payee.html" />
     <Content Include="platforms\ios\www\templates\payees.html" />
     <Content Include="platforms\ios\www\templates\payeetransactions.html" />
     <Content Include="platforms\ios\www\templates\personalprofile.html" />
-    <Content Include="platforms\ios\www\templates\pickaccountamount.html" />
     <Content Include="platforms\ios\www\templates\pickaccountdate.html" />
-    <Content Include="platforms\ios\www\templates\pickaccountname.html" />
     <Content Include="platforms\ios\www\templates\pickaccounttype.html" />
     <Content Include="platforms\ios\www\templates\pickcategorytype.html" />
     <Content Include="platforms\ios\www\templates\pickparentcategory.html" />
@@ -698,7 +694,6 @@
     <Content Include="platforms\ios\www\templates\picktransactionpayee.html" />
     <Content Include="platforms\ios\www\templates\picktransactionphoto.html" />
     <Content Include="platforms\ios\www\templates\picktransactiontype.html" />
-    <Content Include="platforms\ios\www\templates\popover.html" />
     <Content Include="platforms\ios\www\templates\recurring.html" />
     <Content Include="platforms\ios\www\templates\register.html" />
     <Content Include="platforms\ios\www\templates\reports.html" />
@@ -706,7 +701,6 @@
     <Content Include="platforms\ios\www\templates\side-menu.html" />
     <Content Include="platforms\ios\www\templates\transaction.html" />
     <Content Include="platforms\ios\www\templates\transactions.html" />
-    <Content Include="platforms\ios\www\templates\transactionsByDay.html" />
     <Content Include="platforms\ios\www\templates\transactionsDayDivider.html" />
     <Content Include="plugins\com.ionic.keyboard\plugin.xml" />
     <Content Include="plugins\com.ionic.keyboard\src\android\IonicKeyboard.java" />
