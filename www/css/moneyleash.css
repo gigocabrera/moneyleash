@@ -164,11 +164,6 @@ button.customHeaderSize {
     font-weight: bold;
     font-size: 35px;
 }
-.footerRow span {
-    display: block;
-    font-weight: normal;
-    font-size: 15px;
-}
 .netWorthRow span {
     margin-top: 8px;
     display: block;
@@ -343,9 +338,9 @@ button.customHeaderSize {
     position: fixed;
     bottom: 10px;
     left: 50%;
-    margin-left: -25px;
+    margin-left: -31px;
     z-index: 100;
-    font-size: 70px;
+    font-size: 75px;
     color: #00A2E8; 
 }
 .mlpurple {
