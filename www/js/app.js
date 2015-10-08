@@ -5,7 +5,7 @@ var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 // Ionic MoneyLeash App, v1.0
 var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngIOS9UIWebViewPatch', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'ion-sticky', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen, MembersFactory) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)

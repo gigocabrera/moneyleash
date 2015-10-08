@@ -140,7 +140,7 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
                 angular.forEach($scope.transactionsbypayee, function (transaction) {
                     transaction.payee = $scope.currentItem.payeename;
                     $scope.transactionsbypayee.$save(transaction).then(function (ref) {
-                        ref.key() === transaction.$id;
+                        
                     });
                 })
             })
@@ -484,15 +484,16 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             //
             // Update payee-category relationship
             //
+            var payee = {};
             var payeeRef = PayeesService.getPayeeRef($scope.currentItem.payeeid);
             if ($scope.currentItem.type === "Income") {
-                var payee = {
+                payee = {
                     lastamountincome: $scope.currentItem.amount,
                     lastcategoryincome: $scope.currentItem.category,
                     lastcategoryidincome: $scope.currentItem.categoryid
                 };
             } else if ($scope.currentItem.type === "Expense") {
-                var payee = {
+                payee = {
                     lastamount: $scope.currentItem.amount,
                     lastcategory: $scope.currentItem.category,
                     lastcategoryid: $scope.currentItem.categoryid

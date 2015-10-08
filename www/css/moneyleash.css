@@ -313,9 +313,6 @@ button.customHeaderSize {
 	bottom: 1px;
 	position: relative;
 }
-.customTransactionsPopover {
-    
-}
 .search-wrapper-light {
     border-bottom: 2px solid rgba(255,255,255,0.5);
     background: none;
@@ -498,7 +495,6 @@ button.customHeaderSize {
     margin-top: -8px;
 }
 i.customChevronForm {
-    background-color: #fff;
     width: 40px;
     background-color: transparent;
 }
@@ -700,9 +696,6 @@ i.mlpaddingright {
     text-decoration: none;
     color: #fff;
     font-size: 16px;
-}
-.introHeading {
-
 }
 .introHeading h1 {
     color: #fff;

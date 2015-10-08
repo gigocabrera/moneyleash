@@ -2,7 +2,7 @@
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionicActionSheet, $ionicHistory, MembersFactory) {
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionicActionSheet, $ionicHistory) {
 
     $scope.showMenuIcon = true;
 

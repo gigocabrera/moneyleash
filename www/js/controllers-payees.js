@@ -60,7 +60,7 @@ moneyleashapp.controller('PayeeController', function ($scope, $ionicHistory, $st
                 angular.forEach($scope.transactionsbypayee, function (transaction) {
                     transaction.payee = newname;
                     $scope.transactionsbypayee.$save(transaction).then(function (ref) {
-                        ref.key() = transaction.$id;
+                        
                     });
                     //
                     // Update original transaction

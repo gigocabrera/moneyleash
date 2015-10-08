@@ -191,8 +191,6 @@ angular.module('moneyleash.factories', [])
         var alltransactions = {};
         var transactionsbycategoryRef = {};
         var transactionsbypayeeRef = {};
-        var transactionsRef = {};
-        var authData = fb.getAuth();
         var thisHouseId = myCache.get('thisHouseId');
         return {
             ref: function () {
@@ -240,7 +238,7 @@ angular.module('moneyleash.factories', [])
             },
             saveAccount: function (account) {
                 allaccounts.$save(account).then(function (ref) {
-                    //ref.key() = account.$id;
+                    
                 });
             },
             createTransaction: function (currentAccountId, currentItem) {
@@ -311,18 +309,19 @@ angular.module('moneyleash.factories', [])
                 //
                 // Save payee-category relationship
                 //
+                var payee = {};
                 var payeeRef = fb.child("houses").child(thisHouseId).child("memberpayees").child(currentItem.payeeid);
-                if ($scope.currentItem.type === "Income") {
-                    var payee = {
-                        lastamountincome: $scope.currentItem.amount,
-                        lastcategoryincome: $scope.currentItem.category,
-                        lastcategoryidincome: $scope.currentItem.categoryid
+                if (currentItem.type === "Income") {
+                    payee = {
+                        lastamountincome: currentItem.amount,
+                        lastcategoryincome: currentItem.category,
+                        lastcategoryidincome: currentItem.categoryid
                     };
-                } else if ($scope.currentItem.type === "Expense") {
-                    var payee = {
-                        lastamount: $scope.currentItem.amount,
-                        lastcategory: $scope.currentItem.category,
-                        lastcategoryid: $scope.currentItem.categoryid
+                } else if (currentItem.type === "Expense") {
+                    payee = {
+                        lastamount: currentItem.amount,
+                        lastcategory: currentItem.category,
+                        lastcategoryid: currentItem.categoryid
                     };
                 }
                 payeeRef.update(payee);
