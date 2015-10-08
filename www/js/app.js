@@ -21,7 +21,17 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
         }, 300);
         setTimeout(function () {
             $cordovaSplashscreen.hide()
-        }, 3000)
+        }, 3000);
+
+        $cordovaTouchID.checkSupport().then(function () {
+            $cordovaTouchID.authenticate("You must authenticate").then(function () {
+                alert("The authentication was successful");
+            }, function (error) {
+                console.log(JSON.stringify(error));
+            });
+        }, function (error) {
+            console.log(JSON.stringify(error));
+        });
 
         Auth.$onAuth(function (authData) {
             if (authData) {

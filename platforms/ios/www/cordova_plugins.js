@@ -62,6 +62,13 @@ module.exports = [
         "clobbers": [
             "navigator.splashscreen"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-touchid/www/touchid.js",
+        "id": "cordova-plugin-touchid.TouchID",
+        "clobbers": [
+            "touchid"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -71,7 +78,8 @@ module.exports.metadata =
     "cordova-plugin-console": "1.0.1",
     "cordova-plugin-device": "1.0.1",
     "cordova-plugin-statusbar": "1.0.1",
-    "cordova-plugin-splashscreen": "2.1.0"
+    "cordova-plugin-splashscreen": "2.1.0",
+    "cordova-plugin-touchid": "0.3.0"
 }
 // BOTTOM OF METADATA
 });
