@@ -312,11 +312,19 @@ angular.module('moneyleash.factories', [])
                 // Save payee-category relationship
                 //
                 var payeeRef = fb.child("houses").child(thisHouseId).child("memberpayees").child(currentItem.payeeid);
-                var payee = {
-                    lastamount: currentItem.amount,
-                    lastcategory: currentItem.category,
-                    lastcategoryid: currentItem.categoryid
-                };
+                if ($scope.currentItem.type === "Income") {
+                    var payee = {
+                        lastamountincome: $scope.currentItem.amount,
+                        lastcategoryincome: $scope.currentItem.category,
+                        lastcategoryidincome: $scope.currentItem.categoryid
+                    };
+                } else if ($scope.currentItem.type === "Expense") {
+                    var payee = {
+                        lastamount: $scope.currentItem.amount,
+                        lastcategory: $scope.currentItem.category,
+                        lastcategoryid: $scope.currentItem.categoryid
+                    };
+                }
                 payeeRef.update(payee);
 
                 if (currentItem.istransfer) {
@@ -478,12 +486,19 @@ angular.module('moneyleash.factories', [])
             this.categorySelected = value;
             this.categoryid = id;
         }
-        transPayee.updatePayee = function (payee, id) {
+        transPayee.updatePayee = function (payee, id, type) {
             this.payeeSelected = payee.payeename;
-            this.categorySelected = payee.lastcategory;
-            this.categoryid = payee.lastcategoryid;
-            this.amountSelected = payee.lastamount;
-            this.payeeid = id;
+            if (type === "Income") {
+                this.categorySelected = payee.lastcategoryincome;
+                this.categoryid = payee.lastcategoryidincome;
+                this.amountSelected = payee.lastamountincome;
+                this.payeeid = id;
+            } else if (type === "Expense") {
+                this.categorySelected = payee.lastcategory;
+                this.categoryid = payee.lastcategoryid;
+                this.amountSelected = payee.lastamount;
+                this.payeeid = id;
+            }
         }
         transDate.updateDate = function (value) {
             this.dateSelected = value;

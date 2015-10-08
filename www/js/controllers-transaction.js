@@ -168,7 +168,7 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
         }
     }
     $scope.selectPayee = function (payee) {
-        PickTransactionServices.updatePayee(payee, payee.$id);
+        PickTransactionServices.updatePayee(payee, payee.$id, PickTransactionServices.typeInternalSelected);
         $ionicHistory.goBack();
     }
 })
@@ -323,6 +323,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
 
     // EDIT / CREATE TRANSACTION
     if ($stateParams.transactionId === '') {
+        //
+        // Create transaction
+        //
         $scope.TransactionTitle = "Create Transaction";
         // Handle defaults
         if (CurrentUserService.defaultdate === "None") {
@@ -337,7 +340,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             PickTransactionServices.dateSelected = $scope.DisplayDate;
         }
     } else {
+        //
         // Edit transaction
+        //
         var transaction = AccountsFactory.getTransaction($stateParams.transactionId);
         $scope.inEditMode = true;
         $scope.currentItem = transaction;
@@ -364,6 +369,18 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             angular.copy($scope.currentItem, $scope.ItemOriginal);
         }
         $scope.TransactionTitle = "Edit Transaction";
+    }
+
+    // GET PAYEE
+    // Make sure the transaction type (Expense, Income, Transfer) has been selected first
+    $scope.getPayee = function () {
+        if (typeof $scope.currentItem.typedisplay === 'undefined' || $scope.currentItem.typedisplay === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select Transaction Type"
+            return;
+        } else {
+            $state.go('app.picktransactionpayee');
+        }
     }
 
     // SAVE
@@ -468,11 +485,19 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             // Update payee-category relationship
             //
             var payeeRef = PayeesService.getPayeeRef($scope.currentItem.payeeid);
-            var payee = {
-                lastamount: $scope.currentItem.amount,
-                lastcategory: $scope.currentItem.category,
-                lastcategoryid: $scope.currentItem.categoryid
-            };
+            if ($scope.currentItem.type === "Income") {
+                var payee = {
+                    lastamountincome: $scope.currentItem.amount,
+                    lastcategoryincome: $scope.currentItem.category,
+                    lastcategoryidincome: $scope.currentItem.categoryid
+                };
+            } else if ($scope.currentItem.type === "Expense") {
+                var payee = {
+                    lastamount: $scope.currentItem.amount,
+                    lastcategory: $scope.currentItem.category,
+                    lastcategoryid: $scope.currentItem.categoryid
+                };
+            }
             payeeRef.update(payee);
 
             //if ($scope.ItemOriginal.istransfer) {

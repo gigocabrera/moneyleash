@@ -348,8 +348,11 @@ button.customHeaderSize {
     left: 50%;
     margin-left: -25px;
     z-index: 100;
-    font-size: 60px;
+    font-size: 70px;
     color: #00A2E8; 
+}
+.mlpurple {
+    color: purple;
 }
 
 /* About Screen
