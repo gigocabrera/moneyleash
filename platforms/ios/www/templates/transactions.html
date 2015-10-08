@@ -15,7 +15,7 @@
                 <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" ng-click="handleSwipeAndTap($event, transaction)">
                     <div class="row">
                         <div class="col-50 customTransDesc customItemSize">
-                            <span>
+                            <span ng-class="{'mlpurple': transaction.istransfer == true }">
                                 {{ transaction.payee }}
                                 <small>
                                     <i class="fa fa-at"></i>{{ transaction.addedby }}&nbsp;
@@ -50,11 +50,11 @@
     </ion-content>
     <ion-footer-bar align-title="left" class="CustomFooter">
         <div class="row center">
-            <div class="col footerRow"><span></span></div>
-            <div class="col footerRow iconCircle">
-                <i class="fa fa-plus-circle" ng-click="createTransaction()"></i>
+            <div class="col"></div>
+            <div class="col">
+                <a class="btn-add-expense" ng-click="createTransaction()"><i class="ion-plus-circled"></i></a>
             </div>
-            <div class="col footerRow"><span></span></div>
+            <div class="col"></div>
         </div>
     </ion-footer-bar>
 </ion-view>

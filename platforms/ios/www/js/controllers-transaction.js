@@ -132,18 +132,22 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
             //
             var payeeRef = PayeesService.getPayeeRef(PickTransactionServices.payeeid);
             payeeRef.update($scope.currentItem, onComplete);
-            //
-            // Update all transactions under this payee
-            //
-            $scope.transactionsbypayee = PayeesService.getTransactionsByPayee(PickTransactionServices.payeeid);
-            $scope.transactionsbypayee.$loaded().then(function () {
-                angular.forEach($scope.transactionsbypayee, function (transaction) {
-                    transaction.payee = $scope.currentItem.payeename;
-                    $scope.transactionsbypayee.$save(transaction).then(function (ref) {
-                        ref.key() === transaction.$id;
-                    });
-                })
-            })
+
+
+            ////
+            //// Update all transactions under this payee
+            ////
+            //$scope.transactionsbypayee = PayeesService.getTransactionsByPayee(PickTransactionServices.payeeid);
+            //$scope.transactionsbypayee.$loaded().then(function () {
+            //    angular.forEach($scope.transactionsbypayee, function (transaction) {
+            //        transaction.payee = $scope.currentItem.payeename;
+            //        $scope.transactionsbypayee.$save(transaction).then(function (ref) {
+                        
+            //        });
+            //    })
+            //})
+
+
             //
             // TODO: Update all transactions with new payee name
             // Find a way to update all necessary transactions with new payee name 
@@ -158,17 +162,21 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
             //
             // Create New Payee
             //
-            var sync = PayeesService.getPayees();
-            var payeeid = '';
-            sync.$add($scope.currentItem).then(function (newChildRef) {
-                payeeid = newChildRef.key();
-                PickTransactionServices.updatePayee($scope.currentItem, payeeid);
-                $ionicHistory.goBack();
+            var payeesRef = PayeesService.getPayeesRef();
+            var newpayeeRef = payeesRef.push($scope.currentItem, function (error) {
+                if (error) {
+                    console.log("Data could not be saved." + error);
+                } else {
+                    var payeeid = '';
+                    payeeid = newpayeeRef.key();
+                    PickTransactionServices.updatePayee($scope.currentItem, payeeid, PickTransactionServices.typeInternalSelected);
+                    $ionicHistory.goBack();
+                }
             });
         }
     }
     $scope.selectPayee = function (payee) {
-        PickTransactionServices.updatePayee(payee, payee.$id);
+        PickTransactionServices.updatePayee(payee, payee.$id, PickTransactionServices.typeInternalSelected);
         $ionicHistory.goBack();
     }
 })
@@ -257,7 +265,7 @@ moneyleashapp.controller('PickTransactionNoteController', function ($scope, $ion
 })
 
 // TRANSACTION CONTROLLER
-moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, PayeesService, myCache) {
+moneyleashapp.controller('TransactionController', function ($scope, $state, $stateParams, $ionicHistory, AccountsFactory, PickTransactionServices, PayeesService, myCache, CurrentUserService) {
 
     $scope.hideValidationMessage = true;
     $scope.loadedClass = 'hidden';
@@ -323,9 +331,26 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
 
     // EDIT / CREATE TRANSACTION
     if ($stateParams.transactionId === '') {
+        //
+        // Create transaction
+        //
         $scope.TransactionTitle = "Create Transaction";
+        // Handle defaults
+        if (CurrentUserService.defaultdate === "None") {
+            // Leave field blank
+        } else if (CurrentUserService.defaultdate === "Today") {
+            // Enter today's date
+            $scope.DisplayDate = moment(new Date()).format('MMMM D, YYYY');
+            PickTransactionServices.dateSelected = $scope.DisplayDate;
+        } else if (CurrentUserService.defaultdate === "Last") {
+            // Enter last date used
+            $scope.DisplayDate = moment(CurrentUserService.lastdate).format('MMMM D, YYYY');
+            PickTransactionServices.dateSelected = $scope.DisplayDate;
+        }
     } else {
+        //
         // Edit transaction
+        //
         var transaction = AccountsFactory.getTransaction($stateParams.transactionId);
         $scope.inEditMode = true;
         $scope.currentItem = transaction;
@@ -354,6 +379,18 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         $scope.TransactionTitle = "Edit Transaction";
     }
 
+    // GET PAYEE
+    // Make sure the transaction type (Expense, Income, Transfer) has been selected first
+    $scope.getPayee = function () {
+        if (typeof $scope.currentItem.typedisplay === 'undefined' || $scope.currentItem.typedisplay === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select Transaction Type"
+            return;
+        } else {
+            $state.go('app.picktransactionpayee');
+        }
+    }
+
     // SAVE
     $scope.saveTransaction = function () {
 
@@ -363,23 +400,24 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             $scope.validationMessage = "Please select Transaction Type"
             return;
         }
-        if ($scope.currentItem.typedisplay === 'Transfer') {
-            // Do not validate payee and category if this is a transfer
-        } else {
-            if (typeof $scope.currentItem.payee === 'undefined' || $scope.currentItem.payee === '') {
-                $scope.hideValidationMessage = false;
-                $scope.validationMessage = "Please select a Payee"
-                return;
-            }
-            if (typeof $scope.currentItem.category === 'undefined' || $scope.currentItem.category === '') {
-                $scope.hideValidationMessage = false;
-                $scope.validationMessage = "Please select a Category"
-                return;
-            }
+        if (typeof $scope.currentItem.category === 'undefined' || $scope.currentItem.category === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select a Category"
+            return;
+        }
+        if (typeof $scope.currentItem.payee === 'undefined' || $scope.currentItem.payee === '') {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Please select a Payee"
+            return;
         }
         if (typeof $scope.currentItem.amount === 'undefined' || $scope.currentItem.amount === '') {
             $scope.hideValidationMessage = false;
             $scope.validationMessage = "Please enter an amount for this transaction"
+            return;
+        }
+        if ($scope.ItemOriginal.istransfer) {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Transfers cannot be edited. You can delete it and enter it again!"
             return;
         }
 
@@ -427,67 +465,78 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 }
             };
             AccountsFactory.saveTransaction($scope.currentItem);
-            //
-            // Update transaction under category
-            //
-            var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef($scope.currentItem.categoryid, $stateParams.transactionId);
-            var categoryTransaction = {
-                payee: $scope.currentItem.payee,
-                amount: $scope.currentItem.amount,
-                date: $scope.currentItem.date,
-                type: $scope.currentItem.type,
-                iscleared: $scope.currentItem.iscleared
-            };
-            categoryTransactionRef.update(categoryTransaction, onComplete);
-            //
-            // Update transaction under payee
-            //
-            var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef($scope.currentItem.payeeid, $stateParams.transactionId);
-            var payeeTransaction = {
-                payee: $scope.currentItem.payee,
-                amount: $scope.currentItem.amount,
-                date: $scope.currentItem.date,
-                type: $scope.currentItem.type,
-                iscleared: $scope.currentItem.iscleared
-            };
-            payeeTransactionRef.update(payeeTransaction, onComplete);
+
+
+            ////
+            //// Update transaction under category
+            ////
+            //var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef($scope.currentItem.categoryid, $stateParams.transactionId);
+            //var categoryTransaction = {
+            //    payee: $scope.currentItem.payee,
+            //    amount: $scope.currentItem.amount,
+            //    date: $scope.currentItem.date,
+            //    type: $scope.currentItem.type,
+            //    iscleared: $scope.currentItem.iscleared
+            //};
+            //categoryTransactionRef.update(categoryTransaction, onComplete);
+            ////
+            //// Update transaction under payee
+            ////
+            //var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef($scope.currentItem.payeeid, $stateParams.transactionId);
+            //var payeeTransaction = {
+            //    payee: $scope.currentItem.payee,
+            //    amount: $scope.currentItem.amount,
+            //    date: $scope.currentItem.date,
+            //    type: $scope.currentItem.type,
+            //    iscleared: $scope.currentItem.iscleared
+            //};
+            //payeeTransactionRef.update(payeeTransaction, onComplete);
+
+
             //
             // Update payee-category relationship
             //
+            var payee = {};
             var payeeRef = PayeesService.getPayeeRef($scope.currentItem.payeeid);
-            var payee = {
-                lastamount: $scope.currentItem.amount,
-                lastcategory: $scope.currentItem.category,
-                lastcategoryid: $scope.currentItem.categoryid
-            };
+            if ($scope.currentItem.type === "Income") {
+                payee = {
+                    lastamountincome: $scope.currentItem.amount,
+                    lastcategoryincome: $scope.currentItem.category,
+                    lastcategoryidincome: $scope.currentItem.categoryid
+                };
+            } else if ($scope.currentItem.type === "Expense") {
+                payee = {
+                    lastamount: $scope.currentItem.amount,
+                    lastcategory: $scope.currentItem.category,
+                    lastcategoryid: $scope.currentItem.categoryid
+                };
+            }
             payeeRef.update(payee);
 
-            if ($scope.ItemOriginal.istransfer) {
-                //
-                // Update transfer relationship
-                //
-                if ($scope.currentItem.typedisplay !== "Transfer") {
-                    //
-                    // User changed transaction type from 'Transfer' to something else. Delete transfer if applicable.
-                    //
-                    var otherAccountId = '';
-                    if ($stateParams.accountId === $scope.ItemOriginal.accountToId) {
-                        otherAccountId = $scope.ItemOriginal.accountFromId;
-                    } else {
-                        otherAccountId = $scope.ItemOriginal.accountToId;
-                    }
-                    var transferRef = AccountsFactory.getTransactionRef(otherAccountId, $scope.ItemOriginal.linkedtransactionid);
-                    transferRef.remove();
-                    //
-                } else {
-                    //
-                    // This transaction is still a transfer, just update both transactions in the transfer
-                    //
-                    //
-                    //TODO: finish transfer logic here
-                    //
-                }
-            }
+            //if ($scope.ItemOriginal.istransfer) {
+            //    //
+            //    // Update transfer relationship
+            //    //
+            //    if ($scope.currentItem.typedisplay !== "Transfer") {
+            //        //
+            //        // User changed transaction type from 'Transfer' to something else. Delete transfer-transaction if applicable.
+            //        //
+            //        var otherAccountId = '';
+            //        if ($stateParams.accountId === $scope.ItemOriginal.accountToId) {
+            //            otherAccountId = $scope.ItemOriginal.accountFromId;
+            //        } else {
+            //            otherAccountId = $scope.ItemOriginal.accountToId;
+            //        }
+            //        var transferRef = AccountsFactory.getTransactionRef(otherAccountId, $scope.ItemOriginal.linkedtransactionid);
+            //        transferRef.remove();
+            //        //
+            //    } else {
+            //        //
+            //        // User DID NOT change transaction type but changed From/To accounts. Update both transactions in the transfer
+            //        //
+                    
+            //    }
+            //}
             $scope.inEditMode = false;
             //
         } else {

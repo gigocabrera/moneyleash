@@ -158,16 +158,19 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
                 $ionicListDelegate.closeOptionButtons();
-                //
-                // Delete transaction under category
-                //
-                var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);
-                categoryTransactionRef.remove();
-                //
-                // Delete transaction under payee
-                //
-                var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
-                payeeTransactionRef.remove();
+
+                ////
+                //// Delete transaction under category
+                ////
+                //var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);
+                //categoryTransactionRef.remove();
+                ////
+                //// Delete transaction under payee
+                ////
+                //var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
+                //payeeTransactionRef.remove();
+
+
                 //
                 // Delete transfer if applicable
                 //

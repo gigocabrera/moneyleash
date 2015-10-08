@@ -54,8 +54,8 @@
             for (var i = 0, ii = input.length; i < ii && (item = input[i]) ; i++) {
                 currentDate = moment(item.date);
                 if (!previousDate ||
-                    currentDate.month() != previousDate.month() ||
-                    currentDate.year() != previousDate.year()) {
+                    currentDate.month() !== previousDate.month() ||
+                    currentDate.year() !== previousDate.year()) {
                     var dividerId = currentDate.format('MMYYYY');
                     if (!dividers[dividerId]) {
                         dividers[dividerId] = {
@@ -92,7 +92,7 @@
                         dividers[dividerId] = {
                             isDivider: true,
                             _id: dividerId,
-                            divider: currentDate.format('MMMM DD, YYYY')
+                            divider: currentDate.format('dddd, MMMM DD, YYYY')
                         };
                     }
                     output.push(dividers[dividerId]);

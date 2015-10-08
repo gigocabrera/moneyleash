@@ -184,15 +184,13 @@ angular.module('moneyleash.factories', [])
         };
     })
 
-    .factory('AccountsFactory', function ($firebaseArray, $q, myCache) {
+    .factory('AccountsFactory', function ($firebaseArray, $q, myCache, MembersFactory, CurrentUserService) {
         var ref = {};
         var allaccounts = {};
         var allaccounttypes = {};
         var alltransactions = {};
         var transactionsbycategoryRef = {};
         var transactionsbypayeeRef = {};
-        var transactionsRef = {};
-        var authData = fb.getAuth();
         var thisHouseId = myCache.get('thisHouseId');
         return {
             ref: function () {
@@ -226,21 +224,21 @@ angular.module('moneyleash.factories', [])
                 transactionRef = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountid).child(transactionid);
                 return transactionRef;
             },
-            getTransactionByCategoryRef: function (categoryid, transactionid) {
-                transactionsbycategoryRef = fb.child("houses").child(thisHouseId).child("membertransactionsbycategory").child(categoryid).child(transactionid);
-                return transactionsbycategoryRef;
-            },
-            getTransactionByPayeeRef: function (payeeid, transactionid) {
-                transactionsbypayeeRef = fb.child("houses").child(thisHouseId).child("membertransactionsbypayee").child(payeeid).child(transactionid);
-                return transactionsbypayeeRef;
-            },
+            //getTransactionByCategoryRef: function (categoryid, transactionid) {
+            //    transactionsbycategoryRef = fb.child("houses").child(thisHouseId).child("membertransactionsbycategory").child(categoryid).child(transactionid);
+            //    return transactionsbycategoryRef;
+            //},
+            //getTransactionByPayeeRef: function (payeeid, transactionid) {
+            //    transactionsbypayeeRef = fb.child("houses").child(thisHouseId).child("membertransactionsbypayee").child(payeeid).child(transactionid);
+            //    return transactionsbypayeeRef;
+            //},
             createNewAccount: function (currentItem) {
                 // Create the account
                 allaccounts.$add(currentItem).then(function (newChildRef) { });
             },
             saveAccount: function (account) {
                 allaccounts.$save(account).then(function (ref) {
-                    //ref.key() = account.$id;
+                    
                 });
             },
             createTransaction: function (currentAccountId, currentItem) {
@@ -273,38 +271,62 @@ angular.module('moneyleash.factories', [])
                 var ref = fb.child("houses").child(thisHouseId).child("membertransactions").child(accountId);
                 var newChildRef = ref.push(currentItem);
                 //
-                // Save transaction under category
+                // Update preferences - Last Date Used
                 //
-                var categoryTransactionRef = fb.child("houses").child(thisHouseId).child("membertransactionsbycategory").child(currentItem.categoryid).child(newChildRef.key());
-                var categoryTransaction = {
-                    payee: currentItem.payee,
-                    amount: currentItem.amount,
-                    date: currentItem.date,
-                    type: currentItem.type,
-                    iscleared: currentItem.iscleared
-                };
-                categoryTransactionRef.update(categoryTransaction);
-                //
-                // Save transaction under payee
-                //
-                var payeeTransactionRef = fb.child("houses").child(thisHouseId).child("membertransactionsbypayee").child(currentItem.payeeid).child(newChildRef.key());
-                var payeeTransaction = {
-                    payee: currentItem.payee,
-                    amount: currentItem.amount,
-                    date: currentItem.date,
-                    type: currentItem.type,
-                    iscleared: currentItem.iscleared
-                };
-                payeeTransactionRef.update(payeeTransaction);
+                var fbAuth = fb.getAuth();
+                var usersRef = MembersFactory.ref();
+                var myUser = usersRef.child(fbAuth.uid);
+                var temp = {
+                    lastdate: currentItem.date
+                }
+                myUser.update(temp, function () {
+                    CurrentUserService.lastdate = temp.lastdate;
+                });
+
+                ////
+                //// Save transaction under category
+                ////
+                //var categoryTransactionRef = fb.child("houses").child(thisHouseId).child("membertransactionsbycategory").child(currentItem.categoryid).child(newChildRef.key());
+                //var categoryTransaction = {
+                //    payee: currentItem.payee,
+                //    amount: currentItem.amount,
+                //    date: currentItem.date,
+                //    type: currentItem.type,
+                //    iscleared: currentItem.iscleared
+                //};
+                //categoryTransactionRef.update(categoryTransaction);
+                ////
+                //// Save transaction under payee
+                ////
+                //var payeeTransactionRef = fb.child("houses").child(thisHouseId).child("membertransactionsbypayee").child(currentItem.payeeid).child(newChildRef.key());
+                //var payeeTransaction = {
+                //    payee: currentItem.payee,
+                //    amount: currentItem.amount,
+                //    date: currentItem.date,
+                //    type: currentItem.type,
+                //    iscleared: currentItem.iscleared
+                //};
+                //payeeTransactionRef.update(payeeTransaction);
+
+
                 //
                 // Save payee-category relationship
                 //
+                var payee = {};
                 var payeeRef = fb.child("houses").child(thisHouseId).child("memberpayees").child(currentItem.payeeid);
-                var payee = {
-                    lastamount: currentItem.amount,
-                    lastcategory: currentItem.category,
-                    lastcategoryid: currentItem.categoryid
-                };
+                if (currentItem.type === "Income") {
+                    payee = {
+                        lastamountincome: currentItem.amount,
+                        lastcategoryincome: currentItem.category,
+                        lastcategoryidincome: currentItem.categoryid
+                    };
+                } else if (currentItem.type === "Expense") {
+                    payee = {
+                        lastamount: currentItem.amount,
+                        lastcategory: currentItem.category,
+                        lastcategoryid: currentItem.categoryid
+                    };
+                }
                 payeeRef.update(payee);
 
                 if (currentItem.istransfer) {
@@ -336,6 +358,7 @@ angular.module('moneyleash.factories', [])
     .factory('PayeesService', function ($firebaseArray, $q, myCache) {
         var ref = {};
         var allpayees = {};
+        var payeesRef = {};
         var payeeRef = {};
         var transactionsByPayeeRef = {};
         var transactionsByCategoryRef = {};
@@ -355,15 +378,19 @@ angular.module('moneyleash.factories', [])
                 });
                 return deferred.promise;
             },
-            getTransactionsByPayee: function (payeeid) {
-                ref = fb.child("houses").child(thisHouseId).child("membertransactionsbypayee").child(payeeid);
-                transactionsByPayeeRef = $firebaseArray(ref);
-                return transactionsByPayeeRef;
-            },
-            getTransactionsByCategory: function (categoryid) {
-                ref = fb.child("houses").child(thisHouseId).child("membertransactionsbycategory").child(categoryid);
-                transactionsByCategoryRef = $firebaseArray(ref);
-                return transactionsByCategoryRef;
+            //getTransactionsByPayee: function (payeeid) {
+            //    ref = fb.child("houses").child(thisHouseId).child("membertransactionsbypayee").child(payeeid);
+            //    transactionsByPayeeRef = $firebaseArray(ref);
+            //    return transactionsByPayeeRef;
+            //},
+            //getTransactionsByCategory: function (categoryid) {
+            //    ref = fb.child("houses").child(thisHouseId).child("membertransactionsbycategory").child(categoryid);
+            //    transactionsByCategoryRef = $firebaseArray(ref);
+            //    return transactionsByCategoryRef;
+            //},
+            getPayeesRef: function () {
+                payeesRef = fb.child("houses").child(thisHouseId).child("memberpayees");
+                return payeesRef;
             },
             getPayeeRef: function (payeeid) {
                 payeeRef = fb.child("houses").child(thisHouseId).child("memberpayees").child(payeeid);
@@ -428,6 +455,9 @@ angular.module('moneyleash.factories', [])
             this.email = user.email;
             this.paymentplan = user.paymentplan;
             this.houseid = user.houseid;
+            this.defaultdate = user.defaultdate;
+            this.defaultbalance = user.defaultbalance;
+            this.lastdate = user.lastdate;
         }
     })
 
@@ -435,19 +465,11 @@ angular.module('moneyleash.factories', [])
     .service("PickAccountServices", function () {
         var accountDate = this;
         var accountType = this;
-        var accountDefaultDate = this;
-        var accountDefaultBalance = this;
         accountDate.updateDate = function (value) {
             this.dateSelected = value;
         }
         accountType.updateType = function (value) {
             this.typeSelected = value;
-        }
-        accountDefaultDate.updateDefaultDate = function (value) {
-            this.defaultDateSelected = value;
-        }
-        accountDefaultBalance.updateDefaultBalance = function (value) {
-            this.defaultBalanceSelected = value;
         }
     })
 
@@ -462,6 +484,7 @@ angular.module('moneyleash.factories', [])
         var transAccountTo = this;
         var transPhoto = this;
         var transNote = this;
+        var transSearch = this;
         transactionType.updateType = function (value, type) {
             this.typeDisplaySelected = value;
             this.typeInternalSelected = type;
@@ -470,12 +493,19 @@ angular.module('moneyleash.factories', [])
             this.categorySelected = value;
             this.categoryid = id;
         }
-        transPayee.updatePayee = function (payee, id) {
+        transPayee.updatePayee = function (payee, id, type) {
             this.payeeSelected = payee.payeename;
-            this.categorySelected = payee.lastcategory;
-            this.categoryid = payee.lastcategoryid;
-            this.amountSelected = payee.lastamount;
-            this.payeeid = id;
+            if (type === "Income") {
+                this.categorySelected = payee.lastcategoryincome;
+                this.categoryid = payee.lastcategoryidincome;
+                this.amountSelected = payee.lastamountincome;
+                this.payeeid = id;
+            } else if (type === "Expense") {
+                this.categorySelected = payee.lastcategory;
+                this.categoryid = payee.lastcategoryid;
+                this.amountSelected = payee.lastamount;
+                this.payeeid = id;
+            }
         }
         transDate.updateDate = function (value) {
             this.dateSelected = value;
@@ -496,6 +526,9 @@ angular.module('moneyleash.factories', [])
         }
         transNote.updateNote = function (value) {
             this.noteSelected = value;
+        }
+        transSearch.updateSearch = function (value) {
+            this.searchSelected = value;
         }
     })
 ;

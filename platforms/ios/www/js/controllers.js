@@ -2,7 +2,7 @@
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionicActionSheet, $ionicHistory, MembersFactory) {
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionicActionSheet, $ionicHistory) {
 
     $scope.showMenuIcon = true;
 
@@ -61,7 +61,7 @@ moneyleashapp.controller('IntroController', function ($scope, $rootScope, $state
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, MembersFactory, myCache) {
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, MembersFactory, myCache, CurrentUserService) {
 
     $scope.user = {};
     $scope.notify = function (title, text) {
@@ -100,6 +100,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
                     /* Save user data for later use */
                     myCache.put('thisHouseId', thisuser.houseid);
                     myCache.put('thisUserName', thisuser.firstname);
+                    CurrentUserService.updateUser(thisuser);
 
                     if (thisuser.houseid === '') {
                         $ionicLoading.hide();

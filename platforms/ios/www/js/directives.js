@@ -81,44 +81,6 @@ angular.module('moneyleash.directives', [])
 	    };
     })
 
-    //
-    // http://onehungrymind.com/angularjs-dynamic-templates/
-    //
-    .directive('contentItem', function ($compile) {
-        var transactionTemplate = '<div class="entry-photo"><h2>&nbsp;</h2><div class="entry-img"><span><a href="{{rootDirectory}}{{content.data}}"><img ng-src="{{rootDirectory}}{{content.data}}" alt="entry photo"></a></span></div><div class="entry-text"><div class="entry-title">{{content.title}}</div><div class="entry-copy">{{content.description}}</div></div></div>';
-        var dividerTemplate = '<div class="item item-divider SectionDivider" ion-affix data-affix-within-parent-with-class="ml_list" ng-class="{SectionDividerActive: group.isToday == true}">{{ group.label }}</div>';
-
-        var getTemplate = function(contentType) {
-            var template = '';
-
-            switch(contentType) {
-                case 'istransaction':
-                    template = imageTemplate;
-                    break;
-                case 'isdivider':
-                    template = videoTemplate;
-                    break;
-            }
-            return template;
-        }
-
-        var linker = function(scope, element, attrs) {
-            scope.rootDirectory = 'images/';
-
-            element.html(getTemplate(scope.content.content_type)).show();
-
-            $compile(element.contents())(scope);
-        }
-
-        return {
-            restrict: "E",
-            link: linker,
-            scope: {
-                content:'='
-            }
-        };
-    })
-
     // 
     // http://gonehybrid.com/how-to-group-items-in-ionics-collection-repeat/
     //
@@ -147,7 +109,7 @@ angular.module('moneyleash.directives', [])
             link: function (scope, element, attrs) {
                 $timeout(function () {
                     element[0].focus();
-                }, 750);
+                }, 650);
             }
         };
     })
@@ -237,6 +199,53 @@ angular.module('moneyleash.directives', [])
 
                 };
 
+            }
+        };
+    })
+
+    .directive('ionRadioFix', function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            require: '?ngModel',
+            transclude: true,
+            template:
+              '<label class="item item-radio">' +
+                '<input type="radio" name="radio-group">' +
+                '<div class="radio-content">' +
+                  '<div class="item-content disable-pointer-events" ng-transclude></div>' +
+                  '<i class="radio-icon disable-pointer-events icon ion-checkmark"></i>' +
+                '</div>' +
+              '</label>',
+
+            compile: function (element, attr) {
+                if (attr.icon) {
+                    var iconElm = element.find('i');
+                    iconElm.removeClass('ion-checkmark').addClass(attr.icon);
+                }
+
+                var input = element.find('input');
+                angular.forEach({
+                    'name': attr.name,
+                    'value': attr.value,
+                    'disabled': attr.disabled,
+                    'ng-value': attr.ngValue,
+                    'ng-model': attr.ngModel,
+                    'ng-disabled': attr.ngDisabled,
+                    'ng-change': attr.ngChange,
+                    'ng-required': attr.ngRequired,
+                    'required': attr.required
+                }, function (value, name) {
+                    if (angular.isDefined(value)) {
+                        input.attr(name, value);
+                    }
+                });
+
+                return function (scope, element, attr) {
+                    scope.getValue = function () {
+                        return scope.ngValue || attr.value;
+                    };
+                };
             }
         };
     })

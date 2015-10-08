@@ -18,11 +18,11 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     $scope.moreOptions = function () {
         $ionicActionSheet.show({
             buttons: [
-              { text: 'Show All Transactions' },
-              { text: 'Active Transactions' },
-              { text: 'Cleared Transactions' }
+              { text: 'Copy' },
+              { text: 'Email' },
+              { text: 'Print' }
             ],
-            titleText: '<strong>FILTER</strong>',
+            titleText: '<strong>OPTIONS</strong>',
             cancelText: 'Cancel',
             cancel: function () {
                 $ionicListDelegate.closeOptionButtons();
@@ -131,7 +131,7 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     $scope.showFilterBar = function () {
         filterBarInstance = $ionicFilterBar.show({
             items: $scope.transactions,
-            update: function (filteredItems) {
+            update: function (filteredItems, filterText) {
                 $scope.transactions = filteredItems;
             },
             filterProperties: 'payee'
@@ -158,16 +158,19 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
                 //Called when the destructive button is clicked.
                 //Return true to close the action sheet, or false to keep it opened.
                 $ionicListDelegate.closeOptionButtons();
-                //
-                // Delete transaction under category
-                //
-                var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);
-                categoryTransactionRef.remove();
-                //
-                // Delete transaction under payee
-                //
-                var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
-                payeeTransactionRef.remove();
+
+                ////
+                //// Delete transaction under category
+                ////
+                //var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);
+                //categoryTransactionRef.remove();
+                ////
+                //// Delete transaction under payee
+                ////
+                //var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
+                //payeeTransactionRef.remove();
+
+
                 //
                 // Delete transfer if applicable
                 //

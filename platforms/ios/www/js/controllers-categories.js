@@ -1,7 +1,7 @@
 
 // CATEGORY TRANSACTIONS CONTROLLER
 moneyleashapp.controller('CategoryTransactionsController', function ($scope, $stateParams, PayeesService) {
-    $scope.transactionsbycategory = PayeesService.getTransactionsByCategory($stateParams.categoryid);
+    //$scope.transactionsbycategory = PayeesService.getTransactionsByCategory($stateParams.categoryid);
 })
 
 // PICK PARENT CATEGORY CONTROLLER
@@ -189,11 +189,11 @@ moneyleashapp.controller('CategoriesController', function ($scope, $state, $ioni
                 $ionicListDelegate.closeOptionButtons();
                 if (category.categorytype === 'Income') {
                     $scope.incomecategories.$remove(category).then(function (newChildRef) {
-                        newChildRef.key() = category.$id;
+
                     })
                 } else {
                     $scope.expensecategories.$remove(category).then(function (newChildRef) {
-                        newChildRef.key() = category.$id;
+                        
                     })
                 }
                 return true;

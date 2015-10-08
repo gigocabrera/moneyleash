@@ -8,30 +8,24 @@
     <ion-content class="has-header">
         <ion-list>
             <div class="item item-divider CustomSubHeader">Income Categories</div>
-            <ion-item class="customItemSize mlSmallerFont item-icon-left item-icon-right" 
-                      ng-repeat="category in incomecategories | orderBy:'categorysort' track by category.$id " 
-                      ng-click="handleSwipeAndTap($event, category)" 
+            <ion-item class="customItemPadding mlSmallerFont item-icon-left item-icon-right"
+                      ng-repeat="category in incomecategories | orderBy:'categorysort' track by category.$id "
+                      ng-click="handleSwipeAndTap($event, category)"
                       ng-class="{mlindent: category.categoryparent !== ''}">
                 <i class="icon ion-ios-pricetags-outline circleIconGreen"></i>
                 {{ category.categoryname }}
-                <ion-option-button class="button-stable" ng-click="moreOptions(category)">
-                    More
-                </ion-option-button>
                 <ion-option-button class="button-assertive" ng-click="deleteCategory(category)">
                     Delete
                 </ion-option-button>
                 <i class="icon ion-chevron-right"></i>
             </ion-item>
             <div class="item item-divider CustomSubHeader">Expense Categories</div>
-            <ion-item class="customItemSize mlSmallerFont item-icon-left item-icon-right" 
-                      ng-repeat="category in expensecategories | orderBy:'categorysort' track by category.$id " 
-                      ng-click="handleSwipeAndTap($event, category)" 
+            <ion-item class="customItemPadding mlSmallerFont item-icon-left item-icon-right"
+                      ng-repeat="category in expensecategories | orderBy:'categorysort' track by category.$id "
+                      ng-click="handleSwipeAndTap($event, category)"
                       ng-class="{mlindent: category.categoryparent !== ''}">
                 <i class="icon ion-ios-pricetags-outline circleIconRed"></i>
                 {{ category.categoryname }}
-                <ion-option-button class="button-stable" ng-click="moreOptions(category)">
-                    More
-                </ion-option-button>
                 <ion-option-button class="button-assertive" ng-click="deleteCategory(category)">
                     Delete
                 </ion-option-button>

@@ -10,9 +10,6 @@
             <ion-item ng-repeat="payee in payees" ng-click="handleSwipeOptions($event, payee)" class="customItemSize mlSmallerFont item-icon-left item-icon-right">
                 <i class="icon ion-ios-person-outline"></i>
                 {{ payee.payeename }}
-                <ion-option-button class="button-stable customItemListbutton" ng-click="moreOptions(payee)">
-                    More
-                </ion-option-button>
                 <ion-option-button class="button-assertive customItemListbutton" ng-click="deletePayee(payee)">
                     Delete
                 </ion-option-button>

@@ -173,6 +173,9 @@ button.customHeaderSize {
 .customItemSize {
     font-size: 20px;
 }
+.customItemPadding.item-complex.item-icon-left .item-content {
+    padding-left: 44px;
+}
 .customAccDesc {
     font-size: 20px;
     text-align: left;

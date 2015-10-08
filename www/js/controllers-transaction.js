@@ -132,18 +132,22 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
             //
             var payeeRef = PayeesService.getPayeeRef(PickTransactionServices.payeeid);
             payeeRef.update($scope.currentItem, onComplete);
-            //
-            // Update all transactions under this payee
-            //
-            $scope.transactionsbypayee = PayeesService.getTransactionsByPayee(PickTransactionServices.payeeid);
-            $scope.transactionsbypayee.$loaded().then(function () {
-                angular.forEach($scope.transactionsbypayee, function (transaction) {
-                    transaction.payee = $scope.currentItem.payeename;
-                    $scope.transactionsbypayee.$save(transaction).then(function (ref) {
+
+
+            ////
+            //// Update all transactions under this payee
+            ////
+            //$scope.transactionsbypayee = PayeesService.getTransactionsByPayee(PickTransactionServices.payeeid);
+            //$scope.transactionsbypayee.$loaded().then(function () {
+            //    angular.forEach($scope.transactionsbypayee, function (transaction) {
+            //        transaction.payee = $scope.currentItem.payeename;
+            //        $scope.transactionsbypayee.$save(transaction).then(function (ref) {
                         
-                    });
-                })
-            })
+            //        });
+            //    })
+            //})
+
+
             //
             // TODO: Update all transactions with new payee name
             // Find a way to update all necessary transactions with new payee name 
@@ -158,12 +162,16 @@ moneyleashapp.controller('PickTransactionPayeeController', function ($scope, $io
             //
             // Create New Payee
             //
-            var sync = PayeesService.getPayees();
-            var payeeid = '';
-            sync.$add($scope.currentItem).then(function (newChildRef) {
-                payeeid = newChildRef.key();
-                PickTransactionServices.updatePayee($scope.currentItem, payeeid);
-                $ionicHistory.goBack();
+            var payeesRef = PayeesService.getPayeesRef();
+            var newpayeeRef = payeesRef.push($scope.currentItem, function (error) {
+                if (error) {
+                    console.log("Data could not be saved." + error);
+                } else {
+                    var payeeid = '';
+                    payeeid = newpayeeRef.key();
+                    PickTransactionServices.updatePayee($scope.currentItem, payeeid, PickTransactionServices.typeInternalSelected);
+                    $ionicHistory.goBack();
+                }
             });
         }
     }
@@ -457,30 +465,34 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
                 }
             };
             AccountsFactory.saveTransaction($scope.currentItem);
-            //
-            // Update transaction under category
-            //
-            var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef($scope.currentItem.categoryid, $stateParams.transactionId);
-            var categoryTransaction = {
-                payee: $scope.currentItem.payee,
-                amount: $scope.currentItem.amount,
-                date: $scope.currentItem.date,
-                type: $scope.currentItem.type,
-                iscleared: $scope.currentItem.iscleared
-            };
-            categoryTransactionRef.update(categoryTransaction, onComplete);
-            //
-            // Update transaction under payee
-            //
-            var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef($scope.currentItem.payeeid, $stateParams.transactionId);
-            var payeeTransaction = {
-                payee: $scope.currentItem.payee,
-                amount: $scope.currentItem.amount,
-                date: $scope.currentItem.date,
-                type: $scope.currentItem.type,
-                iscleared: $scope.currentItem.iscleared
-            };
-            payeeTransactionRef.update(payeeTransaction, onComplete);
+
+
+            ////
+            //// Update transaction under category
+            ////
+            //var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef($scope.currentItem.categoryid, $stateParams.transactionId);
+            //var categoryTransaction = {
+            //    payee: $scope.currentItem.payee,
+            //    amount: $scope.currentItem.amount,
+            //    date: $scope.currentItem.date,
+            //    type: $scope.currentItem.type,
+            //    iscleared: $scope.currentItem.iscleared
+            //};
+            //categoryTransactionRef.update(categoryTransaction, onComplete);
+            ////
+            //// Update transaction under payee
+            ////
+            //var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef($scope.currentItem.payeeid, $stateParams.transactionId);
+            //var payeeTransaction = {
+            //    payee: $scope.currentItem.payee,
+            //    amount: $scope.currentItem.amount,
+            //    date: $scope.currentItem.date,
+            //    type: $scope.currentItem.type,
+            //    iscleared: $scope.currentItem.iscleared
+            //};
+            //payeeTransactionRef.update(payeeTransaction, onComplete);
+
+
             //
             // Update payee-category relationship
             //

@@ -5,7 +5,7 @@ var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 // Ionic MoneyLeash App, v1.0
 var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngIOS9UIWebViewPatch', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'ion-sticky', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen, MembersFactory) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -127,24 +127,6 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/pickaccounttype.html",
                 controller: "PickAccountTypeController"
-            }
-        }
-    })
-    .state('app.pickaccountdefaultdate', {
-        url: "/pickaccountdefaultdate",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/pickaccountdefaultdate.html",
-                controller: "PickAccountDefaultDateController"
-            }
-        }
-    })
-    .state('app.pickaccountdefaultbalance', {
-        url: "/pickaccountdefaultbalance",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/pickaccountdefaultbalance.html",
-                controller: "PickAccountDefaultBalanceController"
             }
         }
     })
@@ -383,6 +365,33 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/accounttypes.html",
                 controller: 'AccountTypesController'
+            }
+        }
+    })
+    .state('app.accountsettings', {
+        url: "/accountsettings",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/accountsettings.html",
+                controller: 'AccountSettingsController'
+            }
+        }
+    })
+    .state('app.picksettingsdefaultdate', {
+        url: "/picksettingsdefaultdate",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picksettingsdefaultdate.html",
+                controller: "PickSettingsDefaultDateController"
+            }
+        }
+    })
+    .state('app.picksettingsdefaultbalance', {
+        url: "/picksettingsdefaultbalance",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/picksettingsdefaultbalance.html",
+                controller: "PickSettingsDefaultBalanceController"
             }
         }
     })

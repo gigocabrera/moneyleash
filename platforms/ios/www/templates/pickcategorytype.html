@@ -1,6 +1,7 @@
 <ion-view view-title="Select Category Type">
     <ion-content>
-        <ion-radio-fix ng-repeat="item in CategoryTypeList"
+        <ion-radio-fix class="customItemSize"
+                       ng-repeat="item in CategoryTypeList"
                        ng-value="item.value"
                        ng-change="itemchanged(item)"
                        ng-model="currentItem.categorytype">

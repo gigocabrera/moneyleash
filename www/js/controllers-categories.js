@@ -1,7 +1,7 @@
 
 // CATEGORY TRANSACTIONS CONTROLLER
 moneyleashapp.controller('CategoryTransactionsController', function ($scope, $stateParams, PayeesService) {
-    $scope.transactionsbycategory = PayeesService.getTransactionsByCategory($stateParams.categoryid);
+    //$scope.transactionsbycategory = PayeesService.getTransactionsByCategory($stateParams.categoryid);
 })
 
 // PICK PARENT CATEGORY CONTROLLER

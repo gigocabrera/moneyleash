@@ -1,7 +1,7 @@
 
 // PAYEE TRANSACTIONS CONTROLLER
 moneyleashapp.controller('PayeeTransactionsController', function ($scope, $stateParams, PayeesService) {
-    $scope.transactionsbypayee = PayeesService.getTransactionsByPayee($stateParams.payeeid);
+    //$scope.transactionsbypayee = PayeesService.getTransactionsByPayee($stateParams.payeeid);
 })
 
 // PAYEE CONTROLLER
@@ -51,28 +51,30 @@ moneyleashapp.controller('PayeeController', function ($scope, $ionicHistory, $st
             };
             var payeeRef = PayeesService.getPayeeRef($stateParams.payeeid);
             payeeRef.update($scope.currentItem, onComplete);
-            //
-            // Update all transactions under this payee
-            //
-            var newname = $scope.currentItem.payeename;
-            $scope.transactionsbypayee = PayeesService.getTransactionsByPayee($stateParams.payeeid);
-            $scope.transactionsbypayee.$loaded().then(function () {
-                angular.forEach($scope.transactionsbypayee, function (transaction) {
-                    transaction.payee = newname;
-                    $scope.transactionsbypayee.$save(transaction).then(function (ref) {
+
+            ////
+            //// Update all transactions under this payee
+            ////
+            //var newname = $scope.currentItem.payeename;
+            //$scope.transactionsbypayee = PayeesService.getTransactionsByPayee($stateParams.payeeid);
+            //$scope.transactionsbypayee.$loaded().then(function () {
+            //    angular.forEach($scope.transactionsbypayee, function (transaction) {
+            //        transaction.payee = newname;
+            //        $scope.transactionsbypayee.$save(transaction).then(function (ref) {
                         
-                    });
-                    //
-                    // Update original transaction
-                    //
-                    // We're missing the account id in the membertransactionsbypayee node. Without this value we cannot update the 
-                    // payee name on the original transaction. We can update the payee name on the transaction itself and it will
-                    // update the payee name everywhere (workaround).
-                    // 
-                    //var transactionRef = AccountsFactory.getTransactionRef($stateParams.payeeid);
-                    //transactionRef.update($scope.currentItem, onComplete);
-                })
-            })
+            //        });
+            //        //
+            //        // Update original transaction
+            //        //
+            //        // We're missing the account id in the membertransactionsbypayee node. Without this value we cannot update the 
+            //        // payee name on the original transaction. We can update the payee name on the transaction itself and it will
+            //        // update the payee name everywhere (workaround).
+            //        // 
+            //        //var transactionRef = AccountsFactory.getTransactionRef($stateParams.payeeid);
+            //        //transactionRef.update($scope.currentItem, onComplete);
+            //    })
+            //})
+
             $scope.inEditMode = false;
         } else {
             // Create
@@ -115,25 +117,25 @@ moneyleashapp.controller('PayeesController', function ($scope, $filter, $state, 
         $scope.payees.$loaded().then(function () { });
     };
 
-    // SHOW FILTERS - ACTION SHEET
-    $scope.moreOptions = function (payee) {
-        $ionicActionSheet.show({
-            buttons: [
-              { text: 'Show Transactions' }
-            ],
-            titleText: '<strong>FILTER</strong>',
-            cancelText: 'Cancel',
-            cancel: function () {
-                // add cancel code..
-                $ionicListDelegate.closeOptionButtons();
-            },
-            buttonClicked: function (index) {
-                $state.go('app.payeetransactions', { payeeid: payee.$id });
-                $ionicListDelegate.closeOptionButtons();
-                return true;
-            }
-        });
-    };
+    //// SHOW FILTERS - ACTION SHEET
+    //$scope.moreOptions = function (payee) {
+    //    $ionicActionSheet.show({
+    //        buttons: [
+    //          { text: 'Show Transactions' }
+    //        ],
+    //        titleText: '<strong>FILTER</strong>',
+    //        cancelText: 'Cancel',
+    //        cancel: function () {
+    //            // add cancel code..
+    //            $ionicListDelegate.closeOptionButtons();
+    //        },
+    //        buttonClicked: function (index) {
+    //            $state.go('app.payeetransactions', { payeeid: payee.$id });
+    //            $ionicListDelegate.closeOptionButtons();
+    //            return true;
+    //        }
+    //    });
+    //};
 
     // DELETE
     $scope.deletePayee = function (payee) {
