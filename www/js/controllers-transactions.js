@@ -89,35 +89,38 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
             transaction.ClearedClass = '';
         }
         $scope.transactions.$save(transaction);
-        //
-        // Update transaction under category
-        //
-        var onComplete = function (error) {
-            if (error) {
-                //console.log('Synchronization failed');
-            }
-        };
-        var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);
-        var categoryTransaction = {
-            payee: transaction.payee,
-            amount: transaction.amount,
-            date: transaction.date,
-            type: transaction.type,
-            iscleared: transaction.iscleared
-        };
-        categoryTransactionRef.update(categoryTransaction, onComplete);
-        //
-        // Update transaction under payee
-        //
-        var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
-        var payeeTransaction = {
-            payee: transaction.payee,
-            amount: transaction.amount,
-            date: transaction.date,
-            type: transaction.type,
-            iscleared: transaction.iscleared
-        };
-        payeeTransactionRef.update(payeeTransaction, onComplete);
+
+        ////
+        //// Update transaction under category
+        ////
+        //var onComplete = function (error) {
+        //    if (error) {
+        //        //console.log('Synchronization failed');
+        //    }
+        //};
+        //var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);
+        //var categoryTransaction = {
+        //    payee: transaction.payee,
+        //    amount: transaction.amount,
+        //    date: transaction.date,
+        //    type: transaction.type,
+        //    iscleared: transaction.iscleared
+        //};
+        //categoryTransactionRef.update(categoryTransaction, onComplete);
+        ////
+        //// Update transaction under payee
+        ////
+        //var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
+        //var payeeTransaction = {
+        //    payee: transaction.payee,
+        //    amount: transaction.amount,
+        //    date: transaction.date,
+        //    type: transaction.type,
+        //    iscleared: transaction.iscleared
+        //};
+        //payeeTransactionRef.update(payeeTransaction, onComplete);
+
+
         //
         refresh($scope.transactions, $scope, AccountsFactory, $stateParams.accountId);
         //
