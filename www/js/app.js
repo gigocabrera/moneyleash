@@ -23,24 +23,26 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
             $cordovaSplashscreen.hide()
         }, 3000);
 
-        $cordovaTouchID.checkSupport().then(function () {
-            $cordovaTouchID.authenticate("You must authenticate").then(function () {
-                alert("The authentication was successful");
+        setTimeout(function () {
+            $cordovaTouchID.checkSupport().then(function () {
+                $cordovaTouchID.authenticate("You must authenticate").then(function () {
+                    $state.go("login");
+                }, function (error) {
+                    console.log(JSON.stringify(error));
+                });
             }, function (error) {
                 console.log(JSON.stringify(error));
             });
-        }, function (error) {
-            console.log(JSON.stringify(error));
-        });
+        }, 5000);
 
-        Auth.$onAuth(function (authData) {
-            if (authData) {
-                //console.log("Logged in as:", authData);
-                $rootScope.authData = authData;
-            } else {
-                $state.go("login");
-            }
-        });
+        //Auth.$onAuth(function (authData) {
+        //    if (authData) {
+        //        //console.log("Logged in as:", authData);
+        //        $rootScope.authData = authData;
+        //    } else {
+        //        $state.go("login");
+        //    }
+        //});
 
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             if (error === "AUTH_REQUIRED") {

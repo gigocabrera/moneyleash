@@ -29,7 +29,7 @@ moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionic
                 $ionicHistory.clearCache();
                 $rootScope.authData = '';
                 fb.unauth();
-                $state.go('intro');
+                $state.go('login');
             }
         });
     };
