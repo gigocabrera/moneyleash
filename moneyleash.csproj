@@ -810,6 +810,8 @@
     <Content Include="platforms\ios\www\templates\pickaccounttype.html" />
     <Content Include="platforms\ios\www\templates\pickcategorytype.html" />
     <Content Include="platforms\ios\www\templates\pickparentcategory.html" />
+    <Content Include="platforms\ios\www\templates\picksettingsdefaultbalance.html" />
+    <Content Include="platforms\ios\www\templates\picksettingsdefaultdate.html" />
     <Content Include="platforms\ios\www\templates\picktransactionaccountfrom.html" />
     <Content Include="platforms\ios\www\templates\picktransactionaccountto.html" />
     <Content Include="platforms\ios\www\templates\picktransactionamount.html" />
