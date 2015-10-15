@@ -710,6 +710,7 @@ i.mlpaddingright {
     height: 75px;
     background: #28a54c;
     text-align: center;
+    margin-top: 50px;
 }
 a.logo {
     text-decoration: none;
@@ -725,7 +726,7 @@ a.logo {
     text-align: center;
     color: #FFF;
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 #ml-login {
     position:relative;
@@ -791,7 +792,7 @@ a.logo {
 }
 #ml-login .inputUserIcon {
     position: absolute;
-    top: 206px;
+    top: 249px;
     right: 80px;
     color: white;
 }
@@ -827,7 +828,7 @@ a.logo {
 }
 #ml-login .inputPassIcon {
     position:absolute;
-    top: 266px;
+    top: 308px;
     right: 80px;
     color:white;
 }
