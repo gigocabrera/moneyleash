@@ -473,8 +473,6 @@
     <None Include="www\lib\angular\bower.json" />
     <None Include="www\lib\angular\package.json" />
     <None Include="www\lib\angular\README.md" />
-    <None Include="www\lib\ion-sticky\.bower.json" />
-    <None Include="www\lib\ion-sticky\bower.json" />
     <None Include="www\lib\ionic-filter-bar\.bower.json" />
     <None Include="www\lib\ionic-filter-bar\bower.json" />
     <None Include="www\lib\ionic-filter-bar\scss\ionic.filter.bar.scss" />
@@ -1067,7 +1065,6 @@
     <Content Include="www\lib\angular\index.js" />
     <Content Include="www\lib\datePicker\css\angular-pickadate.css" />
     <Content Include="www\lib\datePicker\js\angular-pickadate.js" />
-    <Content Include="www\lib\ion-sticky\ion-sticky.js" />
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.css" />
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.js" />
     <Content Include="www\lib\ionic-filter-bar\dist\ionic.filter.bar.min.css" />

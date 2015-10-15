@@ -9,7 +9,7 @@
             <div class="col balancesRow"><span>Cleared Balance</span><span><strong>{{ clearedBalance | currency }}</strong></span></div>
         </div>
     </div>
-    <ion-content class="has-header has-subheader" ion-sticky>
+    <ion-content class="has-header has-subheader">
         <ion-list can-swipe="listCanSwipe">
             <div collection-repeat="transaction in transactions | reverselist | groupByDayMonthYear" divider-collection-repeat>
                 <ion-item class="item-icon-right item item-complex item-right-editable {{ transaction.ClearedClass }}" ng-click="handleSwipeAndTap($event, transaction)">

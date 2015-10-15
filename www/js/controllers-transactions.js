@@ -220,8 +220,7 @@ function refresh(transactions, $scope, AccountsFactory, accountId) {
         //
         var transaction = transactions[index];
         //
-        // Add grouping functionality for sticky affix elements
-        // https://github.com/Poordeveloper/ion-sticky
+        // Add grouping functionality
         //
         currentDate = new Date(transaction.date);
         if (!previousDay || currentDate.getDate() !== previousDay || currentDate.getFullYear() !== previousYear) {
