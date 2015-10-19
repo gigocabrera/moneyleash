@@ -98,11 +98,11 @@
                     }
                     output.push(dividers[dividerId]);
                 }
-                //output.push(item);
+                output.push(item);
                 previousDate = currentDate;
                 previousDividerId = dividerId
             }
-            console.log(output);
+            //console.log(output);
             return output;
         };
     })
