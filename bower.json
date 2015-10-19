@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "ionic-service-core": "~0.1.10",
-    "ion-sticky": "~1.0.3"
+    "ion-sticky": "~1.0.3",
+    "ionic-timepicker": "~0.4.0"
   }
 }

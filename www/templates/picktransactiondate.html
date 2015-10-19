@@ -1,10 +1,16 @@
-<ion-view view-title="Select Transaction Date">
+<ion-view view-title="Date / Time">
     <ion-nav-buttons side="right">
-        <button class="button button-clear button-positive customHeaderSize" ng-click="dateChanged(myDate)">Save</button>
+        <button class="button button-clear button-positive customHeaderSize" ng-click="saveDateTime(myDate)">Save</button>
     </ion-nav-buttons>
     <ion-content scroll="false">
         <div class="mlDatePadding">
             <div pickadate ng-model="$parent.myDate"></div>
+            <ionic-timepicker input-obj="timePickerObject">
+                <button class="button button-block button-positive">
+                    <standard-time-meridian etime='timePickerObject.inputEpochTime'></standard-time-meridian>&nbsp;&nbsp;
+                    <i class="ion-clock"></i>
+                </button>
+            </ionic-timepicker>
         </div>
     </ion-content>
 </ion-view>

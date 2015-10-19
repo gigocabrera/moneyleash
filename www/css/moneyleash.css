@@ -563,7 +563,7 @@ i.mlpaddingright {
   margin-right: 5px;
 }
 
-/* Calendar
+/* Calendar / TimePicker
 ===============================================*/
 .pickadate-cell .pickadate-enabled {
     font-size: 14px;
@@ -578,16 +578,7 @@ i.mlpaddingright {
     padding-right: 10px;
     padding-top: 15px;
 }
-.pickadate-cell .pickadate-enabled{
-    color: #000;
-}
-.pickadate-cell .pickadate-active {
-    background-color: #31C0E6;
-}
 .pickadate-centered-heading {
-    font-weight: bold;
-}
-.pickadate-cell .pickadate-active {
     font-weight: bold;
 }
 .pickadate a:visited, .pickadate a {
@@ -595,6 +586,11 @@ i.mlpaddingright {
 }
 .pickadate-cell li {
     padding: 1.5% 0 1.5% 0;
+}
+.button.button-positive {
+    border-color: #31C0E6;
+    background-color: #31C0E6;
+    color: #fff;
 }
 
 /* Numeric Pad

@@ -81,11 +81,12 @@
             if (!input || !input.length) return;
             var output = [],
 				previousDate,
+                previousDividerId,
 				currentDate;
             for (var i = 0, ii = input.length; i < ii && (item = input[i]) ; i++) {
                 currentDate = moment(item.date);
-                if (!previousDate || !currentDate.isSame(previousDate)) {
-                    var dividerId = moment(currentDate).format('YYYYMMDD') + item.$id;
+                var dividerId = moment(currentDate).format('YYYYMMDD');
+                if (!previousDate || previousDividerId != dividerId) {
                     //console.log(dividerId);
                     //console.log(item);
                     if (!dividers[dividerId]) {
@@ -97,10 +98,11 @@
                     }
                     output.push(dividers[dividerId]);
                 }
-                output.push(item);
+                //output.push(item);
                 previousDate = currentDate;
+                previousDividerId = dividerId
             }
-            //console.log(output);
+            console.log(output);
             return output;
         };
     })

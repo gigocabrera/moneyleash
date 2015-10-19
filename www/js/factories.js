@@ -510,6 +510,9 @@ angular.module('moneyleash.factories', [])
         transDate.updateDate = function (value) {
             this.dateSelected = value;
         }
+        transDate.updateTime = function (value) {
+            this.timeSelected = value;
+        }
         transAmount.updateAmount = function (value) {
             this.amountSelected = value;
         }
