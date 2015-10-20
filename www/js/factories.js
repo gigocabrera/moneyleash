@@ -17,12 +17,6 @@ angular.module('moneyleash.factories', [])
             ref: function () {
                 return ref;
             },
-            getMembers: function (authData) {
-                if (authData) {
-                    var members = $firebaseArray(ref);
-                    return members;
-                }
-            },
             getMember: function (authData) {
                 var deferred = $q.defer();
                 var memberRef = ref.child(authData.uid);
@@ -43,14 +37,6 @@ angular.module('moneyleash.factories', [])
         return {
             ref: function () {
                 return ref;
-            },
-            getHouse: function (email) {
-                var deferred = $q.defer();
-                var usersRef = ref.child(escapeEmailAddress(email));
-                usersRef.once("value", function (snap) {
-                    deferred.resolve(snap.val());
-                });
-                return deferred.promise;
             },
             getHouseByCode: function (code) {
                 var deferred = $q.defer();
@@ -75,7 +61,6 @@ angular.module('moneyleash.factories', [])
             getHouses: function () {
                 var deferred = $q.defer();
                 ref.once('value', function (snap) {
-                    //console.log(snap.val());
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
