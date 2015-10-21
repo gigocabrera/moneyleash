@@ -240,13 +240,16 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
 
 // PICK TRANSACTION DATE CONTROLLER
 moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionServices) {
-    
+
+    var selectedTime = '';
     $scope.transactionTime = '';
+
     if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
         $scope.myDate = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY').format('YYYY-MM-DD');
         // Get the time for the timepicker control
         var l = moment(PickTransactionServices.timeSelected);
         $scope.transactionTime = (l.hours() * 3600) + (l.minutes() * 60);
+        selectedTime = new Date($scope.transactionTime * 1000);
     }
 
     $scope.timePickerObject = {
@@ -263,7 +266,6 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
         }
     };
 
-    var selectedTime = '';
     function timePickerCallback(val) {
         if (typeof (val) === 'undefined') {
             //console.log('Time not selected');
@@ -275,7 +277,12 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
     }
 
     $scope.saveDateTime = function (transDate) {
-        var dt = moment(transDate, 'YYYY-MM-DD').hour(selectedTime.getUTCHours()).minute(selectedTime.getUTCMinutes());
+        var dt = '';
+        if (selectedTime == '') {
+            dt = moment(transDate, 'YYYY-MM-DD').hour(0).minute(0);
+        } else {
+            dt = moment(transDate, 'YYYY-MM-DD').hour(selectedTime.getUTCHours()).minute(selectedTime.getUTCMinutes());
+        }        
         dt = dt.format('MMMM D, YYYY hh:mm a');
         PickTransactionServices.updateDate(dt);
         $ionicHistory.goBack();
