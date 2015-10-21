@@ -453,10 +453,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             return;
         }
 
-        // Format date
-        var dtTran = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY hh:mm').valueOf();
+        // Format date       
+        var dtTran = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY hh:mm a').valueOf();
         $scope.currentItem.date = dtTran;
-
         if (typeof $scope.currentItem.date === 'undefined' || $scope.currentItem.date === '') {
             $scope.hideValidationMessage = false;
             $scope.validationMessage = "Please select a date for this transaction"
