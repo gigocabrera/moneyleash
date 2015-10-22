@@ -259,19 +259,23 @@ function refresh(transactions, $scope, AccountsFactory, accountId) {
                     clearedBal = clearedBal + parseFloat(transaction.amount);
                 }
             } else if (transaction.type === "Expense") {
-                clearedBal = clearedBal - parseFloat(transaction.amount);
+                if (!isNaN(transaction.amount)) {
+                    clearedBal = clearedBal - parseFloat(transaction.amount);
+                }
             }
             transaction.clearedBal = clearedBal.toFixed(2);
         }
         if (transaction.type === "Income") {
             if (!isNaN(transaction.amount)) {
                 runningBal = runningBal + parseFloat(transaction.amount);
+                transaction.runningbal = runningBal.toFixed(2);
             }
         } else if (transaction.type === "Expense") {
-            runningBal = runningBal - parseFloat(transaction.amount);
+            if (!isNaN(transaction.amount)) {
+                runningBal = runningBal - parseFloat(transaction.amount);
+                transaction.runningbal = runningBal.toFixed(2);
+            }
         }
-        transaction.runningbal = runningBal.toFixed(2);
-        //
     }
     $scope.totalCount = total;
     $scope.clearedCount = cleared;

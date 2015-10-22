@@ -331,7 +331,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         'notes': '',
         'payee': '',
         'photo': '',
-        'runningbalance': '',
+        'runningbal': '',
         'type': '',
         'typedisplay': ''
     };
@@ -418,6 +418,18 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         $scope.TransactionTitle = "Edit Transaction";
     }
 
+    // PICK TRANSACTION TYPE
+    // Don't let users change the transaction type. If needed, a user can delete the transaction and add a new one
+    $scope.pickTransactionType = function () {
+        if ($scope.currentItem.istransfer) {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Transaction type on transfers cannot be changed."
+            return;
+        } else {
+            $state.go('app.picktransactiontype');
+        }
+    }
+
     // GET PAYEE
     // Make sure the transaction type (Expense, Income, Transfer) has been selected first
     $scope.getPayee = function () {
@@ -454,11 +466,6 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             $scope.validationMessage = "Please enter an amount for this transaction"
             return;
         }
-        if ($scope.ItemOriginal.istransfer) {
-            $scope.hideValidationMessage = false;
-            $scope.validationMessage = "Transfers cannot be edited. You can delete it and enter it again!"
-            return;
-        }
 
         // Format date       
         var dtTran = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY hh:mm a').valueOf();
@@ -469,7 +476,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             return;
         }
 
-        // Handle transaction type
+        //
+        // Handle transaction type for Transfers
+        //
         if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId === $scope.currentItem.accountToId) {
             $scope.currentItem.type = 'Income';
             $scope.currentItem.istransfer = true;
@@ -551,30 +560,35 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             }
             payeeRef.update(payee);
 
-            //if ($scope.ItemOriginal.istransfer) {
-            //    //
-            //    // Update transfer relationship
-            //    //
-            //    if ($scope.currentItem.typedisplay !== "Transfer") {
-            //        //
-            //        // User changed transaction type from 'Transfer' to something else. Delete transfer-transaction if applicable.
-            //        //
-            //        var otherAccountId = '';
-            //        if ($stateParams.accountId === $scope.ItemOriginal.accountToId) {
-            //            otherAccountId = $scope.ItemOriginal.accountFromId;
-            //        } else {
-            //            otherAccountId = $scope.ItemOriginal.accountToId;
-            //        }
-            //        var transferRef = AccountsFactory.getTransactionRef(otherAccountId, $scope.ItemOriginal.linkedtransactionid);
-            //        transferRef.remove();
-            //        //
-            //    } else {
-            //        //
-            //        // User DID NOT change transaction type but changed From/To accounts. Update both transactions in the transfer
-            //        //
-                    
-            //    }
-            //}
+            //
+            // Update transfer relationship
+            //
+            var accountId = '';
+            var otherAccountId = '';
+            var OtherTransaction = {};
+            if ($scope.ItemOriginal.istransfer) {
+                if ($stateParams.accountId === $scope.currentItem.accountToId) {
+                    // Transfer is coming into the current account --> income
+                    $scope.currentItem.type = 'Income';
+                    accountId = $scope.currentItem.accountToId;
+                    otherAccountId = $scope.currentItem.accountFromId;
+                    OtherTransaction.type = 'Expense';
+                    OtherTransaction.amount = $scope.currentItem.amount;
+                } else {
+                    // Transfer is moving into the other account --> expense
+                    $scope.currentItem.type = 'Expense';
+                    accountId = $scope.currentItem.accountFromId;
+                    otherAccountId = $scope.currentItem.accountToId;
+                    OtherTransaction.type = 'Income';
+                    OtherTransaction.amount = $scope.currentItem.amount;
+                }
+
+                console.log(OtherTransaction);
+
+                var transferRef = AccountsFactory.getTransactionRef(otherAccountId, $scope.ItemOriginal.linkedtransactionid);
+                transferRef.update(OtherTransaction);
+            }
+
             $scope.inEditMode = false;
             //
         } else {
