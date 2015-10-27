@@ -336,15 +336,32 @@ button.customHeaderSize {
     line-height: 18px;
     font: 17px 'PT Sans', sans-serif;
 }
-.btn-add-expense {
-    display: inline-block;
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    margin-left: -31px;
-    z-index: 100;
-    font-size: 75px;
-    color: #00A2E8; 
+.button-float {
+    background: #00A2E8 !important;
+    color: white !important;
+    z-index: 12 !important;
+    position: absolute !important;
+    bottom: 15px !important;
+    right: 41%;
+    width: 65px;
+    height: 65px;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transition: 0.2s linear !important;
+    transition: 0.2s linear !important;
+    -webkit-transition-property: -webkit-transform, all !important;
+    transition-property: transform, all !important;
+}
+.button-float:hover {
+    -webkit-transform: translate3d(0, -1px, 0) !important;
+    transform: translate3d(0, -1px, 0) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+    background: #0076A8 !important;
+}
+.button-float .icon:before {
+    font-size: 34px;
 }
 .mlpurple {
     color: purple;
