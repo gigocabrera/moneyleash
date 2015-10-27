@@ -1,7 +1,7 @@
 
 // PAYEE TRANSACTIONS CONTROLLER
-moneyleashapp.controller('PayeeTransactionsController', function ($scope, $stateParams, PayeesService) {
-    //$scope.transactionsbypayee = PayeesService.getTransactionsByPayee($stateParams.payeeid);
+moneyleashapp.controller('PayeeTransactionsController', function ($scope) {
+    
 })
 
 // PAYEE CONTROLLER

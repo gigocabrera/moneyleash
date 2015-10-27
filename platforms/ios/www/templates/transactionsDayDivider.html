@@ -9,7 +9,7 @@
             <div class="col balancesRow"><span>Cleared Balance</span><span><strong>{{ clearedBalance | currency }}</strong></span></div>
         </div>
     </div>
-    <ion-content class="has-header has-subheader" ion-sticky>
+    <ion-content class="has-header has-subheader">
         <div ng-repeat="group in groups | reverselist" class="ml_list">
             <div class="item item-divider SectionDivider" ng-class="{SectionDividerActive: group.isToday == true}">
                 {{ group.label }}

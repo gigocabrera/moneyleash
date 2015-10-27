@@ -69,6 +69,20 @@ module.exports = [
         "clobbers": [
             "touchid"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "id": "cordova-plugin-dialogs.notification",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/uk.co.whiteoctober.cordova.appversion/www/AppVersionPlugin.js",
+        "id": "uk.co.whiteoctober.cordova.appversion.AppVersionPlugin",
+        "clobbers": [
+            "cordova.getAppVersion"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -79,7 +93,9 @@ module.exports.metadata =
     "cordova-plugin-device": "1.0.1",
     "cordova-plugin-statusbar": "1.0.1",
     "cordova-plugin-splashscreen": "2.1.0",
-    "cordova-plugin-touchid": "0.3.0"
+    "cordova-plugin-touchid": "0.3.0",
+    "cordova-plugin-dialogs": "1.1.1",
+    "uk.co.whiteoctober.cordova.appversion": "0.1.7"
 }
 // BOTTOM OF METADATA
 });

@@ -47,10 +47,13 @@
     moneyleashapp.filter('groupByMonthYear', function ($parse) {
         var dividers = {};
         return function (input) {
-            if (!input || !input.length) return;
+            if (!input || !input.length) {
+                return;
+            }
             var output = [],
                 previousDate,
-                currentDate;
+                currentDate,
+                item;
             for (var i = 0, ii = input.length; i < ii && (item = input[i]) ; i++) {
                 currentDate = moment(item.date);
                 if (!previousDate ||
@@ -78,14 +81,18 @@
     moneyleashapp.filter('groupByDayMonthYear', function ($parse) {
         var dividers = {};
         return function (input) {
-            if (!input || !input.length) return;
+            if (!input || !input.length) {
+                return;
+            }
             var output = [],
 				previousDate,
-				currentDate;
+                previousDividerId,
+				currentDate,
+                item;
             for (var i = 0, ii = input.length; i < ii && (item = input[i]) ; i++) {
                 currentDate = moment(item.date);
-                if (!previousDate || !currentDate.isSame(previousDate)) {
-                    var dividerId = moment(currentDate).format('YYYYMMDD') + item.$id;
+                var dividerId = moment(currentDate).format('YYYYMMDD');
+                if (!previousDate || previousDividerId !== dividerId) {
                     //console.log(dividerId);
                     //console.log(item);
                     if (!dividers[dividerId]) {
@@ -99,6 +106,7 @@
                 }
                 output.push(item);
                 previousDate = currentDate;
+                previousDividerId = dividerId
             }
             //console.log(output);
             return output;

@@ -5,7 +5,7 @@ var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 // Ionic MoneyLeash App, v1.0
 var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngIOS9UIWebViewPatch', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova', 'ionic-timepicker'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen, $cordovaTouchID) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -25,15 +25,17 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
 
         setTimeout(function () {
             $cordovaTouchID.checkSupport().then(function () {
-                $cordovaTouchID.authenticate("You must authenticate").then(function () {
+                $cordovaTouchID.authenticate("All users with a Touch ID profile on the device will have access to this app").then(function () {
                     $state.go("login");
                 }, function (error) {
                     console.log(JSON.stringify(error));
+                    $state.go("login");
                 });
             }, function (error) {
                 console.log(JSON.stringify(error));
+                $state.go("login");
             });
-        }, 5000);
+        }, 1000);
 
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             if (error === "AUTH_REQUIRED") {

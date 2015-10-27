@@ -17,12 +17,6 @@ angular.module('moneyleash.factories', [])
             ref: function () {
                 return ref;
             },
-            getMembers: function (authData) {
-                if (authData) {
-                    var members = $firebaseArray(ref);
-                    return members;
-                }
-            },
             getMember: function (authData) {
                 var deferred = $q.defer();
                 var memberRef = ref.child(authData.uid);
@@ -43,14 +37,6 @@ angular.module('moneyleash.factories', [])
         return {
             ref: function () {
                 return ref;
-            },
-            getHouse: function (email) {
-                var deferred = $q.defer();
-                var usersRef = ref.child(escapeEmailAddress(email));
-                usersRef.once("value", function (snap) {
-                    deferred.resolve(snap.val());
-                });
-                return deferred.promise;
             },
             getHouseByCode: function (code) {
                 var deferred = $q.defer();
@@ -75,7 +61,6 @@ angular.module('moneyleash.factories', [])
             getHouses: function () {
                 var deferred = $q.defer();
                 ref.once('value', function (snap) {
-                    //console.log(snap.val());
                     deferred.resolve(snap.val());
                 });
                 return deferred.promise;
@@ -189,8 +174,9 @@ angular.module('moneyleash.factories', [])
         var allaccounts = {};
         var allaccounttypes = {};
         var alltransactions = {};
-        var transactionsbycategoryRef = {};
-        var transactionsbypayeeRef = {};
+        var transactionRef = {};
+        //var transactionsbycategoryRef = {};
+        //var transactionsbypayeeRef = {};
         var thisHouseId = myCache.get('thisHouseId');
         return {
             ref: function () {
@@ -360,9 +346,8 @@ angular.module('moneyleash.factories', [])
         var allpayees = {};
         var payeesRef = {};
         var payeeRef = {};
-        var transactionsByPayeeRef = {};
-        var transactionsByCategoryRef = {};
-        var authData = fb.getAuth();
+        //var transactionsByPayeeRef = {};
+        //var transactionsByCategoryRef = {};
         var thisHouseId = myCache.get('thisHouseId');
         return {
             getPayees: function () {
@@ -415,7 +400,9 @@ angular.module('moneyleash.factories', [])
             //console.log(searchFilter);
             var deferred = $q.defer();
             var matches = payees.filter(function (payee) {
-                if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;
+                if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) {
+                    return true;
+                }
             });
             $timeout(function () {
                 deferred.resolve(matches);
@@ -509,6 +496,9 @@ angular.module('moneyleash.factories', [])
         }
         transDate.updateDate = function (value) {
             this.dateSelected = value;
+        }
+        transDate.updateTime = function (value) {
+            this.timeSelected = value;
         }
         transAmount.updateAmount = function (value) {
             this.amountSelected = value;

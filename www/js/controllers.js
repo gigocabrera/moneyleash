@@ -2,9 +2,17 @@
 var moneyleashapp = angular.module('moneyleash.controllers', [])
 
 // APP CONTROLLER : SIDE MENU
-moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionicActionSheet, $ionicHistory) {
+moneyleashapp.controller('AppCtrl', function ($scope, $state, $rootScope, $ionicActionSheet, $ionicHistory, $cordovaAppVersion) {
 
     $scope.showMenuIcon = true;
+    $scope.appversion = '';
+    
+    document.addEventListener("deviceready", function () {
+
+    $cordovaAppVersion.getVersionNumber().then(function (version) {
+            $scope.appversion = version;
+        });
+    }, false);
 
     // Triggered on a the logOut button click
     $scope.showLogOutMenu = function () {
@@ -61,16 +69,9 @@ moneyleashapp.controller('IntroController', function ($scope, $rootScope, $state
 })
 
 // LOGIN CONTROLLER
-moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, MembersFactory, myCache, CurrentUserService) {
+moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, MembersFactory, myCache, CurrentUserService, $cordovaDialogs) {
 
     $scope.user = {};
-    $scope.notify = function (title, text) {
-        $ionicPopup.alert({
-            title: title ? title : 'Error',
-            template: text
-        });
-    };
-
     $scope.doLogIn = function (user) {
         $ionicLoading.show({
             template: '<ion-spinner icon="ios"></ion-spinner><br>Loggin In...'
@@ -79,7 +80,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
         /* Check user fields*/
         if (!user.email || !user.password) {
             $ionicLoading.hide();
-            $scope.notify('Oops', 'Please check your Email or Password!');
+            $cordovaDialogs.alert('Please check your Email or Password!', 'Login Failed', 'Ok')
             return;
         }
 
@@ -92,7 +93,10 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
             if (error) {
                 //console.log("Login Failed!", error);
                 $ionicLoading.hide();
-                $scope.notify('Login Failed', 'Check your credentials and try again');
+                $cordovaDialogs.alert('Check your credentials and try again', 'Login Failed', 'Ok')
+                    .then(function() {
+                    // callback success
+                });
             } else {
                 
                 MembersFactory.getMember(authData).then(function (thisuser) {
@@ -119,7 +123,6 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
 moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicLoading, MembersFactory) {
 
     $scope.user = {};
-
     $scope.goToLogIn = function () {
         $state.go('login');
     };

@@ -3,9 +3,9 @@
 var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngIOS9UIWebViewPatch', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'ion-sticky', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngIOS9UIWebViewPatch', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova', 'ionic-timepicker'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen, $cordovaTouchID) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -21,30 +21,25 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
         }, 300);
         setTimeout(function () {
             $cordovaSplashscreen.hide()
-        }, 3000);
+        }, 1000);
 
-        $cordovaTouchID.checkSupport().then(function () {
-            $cordovaTouchID.authenticate("You must authenticate").then(function () {
-                alert("The authentication was successful");
+        setTimeout(function () {
+            $cordovaTouchID.checkSupport().then(function () {
+                $cordovaTouchID.authenticate("All users with a Touch ID profile on the device will have access to this app").then(function () {
+                    $state.go("login");
+                }, function (error) {
+                    console.log(JSON.stringify(error));
+                    $state.go("login");
+                });
             }, function (error) {
                 console.log(JSON.stringify(error));
-            });
-        }, function (error) {
-            console.log(JSON.stringify(error));
-        });
-
-        Auth.$onAuth(function (authData) {
-            if (authData) {
-                //console.log("Logged in as:", authData);
-                $rootScope.authData = authData;
-            } else {
                 $state.go("login");
-            }
-        });
+            });
+        }, 1000);
 
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             if (error === "AUTH_REQUIRED") {
-                $state.go("signin");
+                $state.go("login");
             }
         });
     });
@@ -418,5 +413,5 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     })
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/');
+    //$urlRouterProvider.otherwise('/');
 });

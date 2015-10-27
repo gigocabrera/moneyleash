@@ -89,35 +89,38 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
             transaction.ClearedClass = '';
         }
         $scope.transactions.$save(transaction);
-        //
-        // Update transaction under category
-        //
-        var onComplete = function (error) {
-            if (error) {
-                //console.log('Synchronization failed');
-            }
-        };
-        var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);
-        var categoryTransaction = {
-            payee: transaction.payee,
-            amount: transaction.amount,
-            date: transaction.date,
-            type: transaction.type,
-            iscleared: transaction.iscleared
-        };
-        categoryTransactionRef.update(categoryTransaction, onComplete);
-        //
-        // Update transaction under payee
-        //
-        var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
-        var payeeTransaction = {
-            payee: transaction.payee,
-            amount: transaction.amount,
-            date: transaction.date,
-            type: transaction.type,
-            iscleared: transaction.iscleared
-        };
-        payeeTransactionRef.update(payeeTransaction, onComplete);
+
+        ////
+        //// Update transaction under category
+        ////
+        //var onComplete = function (error) {
+        //    if (error) {
+        //        //console.log('Synchronization failed');
+        //    }
+        //};
+        //var categoryTransactionRef = AccountsFactory.getTransactionByCategoryRef(transaction.categoryid, transaction.$id);
+        //var categoryTransaction = {
+        //    payee: transaction.payee,
+        //    amount: transaction.amount,
+        //    date: transaction.date,
+        //    type: transaction.type,
+        //    iscleared: transaction.iscleared
+        //};
+        //categoryTransactionRef.update(categoryTransaction, onComplete);
+        ////
+        //// Update transaction under payee
+        ////
+        //var payeeTransactionRef = AccountsFactory.getTransactionByPayeeRef(transaction.payeeid, transaction.$id);
+        //var payeeTransaction = {
+        //    payee: transaction.payee,
+        //    amount: transaction.amount,
+        //    date: transaction.date,
+        //    type: transaction.type,
+        //    iscleared: transaction.iscleared
+        //};
+        //payeeTransactionRef.update(payeeTransaction, onComplete);
+
+
         //
         refresh($scope.transactions, $scope, AccountsFactory, $stateParams.accountId);
         //
@@ -217,8 +220,7 @@ function refresh(transactions, $scope, AccountsFactory, accountId) {
         //
         var transaction = transactions[index];
         //
-        // Add grouping functionality for sticky affix elements
-        // https://github.com/Poordeveloper/ion-sticky
+        // Add grouping functionality
         //
         currentDate = new Date(transaction.date);
         if (!previousDay || currentDate.getDate() !== previousDay || currentDate.getFullYear() !== previousYear) {
@@ -257,19 +259,23 @@ function refresh(transactions, $scope, AccountsFactory, accountId) {
                     clearedBal = clearedBal + parseFloat(transaction.amount);
                 }
             } else if (transaction.type === "Expense") {
-                clearedBal = clearedBal - parseFloat(transaction.amount);
+                if (!isNaN(transaction.amount)) {
+                    clearedBal = clearedBal - parseFloat(transaction.amount);
+                }
             }
             transaction.clearedBal = clearedBal.toFixed(2);
         }
         if (transaction.type === "Income") {
             if (!isNaN(transaction.amount)) {
                 runningBal = runningBal + parseFloat(transaction.amount);
+                transaction.runningbal = runningBal.toFixed(2);
             }
         } else if (transaction.type === "Expense") {
-            runningBal = runningBal - parseFloat(transaction.amount);
+            if (!isNaN(transaction.amount)) {
+                runningBal = runningBal - parseFloat(transaction.amount);
+                transaction.runningbal = runningBal.toFixed(2);
+            }
         }
-        transaction.runningbal = runningBal.toFixed(2);
-        //
     }
     $scope.totalCount = total;
     $scope.clearedCount = cleared;

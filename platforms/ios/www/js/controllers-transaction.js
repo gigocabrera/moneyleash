@@ -240,13 +240,51 @@ moneyleashapp.controller('PickTransactionAmountController', function ($scope, $i
 
 // PICK TRANSACTION DATE CONTROLLER
 moneyleashapp.controller('PickTransactionDateController', function ($scope, $ionicHistory, PickTransactionServices) {
-    
+
+    var selectedTime = '';
+    $scope.transactionTime = '';
+
     if (typeof PickTransactionServices.dateSelected !== 'undefined' && PickTransactionServices.dateSelected !== '') {
         $scope.myDate = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY').format('YYYY-MM-DD');
+        // Get the time for the timepicker control
+        var l = moment(PickTransactionServices.timeSelected);
+        $scope.transactionTime = (l.hours() * 3600) + (l.minutes() * 60);
+        selectedTime = new Date($scope.transactionTime * 1000);
     }
-    $scope.dateChanged = function (transDate) {
-        transDate = moment(transDate, 'YYYY-MM-DD').format('MMMM D, YYYY');
-        PickTransactionServices.updateDate(transDate);
+
+    $scope.timePickerObject = {
+        inputEpochTime: $scope.transactionTime,  //Optional
+        step: 1,  //Optional
+        format: 12,  //Optional
+        titleLabel: 'Transaction time',  //Optional
+        setLabel: 'Set',  //Optional
+        closeLabel: 'Close',  //Optional
+        setButtonType: 'button-positive',  //Optional
+        closeButtonType: 'button-stable',  //Optional
+        callback: function (val) {    //Mandatory
+            timePickerCallback(val);
+        }
+    };
+
+    function timePickerCallback(val) {
+        if (typeof (val) === 'undefined') {
+            //console.log('Time not selected');
+        } else {
+            $scope.timePickerObject.inputEpochTime = val;
+            selectedTime = new Date(val * 1000);
+            //console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), ':', selectedTime.getUTCMinutes(), 'in UTC');
+        }
+    }
+
+    $scope.saveDateTime = function (transDate) {
+        var dt = '';
+        if (selectedTime === '') {
+            dt = moment(transDate, 'YYYY-MM-DD').hour(0).minute(0);
+        } else {
+            dt = moment(transDate, 'YYYY-MM-DD').hour(selectedTime.getUTCHours()).minute(selectedTime.getUTCMinutes());
+        }        
+        dt = dt.format('MMMM D, YYYY hh:mm a');
+        PickTransactionServices.updateDate(dt);
         $ionicHistory.goBack();
     };
 })
@@ -293,7 +331,7 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         'notes': '',
         'payee': '',
         'photo': '',
-        'runningbalance': '',
+        'runningbal': '',
         'type': '',
         'typedisplay': ''
     };
@@ -354,8 +392,9 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
         var transaction = AccountsFactory.getTransaction($stateParams.transactionId);
         $scope.inEditMode = true;
         $scope.currentItem = transaction;
-        $scope.DisplayDate = moment(transaction.date).format('MMMM D, YYYY');
+        $scope.DisplayDate = moment(transaction.date).format('MMMM D, YYYY hh:mm a');
         PickTransactionServices.dateSelected = $scope.DisplayDate;
+        PickTransactionServices.timeSelected = transaction.date; //epoch date from Firebase
         $scope.isTransfer = $scope.currentItem.istransfer;
         PickTransactionServices.typeDisplaySelected = $scope.currentItem.typedisplay;
         PickTransactionServices.typeInternalSelected = $scope.currentItem.type;
@@ -377,6 +416,18 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             angular.copy($scope.currentItem, $scope.ItemOriginal);
         }
         $scope.TransactionTitle = "Edit Transaction";
+    }
+
+    // PICK TRANSACTION TYPE
+    // Don't let users change the transaction type. If needed, a user can delete the transaction and add a new one
+    $scope.pickTransactionType = function () {
+        if ($scope.currentItem.istransfer) {
+            $scope.hideValidationMessage = false;
+            $scope.validationMessage = "Transaction type on transfers cannot be changed."
+            return;
+        } else {
+            $state.go('app.picktransactiontype');
+        }
     }
 
     // GET PAYEE
@@ -415,23 +466,19 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             $scope.validationMessage = "Please enter an amount for this transaction"
             return;
         }
-        if ($scope.ItemOriginal.istransfer) {
-            $scope.hideValidationMessage = false;
-            $scope.validationMessage = "Transfers cannot be edited. You can delete it and enter it again!"
-            return;
-        }
 
-        // Format date
-        var dtTran = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY').valueOf();
+        // Format date       
+        var dtTran = moment(PickTransactionServices.dateSelected, 'MMMM D, YYYY hh:mm a').valueOf();
         $scope.currentItem.date = dtTran;
-
         if (typeof $scope.currentItem.date === 'undefined' || $scope.currentItem.date === '') {
             $scope.hideValidationMessage = false;
             $scope.validationMessage = "Please select a date for this transaction"
             return;
         }
 
-        // Handle transaction type
+        //
+        // Handle transaction type for Transfers
+        //
         if ($scope.currentItem.typedisplay === "Transfer" && $stateParams.accountId === $scope.currentItem.accountToId) {
             $scope.currentItem.type = 'Income';
             $scope.currentItem.istransfer = true;
@@ -513,30 +560,35 @@ moneyleashapp.controller('TransactionController', function ($scope, $state, $sta
             }
             payeeRef.update(payee);
 
-            //if ($scope.ItemOriginal.istransfer) {
-            //    //
-            //    // Update transfer relationship
-            //    //
-            //    if ($scope.currentItem.typedisplay !== "Transfer") {
-            //        //
-            //        // User changed transaction type from 'Transfer' to something else. Delete transfer-transaction if applicable.
-            //        //
-            //        var otherAccountId = '';
-            //        if ($stateParams.accountId === $scope.ItemOriginal.accountToId) {
-            //            otherAccountId = $scope.ItemOriginal.accountFromId;
-            //        } else {
-            //            otherAccountId = $scope.ItemOriginal.accountToId;
-            //        }
-            //        var transferRef = AccountsFactory.getTransactionRef(otherAccountId, $scope.ItemOriginal.linkedtransactionid);
-            //        transferRef.remove();
-            //        //
-            //    } else {
-            //        //
-            //        // User DID NOT change transaction type but changed From/To accounts. Update both transactions in the transfer
-            //        //
-                    
-            //    }
-            //}
+            //
+            // Update transfer relationship
+            //
+            var accountId = '';
+            var otherAccountId = '';
+            var OtherTransaction = {};
+            if ($scope.ItemOriginal.istransfer) {
+                if ($stateParams.accountId === $scope.currentItem.accountToId) {
+                    // Transfer is coming into the current account --> income
+                    $scope.currentItem.type = 'Income';
+                    accountId = $scope.currentItem.accountToId;
+                    otherAccountId = $scope.currentItem.accountFromId;
+                    OtherTransaction.type = 'Expense';
+                    OtherTransaction.amount = $scope.currentItem.amount;
+                } else {
+                    // Transfer is moving into the other account --> expense
+                    $scope.currentItem.type = 'Expense';
+                    accountId = $scope.currentItem.accountFromId;
+                    otherAccountId = $scope.currentItem.accountToId;
+                    OtherTransaction.type = 'Income';
+                    OtherTransaction.amount = $scope.currentItem.amount;
+                }
+
+                console.log(OtherTransaction);
+
+                var transferRef = AccountsFactory.getTransactionRef(otherAccountId, $scope.ItemOriginal.linkedtransactionid);
+                transferRef.update(OtherTransaction);
+            }
+
             $scope.inEditMode = false;
             //
         } else {

@@ -4,7 +4,9 @@ moneyleashapp.controller('PersonalProfileController', function ($scope, $state, 
 
     $scope.member = {};
     $scope.house = {};
-    MembersFactory.getMember($rootScope.authData).then(function (thisuser) {
+    var fbAuth = fb.getAuth();
+
+    MembersFactory.getMember(fbAuth).then(function (thisuser) {
         $scope.member.firstname = thisuser.firstname;
         $scope.member.lastname = thisuser.lastname;
         $scope.member.email = thisuser.email;
@@ -17,7 +19,6 @@ moneyleashapp.controller('PersonalProfileController', function ($scope, $state, 
     });
     
     $scope.saveProfile = function (user) {
-        var fbAuth = fb.getAuth();
         var usersRef = MembersFactory.ref();
         var myUser = usersRef.child(fbAuth.uid);
         var sFirstName = user.firstname;

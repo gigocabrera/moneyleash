@@ -336,15 +336,32 @@ button.customHeaderSize {
     line-height: 18px;
     font: 17px 'PT Sans', sans-serif;
 }
-.btn-add-expense {
-    display: inline-block;
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    margin-left: -31px;
-    z-index: 100;
-    font-size: 75px;
-    color: #00A2E8; 
+.button-float {
+    background: #00A2E8 !important;
+    color: white !important;
+    z-index: 12 !important;
+    position: absolute !important;
+    bottom: 15px !important;
+    right: 41%;
+    width: 65px;
+    height: 65px;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transition: 0.2s linear !important;
+    transition: 0.2s linear !important;
+    -webkit-transition-property: -webkit-transform, all !important;
+    transition-property: transform, all !important;
+}
+.button-float:hover {
+    -webkit-transform: translate3d(0, -1px, 0) !important;
+    transform: translate3d(0, -1px, 0) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+    background: #0076A8 !important;
+}
+.button-float .icon:before {
+    font-size: 34px;
 }
 .mlpurple {
     color: purple;
@@ -563,7 +580,7 @@ i.mlpaddingright {
   margin-right: 5px;
 }
 
-/* Calendar
+/* Calendar / TimePicker
 ===============================================*/
 .pickadate-cell .pickadate-enabled {
     font-size: 14px;
@@ -578,16 +595,7 @@ i.mlpaddingright {
     padding-right: 10px;
     padding-top: 15px;
 }
-.pickadate-cell .pickadate-enabled{
-    color: #000;
-}
-.pickadate-cell .pickadate-active {
-    background-color: #31C0E6;
-}
 .pickadate-centered-heading {
-    font-weight: bold;
-}
-.pickadate-cell .pickadate-active {
     font-weight: bold;
 }
 .pickadate a:visited, .pickadate a {
@@ -595,6 +603,11 @@ i.mlpaddingright {
 }
 .pickadate-cell li {
     padding: 1.5% 0 1.5% 0;
+}
+.button.button-positive {
+    border-color: #31C0E6;
+    background-color: #31C0E6;
+    color: #fff;
 }
 
 /* Numeric Pad
@@ -710,6 +723,7 @@ i.mlpaddingright {
     height: 75px;
     background: #28a54c;
     text-align: center;
+    margin-top: 50px;
 }
 a.logo {
     text-decoration: none;
@@ -725,7 +739,7 @@ a.logo {
     text-align: center;
     color: #FFF;
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 #ml-login {
     position:relative;
@@ -742,7 +756,7 @@ a.logo {
 #ml-login input {
     padding: 16px;
     border-radius:7px;
-    border:0px;
+    border: 0;
     background: rgba(255,255,255,.2);
     display: block;
     margin: 10px;
@@ -760,7 +774,7 @@ a.logo {
     float:right;
     height: 110px;
     width: 60px;
-    border: 0px;
+    border: 0;
     background: #e74c3c;
     border-radius:7px;
     padding: 10px;
@@ -771,7 +785,7 @@ a.logo {
     float:right;
     height: 50px;
     width: 60px;
-    border: 0px;
+    border: 0;
     background: #e74c3c;
     border-radius:7px;
     padding: 10px;
@@ -782,7 +796,7 @@ a.logo {
     float:right;
     height: 230px;
     width: 60px;
-    border: 0px;
+    border: 0;
     background: #e74c3c;
     border-radius:7px;
     padding: 10px;
@@ -791,7 +805,7 @@ a.logo {
 }
 #ml-login .inputUserIcon {
     position: absolute;
-    top: 206px;
+    top: 249px;
     right: 80px;
     color: white;
 }
@@ -827,7 +841,7 @@ a.logo {
 }
 #ml-login .inputPassIcon {
     position:absolute;
-    top: 266px;
+    top: 308px;
     right: 80px;
     color:white;
 }
