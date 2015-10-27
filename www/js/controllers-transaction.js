@@ -278,7 +278,7 @@ moneyleashapp.controller('PickTransactionDateController', function ($scope, $ion
 
     $scope.saveDateTime = function (transDate) {
         var dt = '';
-        if (selectedTime == '') {
+        if (selectedTime === '') {
             dt = moment(transDate, 'YYYY-MM-DD').hour(0).minute(0);
         } else {
             dt = moment(transDate, 'YYYY-MM-DD').hour(selectedTime.getUTCHours()).minute(selectedTime.getUTCMinutes());

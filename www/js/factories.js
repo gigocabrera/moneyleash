@@ -174,8 +174,9 @@ angular.module('moneyleash.factories', [])
         var allaccounts = {};
         var allaccounttypes = {};
         var alltransactions = {};
-        var transactionsbycategoryRef = {};
-        var transactionsbypayeeRef = {};
+        var transactionRef = {};
+        //var transactionsbycategoryRef = {};
+        //var transactionsbypayeeRef = {};
         var thisHouseId = myCache.get('thisHouseId');
         return {
             ref: function () {
@@ -345,9 +346,8 @@ angular.module('moneyleash.factories', [])
         var allpayees = {};
         var payeesRef = {};
         var payeeRef = {};
-        var transactionsByPayeeRef = {};
-        var transactionsByCategoryRef = {};
-        var authData = fb.getAuth();
+        //var transactionsByPayeeRef = {};
+        //var transactionsByCategoryRef = {};
         var thisHouseId = myCache.get('thisHouseId');
         return {
             getPayees: function () {
@@ -400,7 +400,9 @@ angular.module('moneyleash.factories', [])
             //console.log(searchFilter);
             var deferred = $q.defer();
             var matches = payees.filter(function (payee) {
-                if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) return true;
+                if (payee.payeename.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1) {
+                    return true;
+                }
             });
             $timeout(function () {
                 deferred.resolve(matches);

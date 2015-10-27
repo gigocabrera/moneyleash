@@ -739,7 +739,7 @@ a.logo {
 #ml-login input {
     padding: 16px;
     border-radius:7px;
-    border:0px;
+    border: 0;
     background: rgba(255,255,255,.2);
     display: block;
     margin: 10px;
@@ -757,7 +757,7 @@ a.logo {
     float:right;
     height: 110px;
     width: 60px;
-    border: 0px;
+    border: 0;
     background: #e74c3c;
     border-radius:7px;
     padding: 10px;
@@ -768,7 +768,7 @@ a.logo {
     float:right;
     height: 50px;
     width: 60px;
-    border: 0px;
+    border: 0;
     background: #e74c3c;
     border-radius:7px;
     padding: 10px;
@@ -779,7 +779,7 @@ a.logo {
     float:right;
     height: 230px;
     width: 60px;
-    border: 0px;
+    border: 0;
     background: #e74c3c;
     border-radius:7px;
     padding: 10px;

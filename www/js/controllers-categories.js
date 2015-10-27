@@ -1,7 +1,7 @@
 
 // CATEGORY TRANSACTIONS CONTROLLER
-moneyleashapp.controller('CategoryTransactionsController', function ($scope, $stateParams, PayeesService) {
-    //$scope.transactionsbycategory = PayeesService.getTransactionsByCategory($stateParams.categoryid);
+moneyleashapp.controller('CategoryTransactionsController', function ($scope) {
+    
 })
 
 // PICK PARENT CATEGORY CONTROLLER
