@@ -50,9 +50,9 @@
 		C7F66CF615A14DC5AC8BD4C3 /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A42BEE544E54994873A0BC4 /* CDVJpegHeaderWriter.m */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		DA5036BDCC97421F8CABDDB7 /* UIImage+CropScaleOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A1ED0818514802A42B360B /* UIImage+CropScaleOrientation.m */; };
-		5A0678F3A8664058A818F14D /* TouchID.m in Sources */ = {isa = PBXBuildFile; fileRef = AD768A6A26A6495EAAFD84CA /* TouchID.m */; };
-		F94CFA9946B043618EDAD17E /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D60CE6FF486448BEB1B8D36F /* LocalAuthentication.framework */; };
-		5FF3C2C43ACE49F8B3FD7341 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71C5C1B6A72146DBAF3FD896 /* Security.framework */; };
+		8E3EB0FF614F417CBE9DF305 /* TouchID.m in Sources */ = {isa = PBXBuildFile; fileRef = 87349F695662429C8423B25C /* TouchID.m */; };
+		30A72E8EE24A4C20BB6C7F50 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5635A39A1B944507BFB05B1F /* LocalAuthentication.framework */; };
+		909D1472419C469D822D190B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A50C860DF6854B30B28C2695 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,10 +136,10 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = MoneyLeash/config.xml; sourceTree = "<group>"; };
 		F9F82F6F3BE446098DE01D3A /* CDVSplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVSplashScreen.m; path = "cordova-plugin-splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; };
-		AD768A6A26A6495EAAFD84CA /* TouchID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "TouchID.m"; path = "cordova-plugin-touchid/TouchID.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		C464AFECBDE84BAAA02A49EC /* TouchID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TouchID.h"; path = "cordova-plugin-touchid/TouchID.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		D60CE6FF486448BEB1B8D36F /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "LocalAuthentication.framework"; path = "System/Library/Frameworks/LocalAuthentication.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		71C5C1B6A72146DBAF3FD896 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Security.framework"; path = "System/Library/Frameworks/Security.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		87349F695662429C8423B25C /* TouchID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "TouchID.m"; path = "cordova-plugin-touchid/TouchID.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		A80B72594F8A4132B276BC07 /* TouchID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TouchID.h"; path = "cordova-plugin-touchid/TouchID.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		5635A39A1B944507BFB05B1F /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "LocalAuthentication.framework"; path = "System/Library/Frameworks/LocalAuthentication.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		A50C860DF6854B30B28C2695 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Security.framework"; path = "System/Library/Frameworks/Security.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,8 +154,8 @@
 				53BE49B93D7A4C2BBBD1861C /* ImageIO.framework in Frameworks */,
 				88C5A48592AB451F862EEB81 /* CoreLocation.framework in Frameworks */,
 				C301916A4FDF446C90F54A24 /* AVFoundation.framework in Frameworks */,
-				F94CFA9946B043618EDAD17E /* LocalAuthentication.framework in Frameworks */,
-				5FF3C2C43ACE49F8B3FD7341 /* Security.framework in Frameworks */,
+				30A72E8EE24A4C20BB6C7F50 /* LocalAuthentication.framework in Frameworks */,
+				909D1472419C469D822D190B /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,8 +231,8 @@
 				4ABC8F77A5CD4DE0A879B5CA /* ImageIO.framework */,
 				CC3B518D78BE4407B2179A04 /* CoreLocation.framework */,
 				149A560F804D471992A62248 /* AVFoundation.framework */,
-				D60CE6FF486448BEB1B8D36F /* LocalAuthentication.framework */,
-				71C5C1B6A72146DBAF3FD896 /* Security.framework */,
+				5635A39A1B944507BFB05B1F /* LocalAuthentication.framework */,
+				A50C860DF6854B30B28C2695 /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -265,8 +265,8 @@
 				87A8DBC9863E4FB6A2083E20 /* CDVViewController+SplashScreen.m */,
 				431DDA87871B443E90889405 /* CDVSplashScreen.h */,
 				418EAAA459E5457EBA914FD3 /* CDVViewController+SplashScreen.h */,
-				AD768A6A26A6495EAAFD84CA /* TouchID.m */,
-				C464AFECBDE84BAAA02A49EC /* TouchID.h */,
+				87349F695662429C8423B25C /* TouchID.m */,
+				A80B72594F8A4132B276BC07 /* TouchID.h */,
 			);
 			name = Plugins;
 			path = MoneyLeash/Plugins;
@@ -464,7 +464,7 @@
 				892205FA01CB4009B3A3CDBF /* CDVStatusBar.m in Sources */,
 				7E2B66B3C51D4A4E881CCB21 /* CDVSplashScreen.m in Sources */,
 				974762B20F9544FDB3C13D35 /* CDVViewController+SplashScreen.m in Sources */,
-				5A0678F3A8664058A818F14D /* TouchID.m in Sources */,
+				8E3EB0FF614F417CBE9DF305 /* TouchID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

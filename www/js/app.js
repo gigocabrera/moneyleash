@@ -21,7 +21,7 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
         }, 300);
         setTimeout(function () {
             $cordovaSplashscreen.hide()
-        }, 3000);
+        }, 1000);
 
         setTimeout(function () {
             $cordovaTouchID.checkSupport().then(function () {
@@ -35,18 +35,9 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
             });
         }, 5000);
 
-        //Auth.$onAuth(function (authData) {
-        //    if (authData) {
-        //        //console.log("Logged in as:", authData);
-        //        $rootScope.authData = authData;
-        //    } else {
-        //        $state.go("login");
-        //    }
-        //});
-
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             if (error === "AUTH_REQUIRED") {
-                $state.go("signin");
+                $state.go("login");
             }
         });
     });
@@ -420,5 +411,5 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
     })
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/');
+    //$urlRouterProvider.otherwise('/');
 });
