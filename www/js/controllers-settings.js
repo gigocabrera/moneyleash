@@ -82,6 +82,26 @@ moneyleashapp.controller('SecurityProfileController', function ($scope, $ionicHi
         $scope.hideSecurity = !$scope.touchid.checked;
     };
 
+    // GET SECURITY SETTINGS
+    $scope.list = function () {
+        if (typeof $localStorage.enableTouchID === 'undefined' || $localStorage.enableTouchID === '') {
+            $scope.touchid.checked = false;
+            $localStorage.email = '';
+            $localStorage.password = '';
+        } else {
+            if ($localStorage.enableTouchID) {
+                $scope.touchid.checked = $localStorage.enableTouchID;
+                $scope.touchid.email = $localStorage.email;
+                $scope.touchid.password = $localStorage.password;
+            } else {
+                $scope.touchid.checked = false;
+                $localStorage.email = '';
+                $localStorage.password = '';
+            }
+        }
+        $scope.hideSecurity = !$scope.touchid.checked;
+    };
+
     // SAVE
     $scope.savePreferences = function () {
 
@@ -101,15 +121,17 @@ moneyleashapp.controller('SecurityProfileController', function ($scope, $ionicHi
         //
         // Update Security
         //
-        $localStorage.enableTouchID = true;
-        $localStorage.email = $scope.touchid.email;
-        $localStorage.password = $scope.touchid.password;
-
-        console.log($localStorage.enableTouchID);
-        console.log($localStorage.email);
-        console.log($localStorage.password);
+        if ($scope.touchid.checked) {
+            $localStorage.enableTouchID = $scope.touchid.checked;
+            $localStorage.email = $scope.touchid.email;
+            $localStorage.password = $scope.touchid.password;
+        } else {
+            $localStorage.enableTouchID = false;
+            $localStorage.email = '';
+            $localStorage.password = '';
+        }
+        $ionicHistory.goBack();
     }
-
 })
 
 // SETTINGS CONTROLLER
