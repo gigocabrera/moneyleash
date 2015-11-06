@@ -3,9 +3,9 @@
 var fb = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
 
 // Ionic MoneyLeash App, v1.0
-var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngIOS9UIWebViewPatch', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova', 'ionic-timepicker'])
+var moneyleashapp = angular.module('moneyleash', ['ionic', 'ngIOS9UIWebViewPatch', 'angular.filter', 'firebase', 'moneyleash.controllers', 'moneyleash.directives', 'moneyleash.factories', 'pickadate', 'jett.ionic.filter.bar', 'ngCordova', 'ionic-timepicker', 'ngStorage'])
 
-moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen, $cordovaTouchID) {
+moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, Auth, $cordovaStatusbar, $cordovaSplashscreen, $cordovaTouchID, $localStorage) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -21,22 +21,26 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
         }, 300);
         setTimeout(function () {
             $cordovaSplashscreen.hide()
-        }, 1000);
-
+        }, 750);
         setTimeout(function () {
-            $cordovaTouchID.checkSupport().then(function () {
-                $cordovaTouchID.authenticate("All users with a Touch ID profile on the device will have access to this app").then(function () {
-                    $state.go("login");
+            if (typeof $localStorage.enableTouchID === 'undefined' || $localStorage.enableTouchID === '') {
+                $state.go("login");
+            } else {
+                var enableTID = $localStorage.enableTouchID;
+                console.log(enableTID);
+                $cordovaTouchID.checkSupport().then(function () {
+                    $cordovaTouchID.authenticate("All users with a Touch ID profile on the device will have access to this app").then(function () {
+                        $state.go("loginauto");
+                    }, function (error) {
+                        console.log(JSON.stringify(error));
+                        $state.go("login");
+                    });
                 }, function (error) {
                     console.log(JSON.stringify(error));
                     $state.go("login");
                 });
-            }, function (error) {
-                console.log(JSON.stringify(error));
-                $state.go("login");
-            });
-        }, 1000);
-
+            }
+        }, 750);
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             if (error === "AUTH_REQUIRED") {
                 $state.go("login");
@@ -56,6 +60,12 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
           cache: false,
           templateUrl: "templates/login.html",
           controller: 'LoginController'
+      })
+      .state('loginauto', {
+          url: "/",
+          cache: false,
+          templateUrl: "templates/loginauto.html",
+          controller: 'AutoLoginController'
       })
     
       // REGISTER
@@ -397,6 +407,15 @@ moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterP
             'menuContent': {
                 templateUrl: "templates/picksettingsdefaultbalance.html",
                 controller: "PickSettingsDefaultBalanceController"
+            }
+        }
+    })
+    .state('app.security', {
+        url: "/security",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/security.html",
+                controller: 'SecurityProfileController'
             }
         }
     })

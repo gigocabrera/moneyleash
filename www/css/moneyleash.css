@@ -450,6 +450,7 @@ button.customHeaderSize {
 }
 .item-floating-label .input-label.has-input {
     top: 4px;
+    text-align: left;
 }
 .moneyleashTip {
     font-size: 14px;
@@ -681,6 +682,22 @@ i.mlpaddingright {
     height:0;
 }
 
+/* Security Screen - TouchID
+===============================================*/
+/* Slide Animation */
+.cssTouchIDUp {
+    transition: .5s linear all;
+    height: 102px;
+    overflow: hidden;
+    background-color: #d9534f;
+    text-align: center;
+    color: #fff;
+    margin-top: 1px;
+}
+.cssTouchIDUp.ng-hide {
+    height:0;
+}
+
 /* Popover
 ===============================================*/
 .platform-ios .popover {
@@ -805,7 +822,7 @@ a.logo {
 }
 #ml-login .inputUserIcon {
     position: absolute;
-    top: 249px;
+    top: 229px;
     right: 80px;
     color: white;
 }
@@ -841,7 +858,7 @@ a.logo {
 }
 #ml-login .inputPassIcon {
     position:absolute;
-    top: 308px;
+    top: 287px;
     right: 80px;
     color:white;
 }

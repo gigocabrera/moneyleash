@@ -70,6 +70,48 @@ moneyleashapp.controller('AccountSettingsController', function ($scope, $ionicHi
 
 })
 
+
+// SECURITY CONTROLLER
+moneyleashapp.controller('SecurityProfileController', function ($scope, $ionicHistory, $localStorage, MembersFactory, CurrentUserService) {
+
+    $scope.hideSecurity = true;
+    $scope.touchid = { checked: false };
+    $scope.hideValidationMessage = true;
+
+    $scope.touchidChange = function () {
+        $scope.hideSecurity = !$scope.touchid.checked;
+    };
+
+    // SAVE
+    $scope.savePreferences = function () {
+
+        if ($scope.touchid.checked) {
+            // Validate form data
+            if (typeof $scope.touchid.email === 'undefined' || $scope.touchid.email === '') {
+                $scope.hideValidationMessage = false;
+                $scope.validationMessage = "Please enter the your login email address"
+                return;
+            }
+            if (typeof $scope.touchid.password === 'undefined' || $scope.touchid.password === '') {
+                $scope.hideValidationMessage = false;
+                $scope.validationMessage = "Please select your login password"
+                return;
+            }
+        }
+        //
+        // Update Security
+        //
+        $localStorage.enableTouchID = true;
+        $localStorage.email = $scope.touchid.email;
+        $localStorage.password = $scope.touchid.password;
+
+        console.log($localStorage.enableTouchID);
+        console.log($localStorage.email);
+        console.log($localStorage.password);
+    }
+
+})
+
 // SETTINGS CONTROLLER
 moneyleashapp.controller('SettingsController', function ($scope, $state, $ionicActionSheet, $ionicHistory) {
 

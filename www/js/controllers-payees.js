@@ -117,26 +117,6 @@ moneyleashapp.controller('PayeesController', function ($scope, $filter, $state, 
         $scope.payees.$loaded().then(function () { });
     };
 
-    //// SHOW FILTERS - ACTION SHEET
-    //$scope.moreOptions = function (payee) {
-    //    $ionicActionSheet.show({
-    //        buttons: [
-    //          { text: 'Show Transactions' }
-    //        ],
-    //        titleText: '<strong>FILTER</strong>',
-    //        cancelText: 'Cancel',
-    //        cancel: function () {
-    //            // add cancel code..
-    //            $ionicListDelegate.closeOptionButtons();
-    //        },
-    //        buttonClicked: function (index) {
-    //            $state.go('app.payeetransactions', { payeeid: payee.$id });
-    //            $ionicListDelegate.closeOptionButtons();
-    //            return true;
-    //        }
-    //    });
-    //};
-
     // DELETE
     $scope.deletePayee = function (payee) {
         $ionicActionSheet.show({

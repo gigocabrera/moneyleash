@@ -331,6 +331,31 @@
     <None Include="plugins\cordova-plugin-device\README.md" />
     <None Include="plugins\cordova-plugin-device\RELEASENOTES.md" />
     <None Include="plugins\cordova-plugin-device\src\ios\CDVDevice.m" />
+    <None Include="plugins\cordova-plugin-dialogs\CONTRIBUTING.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\de\index.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\de\README.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\es\index.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\es\README.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\fr\index.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\fr\README.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\it\index.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\it\README.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\ja\index.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\ja\README.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\ko\index.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\ko\README.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\pl\index.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\pl\README.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\ru\index.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\zh\index.md" />
+    <None Include="plugins\cordova-plugin-dialogs\doc\zh\README.md" />
+    <None Include="plugins\cordova-plugin-dialogs\LICENSE" />
+    <None Include="plugins\cordova-plugin-dialogs\NOTICE" />
+    <None Include="plugins\cordova-plugin-dialogs\package.json" />
+    <None Include="plugins\cordova-plugin-dialogs\README.md" />
+    <None Include="plugins\cordova-plugin-dialogs\RELEASENOTES.md" />
+    <None Include="plugins\cordova-plugin-dialogs\src\ios\CDVNotification.m" />
+    <None Include="plugins\cordova-plugin-dialogs\src\ubuntu\notification.qml" />
     <None Include="plugins\cordova-plugin-splashscreen\CONTRIBUTING.md" />
     <None Include="plugins\cordova-plugin-splashscreen\doc\de\index.md" />
     <None Include="plugins\cordova-plugin-splashscreen\doc\de\README.md" />
@@ -441,6 +466,12 @@
     <None Include="plugins\org.apache.cordova.device\README.md" />
     <None Include="plugins\org.apache.cordova.device\RELEASENOTES.md" />
     <None Include="plugins\org.apache.cordova.device\src\ios\CDVDevice.m" />
+    <None Include="plugins\uk.co.whiteoctober.cordova.appversion\CHANGELOG.md" />
+    <None Include="plugins\uk.co.whiteoctober.cordova.appversion\LICENSE" />
+    <None Include="plugins\uk.co.whiteoctober.cordova.appversion\package.json" />
+    <None Include="plugins\uk.co.whiteoctober.cordova.appversion\README.md" />
+    <None Include="plugins\uk.co.whiteoctober.cordova.appversion\src\ios\AppVersion.m" />
+    <None Include="plugins\uk.co.whiteoctober.cordova.appversion\VERSION" />
     <None Include="README.md" />
     <None Include="scss\ionic.app.scss" />
     <None Include="www\fonts\fontawesome-webfont.eot" />
@@ -933,6 +964,30 @@
     <Content Include="plugins\cordova-plugin-device\tests\plugin.xml" />
     <Content Include="plugins\cordova-plugin-device\tests\tests.js" />
     <Content Include="plugins\cordova-plugin-device\www\device.js" />
+    <Content Include="plugins\cordova-plugin-dialogs\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-dialogs\src\android\Notification.java" />
+    <Content Include="plugins\cordova-plugin-dialogs\src\blackberry10\index.js" />
+    <Content Include="plugins\cordova-plugin-dialogs\src\firefoxos\notification.js" />
+    <Content Include="plugins\cordova-plugin-dialogs\src\ios\CDVNotification.bundle\beep.wav" />
+    <Content Include="plugins\cordova-plugin-dialogs\src\ios\CDVNotification.h" />
+    <Content Include="plugins\cordova-plugin-dialogs\src\ubuntu\notification.cpp" />
+    <Content Include="plugins\cordova-plugin-dialogs\src\ubuntu\notification.h" />
+    <Content Include="plugins\cordova-plugin-dialogs\src\windows\NotificationProxy.js" />
+    <Content Include="plugins\cordova-plugin-dialogs\src\wp\notification-beep.wav" />
+    <Content Include="plugins\cordova-plugin-dialogs\tests\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-dialogs\tests\tests.js" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\android\notification.js" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\blackberry10\beep.js" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\blackberry10\notification-beep.wav" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\browser\notification.js" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\firefoxos\danger-press.png" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\firefoxos\danger.png" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\firefoxos\default.png" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\firefoxos\gradient.png" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\firefoxos\notification.css" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\firefoxos\pattern.png" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\firefoxos\recommend.png" />
+    <Content Include="plugins\cordova-plugin-dialogs\www\notification.js" />
     <Content Include="plugins\cordova-plugin-splashscreen\plugin.xml" />
     <Content Include="plugins\cordova-plugin-splashscreen\src\android\SplashScreen.java" />
     <Content Include="plugins\cordova-plugin-splashscreen\src\blackberry10\index.js" />
@@ -978,6 +1033,12 @@
     <Content Include="plugins\org.apache.cordova.device\tests\plugin.xml" />
     <Content Include="plugins\org.apache.cordova.device\tests\tests.js" />
     <Content Include="plugins\org.apache.cordova.device\www\device.js" />
+    <Content Include="plugins\uk.co.whiteoctober.cordova.appversion\plugin.xml" />
+    <Content Include="plugins\uk.co.whiteoctober.cordova.appversion\src\android\AppVersion.java" />
+    <Content Include="plugins\uk.co.whiteoctober.cordova.appversion\src\ios\AppVersion.h" />
+    <Content Include="plugins\uk.co.whiteoctober.cordova.appversion\src\windows8\AppVersionProxy.js" />
+    <Content Include="plugins\uk.co.whiteoctober.cordova.appversion\www\AppVersionPlugin.js" />
+    <Content Include="plugins\uk.co.whiteoctober.cordova.appversion\www\blackberry10\AppVersionProxy.js" />
     <Content Include="resources\android\icon\drawable-hdpi-icon.png" />
     <Content Include="resources\android\icon\drawable-ldpi-icon.png" />
     <Content Include="resources\android\icon\drawable-mdpi-icon.png" />
@@ -1047,6 +1108,7 @@
     <Content Include="www\js\filters.js" />
     <Content Include="www\js\moment.js" />
     <Content Include="www\js\ng-cordova.min.js" />
+    <Content Include="www\js\ngStorage.min.js" />
     <Content Include="www\lib\angular-animate\angular-animate.js" />
     <Content Include="www\lib\angular-animate\angular-animate.min.js" />
     <Content Include="www\lib\angular-animate\index.js" />
@@ -1124,6 +1186,7 @@
     <Content Include="www\templates\house-create.html" />
     <Content Include="www\templates\house-join.html" />
     <Content Include="www\templates\login.html" />
+    <Content Include="www\templates\loginauto.html" />
     <Content Include="www\templates\payee.html" />
     <Content Include="www\templates\payees.html" />
     <Content Include="www\templates\payeetransactions.html" />
@@ -1146,6 +1209,7 @@
     <Content Include="www\templates\recurring.html" />
     <Content Include="www\templates\register.html" />
     <Content Include="www\templates\reports.html" />
+    <Content Include="www\templates\security.html" />
     <Content Include="www\templates\settings.html" />
     <Content Include="www\templates\side-menu.html" />
     <Content Include="www\templates\transaction.html" />
@@ -1156,11 +1220,16 @@
     <Compile Include="plugins\cordova-plugin-camera\src\wp\Camera.cs" />
     <Compile Include="plugins\cordova-plugin-console\src\wp\DebugConsole.cs" />
     <Compile Include="plugins\cordova-plugin-device\src\wp\Device.cs" />
+    <Compile Include="plugins\cordova-plugin-dialogs\src\wp\Notification.cs" />
+    <Compile Include="plugins\cordova-plugin-dialogs\src\wp\NotificationBox.xaml.cs">
+      <DependentUpon>NotificationBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="plugins\cordova-plugin-splashscreen\src\wp\ResolutionHelper.cs" />
     <Compile Include="plugins\cordova-plugin-splashscreen\src\wp\SplashScreen.cs" />
     <Compile Include="plugins\cordova-plugin-statusbar\src\wp\StatusBar.cs" />
     <Compile Include="plugins\org.apache.cordova.console\src\wp\DebugConsole.cs" />
     <Compile Include="plugins\org.apache.cordova.device\src\wp\Device.cs" />
+    <Compile Include="plugins\uk.co.whiteoctober.cordova.appversion\src\wp8\AppVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="platforms\ios\www\lib\angular-ui-router\api\angular-ui-router.d.ts" />
@@ -1168,6 +1237,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="www\img\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="plugins\cordova-plugin-dialogs\src\wp\NotificationBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
