@@ -23,9 +23,7 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
             $cordovaSplashscreen.hide()
         }, 750);
         setTimeout(function () {
-            if (typeof $localStorage.enableTouchID === 'undefined' || $localStorage.enableTouchID === '' || $localStorage.enableTouchID === 'false') {
-                $state.go("login");
-            } else {
+            if (typeof $localStorage.enableTouchID === 'true') {
                 var enableTID = $localStorage.enableTouchID;
                 console.log(enableTID);
                 $cordovaTouchID.checkSupport().then(function () {
@@ -39,6 +37,8 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
                     console.log(JSON.stringify(error));
                     $state.go("login");
                 });
+            } else {
+                $state.go("login");
             }
         }, 750);
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
