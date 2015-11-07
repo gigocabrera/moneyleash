@@ -119,6 +119,49 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
     }
 })
 
+// AUTO-LOGIN CONTROLLER
+moneyleashapp.controller("AutoLoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, $localStorage, MembersFactory, myCache, CurrentUserService, $cordovaDialogs) {
+
+    $scope.autologin = function () {
+        $ionicLoading.show({
+            template: '<ion-spinner icon="ios"></ion-spinner><br>Loggin In...'
+        });
+
+        /* Authenticate User */
+        var ref = new Firebase("https://brilliant-inferno-1044.firebaseio.com");
+        ref.authWithPassword({
+            "email": $localStorage.email,
+            "password": $localStorage.password
+        }, function (error, authData) {
+            if (error) {
+                //console.log("Login Failed!", error);
+                $ionicLoading.hide();
+                $cordovaDialogs.alert('Check your credentials and try again', 'Login Failed', 'Ok')
+                    .then(function () {
+                        $state.go('login');
+                    });
+            } else {
+
+                MembersFactory.getMember(authData).then(function (thisuser) {
+
+                    /* Save user data for later use */
+                    myCache.put('thisHouseId', thisuser.houseid);
+                    myCache.put('thisUserName', thisuser.firstname);
+                    CurrentUserService.updateUser(thisuser);
+
+                    if (thisuser.houseid === '') {
+                        $ionicLoading.hide();
+                        $state.go('housechoice');
+                    } else {
+                        $ionicLoading.hide();
+                        $state.go('app.accounts');
+                    }
+                });
+            }
+        });
+    }
+})
+
 //REGISTER CONTROLLER
 moneyleashapp.controller('RegisterController', function ($scope, $state, $ionicLoading, MembersFactory) {
 

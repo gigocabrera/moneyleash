@@ -126,9 +126,9 @@ moneyleashapp.controller('SecurityProfileController', function ($scope, $ionicHi
             $localStorage.email = $scope.touchid.email;
             $localStorage.password = $scope.touchid.password;
         } else {
-            $localStorage.enableTouchID = false;
-            $localStorage.email = '';
-            $localStorage.password = '';
+            delete $localStorage.enableTouchID;
+            delete $localStorage.email;
+            delete $localStorage.password;
         }
         $ionicHistory.goBack();
     }

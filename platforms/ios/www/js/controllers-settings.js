@@ -70,6 +70,70 @@ moneyleashapp.controller('AccountSettingsController', function ($scope, $ionicHi
 
 })
 
+
+// SECURITY CONTROLLER
+moneyleashapp.controller('SecurityProfileController', function ($scope, $ionicHistory, $localStorage, MembersFactory, CurrentUserService) {
+
+    $scope.hideSecurity = true;
+    $scope.touchid = { checked: false };
+    $scope.hideValidationMessage = true;
+
+    $scope.touchidChange = function () {
+        $scope.hideSecurity = !$scope.touchid.checked;
+    };
+
+    // GET SECURITY SETTINGS
+    $scope.list = function () {
+        if (typeof $localStorage.enableTouchID === 'undefined' || $localStorage.enableTouchID === '') {
+            $scope.touchid.checked = false;
+            $localStorage.email = '';
+            $localStorage.password = '';
+        } else {
+            if ($localStorage.enableTouchID) {
+                $scope.touchid.checked = $localStorage.enableTouchID;
+                $scope.touchid.email = $localStorage.email;
+                $scope.touchid.password = $localStorage.password;
+            } else {
+                $scope.touchid.checked = false;
+                $localStorage.email = '';
+                $localStorage.password = '';
+            }
+        }
+        $scope.hideSecurity = !$scope.touchid.checked;
+    };
+
+    // SAVE
+    $scope.savePreferences = function () {
+
+        if ($scope.touchid.checked) {
+            // Validate form data
+            if (typeof $scope.touchid.email === 'undefined' || $scope.touchid.email === '') {
+                $scope.hideValidationMessage = false;
+                $scope.validationMessage = "Please enter the your login email address"
+                return;
+            }
+            if (typeof $scope.touchid.password === 'undefined' || $scope.touchid.password === '') {
+                $scope.hideValidationMessage = false;
+                $scope.validationMessage = "Please select your login password"
+                return;
+            }
+        }
+        //
+        // Update Security
+        //
+        if ($scope.touchid.checked) {
+            $localStorage.enableTouchID = $scope.touchid.checked;
+            $localStorage.email = $scope.touchid.email;
+            $localStorage.password = $scope.touchid.password;
+        } else {
+            delete $localStorage.enableTouchID;
+            delete $localStorage.email;
+            delete $localStorage.password;
+        }
+        $ionicHistory.goBack();
+    }
+})
+
 // SETTINGS CONTROLLER
 moneyleashapp.controller('SettingsController', function ($scope, $state, $ionicActionSheet, $ionicHistory) {
 

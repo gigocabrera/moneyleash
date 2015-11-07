@@ -23,11 +23,10 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
             $cordovaSplashscreen.hide()
         }, 750);
         setTimeout(function () {
-            if (typeof $localStorage.enableTouchID === 'undefined' || $localStorage.enableTouchID === '' || $localStorage.enableTouchID === 'false') {
+            if (typeof $localStorage.enableTouchID === 'undefined' || $localStorage.enableTouchID === '' || $localStorage.enableTouchID === false) {
+                //should already be on login page
                 $state.go("login");
             } else {
-                var enableTID = $localStorage.enableTouchID;
-                console.log(enableTID);
                 $cordovaTouchID.checkSupport().then(function () {
                     $cordovaTouchID.authenticate("All users with a Touch ID profile on the device will have access to this app").then(function () {
                         $state.go("loginauto");
