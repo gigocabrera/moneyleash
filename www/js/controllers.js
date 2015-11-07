@@ -122,7 +122,7 @@ moneyleashapp.controller("LoginController", function ($scope, $rootScope, $ionic
 // AUTO-LOGIN CONTROLLER
 moneyleashapp.controller("AutoLoginController", function ($scope, $rootScope, $ionicLoading, $ionicPopup, $state, $localStorage, MembersFactory, myCache, CurrentUserService, $cordovaDialogs) {
 
-    $scope.doLogIn = function () {
+    $scope.autologin = function () {
         $ionicLoading.show({
             template: '<ion-spinner icon="ios"></ion-spinner><br>Loggin In...'
         });

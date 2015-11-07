@@ -687,7 +687,7 @@ i.mlpaddingright {
 /* Slide Animation */
 .cssTouchIDUp {
     transition: .5s linear all;
-    height: 102px;
+    height: 103px;
     overflow: hidden;
     background-color: #d9534f;
     text-align: center;

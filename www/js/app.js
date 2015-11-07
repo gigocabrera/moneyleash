@@ -23,7 +23,7 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
             $cordovaSplashscreen.hide()
         }, 750);
         setTimeout(function () {
-            if (typeof $localStorage.enableTouchID === 'undefined' || $localStorage.enableTouchID === '') {
+            if (typeof $localStorage.enableTouchID === 'undefined' || $localStorage.enableTouchID === '' || $localStorage.enableTouchID === 'false') {
                 $state.go("login");
             } else {
                 var enableTID = $localStorage.enableTouchID;
