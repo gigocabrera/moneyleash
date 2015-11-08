@@ -19,7 +19,7 @@
   <preference name="StatusBarOverlaysWebView" value="true"/>
   <preference name="StatusBarStyle" value="lightcontent"/>
   <preference name="AutoHideSplashScreen" value="false"/>
-  <preference name="orientation" value="default" />
+  <preference name="Orientation" value="all" />
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
