@@ -11,11 +11,12 @@
                 </p>
             </div>
         </div>
-        <div class="ion-list">
-            <ion-item class="item-icon-left item-icon-right form-group customMarginTop">
-                <i class="icon fa fa-home placeholder-icon"></i>
-                <input type="text" ng-model="house.houseid" placeholder="Enter House Code">
-            </ion-item>
-        </div>
+        <ion-item class="item-icon-left form-group floating-padding">
+            <i class="icon fa fa-home placeholder-icon"></i>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">House Code</span>
+                <input type="text" placeholder="Enter House Code" ng-model="house.houseid">
+            </label>
+        </ion-item>
     </ion-content>
 </ion-view>

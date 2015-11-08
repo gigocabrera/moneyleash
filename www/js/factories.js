@@ -33,7 +33,7 @@ angular.module('moneyleash.factories', [])
         // https://github.com/oriongunning/myExpenses
         //
         var authData = fb.getAuth();
-        var ref = {};
+        var ref = fb.child("houses");
         return {
             ref: function () {
                 return ref;
