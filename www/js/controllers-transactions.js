@@ -6,7 +6,6 @@ moneyleashapp.controller('TransactionsController', function ($scope, $state, $st
     $scope.AccountTitle = $stateParams.accountName;
     $scope.inEditMode = false;
     $scope.editIndex = 0;
-    $scope.SortingIsEnabled = false;
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         if (fromState.name === "app.transaction") {

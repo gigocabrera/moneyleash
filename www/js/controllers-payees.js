@@ -1,6 +1,6 @@
 
 // PAYEE TRANSACTIONS CONTROLLER
-moneyleashapp.controller('PayeeTransactionsController', function ($scope) {
+moneyleashapp.controller('PayeeTransactionsController', function () {
     
 })
 

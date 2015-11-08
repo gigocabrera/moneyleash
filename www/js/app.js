@@ -48,7 +48,7 @@ moneyleashapp.run(function ($ionicPlatform, $rootScope, $ionicLoading, $state, A
     });
 })
 
-moneyleashapp.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
+moneyleashapp.config(function ($ionicConfigProvider, $stateProvider) {
 
     //$ionicConfigProvider.views.maxCache(0);
     $stateProvider

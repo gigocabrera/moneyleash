@@ -347,18 +347,90 @@ moneyleashapp.controller('ForgotPasswordCtrl', function ($scope, $state) {
 })
 
 // RECURRING CONTROLLER
-moneyleashapp.controller('RecurringController', function ($scope) {
-    $scope.temp = '';
-})
+moneyleashapp.controller('RecurringController', function ($scope, $state, $stateParams, $ionicListDelegate, $ionicActionSheet, $ionicPopover, AccountsFactory, PickTransactionServices, $ionicFilterBar) {
 
-// ACCOUNT TYPE MODAL CONTROLLER
-.controller('AccountTypeModalController', function ($scope) {
-    $scope.hideModal = function () {
-        $scope.modalCtrl.hide();
+    $scope.rtransactions = [];
+    $scope.inEditMode = false;
+    $scope.editIndex = 0;
+
+    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        if (fromState.name === "app.transaction") {
+            
+        }
+    });
+
+    // SWIPE
+    $scope.listCanSwipe = true;
+    $scope.handleSwipeAndTap = function ($event, transaction) {
+        $event.stopPropagation();
+        var options = $event.currentTarget.querySelector('.item-options');
+        if (!options.classList.contains('invisible')) {
+            $ionicListDelegate.closeOptionButtons();
+        } else {
+            var target = event.srcElement;
+            if (target.className.contains('toggleTransactionCleared')) {
+            } else {
+                $state.go('app.transaction', { accountId: $stateParams.accountId, accountName: $stateParams.accountName, transactionId: transaction.$id, transactionName: transaction.payee });
+            }
+        }
     };
-    $scope.selectAccountType = function (type) {
-        $scope.currentItem.accounttype = type.name;
-        $scope.modalCtrl.hide();
+
+    // CREATE
+    $scope.createTransaction = function () {
+        PickTransactionServices.typeDisplaySelected = '';
+        PickTransactionServices.typeInternalSelected = '';
+        PickTransactionServices.categorySelected = '';
+        PickTransactionServices.categoryid = '';
+        PickTransactionServices.amountSelected = '';
+        PickTransactionServices.dateSelected = '';
+        PickTransactionServices.payeeSelected = '';
+        PickTransactionServices.payeeid = '';
+        PickTransactionServices.accountFromSelected = '';
+        PickTransactionServices.accountFromId = '';
+        PickTransactionServices.accountToSelected = '';
+        PickTransactionServices.accountToId = '';
+        PickTransactionServices.photoSelected = 'R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        PickTransactionServices.noteSelected = '';
+        $state.go('app.transaction', { accountId: $stateParams.accountId, transactionId: '' });
+    }
+
+    // GET RECURRING TRANSACTIONS
+    //$scope.rtransactions = AccountsFactory.getTransactionsByDate($stateParams.accountId);    
+    $scope.rtransactions = [
+        { payee: 'Wells Fargo', date: 'Oct 3, 2015', addedby: 'gigo', category: 'Home', type: 'Expense', amount: '250.00', repeat: 'Every Month' },
+        { payee: 'Dish Network', date: 'Oct 3, 2015', addedby: 'gigo', category: 'Blow', type: 'Expense', amount: '108.00', repeat: 'Every Month' },
+        { payee: 'AT&T', date: 'Oct 3, 2015', addedby: 'gigo', category: 'Blow', type: 'Expense', amount: '100.00', repeat: 'Every Month' }
+    ]
+
+    // DELETE
+    $scope.deleteTransaction = function (transaction) {
+        // Show the action sheet
+        $ionicActionSheet.show({
+            destructiveText: 'Delete Account',
+            titleText: 'Are you sure you want to delete ' + transaction.payee + '? This will permanently delete the transaction from the account',
+            cancelText: 'Cancel',
+            cancel: function () {
+                // add cancel code..
+            },
+            buttonClicked: function (index) {
+                //Called when one of the non-destructive buttons is clicked,
+                //with the index of the button that was clicked and the button object.
+                //Return true to close the action sheet, or false to keep it opened.
+                return true;
+            },
+            destructiveButtonClicked: function () {
+                //Called when the destructive button is clicked.
+                //Return true to close the action sheet, or false to keep it opened.
+                $ionicListDelegate.closeOptionButtons();
+                //
+                // Delete transaction
+                //
+                var alltransactions = AccountsFactory.deleteTransaction();
+                alltransactions.$remove(transaction).then(function (ref) {
+                    
+                });
+                return true;
+            }
+        });
     };
-    $scope.data = { accountType: $scope.currentItem.accounttype };
 })

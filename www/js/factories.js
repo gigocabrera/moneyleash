@@ -392,7 +392,6 @@ angular.module('moneyleash.factories', [])
     .factory('PayeesFactory', function ($firebaseArray, $q, $timeout, myCache) {
         var ref = {};
         var payees = {};
-        var authData = fb.getAuth();
         var thisHouseId = myCache.get('thisHouseId');
         ref = fb.child("houses").child(thisHouseId).child("memberpayees").orderByChild('payeename');
         payees = $firebaseArray(ref);

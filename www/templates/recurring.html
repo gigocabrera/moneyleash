@@ -6,6 +6,36 @@
         <button class="button-icon ion-plus customHeaderIcon customHeaderIconSmall" ng-click="createRecurring()"></button>
     </ion-nav-buttons>
     <ion-content class="has-header">
-        <p>Recurring stuff here</p>
+        <ion-list can-swipe="listCanSwipe">
+            <div ng-repeat="transaction in rtransactions">
+                <ion-item class="item-icon-right item item-complex item-right-editable" ng-click="handleSwipeAndTap($event, transaction)">
+                    <div class="row">
+                        <div class="col-50 customTransDesc customItemSize">
+                            <span ng-class="{'mlpurple': transaction.istransfer == true }">
+                                {{ transaction.payee }}
+                                <small>
+                                    Next date: {{ transaction.date }}
+                                </small>
+                            </span>
+                        </div>
+                        <div class="col-50 right customTransAmt {{ transaction.type }}">
+                            <span>
+                                {{ transaction.amount | currency }}
+                                <small>
+                                    {{ transaction.repeat }}
+                                </small>
+                            </span>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-stable" ng-click="moreOptions()">
+                        &nbsp;More&nbsp;
+                    </ion-option-button>
+                    <ion-option-button class="button-assertive" ng-click="deleteTransaction(transaction)">
+                        Delete
+                    </ion-option-button>
+                    <ion-reorder-button class="ion-navicon" on-reorder="moveItem(transaction, $fromIndex, $toIndex)"></ion-reorder-button>
+                </ion-item>
+            </div>
+        </ion-list>
     </ion-content>
 </ion-view>

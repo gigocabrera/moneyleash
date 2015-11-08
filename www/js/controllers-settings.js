@@ -72,7 +72,7 @@ moneyleashapp.controller('AccountSettingsController', function ($scope, $ionicHi
 
 
 // SECURITY CONTROLLER
-moneyleashapp.controller('SecurityProfileController', function ($scope, $ionicHistory, $localStorage, MembersFactory, CurrentUserService) {
+moneyleashapp.controller('SecurityProfileController', function ($scope, $ionicHistory, $localStorage) {
 
     $scope.hideSecurity = true;
     $scope.touchid = { checked: false };

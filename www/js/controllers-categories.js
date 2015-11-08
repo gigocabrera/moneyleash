@@ -1,6 +1,6 @@
 
 // CATEGORY TRANSACTIONS CONTROLLER
-moneyleashapp.controller('CategoryTransactionsController', function ($scope) {
+moneyleashapp.controller('CategoryTransactionsController', function () {
     
 })
 
